@@ -10,21 +10,23 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
-    private Texture image;
+    private Texture image, character;
 
-    public float testy = 0f, testy2 = 0f;
+    public int posX = 0, posY = 0;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        character = new Texture("char.png");
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
-        batch.draw(image, 140 + testy, 210 + testy2);
+        batch.draw(image, 140, 210);
+        batch.draw(character, posX*32,posY*32);
         batch.end();
         input();
         logic();
@@ -33,16 +35,16 @@ public class Main extends ApplicationAdapter {
 
     private void input() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            testy -= 1;
+            posX -= 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            testy += 1;
+            posX += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            testy2 += 1;
+            posY += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            testy2 -= 1;
+            posY -= 1;
         }
     }
 
