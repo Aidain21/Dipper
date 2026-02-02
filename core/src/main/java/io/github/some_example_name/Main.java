@@ -12,7 +12,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-    char[][] level1=new char[5][5];
+    char[][] levelBase;
+    level level1;
     Texture bucketTexture;
     Texture dropTexture;
     SpriteBatch spriteBatch;
@@ -26,8 +27,10 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
+        level1= new level(10,10);
+        levelBase=level1.getLevel();
         //char[][] level1 = new char[5][5];
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             level1[0][i] = 'w';
             level1[4][i] = 'w';
             level1[i][0] = 'w';
@@ -38,6 +41,7 @@ public class Main extends ApplicationAdapter {
                 level1[j][b] = 'f';
             }
         }
+         */
     }
 
     @Override
@@ -72,12 +76,12 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (level1[i][j] == 'w') {
+        for (int i = 0; i < level1.getRowCount(); i++) {
+            for (int j = 0; j < level1.getColCount(); j++) {
+                if (levelBase[i][j] == 'w') {
                     batch.draw(bucketTexture, i * 20, j * 20, 20, 20);
                 }
-                if (level1[i][j] == 'f') {
+                if (levelBase[i][j] == 'f') {
                     batch.draw(dropTexture, i * 20, j * 20, 20, 20);
                 }
                 //System.out.print("");

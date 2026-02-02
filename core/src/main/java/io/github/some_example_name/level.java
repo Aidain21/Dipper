@@ -13,13 +13,48 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class level extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-    char[][] level1=new char[5][5];
+    char[][] level1;
     Texture bucketTexture;
     Texture dropTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
+    int rowCount;
+    int colCount;
     boolean run = true;
     int count = 0;
+
+    public level(int r, int c){
+        //char[][] level1=new char[length][width];
+        level1=new char[r][c];
+        rowCount=r;
+        colCount=c;
+
+        for (int i = 0; i < r; i++) {
+            level1[i][0] = 'w';
+            level1[i][c-1] = 'w';
+        }
+        for (int i = 0; i < c; i++) {
+            level1[0][i] = 'w';
+            level1[r-1][i] = 'w';
+        }
+        for (int j = 1; j < r-1; j++) {
+            for (int b = 1; b < c-1; b++) {
+                level1[j][b] = 'f';
+            }
+        }
+
+    }
+
+    public char[][] getLevel(){
+        return level1;
+    }
+    public int getRowCount(){
+        return rowCount;
+    }
+
+    public int getColCount(){
+        return colCount;
+    }
 
     @Override
     public void create() {
@@ -30,17 +65,7 @@ public class level extends ApplicationAdapter {
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
         //char[][] level1 = new char[5][5];
-        for (int i = 0; i < 5; i++) {
-            level1[0][i] = 'w';
-            level1[4][i] = 'w';
-            level1[i][0] = 'w';
-            level1[i][4] = 'w';
-        }
-        for (int j = 1; j < 4; j++) {
-            for (int b = 1; b < 4; b++) {
-                level1[j][b] = 'f';
-            }
-        }
+
     }
 
     @Override
