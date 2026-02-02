@@ -6,11 +6,17 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
+    char[][] level1=new char[5][5];
+    Texture bucketTexture;
+    Texture dropTexture;
+    SpriteBatch spriteBatch;
+    FitViewport viewport;
 
     public float testy = 0f, testy2 = 0f;
 
@@ -18,6 +24,20 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        bucketTexture = new Texture("bucket.png");
+        dropTexture = new Texture("drop.png");
+        //char[][] level1 = new char[5][5];
+        for (int i = 0; i < 5; i++) {
+            level1[0][i] = 'w';
+            level1[4][i] = 'w';
+            level1[i][0] = 'w';
+            level1[i][4] = 'w';
+        }
+        for (int j = 1; j < 4; j++) {
+            for (int b = 1; b < 4; b++) {
+                level1[j][b] = 'f';
+            }
+        }
     }
 
     @Override
@@ -25,10 +45,11 @@ public class Main extends ApplicationAdapter {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
         batch.draw(image, 140 + testy, 210 + testy2);
-        batch.end();
+
         input();
         logic();
         draw();
+        batch.end();
     }
 
     private void input() {
@@ -51,7 +72,18 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
-
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (level1[i][j] == 'w') {
+                    batch.draw(bucketTexture, i * 20, j * 20, 20, 20);
+                }
+                if (level1[i][j] == 'f') {
+                    batch.draw(dropTexture, i * 20, j * 20, 20, 20);
+                }
+                //System.out.print("");
+            }
+            //count++;
+        }
     }
 
     @Override
