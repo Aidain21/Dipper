@@ -29,6 +29,10 @@ public class Main extends ApplicationAdapter {
         dropTexture = new Texture("drop.png");
         level1= new level(10,10);
         levelBase=level1.getLevel();
+        level1.changeTile(3,2,'l');
+        level1.changeTile(0,1,'l');
+        level1.changeCol(5,'q');
+        level1.changeRow(1,'a');
         //char[][] level1 = new char[5][5];
         /*for (int i = 0; i < 5; i++) {
             level1[0][i] = 'w';
