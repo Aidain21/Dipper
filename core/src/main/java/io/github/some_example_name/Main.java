@@ -39,6 +39,7 @@ public class Main extends ApplicationAdapter {
         levels = new map(2,2);
         level templevel=new level(8,8);
         levels.getMap()[0][1]=templevel;
+        currentLevel=levels.getMap()[0][0];
     }
 
     @Override
@@ -77,6 +78,14 @@ public class Main extends ApplicationAdapter {
                 player.gridMove(new Vector2(0, -1));
                 inputTimer = 0.1f;
             }
+/*
+            if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+                //player.gridMove(new Vector2(0, -1));
+                changeLevel('r');
+                inputTimer = 0.1f;
+            }
+
+ */
         }
         else {
             inputTimer -= Gdx.graphics.getDeltaTime();
@@ -100,18 +109,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
-        currentLevel=levels.getMap()[currentRow][currentCol];
-        levelBase=currentLevel.getLevel();
-        for (int i = 0; i < currentLevel.getRowCount(); i++) {
-            for (int j = 0; j < currentLevel.getColCount(); j++) {
-                if (levelBase[i][j] == 'w') {
-                    batch.draw(bucketTexture, i * 20, j * 20, 20, 20);
-                }
-                if (levelBase[i][j] == 'f') {
-                    batch.draw(dropTexture, i * 20, j * 20, 20, 20);
-                }
-            }
-        }
+        currentLevel.drawLevel(batch);
     }
 
     @Override
