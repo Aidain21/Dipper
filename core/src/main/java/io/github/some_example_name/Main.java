@@ -16,12 +16,10 @@ public class Main extends ApplicationAdapter {
     Player player;
     public float inputTimer = 0f;
     char[][] levelBase;
-    //level[][] levels = new level[10][10];
     int currentRow;
     int currentCol;
     level currentLevel;
     map levels;
-    //level level1;
     Texture bucketTexture;
     Texture dropTexture;
     SpriteBatch spriteBatch;
@@ -36,33 +34,11 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
-        //level1= new level(10,10);
-        //levels[0][0]=level1;
         currentRow=0;
         currentCol=0;
         levels = new map(2,2);
         level templevel=new level(8,8);
         levels.getMap()[0][1]=templevel;
-        //currentLevel=levels.getMap()[0][0];
-        //levelBase=currentLevel.getLevel();
-        /*currentLevel.changeTile(3,2,'l');
-        currentLevel.changeTile(0,1,'l');
-        currentLevel.changeCol(5,'q');
-        currentLevel.changeRow(1,'a');
-         */
-        //char[][] level1 = new char[5][5];
-        /*for (int i = 0; i < 5; i++) {
-            level1[0][i] = 'w';
-            level1[4][i] = 'w';
-            level1[i][0] = 'w';
-            level1[i][4] = 'w';
-        }
-        for (int j = 1; j < 4; j++) {
-            for (int b = 1; b < 4; b++) {
-                level1[j][b] = 'f';
-            }
-        }
-         */
     }
 
     @Override
@@ -74,7 +50,6 @@ public class Main extends ApplicationAdapter {
 
         batch.draw(player.sprite, player.pos.x*32,player.pos.y*32);
 
-        batch.end();
         batch.draw(image, 140 + testy, 210 + testy2);
 
         input();
@@ -135,9 +110,7 @@ public class Main extends ApplicationAdapter {
                 if (levelBase[i][j] == 'f') {
                     batch.draw(dropTexture, i * 20, j * 20, 20, 20);
                 }
-                //System.out.print("");
             }
-            //count++;
         }
     }
 
