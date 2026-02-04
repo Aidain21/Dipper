@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -12,6 +13,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
+    Player player;
+    public float inputTimer = 0f;
     char[][] levelBase;
     //level[][] levels = new level[10][10];
     int currentRow;
@@ -28,6 +31,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         bucketTexture = new Texture("bucket.png");
@@ -65,6 +69,12 @@ public class Main extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
+        batch.draw(image, 140, 210);
+
+
+        batch.draw(player.sprite, player.pos.x*32,player.pos.y*32);
+
+        batch.end();
         batch.draw(image, 140 + testy, 210 + testy2);
 
         input();
@@ -74,18 +84,27 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            testy -= 1;
+
+        if (inputTimer <= 0) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                player.gridMove(new Vector2(-1, 0));
+                inputTimer = 0.1f;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                player.gridMove(new Vector2(1, 0));
+                inputTimer = 0.1f;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                player.gridMove(new Vector2(0, 1));
+                inputTimer = 0.1f;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                player.gridMove(new Vector2(0, -1));
+                inputTimer = 0.1f;
+            }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            testy += 1;
-            changeLevel('r');
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            testy2 += 1;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            testy2 -= 1;
+        else {
+            inputTimer -= Gdx.graphics.getDeltaTime();
         }
     }
 
