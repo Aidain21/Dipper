@@ -25,7 +25,6 @@ public class Main extends ApplicationAdapter {
     SpriteBatch spriteBatch;
     FitViewport viewport;
 
-    public float testy = 0f, testy2 = 0f;
 
     @Override
     public void create() {
@@ -44,18 +43,12 @@ public class Main extends ApplicationAdapter {
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        batch.draw(image, 140, 210);
-
-
-        batch.draw(player.sprite, player.pos.x*32,player.pos.y*32);
-
-        batch.draw(image, 140 + testy, 210 + testy2);
-
         input();
         logic();
+        batch.begin();
         draw();
         batch.end();
+
     }
 
     private void input() {
@@ -100,6 +93,13 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
+
+        batch.draw(image, 140, 210);
+        player.drawPlayer(batch);
+
+
+
+
         currentLevel=levels.getMap()[currentRow][currentCol];
         levelBase=currentLevel.getLevel();
         for (int i = 0; i < currentLevel.getRowCount(); i++) {

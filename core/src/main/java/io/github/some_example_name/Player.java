@@ -2,6 +2,7 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player {
 
@@ -27,5 +28,9 @@ public class Player {
         }
         pos = new Vector2(end.x, end.y);
         moving = false;
+    }
+
+    public void drawPlayer(SpriteBatch batch) {
+        batch.draw(sprite, pos.x*32,pos.y*32);
     }
 }
