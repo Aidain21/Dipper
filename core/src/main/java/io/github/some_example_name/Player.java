@@ -28,4 +28,7 @@ public class Player {
         pos = new Vector2(end.x, end.y);
         moving = false;
     }
+    public Vector2 getPos(){
+        return pos;
+    }
 }

@@ -14,6 +14,8 @@ public class Main extends ApplicationAdapter {
     private Texture image;
     Player player;
     public float inputTimer = 0f;
+    private SpriteBatch bucket;
+    private Texture bucketT;
 
 
     @Override
@@ -21,6 +23,8 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        bucket = new SpriteBatch();
+        bucketT = new Texture("bucket.png");
 
     }
 
@@ -35,6 +39,7 @@ public class Main extends ApplicationAdapter {
         batch.draw(player.sprite, player.pos.x*32,player.pos.y*32);
 
         batch.end();
+        bow();
         input();
         logic();
         draw();
@@ -62,6 +67,21 @@ public class Main extends ApplicationAdapter {
         }
         else {
             inputTimer -= Gdx.graphics.getDeltaTime();
+        }
+    }
+
+    private void bow() {
+        int arrowX = (int) player.getPos().x, arrowY = (int) player.getPos().y;
+        if(Gdx.input.isKeyPressed(Input.Keys.E)){
+            bucket.begin();
+            bucket.draw(bucketT, player.pos.x*1, player.pos.y*1);
+
+            bucket.end();
+
+            System.out.print(arrowX);
+            //input();
+            //logic();
+            //draw();
         }
     }
 
