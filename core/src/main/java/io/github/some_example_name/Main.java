@@ -13,7 +13,12 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
     char[][] levelBase;
-    level level1;
+    //level[][] levels = new level[10][10];
+    int currentRow;
+    int currentCol;
+    level currentLevel;
+    map levels;
+    //level level1;
     Texture bucketTexture;
     Texture dropTexture;
     SpriteBatch spriteBatch;
@@ -27,12 +32,20 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
-        level1= new level(10,10);
-        levelBase=level1.getLevel();
-        level1.changeTile(3,2,'l');
-        level1.changeTile(0,1,'l');
-        level1.changeCol(5,'q');
-        level1.changeRow(1,'a');
+        //level1= new level(10,10);
+        //levels[0][0]=level1;
+        currentRow=0;
+        currentCol=0;
+        levels = new map(2,2);
+        level templevel=new level(8,8);
+        levels.getMap()[0][1]=templevel;
+        //currentLevel=levels.getMap()[0][0];
+        //levelBase=currentLevel.getLevel();
+        /*currentLevel.changeTile(3,2,'l');
+        currentLevel.changeTile(0,1,'l');
+        currentLevel.changeCol(5,'q');
+        currentLevel.changeRow(1,'a');
+         */
         //char[][] level1 = new char[5][5];
         /*for (int i = 0; i < 5; i++) {
             level1[0][i] = 'w';
@@ -66,6 +79,7 @@ public class Main extends ApplicationAdapter {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             testy += 1;
+            changeLevel('r');
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             testy2 += 1;
@@ -79,9 +93,23 @@ public class Main extends ApplicationAdapter {
 
     }
 
+    //add error checking for map edges
+    private void changeLevel(char direction){
+        if(direction=='u')
+            currentRow++;
+        if (direction=='d')
+            currentRow--;
+        if(direction=='r')
+            currentCol++;
+        if(direction=='l')
+            currentCol--;
+    }
+
     private void draw() {
-        for (int i = 0; i < level1.getRowCount(); i++) {
-            for (int j = 0; j < level1.getColCount(); j++) {
+        currentLevel=levels.getMap()[currentRow][currentCol];
+        levelBase=currentLevel.getLevel();
+        for (int i = 0; i < currentLevel.getRowCount(); i++) {
+            for (int j = 0; j < currentLevel.getColCount(); j++) {
                 if (levelBase[i][j] == 'w') {
                     batch.draw(bucketTexture, i * 20, j * 20, 20, 20);
                 }

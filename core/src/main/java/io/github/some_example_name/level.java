@@ -20,24 +20,28 @@ public class level extends ApplicationAdapter {
         rowCount=r;
         colCount=c;
 
-        for (int i = 0; i < r; i++) {
+        for (int i = 0; i < rowCount; i++) {
             level1[i][0] = 'w';
-            level1[i][c-1] = 'w';
+            level1[i][colCount-1] = 'w';
         }
-        for (int i = 0; i < c; i++) {
+        for (int i = 0; i < colCount; i++) {
             level1[0][i] = 'w';
-            level1[r-1][i] = 'w';
+            level1[rowCount-1][i] = 'w';
         }
-        for (int j = 1; j < r-1; j++) {
-            for (int b = 1; b < c-1; b++) {
-                level1[j][b] = 'f';
+        for (int i = 1; i < rowCount-1; i++) {
+            for (int j = 1; j < colCount-1; j++) {
+                level1[i][j] = 'f';
             }
         }
+    }
+    public level(){
+        level1=new char[5][5];
     }
 
     public char[][] getLevel(){
         return level1;
     }
+
     public int getRowCount(){
         return rowCount;
     }
