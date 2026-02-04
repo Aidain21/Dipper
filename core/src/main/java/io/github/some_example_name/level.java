@@ -15,6 +15,14 @@ public class level extends ApplicationAdapter {
     int rowCount;
     int colCount;
 
+    //char[][] levelBase;
+    //int currentRow;
+    //int currentCol;
+    //level currentLevel;
+    //map levels;
+    Texture bucketTexture = new Texture("bucket.png");
+    Texture dropTexture = new Texture("drop.png");
+
     public level(int r, int c){
         level1=new char[r][c];
         rowCount=r;
@@ -35,7 +43,7 @@ public class level extends ApplicationAdapter {
         }
     }
     public level(){
-        level1=new char[5][5];
+        //level1=new char[5][5];
     }
 
     public char[][] getLevel(){
@@ -67,6 +75,21 @@ public class level extends ApplicationAdapter {
         if(c>0 && c<colCount){
             for(int i=1;i<colCount-1;i++)
                 level1[i][c]=fill;
+        }
+    }
+
+    public void drawLevel(SpriteBatch batch){
+        //currentLevel=levels.getMap()[currentRow][currentCol];
+        //levelBase=currentLevel.getLevel();
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < colCount; j++) {
+                if (level1[i][j] == 'w') {
+                    batch.draw(bucketTexture, i * 32, j * 32, 32, 32);
+                }
+                if (level1[i][j] == 'f') {
+                    batch.draw(dropTexture, i * 32, j * 32, 32, 32);
+                }
+            }
         }
     }
 }
