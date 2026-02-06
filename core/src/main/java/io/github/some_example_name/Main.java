@@ -23,7 +23,7 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        levels = new map(2,2);
+        levels = new map(2,2,10,10);
         level templevel=new level(8,8);
         levels.getMap()[0][1]=templevel;
         currentLevel=levels.getMap()[0][0];
