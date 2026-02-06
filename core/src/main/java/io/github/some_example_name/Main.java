@@ -79,9 +79,6 @@ public class Main extends ApplicationAdapter {
             bucket.end();
 
             System.out.print(arrowX);
-            //input();
-            //logic();
-            //draw();
         }
     }
 
