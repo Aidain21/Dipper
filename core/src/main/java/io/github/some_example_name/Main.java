@@ -16,6 +16,8 @@ public class Main extends ApplicationAdapter {
     public float inputTimer = 0f;
     level currentLevel;
     map levels;
+    static int currentRow;
+    static int currentCol;
 
 
     @Override
@@ -88,4 +90,21 @@ public class Main extends ApplicationAdapter {
         batch.dispose();
         image.dispose();
     }
-}
+
+    public static void moveLevel(char rowCol, char upDown){
+        if(rowCol=='r') {
+            if (upDown == '+')
+                currentRow ++;
+            else
+                currentRow --;
+        }
+        else{
+            if(upDown=='+')
+                currentCol++;
+            else
+                currentCol--;
+
+            }
+        }
+    }
+

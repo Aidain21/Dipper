@@ -42,9 +42,9 @@ public class level extends ApplicationAdapter {
             }
         }
     }
-    public level(){
+    //public level(){
         //level1=new char[5][5];
-    }
+
 
     public char[][] getLevel(){
         return level1;
@@ -79,18 +79,18 @@ public class level extends ApplicationAdapter {
     }
 
     //add error checking for map edges
-    /*private void changeLevel(char direction){
+    public void changeLevel(char direction){
         if(direction=='u')
-            currentRow++;
+            Main.moveLevel('r','+');
         if (direction=='d')
-            currentRow--;
+            Main.moveLevel('r','-');
         if(direction=='r')
-            currentCol++;
+            Main.moveLevel('c','+');
         if(direction=='l')
-            currentCol--;
+            Main.moveLevel('c','-');
     }
 
-     */
+
 
     public void drawLevel(SpriteBatch batch){
         //currentLevel=levels.getMap()[currentRow][currentCol];
@@ -103,6 +103,7 @@ public class level extends ApplicationAdapter {
                 if (level1[i][j] == 'f') {
                     batch.draw(dropTexture, i * 32, j * 32, 32, 32);
                 }
+
             }
         }
     }
