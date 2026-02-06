@@ -29,7 +29,7 @@ public class Main extends ApplicationAdapter {
         level templevel=new level(8,8);
         levels.getMap()[0][1]=templevel;
         currentLevel=levels.getMap()[0][0];
-        currentLevel.changeTile(5,8,'l');
+        currentLevel.changeTile(2,4,'l');
     }
 
     @Override

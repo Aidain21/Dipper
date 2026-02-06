@@ -97,10 +97,10 @@ public class level extends ApplicationAdapter {
         //levelBase=currentLevel.getLevel();
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < colCount; j++) {
-                if (level1[i][j] == 'w') {
+                if (level1[j][i] == 'w') {
                     batch.draw(bucketTexture, i * 32, j * 32, 32, 32);
                 }
-                if (level1[i][j] == 'f') {
+                if (level1[j][i] == 'f') {
                     batch.draw(dropTexture, i * 32, j * 32, 32, 32);
                 }
 
