@@ -14,12 +14,8 @@ public class Main extends ApplicationAdapter {
     private Texture image;
     Player player;
     public float inputTimer = 0f;
-    int currentRow;
-    int currentCol;
     level currentLevel;
     map levels;
-    Texture bucketTexture;
-    Texture dropTexture;
 
 
     @Override
@@ -27,10 +23,6 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        bucketTexture = new Texture("bucket.png");
-        dropTexture = new Texture("drop.png");
-        currentRow=0;
-        currentCol=0;
         levels = new map(2,2);
         level templevel=new level(8,8);
         levels.getMap()[0][1]=templevel;
@@ -76,19 +68,6 @@ public class Main extends ApplicationAdapter {
     private void logic() {
 
     }
-
-    //add error checking for map edges
-    private void changeLevel(char direction){
-        if(direction=='u')
-            currentRow++;
-        if (direction=='d')
-            currentRow--;
-        if(direction=='r')
-            currentCol++;
-        if(direction=='l')
-            currentCol--;
-    }
-
     private void draw() {
         currentLevel.drawLevel(batch);
 
