@@ -14,8 +14,8 @@ public class Main extends ApplicationAdapter {
     private Texture image;
     Player player;
     public float inputTimer = 0f;
-    level currentLevel;
-    map levels;
+    static level currentLevel;
+    static map levels;
     static int currentRow;
     static int currentCol;
 
@@ -105,6 +105,7 @@ public class Main extends ApplicationAdapter {
                 currentCol--;
 
             }
+        currentLevel=levels.getMap()[currentRow][currentCol];
         }
     }
 
