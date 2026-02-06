@@ -78,6 +78,20 @@ public class level extends ApplicationAdapter {
         }
     }
 
+    //add error checking for map edges
+    /*private void changeLevel(char direction){
+        if(direction=='u')
+            currentRow++;
+        if (direction=='d')
+            currentRow--;
+        if(direction=='r')
+            currentCol++;
+        if(direction=='l')
+            currentCol--;
+    }
+
+     */
+
     public void drawLevel(SpriteBatch batch){
         //currentLevel=levels.getMap()[currentRow][currentCol];
         //levelBase=currentLevel.getLevel();

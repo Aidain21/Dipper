@@ -2,7 +2,7 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
-public class map extends level {
+public class map {
 
     level[][] levelMap;
     int mapRows;
@@ -16,11 +16,11 @@ public class map extends level {
 
      */
 
-    public map(int r, int c) {
+    public map(int r, int c, int levelR, int levelC) {
         mapRows=r;
         mapCols=c;
         levelMap = new level[mapRows][mapCols];
-        levelMap[0][0]= new level(10,10);
+        levelMap[0][0]= new level(levelR,levelC);
     }
 
     public level[][] getMap(){
