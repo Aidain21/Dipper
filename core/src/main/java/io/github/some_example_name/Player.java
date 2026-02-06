@@ -12,7 +12,7 @@ public class Player {
     public boolean moving;
 
     public Player() {
-        pos = new Vector2(3,3);
+        pos = new Vector2(2,7);
         sprite = new Texture("char.png");
         moving = false;
     }
@@ -27,8 +27,16 @@ public class Player {
             return;
         }
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
-            if (curLevel.level1[Math.round(end.y)][Math.round(end.x)] == 'w') {
-                return;
+            switch (curLevel.level1[Math.round(end.y)][Math.round(end.x)]) {
+                case 'w':
+                    return;
+                case 'l':
+                    if (dir.x == 0 && dir.y == 1){ curLevel.changeLevel('u');}
+                    if (dir.x == 0 && dir.y == -1){ curLevel.changeLevel('d');}
+                    if (dir.x == 1 && dir.y == 0){ curLevel.changeLevel('r');}
+                    if (dir.x == -1 && dir.y == 0){ curLevel.changeLevel('l');}
+                default:
+                    break;
             }
         }
         pos = new Vector2(end.x, end.y);
