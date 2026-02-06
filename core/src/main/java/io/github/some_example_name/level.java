@@ -59,22 +59,22 @@ public class level extends ApplicationAdapter {
     }
 
     public void changeTile(int r, int c, char fill){
-        if((r>=0 && r<=rowCount) && (c>=0 && c<=colCount)){
-            level1[r][c]=fill;
+        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            level1[c][r]=fill;
         }
     }
 
     public void changeRow(int r, char fill){
         if(r>0 && r<rowCount){
             for(int i=1;i<colCount-1;i++)
-                level1[r][i]=fill;
+                level1[i][r]=fill;
         }
     }
 
     public void changeCol(int c, char fill){
         if(c>0 && c<colCount){
             for(int i=1;i<colCount-1;i++)
-                level1[i][c]=fill;
+                level1[c][i]=fill;
         }
     }
 
