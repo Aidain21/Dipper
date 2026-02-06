@@ -18,7 +18,7 @@ public class Main extends ApplicationAdapter {
     static map levels;
     static int currentRow;
     static int currentCol;
-
+    Bow bow;
 
     @Override
     public void create() {
@@ -30,6 +30,7 @@ public class Main extends ApplicationAdapter {
         levels.getMap()[0][1]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,'l');
+        bow = new Bow();
     }
 
     @Override
@@ -40,7 +41,6 @@ public class Main extends ApplicationAdapter {
         logic();
         draw();
         batch.end();
-
     }
 
     private void input() {
@@ -62,28 +62,34 @@ public class Main extends ApplicationAdapter {
                 player.gridMove(new Vector2(0, -1), currentLevel);
                 inputTimer = 0.1f;
             }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                bow.createArrow(image, player.pos.x, player.pos.y, 'n');
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                bow.createArrow(image, player.pos.x, player.pos.y, 'e');
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+                bow.createArrow(image, player.pos.x, player.pos.y, 's');
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                bow.createArrow(image, player.pos.x, player.pos.y, 'w');
+            }
         }
         else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
 
-        bow();
-    }
-
-    private void bow() {
-        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-            batch.draw(image, player.pos.x, player.pos.y);
-        }
     }
 
     private void logic() {
-
+        bow.arrowLogic();
     }
     private void draw() {
         currentLevel.drawLevel(batch);
 
         batch.draw(image, 140, 210);
         player.drawPlayer(batch);
+        bow.drawArrow(batch);
     }
 
     @Override
