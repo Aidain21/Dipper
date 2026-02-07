@@ -44,7 +44,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-
+        // Movement
         if (inputTimer <= 0) {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
@@ -62,23 +62,25 @@ public class Main extends ApplicationAdapter {
                 player.gridMove(new Vector2(0, -1), currentLevel);
                 inputTimer = 0.1f;
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                bow.createArrow(image, player.pos.x, player.pos.y, 'n');
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-                bow.createArrow(image, player.pos.x, player.pos.y, 'e');
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-                bow.createArrow(image, player.pos.x, player.pos.y, 's');
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-                bow.createArrow(image, player.pos.x, player.pos.y, 'w');
-            }
         }
         else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
 
+        // Arrows
+        bow.cooldown += Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            bow.bowInput(player.pos.x, player.pos.y, 'n');
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            bow.bowInput(player.pos.x, player.pos.y, 'e');
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            bow.bowInput(player.pos.x, player.pos.y, 's');
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            bow.bowInput(player.pos.x, player.pos.y, 'w');
+        }
     }
 
     private void logic() {
