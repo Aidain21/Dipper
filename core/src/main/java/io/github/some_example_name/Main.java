@@ -69,22 +69,22 @@ public class Main extends ApplicationAdapter {
 
         // Arrows
         bow.cooldown += Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             bow.bowInput(player.pos.x, player.pos.y, 'n');
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'e');
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             bow.bowInput(player.pos.x, player.pos.y, 's');
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
     }
 
     private void logic() {
-        bow.arrowLogic();
+        bow.arrowLogic(batch);
     }
     private void draw() {
         currentLevel.drawLevel(batch);
