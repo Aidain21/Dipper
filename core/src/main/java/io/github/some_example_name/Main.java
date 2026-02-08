@@ -84,7 +84,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-        bow.arrowLogic(batch);
+        bow.arrowLogic();
     }
     private void draw() {
         currentLevel.drawLevel(batch);

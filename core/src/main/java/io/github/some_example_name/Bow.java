@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import static io.github.some_example_name.Main.currentLevel;
 
@@ -45,11 +44,11 @@ public class Bow {
 
     // Makes arrow move in a straight line
     // stops if it hits a wall, then removes sprite.
-    public void arrowLogic(SpriteBatch batch) {
+    public void arrowLogic() {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            float timing = 0f;
+            //float timing = 0f;
             switch(direction.get(i)) {
                 case 'n': if(arrow.getY() < 23* currentLevel.getColCount())
                     arrow.translateY(400f * delta);
