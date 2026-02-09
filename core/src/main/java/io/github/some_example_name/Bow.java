@@ -12,7 +12,7 @@ public class Bow {
     private final Texture arrowTexture = new Texture("arrow.png");
     private final Array<Sprite> arrowArray = new Array<>();
     private final Array<Character> direction = new Array<>();
-    public final float cooldownTime = 0.5f;
+    public final float cooldownTime = 0.7f;
     public float cooldown = 0f;
     private float time = 0f;
 
@@ -23,13 +23,13 @@ public class Bow {
         arrow.setPosition(posX*32, posY*32);
         arrowArray.add(arrow);
         direction.add(nesw);
-        arrow.setScale(0.7f);
+        arrow.setScale(0.75f);
 
         switch(nesw) {
             case 'n': arrow.setX(posX*32+9); arrow.rotate(90); break;
-            case 'e': arrow.setY(posY*32+9); break;
-            case 's': arrow.setX(posX*32); arrow.rotate(270); break;
-            case 'w': arrow.setY(posY*32+16); arrow.rotate(180); break;
+            case 'e': arrow.setY(posY*32+7); break;
+            case 's': arrow.setX(posX*32-3); arrow.rotate(270); break;
+            case 'w': arrow.setY(posY*32+18); arrow.rotate(180); break;
             default: break;
         }
     }
@@ -50,10 +50,10 @@ public class Bow {
             Sprite arrow = arrowArray.get(i);
             //float timing = 0f;
             switch(direction.get(i)) {
-                case 'n': if(arrow.getY() < 23* currentLevel.getColCount())
+                case 'n': if(arrow.getY() < 25* currentLevel.getColCount())
                     arrow.translateY(400f * delta);
                 break;
-                case 'e': if(arrow.getX() < 22*currentLevel.getRowCount())
+                case 'e': if(arrow.getX() < 24*currentLevel.getRowCount())
                     arrow.translateX(400f * delta);
                 break;
                 case 's': if(arrow.getY() > 32)
