@@ -12,7 +12,6 @@ public class Player {
     public Vector2 facing;
     public Texture img;
     public Sprite pSprite;
-    public boolean moving;
 
     public Player() {
         pos = new Vector2(2,7);
@@ -20,15 +19,12 @@ public class Player {
         img = new Texture("char.png");
         pSprite = new Sprite(img);
         pSprite.setOrigin(pSprite.getWidth() / 2, pSprite.getHeight() / 2);
-        moving = false;
     }
 
     //moves player based on direction inputted and current level
     public void gridMove(Vector2 dir, level curLevel)
     {
-        moving = true;
-        Vector2 start = pos;
-        Vector2 end = new Vector2(start.x + dir.x, start.y + dir.y);
+        Vector2 end = new Vector2(pos.x + dir.x, pos.y + dir.y);
         if (end.x < LEVEL_BOUNDS[0][0] || end.x > LEVEL_BOUNDS[1][0] ||
         end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
             return;
@@ -54,7 +50,24 @@ public class Player {
         if (dir.x == 1 && dir.y == 0){ pSprite.setRotation(270);}
         if (dir.x == -1 && dir.y == 0){ pSprite.setRotation(90);}
 
-        moving = false;
+    }
+
+    public void playerInteract(level curLevel) {
+        Vector2 look = new Vector2(pos.x + facing.x, pos.y + facing.y);
+        System.out.println();
+        System.out.print("I see a ");
+        switch (curLevel.level1[Math.round(look.y)][Math.round(look.x)]) {
+            case 'w':
+                System.out.print("wall! It's solid like a rock.");
+                break;
+            case 'l':
+                System.out.print("level transition! It's a swirly magic portal.");
+                break;
+            default:
+                System.out.print(curLevel.level1[Math.round(look.y)][Math.round(look.x)]);
+                System.out.print("! It's cool I guess.");
+                break;
+        }
     }
 
     //Draw the player
