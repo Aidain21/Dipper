@@ -12,7 +12,7 @@ public class Bow {
     private final Texture arrowTexture = new Texture("arrow.png");
     private final Array<Sprite> arrowArray = new Array<>();
     private final Array<Character> direction = new Array<>();
-    public final float cooldownTime = 0.7f;
+    public final float cooldownTime = 0.75f;
     public float cooldown = 0f;
     private float time = 0f;
 
@@ -48,7 +48,6 @@ public class Bow {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            //float timing = 0f;
             switch(direction.get(i)) {
                 case 'n': if(arrow.getY() < 25* currentLevel.getColCount())
                     arrow.translateY(400f * delta);
@@ -67,7 +66,7 @@ public class Bow {
             if(arrow.getX() > 32 || arrow.getY() > 32 || arrow.getX() < 22*currentLevel.getRowCount()
                 || arrow.getY() < 23*currentLevel.getColCount()) {
                 time += Gdx.graphics.getDeltaTime();
-                if (time >= 0.6f) {
+                if (time >= 0.74f) {
                     arrowArray.removeIndex(i);
                     direction.removeIndex(i);
                     time = 0f;
