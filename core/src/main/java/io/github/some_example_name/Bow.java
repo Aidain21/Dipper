@@ -56,10 +56,10 @@ public class Bow {
                 case 'e': if(arrow.getX() < 24*currentLevel.getRowCount())
                     arrow.translateX(400f * delta);
                 break;
-                case 's': if(arrow.getY() > 32)
+                case 's': if(arrow.getY() > 55)
                     arrow.translateY(-400f * delta);
                 break;
-                case 'w': if(arrow.getX() > 32)
+                case 'w': if(arrow.getX() > 55)
                     arrow.translateX(-400f * delta);
                 break;
                 default: break;
