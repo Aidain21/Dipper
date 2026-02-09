@@ -1,6 +1,7 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -8,15 +9,21 @@ public class Player {
 
     public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {19,14}};
     public Vector2 pos;
-    public Texture sprite;
+    public Vector2 facing;
+    public Texture img;
+    public Sprite pSprite;
     public boolean moving;
 
     public Player() {
         pos = new Vector2(2,7);
-        sprite = new Texture("char.png");
+        facing = new Vector2(1,0);
+        img = new Texture("char.png");
+        pSprite = new Sprite(img);
+        pSprite.setOrigin(pSprite.getWidth() / 2, pSprite.getHeight() / 2);
         moving = false;
     }
 
+    //moves player based on direction inputted and current level
     public void gridMove(Vector2 dir, level curLevel)
     {
         moving = true;
@@ -40,10 +47,19 @@ public class Player {
             }
         }
         pos = new Vector2(end.x, end.y);
+
+        facing = dir;
+        if (dir.x == 0 && dir.y == 1){ pSprite.setRotation(0);}
+        if (dir.x == 0 && dir.y == -1){ pSprite.setRotation(180);}
+        if (dir.x == 1 && dir.y == 0){ pSprite.setRotation(270);}
+        if (dir.x == -1 && dir.y == 0){ pSprite.setRotation(90);}
+
         moving = false;
     }
 
+    //Draw the player
     public void drawPlayer(SpriteBatch batch) {
-        batch.draw(sprite, pos.x*32,pos.y*32);
+        pSprite.setPosition(pos.x * 32, pos.y *32);
+        pSprite.draw(batch);
     }
 }
