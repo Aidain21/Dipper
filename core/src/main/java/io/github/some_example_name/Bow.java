@@ -5,28 +5,31 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import static io.github.some_example_name.Main.currentLevel;
 
 public class Bow {
     public Bow() {}
     private final Texture arrowTexture = new Texture("arrow.png");
-    Array<Sprite> arrowArray = new Array<>();
-    Array<Character> direction = new Array<>();
-    public final float cooldownTime = 0.5f;
+    private final Array<Sprite> arrowArray = new Array<>();
+    private final Array<Character> direction = new Array<>();
+    public final float cooldownTime = 0.75f;
     public float cooldown = 0f;
+    private float time = 0f;
 
-    // Creates arrow, rotates and sets position based on the direction it is fired
+    // Creates arrow, rotates and sets position based on the direction
     public void createArrow(float posX, float posY, char nesw) {
         Sprite arrow = new Sprite(arrowTexture);
         arrow.setSize(100, 24);
-        arrow.setX(posX*32);
-        arrow.setY(posY*32);
+        arrow.setPosition(posX*32, posY*32);
         arrowArray.add(arrow);
         direction.add(nesw);
+        arrow.setScale(0.75f);
+
         switch(nesw) {
-            case 'n': arrow.setX(posX*32+12); arrow.rotate(90); break;
-            case 'e': arrow.setY(posY*32+6); break;
-            case 's': arrow.setX(posX*32-6); arrow.rotate(270); break;
-            case 'w': arrow.setY(posY*32+22); arrow.rotate(180); break;
+            case 'n': arrow.setX(posX*32+9); arrow.rotate(90); break;
+            case 'e': arrow.setY(posY*32+7); break;
+            case 's': arrow.setX(posX*32-3); arrow.rotate(270); break;
+            case 'w': arrow.setY(posY*32+18); arrow.rotate(180); break;
             default: break;
         }
     }
@@ -40,21 +43,34 @@ public class Bow {
     }
 
     // Makes arrow move in a straight line
+    // stops if it hits a wall, then removes sprite.
     public void arrowLogic() {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
-
             Sprite arrow = arrowArray.get(i);
             switch(direction.get(i)) {
-                case 'n': arrow.translateY(400f * delta); break;
-                case 'e': arrow.translateX(400f * delta); break;
-                case 's': arrow.translateY(-400f * delta); break;
-                case 'w': arrow.translateX(-400f * delta); break;
+                case 'n': if(arrow.getY() < 25* currentLevel.getColCount())
+                    arrow.translateY(400f * delta);
+                break;
+                case 'e': if(arrow.getX() < 24*currentLevel.getRowCount())
+                    arrow.translateX(400f * delta);
+                break;
+                case 's': if(arrow.getY() > 55)
+                    arrow.translateY(-400f * delta);
+                break;
+                case 'w': if(arrow.getX() > 55)
+                    arrow.translateX(-400f * delta);
+                break;
                 default: break;
             }
-            if(arrow.getX() > 450 || arrow.getX() < 25 || arrow.getY() > 400 || arrow.getY() < 25) {
-                arrowArray.removeIndex(i);
-                direction.removeIndex(i);
+            if(arrow.getX() > 32 || arrow.getY() > 32 || arrow.getX() < 22*currentLevel.getRowCount()
+                || arrow.getY() < 23*currentLevel.getColCount()) {
+                time += Gdx.graphics.getDeltaTime();
+                if (time >= 0.74f) {
+                    arrowArray.removeIndex(i);
+                    direction.removeIndex(i);
+                    time = 0f;
+                }
             }
         }
     }

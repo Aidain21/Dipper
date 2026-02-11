@@ -32,6 +32,7 @@ public class Main extends ApplicationAdapter {
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');
+        currentLevel.changeTile(5,5,'b');
         bow = new Bow();
     }
 
@@ -64,6 +65,10 @@ public class Main extends ApplicationAdapter {
                 player.gridMove(new Vector2(0, -1), currentLevel);
                 inputTimer = 0.1f;
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+                player.playerInteract(currentLevel);
+                inputTimer = 0.1f;
+            }
         }
         else {
             inputTimer -= Gdx.graphics.getDeltaTime();
@@ -71,18 +76,20 @@ public class Main extends ApplicationAdapter {
 
         // Arrows
         bow.cooldown += Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             bow.bowInput(player.pos.x, player.pos.y, 'n');
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'e');
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             bow.bowInput(player.pos.x, player.pos.y, 's');
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
+
+
     }
 
     private void logic() {
@@ -91,7 +98,10 @@ public class Main extends ApplicationAdapter {
     private void draw() {
         currentLevel.drawLevel(batch);
 
-        batch.draw(image, 140, 210);
+        //the logo
+        //batch.draw(image, 140, 210);
+
+
         player.drawPlayer(batch);
         bow.drawArrow(batch);
     }

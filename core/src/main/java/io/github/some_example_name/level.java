@@ -22,8 +22,8 @@ public class level extends ApplicationAdapter {
     //int currentCol;
     //level currentLevel;
     //map levels;
-    Texture bucketTexture = new Texture("bucket.png");
-    Texture dropTexture = new Texture("drop.png");
+    Texture bucketTexture = new Texture("brickWall.png");
+    Texture dropTexture = new Texture("background.png");
 
     public level(int r, int c) {
         rowCount=r;
