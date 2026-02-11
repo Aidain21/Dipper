@@ -43,7 +43,7 @@ public class level extends ApplicationAdapter {
     //public level(){
         //level1=new char[5][5];
     public void createLevel(){
-        level1=new char[rowCount][colCount];
+        level1=new char[colCount][rowCount];
 
         for (int i = 0; i < rowCount; i++) {
             level1[0][i] = 'w';
