@@ -55,7 +55,7 @@ public class level extends ApplicationAdapter {
         }
         for (int i = 1; i < rowCount-1; i++) {
             for (int j = 1; j < colCount-1; j++) {
-                level1[j][i] = 'f';
+                level1[j][i] = ' ';
             }
         }
     }
@@ -117,7 +117,7 @@ public class level extends ApplicationAdapter {
                 if (level1[j][i] == 'w') {
                     batch.draw(bucketTexture, i * 32, j * 32, 32, 32);
                 }
-                if (level1[j][i] == 'f') {
+                if (level1[j][i] == ' ') {
                     batch.draw(dropTexture, i * 32, j * 32, 32, 32);
                 }
 
