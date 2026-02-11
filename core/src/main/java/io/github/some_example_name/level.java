@@ -89,15 +89,23 @@ public class level extends ApplicationAdapter {
         }
     }
 
-    public void changeLevel(char direction){
-        if(direction=='u')
-            Main.moveLevel('r','+');
-        if (direction=='d')
-            Main.moveLevel('r','-');
-        if(direction=='r')
-            Main.moveLevel('c','+');
-        if(direction=='l')
-            Main.moveLevel('c','-');
+    public Vector2Int changeLevel(char direction){
+        if(direction=='u') {
+            Main.moveLevel('r', '+');
+            return new Vector2Int(spawnRow,spawnCol);
+        }
+        if (direction=='d') {
+            Main.moveLevel('r', '-');
+            return new Vector2Int(spawnRow,spawnCol);
+        }
+        if(direction=='r') {
+            Main.moveLevel('c', '+');
+            return new Vector2Int(spawnRow,spawnCol);
+        }
+        if(direction=='l') {
+            Main.moveLevel('c', '-');
+            return new Vector2Int(spawnRow,spawnCol);
+        }
     }
 
 //add swap tiles
