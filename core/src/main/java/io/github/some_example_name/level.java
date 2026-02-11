@@ -40,7 +40,7 @@ public class level extends ApplicationAdapter {
     //public level(){
         //level1=new char[5][5];
     public void createLevel(){
-        level1=new char[rowCount][colCount];
+        level1=new char[colCount][rowCount];
 
         for (int i = 0; i < rowCount; i++) {
             level1[0][i] = 'w';
@@ -52,7 +52,7 @@ public class level extends ApplicationAdapter {
         }
         for (int i = 1; i < rowCount-1; i++) {
             for (int j = 1; j < colCount-1; j++) {
-                level1[j][i] = 'f';
+                level1[j][i] = ' ';
             }
         }
     }
@@ -114,7 +114,7 @@ public class level extends ApplicationAdapter {
                 if (level1[j][i] == 'w') {
                     batch.draw(brickWallTexture, i * 32, j * 32, 32, 32);
                 }
-                if (level1[j][i] == 'f') {
+                if (level1[j][i] == ' ') {
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 }
                 if (level1[j][i] == 'l') {
