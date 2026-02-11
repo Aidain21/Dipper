@@ -92,7 +92,6 @@ public class level extends ApplicationAdapter {
         }
     }
 
-    //add error checking for map edges
     public void changeLevel(char direction){
         if(direction=='u')
             Main.moveLevel('r','+');
@@ -105,6 +104,11 @@ public class level extends ApplicationAdapter {
     }
 
 //add swap tiles
+    public void swapTiles(int r1,int c1,int r2,int c2){
+        char temp=level1[c1][r1];
+        level1[c1][r1]=level1[c2][r2];
+        level1[c2][r2]=temp;
+    }
 
     public void drawLevel(SpriteBatch batch){
 
