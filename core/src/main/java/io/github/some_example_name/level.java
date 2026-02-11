@@ -1,13 +1,8 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class level extends ApplicationAdapter {
@@ -22,8 +17,10 @@ public class level extends ApplicationAdapter {
     //int currentCol;
     //level currentLevel;
     //map levels;
-    Texture bucketTexture = new Texture("brickWall.png");
-    Texture dropTexture = new Texture("background.png");
+    Texture brickWallTexture = new Texture("brickWall.png");
+    Texture backgroundTexture = new Texture("background.png");
+    Texture crateTexture = new Texture("blockCrate.png");
+    Texture portalTexture = new Texture("portal.png");
 
     public level(int r, int c) {
         rowCount=r;
@@ -115,12 +112,17 @@ public class level extends ApplicationAdapter {
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < colCount; j++) {
                 if (level1[j][i] == 'w') {
-                    batch.draw(bucketTexture, i * 32, j * 32, 32, 32);
+                    batch.draw(brickWallTexture, i * 32, j * 32, 32, 32);
                 }
                 if (level1[j][i] == 'f') {
-                    batch.draw(dropTexture, i * 32, j * 32, 32, 32);
+                    batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 }
-
+                if (level1[j][i] == 'l') {
+                    batch.draw(portalTexture, i * 32, j * 32, 32, 32);
+                }
+                if (level1[j][i] == 'b') {
+                    batch.draw(crateTexture, i * 32, j * 32, 32, 32);
+                }
             }
         }
     }
