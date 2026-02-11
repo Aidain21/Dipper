@@ -14,6 +14,8 @@ public class level extends ApplicationAdapter {
     char[][] level1;
     int rowCount;
     int colCount;
+    int spawnRow=0;
+    int spawnCol=0;
 
     //char[][] levelBase;
     //int currentRow;
@@ -23,28 +25,40 @@ public class level extends ApplicationAdapter {
     Texture bucketTexture = new Texture("bucket.png");
     Texture dropTexture = new Texture("drop.png");
 
-    public level(int r, int c){
-        level1=new char[r][c];
+    public level(int r, int c) {
         rowCount=r;
         colCount=c;
+        createLevel();
+    }
 
-        for (int i = 0; i < rowCount; i++) {
-            level1[i][0] = 'w';
-            level1[i][colCount-1] = 'w';
-        }
-        for (int i = 0; i < colCount; i++) {
-            level1[0][i] = 'w';
-            level1[rowCount-1][i] = 'w';
-        }
-        for (int i = 1; i < rowCount-1; i++) {
-            for (int j = 1; j < colCount-1; j++) {
-                level1[i][j] = 'f';
-            }
-        }
+    public level(int r, int c, int spawnR, int spawnC){
+        rowCount=r;
+        colCount=c;
+        spawnRow=spawnR;
+        spawnCol=spawnC;
+        createLevel();
+
+
     }
     //public level(){
         //level1=new char[5][5];
+    public void createLevel(){
+        level1=new char[rowCount][colCount];
 
+        for (int i = 0; i < rowCount; i++) {
+            level1[0][i] = 'w';
+            level1[colCount-1][i] = 'w';
+        }
+        for (int i = 0; i < colCount; i++) {
+            level1[i][0] = 'w';
+            level1[i][rowCount-1] = 'w';
+        }
+        for (int i = 1; i < rowCount-1; i++) {
+            for (int j = 1; j < colCount-1; j++) {
+                level1[j][i] = 'f';
+            }
+        }
+    }
 
     public char[][] getLevel(){
         return level1;
@@ -90,11 +104,10 @@ public class level extends ApplicationAdapter {
             Main.moveLevel('c','-');
     }
 
-
+//add swap tiles
 
     public void drawLevel(SpriteBatch batch){
-        //currentLevel=levels.getMap()[currentRow][currentCol];
-        //levelBase=currentLevel.getLevel();
+
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < colCount; j++) {
                 if (level1[j][i] == 'w') {
@@ -107,4 +120,6 @@ public class level extends ApplicationAdapter {
             }
         }
     }
+
+
 }
