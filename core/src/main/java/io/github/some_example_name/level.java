@@ -106,6 +106,7 @@ public class level extends ApplicationAdapter {
             Main.moveLevel('c', '-');
             return new Vector2Int(spawnRow,spawnCol);
         }
+        return new Vector2Int(spawnRow,spawnCol);
     }
 
 //add swap tiles
