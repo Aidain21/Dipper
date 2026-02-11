@@ -26,9 +26,11 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         levels = new map(2,2,10,10);
-        level templevel=new level(8,8);
-        levels.getMap()[0][1]=templevel;
-        currentLevel=levels.getMap()[0][0];
+        currentRow=0;
+        currentCol=0;
+        level templevel=new level(8,8,0,0);
+        levels.getMap()[1][0]=templevel;
+        currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');
         currentLevel.changeTile(5,5,'b');
         bow = new Bow();
@@ -112,19 +114,18 @@ public class Main extends ApplicationAdapter {
 
     public static void moveLevel(char rowCol, char upDown){
         if(rowCol=='r') {
-            if (upDown == '+')
+            if (upDown == '+' && !levels.isEmpty(currentRow+1,currentCol))//!=null)
                 currentRow ++;
-            else
+            if(upDown == '-' && !levels.isEmpty(currentRow-1,currentCol))
                 currentRow --;
         }
-        else{
-            if(upDown=='+')
-                currentCol++;
-            else
-                currentCol--;
-
+        if(rowCol=='c'){
+            if((upDown=='+') && !levels.isEmpty(currentRow,currentCol+1))
+                currentCol ++;
+            if((upDown=='-') && !levels.isEmpty(currentRow,currentCol-1))
+                currentCol --;
             }
-        currentLevel=levels.getMap()[currentRow][currentCol];
+        currentLevel=levels.getMap()[currentCol][currentRow];
         }
     }
 
