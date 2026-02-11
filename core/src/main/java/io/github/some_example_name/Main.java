@@ -30,6 +30,7 @@ public class Main extends ApplicationAdapter {
         levels.getMap()[0][1]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,'l');
+        currentLevel.changeTile(5,5,'b');
         bow = new Bow();
     }
 
@@ -62,6 +63,10 @@ public class Main extends ApplicationAdapter {
                 player.gridMove(new Vector2(0, -1), currentLevel);
                 inputTimer = 0.1f;
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+                player.playerInteract(currentLevel);
+                inputTimer = 0.1f;
+            }
         }
         else {
             inputTimer -= Gdx.graphics.getDeltaTime();
@@ -81,6 +86,8 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
+
+
     }
 
     private void logic() {
@@ -89,7 +96,10 @@ public class Main extends ApplicationAdapter {
     private void draw() {
         currentLevel.drawLevel(batch);
 
-        batch.draw(image, 140, 210);
+        //the logo
+        //batch.draw(image, 140, 210);
+
+
         player.drawPlayer(batch);
         bow.drawArrow(batch);
     }
