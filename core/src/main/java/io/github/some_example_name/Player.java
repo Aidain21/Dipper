@@ -65,9 +65,10 @@ public class Player {
                 System.out.print("level transition! It's a swirly magic portal.");
                 break;
             case 'b':
-                curLevel.changeTile(look.x,look.y,'f');
-                curLevel.changeTile(look.x + facing.x,look.y + facing.y,'b');
+                curLevel.swapTiles(look.x,look.y,look.x + facing.x,look.y + facing.y);
                 System.out.print("block! I probably just pushed it.");
+            case ' ':
+                break;
             default:
                 System.out.print(curLevel.level1[look.y][look.x]);
                 System.out.print("! It's cool I guess.");
