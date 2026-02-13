@@ -9,8 +9,8 @@ public class level extends ApplicationAdapter {
     char[][] level1;
     int rowCount;
     int colCount;
-    int spawnRow=0;
-    int spawnCol=0;
+    int spawnRow=1;
+    int spawnCol=1;
 
     //char[][] levelBase;
     //int currentRow;

@@ -21,7 +21,7 @@ public class map {
                 levelMap[j][i] = new level(0, 0);
             }
         }
-        levelMap[0][0] = new level(levelR, levelC, 0, 0);
+        levelMap[0][0] = new level(levelR, levelC, 1, 1);
     }
 
     public level[][] getMap() {

@@ -43,9 +43,11 @@ public class Player {
                 case 'b':
                     return;
                 case 'l':
-                    if (dir.x == 0 && dir.y == -1){ curLevel.changeLevel('d');}
-                    if (dir.x == 1 && dir.y == 0){ curLevel.changeLevel('r');}
-                    if (dir.x == -1 && dir.y == 0){ curLevel.changeLevel('l');}
+                    if (dir.x == 0 && dir.y == 1){ pos = curLevel.changeLevel('u');}
+                    if (dir.x == 0 && dir.y == -1){ pos = curLevel.changeLevel('d');}
+                    if (dir.x == 1 && dir.y == 0){ pos = curLevel.changeLevel('r');}
+                    if (dir.x == -1 && dir.y == 0){ pos = curLevel.changeLevel('l');}
+                    return;
                 default:
                     break;
             }

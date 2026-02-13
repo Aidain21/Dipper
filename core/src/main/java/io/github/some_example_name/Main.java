@@ -28,7 +28,7 @@ public class Main extends ApplicationAdapter {
         levels = new map(2,2,10,10);
         currentRow=0;
         currentCol=0;
-        level templevel=new level(8,8,0,0);
+        level templevel=new level(8,8,1,1);
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');
