@@ -43,30 +43,28 @@ public class Bow {
     }
 
     // Makes arrow move in a straight line
-    // stops if it hits a wall, then removes sprite.
+    // stops if it hits a wall
     public void arrowLogic() {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
+            boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w' ||
+                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='b' );
             switch(direction.get(i)) {
-                case 'n': if(arrow.getY() < 25* currentLevel.getColCount())
-                    arrow.translateY(400f * delta);
-                break;
-                case 'e': if(arrow.getX() < 24*currentLevel.getRowCount())
-                    arrow.translateX(400f * delta);
-                break;
-                case 's': if(arrow.getY() > 55)
-                    arrow.translateY(-400f * delta);
-                break;
-                case 'w': if(arrow.getX() > 55)
-                    arrow.translateX(-400f * delta);
-                break;
+                case 'n': if (!arrowStop) arrow.translateY(400f * delta);
+                    break;
+                case 'e': if (!arrowStop) arrow.translateX(400f * delta);
+                    break;
+                case 's': if (!arrowStop) arrow.translateY(-400f * delta);
+                    break;
+                case 'w': if (!arrowStop) arrow.translateX(-400f * delta);
+                    break;
                 default: break;
             }
-            if(arrow.getX() > 32 || arrow.getY() > 32 || arrow.getX() < 22*currentLevel.getRowCount()
-                || arrow.getY() < 23*currentLevel.getColCount()) {
+            // removes arrow after a delay
+            if(arrowStop) {
                 time += Gdx.graphics.getDeltaTime();
-                if (time >= 0.74f) {
+                if (time >= 0.70f) {
                     arrowArray.removeIndex(i);
                     direction.removeIndex(i);
                     time = 0f;
