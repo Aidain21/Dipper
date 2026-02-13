@@ -26,6 +26,13 @@ public class Player {
     {
         Vector2Int dir = new Vector2Int(direct);
         Vector2Int end = new Vector2Int(pos.x + dir.x, pos.y + dir.y);
+
+        facing = dir;
+        if (dir.x == 0 && dir.y == 1){ pSprite.setRotation(0);}
+        if (dir.x == 0 && dir.y == -1){ pSprite.setRotation(180);}
+        if (dir.x == 1 && dir.y == 0){ pSprite.setRotation(270);}
+        if (dir.x == -1 && dir.y == 0){ pSprite.setRotation(90);}
+
         if (end.x < LEVEL_BOUNDS[0][0] || end.x > LEVEL_BOUNDS[1][0] ||
         end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
             return;
@@ -33,9 +40,9 @@ public class Player {
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
             switch (curLevel.level1[end.y][end.x]) {
                 case 'w':
+                case 'b':
                     return;
                 case 'l':
-                    if (dir.x == 0 && dir.y == 1){ curLevel.changeLevel('u');}
                     if (dir.x == 0 && dir.y == -1){ curLevel.changeLevel('d');}
                     if (dir.x == 1 && dir.y == 0){ curLevel.changeLevel('r');}
                     if (dir.x == -1 && dir.y == 0){ curLevel.changeLevel('l');}
@@ -45,11 +52,7 @@ public class Player {
         }
         pos = new Vector2Int(end.x, end.y);
 
-        facing = dir;
-        if (dir.x == 0 && dir.y == 1){ pSprite.setRotation(0);}
-        if (dir.x == 0 && dir.y == -1){ pSprite.setRotation(180);}
-        if (dir.x == 1 && dir.y == 0){ pSprite.setRotation(270);}
-        if (dir.x == -1 && dir.y == 0){ pSprite.setRotation(90);}
+
 
     }
 
