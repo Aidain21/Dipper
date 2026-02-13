@@ -43,10 +43,15 @@ public class Player {
                 case 'b':
                     return;
                 case 'l':
-                    if (dir.x == 0 && dir.y == 1){ pos = curLevel.changeLevel('u');}
-                    if (dir.x == 0 && dir.y == -1){ pos = curLevel.changeLevel('d');}
-                    if (dir.x == 1 && dir.y == 0){ pos = curLevel.changeLevel('r');}
-                    if (dir.x == -1 && dir.y == 0){ pos = curLevel.changeLevel('l');}
+                    Vector2Int check = new Vector2Int();
+                    if (dir.x == 0 && dir.y == 1){ check = curLevel.changeLevel('u');
+                        if(check.x!=-1) pos=check;}
+                    if (dir.x == 0 && dir.y == -1){ check = curLevel.changeLevel('d');
+                        if(check.x!=-1) pos=check;}
+                    if (dir.x == 1 && dir.y == 0){ check = curLevel.changeLevel('r');
+                        if(check.x!=-1) pos=check;}
+                    if (dir.x == -1 && dir.y == 0){ check = curLevel.changeLevel('l');
+                        if(check.x!=-1) pos=check;}
                     return;
                 default:
                     break;
@@ -73,6 +78,7 @@ public class Player {
                 curLevel.swapTiles(look.x,look.y,look.x + facing.x,look.y + facing.y);
                 System.out.print("block! I probably just pushed it.");
             case ' ':
+            case 'f':
                 break;
             default:
                 System.out.print(curLevel.level1[look.y][look.x]);
