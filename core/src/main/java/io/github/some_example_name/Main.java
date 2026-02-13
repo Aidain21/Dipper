@@ -29,6 +29,7 @@ public class Main extends ApplicationAdapter {
         currentRow=0;
         currentCol=0;
         level templevel=new level(8,8,1,1);
+        templevel.changeTile(3,2,'l');
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');

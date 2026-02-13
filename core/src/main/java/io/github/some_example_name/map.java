@@ -29,7 +29,7 @@ public class map {
     }
 
     public boolean isEmpty(int r, int c) {
-        if (r<0 || r>mapRows || c<0 || c>mapCols || (Arrays.deepEquals(levelMap[c][r].getLevel(), new level(0, 0).getLevel()))) {
+        if (r<0 || r>mapRows-1 || c<0 || c>mapCols-1 || (Arrays.deepEquals(levelMap[c][r].getLevel(), new level(0, 0).getLevel()))) {
             return true;
         }
         return false;
