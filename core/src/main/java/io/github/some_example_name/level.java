@@ -92,6 +92,13 @@ public class level extends ApplicationAdapter {
         }
     }
 
+    public char tileAtWorldPos(float x, float y) {
+        int rX = (int) x / 32;
+        int rY = (int) y / 32;
+        return level1[rY][rX];
+    }
+
+
     public void changeRow(int r, char fill){
         if(r>0 && r<rowCount){
             for(int i=1;i<colCount-1;i++)
