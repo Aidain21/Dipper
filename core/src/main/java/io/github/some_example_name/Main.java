@@ -112,7 +112,7 @@ public class Main extends ApplicationAdapter {
         image.dispose();
     }
 
-    public static void moveLevel(char rowCol, char upDown){
+    public static Vector2Int moveLevel(char rowCol, char upDown){
         if(rowCol=='r') {
             if (upDown == '+' && !levels.isEmpty(currentRow+1,currentCol))//!=null)
                 currentRow ++;
@@ -126,6 +126,7 @@ public class Main extends ApplicationAdapter {
                 currentCol --;
             }
         currentLevel=levels.getMap()[currentCol][currentRow];
+        return new Vector2Int(currentLevel.getSpawnRow(),currentLevel.getSpawnCol());
         }
     }
 
