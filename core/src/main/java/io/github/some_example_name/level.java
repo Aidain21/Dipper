@@ -52,7 +52,7 @@ public class level extends ApplicationAdapter {
         }
         for (int i = 1; i < rowCount-1; i++) {
             for (int j = 1; j < colCount-1; j++) {
-                level1[j][i] = ' ';
+                level1[j][i] = 'f';
             }
         }
     }
@@ -77,11 +77,27 @@ public class level extends ApplicationAdapter {
         return spawnCol;
     }
 
+    public void fillEmpty(char fill){
+        for(int i=0;i<rowCount;i++){
+            for(int j=0;j<colCount;j++){
+                if(level1[j][i]=='\u0000')
+                    level1[j][i]=fill;
+            }
+        }
+    }
+
     public void changeTile(int r, int c, char fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=fill;
         }
     }
+
+    public char tileAtWorldPos(float x, float y) {
+        int rX = (int) x / 32;
+        int rY = (int) y / 32;
+        return level1[rY][rX];
+    }
+
 
     public void changeRow(int r, char fill){
         if(r>0 && r<rowCount){
@@ -128,7 +144,7 @@ public class level extends ApplicationAdapter {
                 if (level1[j][i] == 'w') {
                     batch.draw(brickWallTexture, i * 32, j * 32, 32, 32);
                 }
-                if (level1[j][i] == ' ') {
+                if (level1[j][i] == 'f') {
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 }
                 if (level1[j][i] == 'l') {

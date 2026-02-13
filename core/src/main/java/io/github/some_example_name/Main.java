@@ -29,6 +29,7 @@ public class Main extends ApplicationAdapter {
         currentRow=0;
         currentCol=0;
         level templevel=new level(8,8,1,1);
+        templevel.changeTile(3,2,'l');
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');
@@ -112,21 +113,33 @@ public class Main extends ApplicationAdapter {
         image.dispose();
     }
 
-    public static Vector2Int moveLevel(char rowCol, char upDown){
-        if(rowCol=='r') {
-            if (upDown == '+' && !levels.isEmpty(currentRow+1,currentCol))//!=null)
-                currentRow ++;
-            if(upDown == '-' && !levels.isEmpty(currentRow-1,currentCol))
-                currentRow --;
-        }
-        if(rowCol=='c'){
-            if((upDown=='+') && !levels.isEmpty(currentRow,currentCol+1))
-                currentCol ++;
-            if((upDown=='-') && !levels.isEmpty(currentRow,currentCol-1))
-                currentCol --;
+    public static Vector2Int moveLevel(char rowCol, char upDown) {
+        boolean change = false;
+        if (rowCol == 'r') {
+            if (upDown == '+' && !levels.isEmpty(currentRow + 1, currentCol)) {
+                currentRow++;
+                change = true;
             }
-        currentLevel=levels.getMap()[currentCol][currentRow];
-        return new Vector2Int(currentLevel.getSpawnRow(),currentLevel.getSpawnCol());
+            if (upDown == '-' && !levels.isEmpty(currentRow - 1, currentCol)) {
+                currentRow--;
+                change = true;
+            }
         }
+        if (rowCol == 'c') {
+            if ((upDown == '+') && !levels.isEmpty(currentRow, currentCol + 1)) {
+                currentCol++;
+                change = true;
+            }
+            if ((upDown == '-') && !levels.isEmpty(currentRow, currentCol - 1)) {
+                currentCol--;
+                change = true;
+            }
+        }
+        if (change) {
+            currentLevel = levels.getMap()[currentCol][currentRow];
+            return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
+        }
+        return new Vector2Int(-1,-1);
+    }
     }
 
