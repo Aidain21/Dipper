@@ -69,6 +69,14 @@ public class level extends ApplicationAdapter {
         return colCount;
     }
 
+    public int getSpawnRow(){
+        return spawnRow;
+    }
+
+    public int getSpawnCol(){
+        return spawnCol;
+    }
+
     public void changeTile(int r, int c, char fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=fill;
@@ -89,15 +97,21 @@ public class level extends ApplicationAdapter {
         }
     }
 
-    public void changeLevel(char direction){
-        if(direction=='u')
-            Main.moveLevel('r','+');
-        if (direction=='d')
-            Main.moveLevel('r','-');
-        if(direction=='r')
-            Main.moveLevel('c','+');
-        if(direction=='l')
-            Main.moveLevel('c','-');
+    public Vector2Int changeLevel(char direction){
+        Vector2Int temp = new Vector2Int();
+        if(direction=='u') {
+            temp=Main.moveLevel('r', '+');
+        }
+        if (direction=='d') {
+            temp=Main.moveLevel('r', '-');
+        }
+        if(direction=='r') {
+            temp=Main.moveLevel('c', '+');
+        }
+        if(direction=='l') {
+            temp=Main.moveLevel('c', '-');
+        }
+        return temp;
     }
 
 //add swap tiles
