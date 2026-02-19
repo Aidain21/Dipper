@@ -21,6 +21,7 @@ public class level extends ApplicationAdapter {
     Texture backgroundTexture = new Texture("background.png");
     Texture crateTexture = new Texture("blockCrate.png");
     Texture portalTexture = new Texture("portal.png");
+    Texture diagonalWall = new Texture("diagonalWall.png");
 
     public level(int r, int c) {
         rowCount=r;
