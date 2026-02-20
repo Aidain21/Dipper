@@ -11,7 +11,7 @@ public class level extends ApplicationAdapter {
     int colCount;
     int spawnRow=1;
     int spawnCol=1;
-    TileFills temp = new TileFills();
+    TileFills generator = new TileFills();
 
     Texture brickWallTexture = new Texture("brickWall.png");
     Texture backgroundTexture = new Texture("background.png");
@@ -39,16 +39,16 @@ public class level extends ApplicationAdapter {
         level1=new TileFills[colCount][rowCount];
 
         for (int i = 0; i < rowCount; i++) {
-            level1[0][i]=(temp.CreateTileFills('w'));
-            level1[colCount-1][i]=(temp.CreateTileFills('w'));
+            level1[0][i]=(generator.CreateTileFills('w'));
+            level1[colCount-1][i]=(generator.CreateTileFills('w'));
         }
         for (int i = 0; i < colCount; i++) {
-            level1[i][0]=(temp.CreateTileFills('w'));
-            level1[i][rowCount-1]=(temp.CreateTileFills('w'));
+            level1[i][0]=(generator.CreateTileFills('w'));
+            level1[i][rowCount-1]=(generator.CreateTileFills('w'));
         }
         for (int i = 1; i < rowCount-1; i++) {
             for (int j = 1; j < colCount-1; j++) {
-                level1[j][i]=(temp.CreateTileFills('f'));
+                level1[j][i]=(generator.CreateTileFills('f'));
             }
         }
     }
@@ -86,7 +86,7 @@ public class level extends ApplicationAdapter {
  */
     public void changeTile(int r, int c, char fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=temp.CreateTileFills(fill);
+            level1[c][r]=generator.CreateTileFills(fill);
         }
     }
 /*
@@ -110,7 +110,7 @@ public class level extends ApplicationAdapter {
                 level1[c][i].addToTile(fill);
         }
     }
-
+    */
     public Vector2Int changeLevel(char direction){
         Vector2Int temp = new Vector2Int();
         if(direction=='u') {
@@ -128,16 +128,16 @@ public class level extends ApplicationAdapter {
         return temp;
     }
 
- */
+
 
 //add swap tiles
-    /*public void swapTiles(int r1,int c1,int r2,int c2){
-        char[] temp=level1[c1][r1].getTile();
-        level1[c1][r1].replaceTile(level1[c2][r2].getTile());
-        level1[c2][r2].replaceTile(temp);
+    public void swapTiles(int r1,int c1,int r2,int c2){
+        TileFills temp=level1[c1][r1];
+        level1[c1][r1]=level1[c2][r2];
+        level1[c2][r2]=temp;
     }
 
-     */
+
 
     public void drawLevel(SpriteBatch batch){
 
