@@ -6,7 +6,7 @@ public class Portal extends TileFills{
     private int nextX;
     private int nextY;
     public Portal(int x, int y){
-        fill='p';
+        fill='l';
         nextX=x;
         nextY=y;
     }
