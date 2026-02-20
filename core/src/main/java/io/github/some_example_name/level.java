@@ -130,7 +130,7 @@ public class level extends ApplicationAdapter {
 
 
 
-//add swap tiles
+//add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
         TileFills temp=level1[c1][r1];
         level1[c1][r1]=level1[c2][r2];
