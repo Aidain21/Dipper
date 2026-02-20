@@ -3,8 +3,8 @@ package io.github.some_example_name;
 import com.badlogic.gdx.math.Vector2;
 
 public class Portal extends TileFills{
-    private int nextX;
-    private int nextY;
+    int nextX;
+    int nextY;
     public Portal(int x, int y){
         fill='l';
         nextX=x;

@@ -90,11 +90,18 @@ public class level extends ApplicationAdapter {
         }
     }
 
+    public void changeTile(int r, int c, char fill, int nextX, int nextY){
+        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
+        }
+    }
+
     public char tileAtWorldPos(float x, float y) {
         int rX = (int) x / 32;
         int rY = (int) y / 32;
         return level1[rY][rX].getTileChar();
     }
+    /*
     public Vector2Int changeLevel(char direction){
         Vector2Int temp = new Vector2Int();
         if(direction=='u') {
@@ -112,6 +119,11 @@ public class level extends ApplicationAdapter {
         return temp;
     }
 
+     */
+
+    public Vector2Int changeLevel(Portal p){
+        return Main.moveLevel(p.nextX,p.nextY);
+    }
 
 
 //add error checking

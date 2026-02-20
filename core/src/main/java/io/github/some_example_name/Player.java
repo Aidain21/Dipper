@@ -51,6 +51,8 @@ public class Player {
                 case 'b':
                     return;
                 case 'l':
+                    pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
+                    /*
                     Vector2Int check;
                     if (dir.x == 0 && dir.y == 1) {
                         check = curLevel.changeLevel('u');
@@ -68,6 +70,8 @@ public class Player {
                         check = curLevel.changeLevel('l');
                         if (check.x != -1) pos = check;
                     }
+
+                     */
                     return;
                 default:
                     break;
