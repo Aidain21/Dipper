@@ -11,7 +11,6 @@ public class Bow {
     public Bow() {}
     private final Texture arrowTexture = new Texture("arrow.png");
     private final Array<Sprite> arrowArray = new Array<>();
-    private final Array<Character> direction = new Array<>();
     public final float cooldownTime = 0.75f;
     public float cooldown = 0f;
     private float time = 0f;
@@ -22,13 +21,12 @@ public class Bow {
         arrow.setSize(100, 24);
         arrow.setPosition(posX*32, posY*32);
         arrowArray.add(arrow);
-        direction.add(nesw);
         arrow.setScale(0.75f);
 
         switch(nesw) {
             case 'n': arrow.setX(posX*32+9); arrow.rotate(90); break;
             case 'e': arrow.setY(posY*32+7); break;
-            case 's': arrow.setX(posX*32-3); arrow.rotate(270); break;
+            case 's': arrow.setX(posX*32); arrow.rotate(270); break;
             case 'w': arrow.setY(posY*32+18); arrow.rotate(180); break;
             default: break;
         }
@@ -48,25 +46,31 @@ public class Bow {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w' ||
-                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='b' );
-            switch(direction.get(i)) {
-                case 'n': if (!arrowStop) arrow.translateY(400f * delta);
+            boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w');
+            boolean arrowRicochet = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'b');
+            int arrowRotation = (int) arrow.getRotation();
+            if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation()-360);
+            switch(arrowRotation) {
+                case 90: if (!arrowStop) arrow.translateY(400f * delta);
+                    if (arrowRicochet) ricochet(arrow, 0);
                     break;
-                case 'e': if (!arrowStop) arrow.translateX(400f * delta);
+                case 0: if (!arrowStop) arrow.translateX(400f * delta);
+                    //if (arrowRicochet) ricochet(arrow, 180);
                     break;
-                case 's': if (!arrowStop) arrow.translateY(-400f * delta);
+                case 270: if (!arrowStop) arrow.translateY(-400f * delta);
+                    //if (arrowRicochet) ricochet(arrow, 0);
                     break;
-                case 'w': if (!arrowStop) arrow.translateX(-400f * delta);
+                case 180: if (!arrowStop) arrow.translateX(-400f * delta);
+                    if (arrowRicochet) ricochet(arrow, 0);
                     break;
                 default: break;
             }
+
             // removes arrow after a delay
             if(arrowStop) {
                 time += Gdx.graphics.getDeltaTime();
-                if (time >= 0.70f) {
+                if (time >= 0.7f) {
                     arrowArray.removeIndex(i);
-                    direction.removeIndex(i);
                     time = 0f;
                 }
             }
@@ -74,6 +78,17 @@ public class Bow {
     }
     
  */
+
+    public void ricochet(Sprite arrow, float wallRotation) {
+        if (arrow.getRotation() == 0 && wallRotation == 270) arrow.rotate(270); // East
+        if (arrow.getRotation() == 0 && wallRotation == 180) arrow.rotate(90);
+        if (arrow.getRotation() == 90 && wallRotation == 0) arrow.rotate(270); // North
+        if (arrow.getRotation() == 90 && wallRotation == 270) arrow.rotate(90);
+        if (arrow.getRotation() == 180 && wallRotation == 0) arrow.rotate(90); // West
+        if (arrow.getRotation() == 180 && wallRotation == 90) arrow.rotate(270);
+        if (arrow.getRotation() == 270 && wallRotation == 90) arrow.rotate(90); // South
+        if (arrow.getRotation() == 270 && wallRotation == 180) arrow.rotate(270);
+    }
 
     // Draw
     public void drawArrow(SpriteBatch batch) {
