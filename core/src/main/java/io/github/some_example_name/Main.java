@@ -19,6 +19,7 @@ public class Main extends ApplicationAdapter {
     static int currentRow;
     static int currentCol;
     Bow bow;
+    TextBox textBox;
 
     @Override
     public void create() {
@@ -35,6 +36,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(2,4,'l');
         currentLevel.changeTile(5,5,'b');
         bow = new Bow();
+        textBox = new TextBox();
     }
 
     @Override
@@ -105,7 +107,7 @@ public class Main extends ApplicationAdapter {
         //the logo
         //batch.draw(image, 140, 210);
 
-
+        textBox.drawTextBox(batch);
         player.drawPlayer(batch);
         bow.drawArrow(batch);
     }

@@ -78,24 +78,22 @@ public class Player {
 
     public void playerInteract(level curLevel) {
         Vector2Int look = new Vector2Int(pos.x + facing.x, pos.y + facing.y);
-        System.out.println();
-        System.out.print("I see a ");
+
         switch (curLevel.level1[look.y][look.x].getTileChar()) {
             case 'w':
-                System.out.print("wall! It's solid like a rock.");
+                TextBox.text[0] = "I see a wall! It's solid like a rock.";
                 break;
             case 'l':
-                System.out.print("level transition! It's a swirly magic portal.");
+                TextBox.text[0] = "I see a level transition! It's a swirly magic portal.";
                 break;
             case 'b':
                 curLevel.swapTiles(look.x,look.y,look.x + facing.x,look.y + facing.y);
-                System.out.print("block! I probably just pushed it.");
+                TextBox.text[0] = "I see a block! I probably just pushed it.";
             case ' ':
             case 'f':
                 break;
             default:
-                System.out.print(curLevel.level1[look.y][look.x]);
-                System.out.print("! It's cool I guess.");
+                TextBox.text[0] = "I see a thing that I don't detect! It's cool I guess.";
                 break;
         }
     }
