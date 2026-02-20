@@ -101,25 +101,6 @@ public class level extends ApplicationAdapter {
         int rY = (int) y / 32;
         return level1[rY][rX].getTileChar();
     }
-    /*
-    public Vector2Int changeLevel(char direction){
-        Vector2Int temp = new Vector2Int();
-        if(direction=='u') {
-            temp=Main.moveLevel('r', '+');
-        }
-        if (direction=='d') {
-            temp=Main.moveLevel('r', '-');
-        }
-        if(direction=='r') {
-            temp=Main.moveLevel('c', '+');
-        }
-        if(direction=='l') {
-            temp=Main.moveLevel('c', '-');
-        }
-        return temp;
-    }
-
-     */
 
     public Vector2Int changeLevel(Portal p){
         return Main.moveLevel(p.nextX,p.nextY);

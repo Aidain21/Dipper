@@ -121,36 +121,6 @@ public class Main extends ApplicationAdapter {
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
 
     }
-    /*
-    public static Vector2Int moveLevel(char rowCol, char upDown) {
-        boolean change = false;
-        if (rowCol == 'r') {
-            if (upDown == '+' && !levels.isEmpty(currentRow + 1, currentCol)) {
-                currentRow++;
-                change = true;
-            }
-            if (upDown == '-' && !levels.isEmpty(currentRow - 1, currentCol)) {
-                currentRow--;
-                change = true;
-            }
-        }
-        if (rowCol == 'c') {
-            if ((upDown == '+') && !levels.isEmpty(currentRow, currentCol + 1)) {
-                currentCol++;
-                change = true;
-            }
-            if ((upDown == '-') && !levels.isEmpty(currentRow, currentCol - 1)) {
-                currentCol--;
-                change = true;
-            }
-        }
-        if (change) {
-            currentLevel = levels.getMap()[currentCol][currentRow];
-            return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
-        }
-        return new Vector2Int(-1,-1);
-    }
 
-     */
 }
 
