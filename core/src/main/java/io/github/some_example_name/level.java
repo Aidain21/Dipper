@@ -139,6 +139,9 @@ public class level extends ApplicationAdapter {
                 if (level1[j][i].getTileChar()=='f') {
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 }
+                if (level1[j][i].getTileChar()=='r') {
+                    batch.draw(diagonalWall, i * 32, j * 32, 32, 32);
+                }
 
             }
         }

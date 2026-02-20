@@ -16,6 +16,8 @@ public class TileFills {
             return new Wall();
         else if(fill=='b')
             return new Box();
+        else if(fill=='r')
+            return new diagonalWall(0);
         return new TileFills();
 
 

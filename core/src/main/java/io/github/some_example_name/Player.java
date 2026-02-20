@@ -49,6 +49,7 @@ public class Player {
             switch (curLevel.level1[end.y][end.x].getTileChar()) {
                 case 'w':
                 case 'b':
+                case 'r':
                     return;
                 case 'l':
                     Vector2Int check;

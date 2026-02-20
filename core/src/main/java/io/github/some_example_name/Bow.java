@@ -46,8 +46,9 @@ public class Bow {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w');
-            boolean arrowRicochet = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'b');
+            boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w' ||
+                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'b');
+            boolean arrowRicochet = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'r');
             int arrowRotation = (int) arrow.getRotation();
             if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation()-360);
             switch(arrowRotation) {

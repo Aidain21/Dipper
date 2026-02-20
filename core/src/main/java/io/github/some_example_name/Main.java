@@ -32,6 +32,7 @@ public class Main extends ApplicationAdapter {
         templevel.changeTile(3,2,'l');
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[currentCol][currentCol];
+        currentLevel.changeTile(3,7,'r');
         currentLevel.changeTile(2,4,'l');
         currentLevel.changeTile(5,5,'b');
         bow = new Bow();
