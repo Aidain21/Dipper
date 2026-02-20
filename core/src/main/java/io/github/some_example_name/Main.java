@@ -16,8 +16,6 @@ public class Main extends ApplicationAdapter {
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
-    static int currentRow;
-    static int currentCol;
     Bow bow;
 
     @Override
@@ -26,12 +24,10 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         levels = new map(2,2,10,10);
-        currentRow=0;
-        currentCol=0;
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,'l',0,0);
         levels.getMap()[1][0]=templevel;
-        currentLevel=levels.getMap()[currentCol][currentCol];
+        currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,'l',0,1);
         currentLevel.changeTile(5,5,'b');
         bow = new Bow();
