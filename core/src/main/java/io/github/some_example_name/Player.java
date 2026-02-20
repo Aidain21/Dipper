@@ -44,42 +44,14 @@ public class Player {
             end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
             return;
         }
+
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
-            TileFills i = (curLevel.level1[end.y][end.x]);
-            if (i.getTileChar()==('b')) {
-            }
-            if (i.getTileChar()==('b'))
-                return;
-            /*
-            else if (i.findInTile('l') > -1) {
-                Vector2Int check = new Vector2Int();
-                if (dir.x == 0 && dir.y == 1) {
-                    check = curLevel.changeLevel('u');
-                    if (check.x != -1) pos = check;
-                }
-                if (dir.x == 0 && dir.y == -1) {
-                    check = curLevel.changeLevel('d');
-                    if (check.x != -1) pos = check;
-                }
-                if (dir.x == 1 && dir.y == 0) {
-                    check = curLevel.changeLevel('r');
-                    if (check.x != -1) pos = check;
-                }
-                if (dir.x == -1 && dir.y == 0) {
-                    check = curLevel.changeLevel('l');
-                    if (check.x != -1) pos = check;
-                }
-
-             */
-
-            //return;
-            }
-/*
+            switch (curLevel.level1[end.y][end.x].getTileChar()) {
                 case 'w':
                 case 'b':
                     return;
                 case 'l':
-                    Vector2Int check = new Vector2Int();
+                    Vector2Int check;
                     if (dir.x == 0 && dir.y == 1) {
                         check = curLevel.changeLevel('u');
                         if (check.x != -1) pos = check;
@@ -99,20 +71,16 @@ public class Player {
                     return;
                 default:
                     break;
-
             }
         }
+        pos = new Vector2Int(end.x, end.y);
+    }
 
- */
-
-            pos = new Vector2Int(end.x, end.y);
-        }
-/*
     public void playerInteract(level curLevel) {
         Vector2Int look = new Vector2Int(pos.x + facing.x, pos.y + facing.y);
         System.out.println();
         System.out.print("I see a ");
-        switch (curLevel.level1[look.y][look.x]) {
+        switch (curLevel.level1[look.y][look.x].getTileChar()) {
             case 'w':
                 System.out.print("wall! It's solid like a rock.");
                 break;
@@ -132,7 +100,7 @@ public class Player {
         }
     }
 
- */
+
 
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {

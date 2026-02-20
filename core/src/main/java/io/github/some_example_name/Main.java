@@ -12,17 +12,17 @@ import com.badlogic.gdx.math.Vector2;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-    //Player player;
+    Player player;
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
     static int currentRow;
     static int currentCol;
-//    Bow bow;
+    //Bow bow;
 
     @Override
     public void create() {
-        //player = new Player();
+        player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         levels = new map(2,2,10,10);
@@ -41,12 +41,12 @@ public class Main extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
-        //input();
+        input();
         //logic();
         draw();
         batch.end();
     }
-/*
+
     private void input() {
         // Movement
         if (inputTimer <= 0) {
@@ -76,9 +76,6 @@ public class Main extends ApplicationAdapter {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
     }
-
- */
-
 /*
         // Arrows
         bow.cooldown += Gdx.graphics.getDeltaTime();
@@ -109,7 +106,7 @@ public class Main extends ApplicationAdapter {
         //batch.draw(image, 140, 210);
 
 
-        //player.drawPlayer(batch);
+        player.drawPlayer(batch);
         //bow.drawArrow(batch);
     }
 
@@ -118,7 +115,7 @@ public class Main extends ApplicationAdapter {
         batch.dispose();
         image.dispose();
     }
-/*
+
     public static Vector2Int moveLevel(char rowCol, char upDown) {
         boolean change = false;
         if (rowCol == 'r') {
@@ -147,7 +144,5 @@ public class Main extends ApplicationAdapter {
         }
         return new Vector2Int(-1,-1);
     }
-
- */
-    }
+}
 
