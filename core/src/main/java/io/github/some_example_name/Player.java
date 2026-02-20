@@ -52,23 +52,7 @@ public class Player {
                 case 'r':
                     return;
                 case 'l':
-                    Vector2Int check;
-                    if (dir.x == 0 && dir.y == 1) {
-                        check = curLevel.changeLevel('u');
-                        if (check.x != -1) pos = check;
-                    }
-                    if (dir.x == 0 && dir.y == -1) {
-                        check = curLevel.changeLevel('d');
-                        if (check.x != -1) pos = check;
-                    }
-                    if (dir.x == 1 && dir.y == 0) {
-                        check = curLevel.changeLevel('r');
-                        if (check.x != -1) pos = check;
-                    }
-                    if (dir.x == -1 && dir.y == 0) {
-                        check = curLevel.changeLevel('l');
-                        if (check.x != -1) pos = check;
-                    }
+                    pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
                     return;
                 default:
                     break;

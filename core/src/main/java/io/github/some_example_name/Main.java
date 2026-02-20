@@ -16,8 +16,6 @@ public class Main extends ApplicationAdapter {
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
-    static int currentRow;
-    static int currentCol;
     Bow bow;
 
     @Override
@@ -26,14 +24,11 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         levels = new map(2,2,10,10);
-        currentRow=0;
-        currentCol=0;
         level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,'l');
+        templevel.changeTile(3,2,'l',0,0);
         levels.getMap()[1][0]=templevel;
-        currentLevel=levels.getMap()[currentCol][currentCol];
-        currentLevel.changeTile(3,7,'r');
-        currentLevel.changeTile(2,4,'l');
+        currentLevel=levels.getMap()[0][0];
+        currentLevel.changeTile(2,4,'l',0,1);
         currentLevel.changeTile(5,5,'b');
         bow = new Bow();
     }
@@ -117,33 +112,11 @@ public class Main extends ApplicationAdapter {
         image.dispose();
     }
 
-    public static Vector2Int moveLevel(char rowCol, char upDown) {
-        boolean change = false;
-        if (rowCol == 'r') {
-            if (upDown == '+' && !levels.isEmpty(currentRow + 1, currentCol)) {
-                currentRow++;
-                change = true;
-            }
-            if (upDown == '-' && !levels.isEmpty(currentRow - 1, currentCol)) {
-                currentRow--;
-                change = true;
-            }
-        }
-        if (rowCol == 'c') {
-            if ((upDown == '+') && !levels.isEmpty(currentRow, currentCol + 1)) {
-                currentCol++;
-                change = true;
-            }
-            if ((upDown == '-') && !levels.isEmpty(currentRow, currentCol - 1)) {
-                currentCol--;
-                change = true;
-            }
-        }
-        if (change) {
-            currentLevel = levels.getMap()[currentCol][currentRow];
-            return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
-        }
-        return new Vector2Int(-1,-1);
+    public static Vector2Int moveLevel(int x, int y){
+        currentLevel=levels.getMap()[y][x];
+        return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
+
     }
+
 }
 

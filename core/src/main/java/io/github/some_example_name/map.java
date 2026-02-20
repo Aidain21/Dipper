@@ -16,7 +16,6 @@ public class map {
         levelMap = new level[mapCols][mapRows];
 
         for(int i=0;i<mapRows;i++) {
-            System.out.print(i);
             for (int j = 0; j < mapCols; j++) {
                 levelMap[j][i] = new level(0, 0);
             }

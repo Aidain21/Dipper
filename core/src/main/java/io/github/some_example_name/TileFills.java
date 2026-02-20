@@ -8,9 +8,7 @@ public class TileFills {
     }
 
     public TileFills CreateTileFills(char fill){
-        if(fill=='l')
-            return new Portal(1,0);
-        else if(fill=='f')
+        if(fill=='f')
             return new Floor();
         else if(fill=='w')
             return new Wall();
@@ -19,8 +17,12 @@ public class TileFills {
         else if(fill=='r')
             return new diagonalWall(0);
         return new TileFills();
+    }
 
-
+    public TileFills CreateTileFills(char fill, int x, int y){
+        if(fill=='l')
+            return new Portal(x,y);
+        return new TileFills();
     }
 
     public char getTileChar(){
