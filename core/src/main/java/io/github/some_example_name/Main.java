@@ -18,7 +18,7 @@ public class Main extends ApplicationAdapter {
     static map levels;
     static int currentRow;
     static int currentCol;
-    //Bow bow;
+    Bow bow;
 
     @Override
     public void create() {
@@ -34,7 +34,7 @@ public class Main extends ApplicationAdapter {
         currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');
         currentLevel.changeTile(5,5,'b');
-        //bow = new Bow();
+        bow = new Bow();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Main extends ApplicationAdapter {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
         input();
-        //logic();
+        logic();
         draw();
         batch.end();
     }
@@ -75,8 +75,8 @@ public class Main extends ApplicationAdapter {
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
-    }
-/*
+
+
         // Arrows
         bow.cooldown += Gdx.graphics.getDeltaTime();
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -98,7 +98,7 @@ public class Main extends ApplicationAdapter {
     private void logic() {
         bow.arrowLogic();
     }
- */
+
     private void draw() {
         currentLevel.drawLevel(batch);
 
@@ -107,7 +107,7 @@ public class Main extends ApplicationAdapter {
 
 
         player.drawPlayer(batch);
-        //bow.drawArrow(batch);
+        bow.drawArrow(batch);
     }
 
     @Override

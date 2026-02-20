@@ -39,7 +39,7 @@ public class Bow {
             cooldown = 0f;
         }
     }
-/*
+
     // Makes arrow move in a straight line
     // stops if it hits a wall
     public void arrowLogic() {
@@ -76,8 +76,8 @@ public class Bow {
             }
         }
     }
-    
- */
+
+
 
     public void ricochet(Sprite arrow, float wallRotation) {
         if (arrow.getRotation() == 0 && wallRotation == 270) arrow.rotate(270); // East
