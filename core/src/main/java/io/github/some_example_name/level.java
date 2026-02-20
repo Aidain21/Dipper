@@ -33,8 +33,7 @@ public class level extends ApplicationAdapter {
 
 
     }
-    //public level(){
-        //level1=new char[5][5];
+
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
 
@@ -89,28 +88,12 @@ public class level extends ApplicationAdapter {
             level1[c][r]=generator.CreateTileFills(fill);
         }
     }
-/*
+
     public char tileAtWorldPos(float x, float y) {
         int rX = (int) x / 32;
         int rY = (int) y / 32;
-        return level1[rY][rX];
+        return level1[rY][rX].getTileChar();
     }
-
-
-    public void changeRow(int r, char fill){
-        if(r>0 && r<rowCount){
-            for(int i=1;i<colCount-1;i++)
-                level1[i][r].addToTile(fill);
-        }
-    }
-
-    public void changeCol(int c, char fill){
-        if(c>0 && c<colCount){
-            for(int i=1;i<colCount-1;i++)
-                level1[c][i].addToTile(fill);
-        }
-    }
-    */
     public Vector2Int changeLevel(char direction){
         Vector2Int temp = new Vector2Int();
         if(direction=='u') {
