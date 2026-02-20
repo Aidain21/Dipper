@@ -14,8 +14,14 @@ public class TileFills {
             return new Wall();
         else if(fill=='b')
             return new Box();
-        else if(fill=='r')
-            return new diagonalWall(0);
+        else if(fill=='1')
+            return new diagonalWall(1);
+        else if(fill=='2')
+            return new diagonalWall(2);
+        else if(fill=='3')
+            return new diagonalWall(3);
+        else if(fill=='4')
+            return new diagonalWall(4);
         return new TileFills();
     }
 

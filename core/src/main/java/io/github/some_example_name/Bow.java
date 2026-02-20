@@ -48,21 +48,29 @@ public class Bow {
             Sprite arrow = arrowArray.get(i);
             boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w' ||
                 currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'b');
-            boolean arrowRicochet = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'r');
+            boolean arrowRicochet = (
+                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '1' ||
+                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '2' ||
+                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '3' ||
+                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '4');
             int arrowRotation = (int) arrow.getRotation();
             if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation()-360);
             switch(arrowRotation) {
                 case 90: if (!arrowStop) arrow.translateY(400f * delta);
-                    if (arrowRicochet) ricochet(arrow, 0);
+                    if (arrowRicochet && ricochet(arrow) == '1') arrow.rotate(270);
+                    if (arrowRicochet && ricochet(arrow) == '2') arrow.rotate(90);
                     break;
                 case 0: if (!arrowStop) arrow.translateX(400f * delta);
-                    //if (arrowRicochet) ricochet(arrow, 180);
+                    if (arrowRicochet && ricochet(arrow) == '2') arrow.rotate(270);
+                    if (arrowRicochet && ricochet(arrow) == '3') arrow.rotate(90);
                     break;
                 case 270: if (!arrowStop) arrow.translateY(-400f * delta);
-                    //if (arrowRicochet) ricochet(arrow, 0);
+                    if (arrowRicochet && ricochet(arrow) == '4') arrow.rotate(270);
+                    if (arrowRicochet && ricochet(arrow) == '2') arrow.rotate(90);
                     break;
                 case 180: if (!arrowStop) arrow.translateX(-400f * delta);
-                    if (arrowRicochet) ricochet(arrow, 0);
+                    if (arrowRicochet && ricochet(arrow) == '3') arrow.rotate(270);
+                    if (arrowRicochet && ricochet(arrow) == '1') arrow.rotate(90);
                     break;
                 default: break;
             }
@@ -78,17 +86,8 @@ public class Bow {
         }
     }
 
-
-
-    public void ricochet(Sprite arrow, float wallRotation) {
-        if (arrow.getRotation() == 0 && wallRotation == 270) arrow.rotate(270); // East
-        if (arrow.getRotation() == 0 && wallRotation == 180) arrow.rotate(90);
-        if (arrow.getRotation() == 90 && wallRotation == 0) arrow.rotate(270); // North
-        if (arrow.getRotation() == 90 && wallRotation == 270) arrow.rotate(90);
-        if (arrow.getRotation() == 180 && wallRotation == 0) arrow.rotate(90); // West
-        if (arrow.getRotation() == 180 && wallRotation == 90) arrow.rotate(270);
-        if (arrow.getRotation() == 270 && wallRotation == 90) arrow.rotate(90); // South
-        if (arrow.getRotation() == 270 && wallRotation == 180) arrow.rotate(270);
+    private char ricochet(Sprite arrow) {
+        return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());
     }
 
     // Draw

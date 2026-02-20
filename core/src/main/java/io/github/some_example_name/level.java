@@ -17,7 +17,6 @@ public class level extends ApplicationAdapter {
     Texture backgroundTexture = new Texture("background.png");
     Texture crateTexture = new Texture("blockCrate.png");
     Texture portalTexture = new Texture("portal.png");
-    Texture diagonalWall = new Texture("diagonalWall.png");
 
     public level(int r, int c) {
         rowCount=r;
@@ -132,8 +131,17 @@ public class level extends ApplicationAdapter {
                 if (level1[j][i].getTileChar()=='f') {
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 }
-                if (level1[j][i].getTileChar()=='r') {
-                    batch.draw(diagonalWall, i * 32, j * 32, 32, 32);
+                if (level1[j][i].getTileChar()=='1') {
+                    batch.draw(diagonalWall.diagonalWall, i * 32, j * 32, 32, 32);
+                }
+                if (level1[j][i].getTileChar()=='2') {
+                    batch.draw(diagonalWall.diagonalWall2, i * 32, j * 32, 32, 32);
+                }
+                if (level1[j][i].getTileChar()=='3') {
+                    batch.draw(diagonalWall.diagonalWall3, i * 32, j * 32, 32, 32);
+                }
+                if (level1[j][i].getTileChar()=='4') {
+                    batch.draw(diagonalWall.diagonalWall4, i * 32, j * 32, 32, 32);
                 }
 
             }

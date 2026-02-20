@@ -49,7 +49,10 @@ public class Player {
             switch (curLevel.level1[end.y][end.x].getTileChar()) {
                 case 'w':
                 case 'b':
-                case 'r':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
                     return;
                 case 'l':
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
