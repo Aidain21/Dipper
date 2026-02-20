@@ -12,17 +12,17 @@ import com.badlogic.gdx.math.Vector2;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-    Player player;
+    //Player player;
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
     static int currentRow;
     static int currentCol;
-    Bow bow;
+//    Bow bow;
 
     @Override
     public void create() {
-        player = new Player();
+        //player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         levels = new map(2,2,10,10);
@@ -34,19 +34,19 @@ public class Main extends ApplicationAdapter {
         currentLevel=levels.getMap()[currentCol][currentCol];
         currentLevel.changeTile(2,4,'l');
         currentLevel.changeTile(5,5,'b');
-        bow = new Bow();
+        //bow = new Bow();
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
-        input();
-        logic();
+        //input();
+        //logic();
         draw();
         batch.end();
     }
-
+/*
     private void input() {
         // Movement
         if (inputTimer <= 0) {
@@ -70,11 +70,16 @@ public class Main extends ApplicationAdapter {
                 player.playerInteract(currentLevel);
                 inputTimer = 0.1f;
             }
-        }
-        else {
+
+
+        } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
+    }
 
+ */
+
+/*
         // Arrows
         bow.cooldown += Gdx.graphics.getDeltaTime();
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -96,6 +101,7 @@ public class Main extends ApplicationAdapter {
     private void logic() {
         bow.arrowLogic();
     }
+ */
     private void draw() {
         currentLevel.drawLevel(batch);
 
@@ -103,8 +109,8 @@ public class Main extends ApplicationAdapter {
         //batch.draw(image, 140, 210);
 
 
-        player.drawPlayer(batch);
-        bow.drawArrow(batch);
+        //player.drawPlayer(batch);
+        //bow.drawArrow(batch);
     }
 
     @Override
@@ -112,7 +118,7 @@ public class Main extends ApplicationAdapter {
         batch.dispose();
         image.dispose();
     }
-
+/*
     public static Vector2Int moveLevel(char rowCol, char upDown) {
         boolean change = false;
         if (rowCol == 'r') {
@@ -141,5 +147,7 @@ public class Main extends ApplicationAdapter {
         }
         return new Vector2Int(-1,-1);
     }
+
+ */
     }
 

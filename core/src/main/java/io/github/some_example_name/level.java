@@ -6,17 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class level extends ApplicationAdapter {
-    char[][] level1;
+    TileFills[][] level1;
     int rowCount;
     int colCount;
     int spawnRow=1;
     int spawnCol=1;
+    TileFills temp = new TileFills();
 
-    //char[][] levelBase;
-    //int currentRow;
-    //int currentCol;
-    //level currentLevel;
-    //map levels;
     Texture brickWallTexture = new Texture("brickWall.png");
     Texture backgroundTexture = new Texture("background.png");
     Texture crateTexture = new Texture("blockCrate.png");
@@ -40,24 +36,24 @@ public class level extends ApplicationAdapter {
     //public level(){
         //level1=new char[5][5];
     public void createLevel(){
-        level1=new char[colCount][rowCount];
+        level1=new TileFills[colCount][rowCount];
 
         for (int i = 0; i < rowCount; i++) {
-            level1[0][i] = 'w';
-            level1[colCount-1][i] = 'w';
+            level1[0][i]=(temp.CreateTileFills('w'));
+            level1[colCount-1][i]=(temp.CreateTileFills('w'));
         }
         for (int i = 0; i < colCount; i++) {
-            level1[i][0] = 'w';
-            level1[i][rowCount-1] = 'w';
+            level1[i][0]=(temp.CreateTileFills('w'));
+            level1[i][rowCount-1]=(temp.CreateTileFills('w'));
         }
         for (int i = 1; i < rowCount-1; i++) {
             for (int j = 1; j < colCount-1; j++) {
-                level1[j][i] = 'f';
+                level1[j][i]=(temp.CreateTileFills('f'));
             }
         }
     }
 
-    public char[][] getLevel(){
+    public TileFills[][] getLevel(){
         return level1;
     }
 
@@ -76,22 +72,24 @@ public class level extends ApplicationAdapter {
     public int getSpawnCol(){
         return spawnCol;
     }
-
+/*
     public void fillEmpty(char fill){
         for(int i=0;i<rowCount;i++){
             for(int j=0;j<colCount;j++){
-                if(level1[j][i]=='\u0000')
-                    level1[j][i]=fill;
+                if(level1[j][i].findInTile('\u0000')>-1)
+                    level1[j][i].addToTile(fill);;
             }
         }
     }
 
+
+ */
     public void changeTile(int r, int c, char fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=fill;
+            level1[c][r]=temp.CreateTileFills(fill);
         }
     }
-
+/*
     public char tileAtWorldPos(float x, float y) {
         int rX = (int) x / 32;
         int rY = (int) y / 32;
@@ -102,14 +100,14 @@ public class level extends ApplicationAdapter {
     public void changeRow(int r, char fill){
         if(r>0 && r<rowCount){
             for(int i=1;i<colCount-1;i++)
-                level1[i][r]=fill;
+                level1[i][r].addToTile(fill);
         }
     }
 
     public void changeCol(int c, char fill){
         if(c>0 && c<colCount){
             for(int i=1;i<colCount-1;i++)
-                level1[c][i]=fill;
+                level1[c][i].addToTile(fill);
         }
     }
 
@@ -130,32 +128,36 @@ public class level extends ApplicationAdapter {
         return temp;
     }
 
+ */
+
 //add swap tiles
-    public void swapTiles(int r1,int c1,int r2,int c2){
-        char temp=level1[c1][r1];
-        level1[c1][r1]=level1[c2][r2];
-        level1[c2][r2]=temp;
+    /*public void swapTiles(int r1,int c1,int r2,int c2){
+        char[] temp=level1[c1][r1].getTile();
+        level1[c1][r1].replaceTile(level1[c2][r2].getTile());
+        level1[c2][r2].replaceTile(temp);
     }
+
+     */
 
     public void drawLevel(SpriteBatch batch){
 
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < colCount; j++) {
-                if (level1[j][i] == 'w') {
-                    batch.draw(brickWallTexture, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i] == 'f') {
-                    batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i] == 'l') {
+                if (level1[j][i].getTileChar()=='l') {
                     batch.draw(portalTexture, i * 32, j * 32, 32, 32);
                 }
-                if (level1[j][i] == 'b') {
+                if (level1[j][i].getTileChar()=='b') {
                     batch.draw(crateTexture, i * 32, j * 32, 32, 32);
                 }
+                if (level1[j][i].getTileChar()=='w') {
+                    batch.draw(brickWallTexture, i * 32, j * 32, 32, 32);
+                }
+                if (level1[j][i].getTileChar()=='f') {
+                    batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
+                }
+
             }
         }
     }
-
 
 }

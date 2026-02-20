@@ -22,47 +22,92 @@ public class Player {
     }
 
     //moves player based on direction inputted and current level
-    public void gridMove(Vector2 direct, level curLevel)
-    {
+    public void gridMove(Vector2 direct, level curLevel) {
         Vector2Int dir = new Vector2Int(direct);
         Vector2Int end = new Vector2Int(pos.x + dir.x, pos.y + dir.y);
 
         facing = dir;
-        if (dir.x == 0 && dir.y == 1){ pSprite.setRotation(0);}
-        if (dir.x == 0 && dir.y == -1){ pSprite.setRotation(180);}
-        if (dir.x == 1 && dir.y == 0){ pSprite.setRotation(270);}
-        if (dir.x == -1 && dir.y == 0){ pSprite.setRotation(90);}
+        if (dir.x == 0 && dir.y == 1) {
+            pSprite.setRotation(0);
+        }
+        if (dir.x == 0 && dir.y == -1) {
+            pSprite.setRotation(180);
+        }
+        if (dir.x == 1 && dir.y == 0) {
+            pSprite.setRotation(270);
+        }
+        if (dir.x == -1 && dir.y == 0) {
+            pSprite.setRotation(90);
+        }
 
         if (end.x < LEVEL_BOUNDS[0][0] || end.x > LEVEL_BOUNDS[1][0] ||
-        end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
+            end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
             return;
         }
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
-            switch (curLevel.level1[end.y][end.x]) {
+            TileFills i = (curLevel.level1[end.y][end.x]);
+            if (i.getTileChar()==('b')) {
+            }
+            if (i.getTileChar()==('b'))
+                return;
+            /*
+            else if (i.findInTile('l') > -1) {
+                Vector2Int check = new Vector2Int();
+                if (dir.x == 0 && dir.y == 1) {
+                    check = curLevel.changeLevel('u');
+                    if (check.x != -1) pos = check;
+                }
+                if (dir.x == 0 && dir.y == -1) {
+                    check = curLevel.changeLevel('d');
+                    if (check.x != -1) pos = check;
+                }
+                if (dir.x == 1 && dir.y == 0) {
+                    check = curLevel.changeLevel('r');
+                    if (check.x != -1) pos = check;
+                }
+                if (dir.x == -1 && dir.y == 0) {
+                    check = curLevel.changeLevel('l');
+                    if (check.x != -1) pos = check;
+                }
+
+             */
+
+            //return;
+            }
+/*
                 case 'w':
                 case 'b':
                     return;
                 case 'l':
                     Vector2Int check = new Vector2Int();
-                    if (dir.x == 0 && dir.y == 1){ check = curLevel.changeLevel('u');
-                        if(check.x!=-1) pos=check;}
-                    if (dir.x == 0 && dir.y == -1){ check = curLevel.changeLevel('d');
-                        if(check.x!=-1) pos=check;}
-                    if (dir.x == 1 && dir.y == 0){ check = curLevel.changeLevel('r');
-                        if(check.x!=-1) pos=check;}
-                    if (dir.x == -1 && dir.y == 0){ check = curLevel.changeLevel('l');
-                        if(check.x!=-1) pos=check;}
+                    if (dir.x == 0 && dir.y == 1) {
+                        check = curLevel.changeLevel('u');
+                        if (check.x != -1) pos = check;
+                    }
+                    if (dir.x == 0 && dir.y == -1) {
+                        check = curLevel.changeLevel('d');
+                        if (check.x != -1) pos = check;
+                    }
+                    if (dir.x == 1 && dir.y == 0) {
+                        check = curLevel.changeLevel('r');
+                        if (check.x != -1) pos = check;
+                    }
+                    if (dir.x == -1 && dir.y == 0) {
+                        check = curLevel.changeLevel('l');
+                        if (check.x != -1) pos = check;
+                    }
                     return;
                 default:
                     break;
+
             }
         }
-        pos = new Vector2Int(end.x, end.y);
 
+ */
 
-
-    }
-
+            pos = new Vector2Int(end.x, end.y);
+        }
+/*
     public void playerInteract(level curLevel) {
         Vector2Int look = new Vector2Int(pos.x + facing.x, pos.y + facing.y);
         System.out.println();
@@ -87,10 +132,14 @@ public class Player {
         }
     }
 
+ */
+
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
         pSprite.setPosition(pos.x * 32, pos.y *32);
         pSprite.draw(batch);
     }
+
+
 }
 

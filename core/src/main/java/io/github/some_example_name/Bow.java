@@ -41,7 +41,7 @@ public class Bow {
             cooldown = 0f;
         }
     }
-
+/*
     // Makes arrow move in a straight line
     // stops if it hits a wall
     public void arrowLogic() {
@@ -72,6 +72,8 @@ public class Bow {
             }
         }
     }
+    
+ */
 
     // Draw
     public void drawArrow(SpriteBatch batch) {
