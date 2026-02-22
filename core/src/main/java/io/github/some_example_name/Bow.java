@@ -21,13 +21,14 @@ public class Bow {
         arrow.setSize(100, 24);
         arrow.setPosition(posX*32, posY*32);
         arrowArray.add(arrow);
+        arrow.setOrigin(20, 12.5f);
         arrow.setScale(0.75f);
 
         switch(nesw) {
-            case 'n': arrow.setX(posX*32+9); arrow.rotate(90); break;
-            case 'e': arrow.setY(posY*32+7); break;
-            case 's': arrow.setX(posX*32); arrow.rotate(270); break;
-            case 'w': arrow.setY(posY*32+18); arrow.rotate(180); break;
+            case 'n': arrow.translateX(-5); arrow.rotate(90); break;
+            case 'e': arrow.translateY(5); break;
+            case 's': arrow.translateX(-5); arrow.rotate(270); break;
+            case 'w': arrow.translateY(5); arrow.rotate(180); break;
             default: break;
         }
     }
@@ -57,20 +58,36 @@ public class Bow {
             if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation()-360);
             switch(arrowRotation) {
                 case 90: if (!arrowStop) arrow.translateY(400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '1') arrow.rotate(270);
-                    if (arrowRicochet && ricochet(arrow) == '2') arrow.rotate(90);
+                    if (arrowRicochet && ricochet(arrow) == '1') {
+                        arrow.translateY(15); arrow.rotate(270);
+                    }
+                    if (arrowRicochet && ricochet(arrow) == '2') {
+                        arrow.translateY(15); arrow.rotate(90);
+                    }
                     break;
                 case 0: if (!arrowStop) arrow.translateX(400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '2') arrow.rotate(270);
-                    if (arrowRicochet && ricochet(arrow) == '3') arrow.rotate(90);
+                    if (arrowRicochet && ricochet(arrow) == '2') {
+                        arrow.translateX(8); arrow.rotate(270);
+                    }
+                    if (arrowRicochet && ricochet(arrow) == '4') {
+                        arrow.translateX(7); arrow.rotate(90);
+                    }
                     break;
                 case 270: if (!arrowStop) arrow.translateY(-400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '4') arrow.rotate(270);
-                    if (arrowRicochet && ricochet(arrow) == '2') arrow.rotate(90);
+                    if (arrowRicochet && ricochet(arrow) == '4') {
+                        arrow.translateY(-7); arrow.rotate(270);
+                    }
+                    if (arrowRicochet && ricochet(arrow) == '3') {
+                        arrow.translateY(-7); arrow.rotate(90);
+                    }
                     break;
                 case 180: if (!arrowStop) arrow.translateX(-400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '3') arrow.rotate(270);
-                    if (arrowRicochet && ricochet(arrow) == '1') arrow.rotate(90);
+                    if (arrowRicochet && ricochet(arrow) == '3') {
+                        arrow.setX(arrow.getX()-16); arrow.rotate(270);
+                    }
+                    if (arrowRicochet && ricochet(arrow) == '1') {
+                        arrow.translateX(-16); arrow.rotate(90);
+                    }
                     break;
                 default: break;
             }

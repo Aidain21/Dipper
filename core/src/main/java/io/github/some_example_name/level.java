@@ -96,8 +96,8 @@ public class level extends ApplicationAdapter {
     }
 
     public char tileAtWorldPos(float x, float y) {
-        int rX = (int) x / 32;
-        int rY = (int) y / 32;
+        int rX = Math.round( x / 32);
+        int rY = Math.round( y / 32);
         return level1[rY][rX].getTileChar();
     }
 
