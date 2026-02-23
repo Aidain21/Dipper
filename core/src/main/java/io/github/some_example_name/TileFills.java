@@ -10,12 +10,16 @@ public class TileFills {
     }
 
     public TileFills CreateTileFills(char fill){
-        if(fill=='f')
-            return new Floor();
-        else if(fill=='w')
-            return new Wall();
-        else if(fill=='b')
-            return new Box();
+        switch (fill) {
+            case 'f': return new Floor();
+            case 'w': return new Walls.Wall();
+            case 'b': return new Box();
+            case '1':
+            case '2':
+            case '3':
+            case '4': return new Walls.Bouncy(fill);
+            default: break;
+        }
         return new TileFills();
     }
 

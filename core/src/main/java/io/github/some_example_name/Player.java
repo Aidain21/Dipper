@@ -49,6 +49,10 @@ public class Player {
             switch (curLevel.level1[end.y][end.x].getTileChar()) {
                 case 'w':
                 case 'b':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
                     return;
                 case 'l':
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
@@ -78,6 +82,12 @@ public class Player {
                 TextBox.text[0] = "I see a block! I probably just pushed it.";
             case ' ':
             case 'f':
+                break;
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+                System.out.print("Bouncy Wall! Maybe this could deflect something.");
                 break;
             default:
                 TextBox.text[0] = "I see a thing that I don't detect! It's cool I guess.";
