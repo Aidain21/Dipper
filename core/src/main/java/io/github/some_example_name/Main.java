@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -17,6 +19,8 @@ public class Main extends ApplicationAdapter {
     static level currentLevel;
     static map levels;
     Bow bow;
+    TextBox textBox;
+    Viewport viewport;
 
     @Override
     public void create() {
@@ -32,16 +36,28 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(1,5,'p',3,3);
         currentLevel.changeTile(5,5,'b');
         bow = new Bow();
+        textBox = new TextBox();
+        viewport = new FitViewport(960,720);
+
+        Gdx.graphics.setWindowedMode(960, 720);
+
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         input();
         logic();
         draw();
         batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height, true);
     }
 
     private void input() {
@@ -102,7 +118,7 @@ public class Main extends ApplicationAdapter {
         //the logo
         //batch.draw(image, 140, 210);
 
-
+        textBox.drawTextBox(batch);
         player.drawPlayer(batch);
         bow.drawArrow(batch);
     }
