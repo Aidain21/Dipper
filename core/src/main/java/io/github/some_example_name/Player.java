@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player {
 
-    public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {19,14}};
+    public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {29,19}};
     public Vector2Int pos;
     public Vector2Int facing;
     public Texture img;
