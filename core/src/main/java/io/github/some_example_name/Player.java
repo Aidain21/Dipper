@@ -87,7 +87,7 @@ public class Player {
             case '2':
             case '3':
             case '4':
-                System.out.print("Bouncy Wall! Maybe this could deflect something.");
+                TextBox.text[0] ="Bouncy Wall! Maybe this could deflect something.";
                 break;
             default:
                 TextBox.text[0] = "I see a thing that I don't detect! It's cool I guess.";
