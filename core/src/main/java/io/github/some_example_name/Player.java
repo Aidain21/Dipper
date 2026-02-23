@@ -81,6 +81,12 @@ public class Player {
             case ' ':
             case 'f':
                 break;
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+                System.out.print("Bouncy Wall! Maybe this could deflect something.");
+                break;
             default:
                 System.out.print(curLevel.level1[look.y][look.x]);
                 System.out.print("! It's cool I guess.");

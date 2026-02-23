@@ -16,24 +16,29 @@ public class Main extends ApplicationAdapter {
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
-    Bow bow;
+    static Bow bow;
 
     @Override
     public void create() {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        levels = new map(2,2,10,10);
+        levels = new map(2,2,12,12);
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,'l',0,0);
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,'l',0,1);
         currentLevel.changeTile(5,5,'b');
-        currentLevel.changeTile(1,8,'1');
-        currentLevel.changeTile(8,8,'2');
-        currentLevel.changeTile(1,1,'3');
-        currentLevel.changeTile(8,1,'4');
+        currentLevel.changeTile(1,10,'1');
+        currentLevel.changeTile(10,10,'4');
+        currentLevel.changeTile(1,1,'2');
+        currentLevel.changeTile(10,1,'3');
+        currentLevel.changeTile(5,8,'3');
+        currentLevel.changeTile(5,7,'4');
+        currentLevel.changeTile(6,8,'2');
+        currentLevel.changeTile(6,7,'1');
+        currentLevel.changeTile(6,3,'3');
         bow = new Bow();
     }
 

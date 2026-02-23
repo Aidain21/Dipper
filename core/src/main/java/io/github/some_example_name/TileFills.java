@@ -8,20 +8,16 @@ public class TileFills {
     }
 
     public TileFills CreateTileFills(char fill){
-        if(fill=='f')
-            return new Floor();
-        else if(fill=='w')
-            return new Wall();
-        else if(fill=='b')
-            return new Box();
-        else if(fill=='1')
-            return new diagonalWall(1);
-        else if(fill=='2')
-            return new diagonalWall(2);
-        else if(fill=='3')
-            return new diagonalWall(3);
-        else if(fill=='4')
-            return new diagonalWall(4);
+        switch (fill) {
+            case 'f': return new Floor();
+            case 'w': return new Walls.Wall();
+            case 'b': return new Box();
+            case '1':
+            case '2':
+            case '3':
+            case '4': return new Walls.Bouncy(fill);
+            default: break;
+        }
         return new TileFills();
     }
 

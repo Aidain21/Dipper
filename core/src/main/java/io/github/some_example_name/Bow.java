@@ -25,10 +25,10 @@ public class Bow {
         arrow.setScale(0.75f);
 
         switch(nesw) {
-            case 'n': arrow.translateX(-5); arrow.rotate(90); break;
-            case 'e': arrow.translateY(5); break;
-            case 's': arrow.translateX(-5); arrow.rotate(270); break;
-            case 'w': arrow.translateY(5); arrow.rotate(180); break;
+            case 'n': arrow.translateX(-4); arrow.rotate(90); break;
+            case 'e': arrow.translateY(4); break;
+            case 's': arrow.translateX(-3.5f); arrow.rotate(270); break;
+            case 'w': arrow.translateY(4); arrow.rotate(180); break;
             default: break;
         }
     }
@@ -41,73 +41,121 @@ public class Bow {
         }
     }
 
-    // Makes arrow move in a straight line
-    // stops if it hits a wall
+    // Arrow Logic: Makes arrow move in a direction
+    // + Collision
+    // + Ricochet
+    // + (eventually) buttons and other interactions
     public void arrowLogic() {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            boolean arrowStop = (currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY())=='w' ||
-                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == 'b');
-            boolean arrowRicochet = (
-                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '1' ||
-                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '2' ||
-                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '3' ||
-                currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY()) == '4');
+            boolean arrowRicochet = (arrowPos(arrow) == '1' || arrowPos(arrow) == '2' || arrowPos(arrow) == '3' || arrowPos(arrow) == '4');
+            boolean should = shouldRicochet((int) arrow.getRotation(), arrow);
+            boolean arrowStop = (arrowPos(arrow) == 'w' || arrowPos(arrow) == 'b' || (arrowRicochet && !should));
             int arrowRotation = (int) arrow.getRotation();
-            if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation()-360);
-            switch(arrowRotation) {
-                case 90: if (!arrowStop) arrow.translateY(400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '1') {
-                        arrow.translateY(15); arrow.rotate(270);
-                    }
-                    if (arrowRicochet && ricochet(arrow) == '2') {
-                        arrow.translateY(15); arrow.rotate(90);
-                    }
-                    break;
-                case 0: if (!arrowStop) arrow.translateX(400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '2') {
-                        arrow.translateX(8); arrow.rotate(270);
-                    }
-                    if (arrowRicochet && ricochet(arrow) == '4') {
-                        arrow.translateX(7); arrow.rotate(90);
-                    }
-                    break;
-                case 270: if (!arrowStop) arrow.translateY(-400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '4') {
-                        arrow.translateY(-7); arrow.rotate(270);
-                    }
-                    if (arrowRicochet && ricochet(arrow) == '3') {
-                        arrow.translateY(-7); arrow.rotate(90);
+            if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation() - 360);
+            switch (arrowRotation) {
+                case 90:
+                    if (!arrowStop) {
+                        arrow.translateY(400f * delta);
+                        if (arrowRicochet) {
+                            if (arrowPos(arrow) == '1') {
+                                arrow.translate(25,15);
+                                arrow.rotate(270);
+                            }
+                            if (arrowPos(arrow) == '4') {
+                                arrow.translate(-16,15);
+                                arrow.rotate(90);
+                            }
+                        }
                     }
                     break;
-                case 180: if (!arrowStop) arrow.translateX(-400f * delta);
-                    if (arrowRicochet && ricochet(arrow) == '3') {
-                        arrow.setX(arrow.getX()-16); arrow.rotate(270);
-                    }
-                    if (arrowRicochet && ricochet(arrow) == '1') {
-                        arrow.translateX(-16); arrow.rotate(90);
+                case 0:
+                    if (!arrowStop) {
+                        arrow.translateX(400f * delta);
+                        if (arrowRicochet) {
+                            if (arrowPos(arrow) == '4') {
+                                arrow.translate(7, -25);
+                                arrow.rotate(270);
+                            }
+                            if (arrowPos(arrow) == '3') {
+                                arrow.translate(7, 16);
+                                arrow.rotate(90);
+                            }
+                        }
                     }
                     break;
-                default: break;
+                case 270:
+                    if (!arrowStop) {
+                        arrow.translateY(-400f * delta);
+                        if (arrowRicochet) {
+                            if (arrowPos(arrow) == '3') {
+                                arrow.translate(-16,-7);
+                                arrow.rotate(270);
+                            }
+                            if (arrowPos(arrow) == '2') {
+                                arrow.translate(25, -7);
+                                arrow.rotate(90);
+                            }
+                        }
+                    }
+                    break;
+                case 180:
+                    if (!arrowStop) {
+                        arrow.translateX(-400f * delta);
+                        if (arrowRicochet) {
+                            if (arrowPos(arrow) == '2') {
+                                arrow.translate(-16, 16);
+                                arrow.rotate(270);
+                            }
+                            if (arrowPos(arrow) == '1') {
+                                arrow.translate(-16, -25);
+                                arrow.rotate(90);
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
 
-            // removes arrow after a delay
-            if(arrowStop) {
-                time += Gdx.graphics.getDeltaTime();
-                if (time >= 0.7f) {
-                    arrowArray.removeIndex(i);
-                    time = 0f;
-                }
+            if (arrowStop) {
+                removeArrow(i);
             }
         }
     }
 
-    private char ricochet(Sprite arrow) {
+    private boolean shouldRicochet(int rotation, Sprite arrow) {
+        switch(rotation) {
+            case 90: return (arrowPos(arrow) == '1' || arrowPos(arrow) == '4');
+            case 0: return (arrowPos(arrow) == '3' || arrowPos(arrow) == '4');
+            case 270: return (arrowPos(arrow) == '2' || arrowPos(arrow) == '3');
+            case 180: return (arrowPos(arrow) == '1' || arrowPos(arrow) == '2');
+            default: return false;
+        }
+    }
+
+    private char arrowPos(Sprite arrow) {
         return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());
     }
 
-    // Draw
+    // Removes one arrow at a time
+    private void removeArrow(int i) {
+        time += Gdx.graphics.getDeltaTime();
+        if (time >= 0.7f) {
+            arrowArray.removeIndex(i);
+            time = 0f;
+        }
+    }
+
+    // Deletes all arrows currently on screen
+    public void deleteArrows() {
+        for (int i = arrowArray.size - 1; i >= 0; i--) {
+            arrowArray.removeIndex(i);
+        }
+    }
+
+    // Draws arrows
     public void drawArrow(SpriteBatch batch) {
         for (Sprite arrow : arrowArray) {
             arrow.draw(batch);

@@ -13,7 +13,6 @@ public class level extends ApplicationAdapter {
     int spawnCol=1;
     TileFills generator = new TileFills();
 
-    Texture brickWallTexture = new Texture("brickWall.png");
     Texture backgroundTexture = new Texture("background.png");
     Texture crateTexture = new Texture("blockCrate.png");
     Texture portalTexture = new Texture("portal.png");
@@ -102,6 +101,7 @@ public class level extends ApplicationAdapter {
     }
 
     public Vector2Int changeLevel(Portal p){
+        Main.bow.deleteArrows();
         return Main.moveLevel(p.nextX,p.nextY);
     }
 
@@ -113,39 +113,30 @@ public class level extends ApplicationAdapter {
         level1[c2][r2]=temp;
     }
 
-
-
     public void drawLevel(SpriteBatch batch){
-
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < colCount; j++) {
-                if (level1[j][i].getTileChar()=='l') {
-                    batch.draw(portalTexture, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='b') {
-                    batch.draw(crateTexture, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='w') {
-                    batch.draw(brickWallTexture, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='f') {
-                    batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='1') {
-                    batch.draw(diagonalWall.diagonalWall, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='2') {
-                    batch.draw(diagonalWall.diagonalWall2, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='3') {
-                    batch.draw(diagonalWall.diagonalWall3, i * 32, j * 32, 32, 32);
-                }
-                if (level1[j][i].getTileChar()=='4') {
-                    batch.draw(diagonalWall.diagonalWall4, i * 32, j * 32, 32, 32);
+                switch(level1[j][i].getTileChar()) {
+                    case 'l': batch.draw(portalTexture, i*32, j*32, 32, 32); break;
+                    case 'b': batch.draw(crateTexture, i*32, j*32, 32, 32); break;
+                    case 'w': batch.draw(Walls.brickWallTexture, i*32, j*32, 32, 32); break;
+                    case 'f': drawBackground(batch, i, j); break;
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                        drawBackground(batch, i, j);
+                        Walls.bouncy.setRotation(Walls.getWallRotation(level1[j][i].getTileChar()));
+                        Walls.bouncy.setPosition(i * 32, j * 32);
+                        Walls.bouncy.draw(batch);
+                        break;
+                    default: break;
                 }
 
             }
         }
     }
-
+    private void drawBackground(SpriteBatch batch, int i , int j) {
+        batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
+    }
 }
