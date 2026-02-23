@@ -85,7 +85,7 @@ public class Player {
                 break;
             case 's':
                 ((Lever) curLevel.getLevel()[look.x][look.y]).onFlip('b',2,2,curLevel);
-                System.out.print("lever! It probably added something new!");
+                TextBox.text[0] ="lever! It probably added something new!";
             case '1':
             case '2':
             case '3':

@@ -14,6 +14,7 @@ public class TileFills {
             case 'f': return new Floor();
             case 'w': return new Walls.Wall();
             case 'b': return new Box();
+            case 's': return new Lever();
             case '1':
             case '2':
             case '3':
