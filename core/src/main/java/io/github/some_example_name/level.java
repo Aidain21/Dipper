@@ -109,9 +109,11 @@ public class level extends ApplicationAdapter {
 
 //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
-        TileFills temp=level1[c1][r1];
-        level1[c1][r1]=level1[c2][r2];
-        level1[c2][r2]=temp;
+        if(level1[c1][r1].movable && level1[c2][r2].movable) {
+            TileFills temp = level1[c1][r1];
+            level1[c1][r1] = level1[c2][r2];
+            level1[c2][r2] = temp;
+        }
     }
 
 

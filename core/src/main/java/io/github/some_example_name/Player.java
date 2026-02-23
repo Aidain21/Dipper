@@ -53,6 +53,9 @@ public class Player {
                 case 'l':
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
                     return;
+                case 'p':
+                    pos=((InLevelPortal) curLevel.level1[end.y][end.x]).newPos();
+                    return;
                 default:
                     break;
             }

@@ -2,6 +2,8 @@ package io.github.some_example_name;
 
 public class TileFills {
     char fill;
+    boolean canWalk=false;
+    boolean movable=false;
 
     public TileFills() {
         fill = ' ';
@@ -20,6 +22,8 @@ public class TileFills {
     public TileFills CreateTileFills(char fill, int x, int y){
         if(fill=='l')
             return new Portal(x,y);
+        else if(fill=='p')
+            return new InLevelPortal(x,y);
         return new TileFills();
     }
 

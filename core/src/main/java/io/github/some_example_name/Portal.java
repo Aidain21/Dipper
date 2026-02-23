@@ -9,6 +9,7 @@ public class Portal extends TileFills{
         fill='l';
         nextX=x;
         nextY=y;
+        canWalk=true;
     }
 
     public Vector2Int nextLevelPos(){
