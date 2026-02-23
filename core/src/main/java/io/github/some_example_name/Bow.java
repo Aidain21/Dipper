@@ -49,67 +49,66 @@ public class Bow {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            boolean arrowRicochet = (arrowPos(arrow) == '1' || arrowPos(arrow) == '2' || arrowPos(arrow) == '3' || arrowPos(arrow) == '4');
-            boolean should = shouldRicochet((int) arrow.getRotation(), arrow);
-            boolean arrowStop = (arrowPos(arrow) == 'w' || arrowPos(arrow) == 'b' || (arrowRicochet && !should));
+            boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow);
+            boolean arrowStop = (arrowPos(arrow) != 'f' && !arrowRicochet && arrowPos(arrow) != 'p' && arrowPos(arrow) != 'l');
             int arrowRotation = (int) arrow.getRotation();
             if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation() - 360);
             switch (arrowRotation) {
-                case 90:
+                case 90: // North
                     if (!arrowStop) {
                         arrow.translateY(400f * delta);
                         if (arrowRicochet) {
                             if (arrowPos(arrow) == '1') {
-                                arrow.translate(25,15);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 32);
                                 arrow.rotate(270);
                             }
                             if (arrowPos(arrow) == '4') {
-                                arrow.translate(-16,15);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 32);
                                 arrow.rotate(90);
                             }
                         }
                     }
                     break;
-                case 0:
+                case 0: // East
                     if (!arrowStop) {
                         arrow.translateX(400f * delta);
                         if (arrowRicochet) {
                             if (arrowPos(arrow) == '4') {
-                                arrow.translate(7, -25);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 - 25);
                                 arrow.rotate(270);
                             }
                             if (arrowPos(arrow) == '3') {
-                                arrow.translate(7, 16);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 + 16);
                                 arrow.rotate(90);
                             }
                         }
                     }
                     break;
-                case 270:
+                case 270: // South
                     if (!arrowStop) {
                         arrow.translateY(-400f * delta);
                         if (arrowRicochet) {
                             if (arrowPos(arrow) == '3') {
-                                arrow.translate(-16,-7);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 4);
                                 arrow.rotate(270);
                             }
                             if (arrowPos(arrow) == '2') {
-                                arrow.translate(25, -7);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 5);
                                 arrow.rotate(90);
                             }
                         }
                     }
                     break;
-                case 180:
+                case 180: // West
                     if (!arrowStop) {
                         arrow.translateX(-400f * delta);
                         if (arrowRicochet) {
                             if (arrowPos(arrow) == '2') {
-                                arrow.translate(-16, 16);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 - 5, arrow.getY()-arrow.getY()%32 + 16);
                                 arrow.rotate(270);
                             }
                             if (arrowPos(arrow) == '1') {
-                                arrow.translate(-16, -25);
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 - 4, arrow.getY()-arrow.getY()%32 - 17);
                                 arrow.rotate(90);
                             }
                         }
