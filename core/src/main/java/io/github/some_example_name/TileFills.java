@@ -16,6 +16,8 @@ public class TileFills {
             return new Wall();
         else if(fill=='b')
             return new Box();
+        else if(fill=='s')
+            return new Lever();
         return new TileFills();
     }
 

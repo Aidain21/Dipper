@@ -31,6 +31,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(2,4,'l',0,1);
         currentLevel.changeTile(1,5,'p',3,3);
         currentLevel.changeTile(5,5,'b');
+        currentLevel.changeTile(7,7,'s');
         bow = new Bow();
     }
 

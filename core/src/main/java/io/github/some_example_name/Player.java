@@ -80,6 +80,9 @@ public class Player {
             case ' ':
             case 'f':
                 break;
+            case 's':
+                ((Lever) curLevel.getLevel()[look.x][look.y]).onFlip('b',2,2,curLevel);
+                System.out.print("lever! It probably added something new!");
             default:
                 System.out.print(curLevel.level1[look.y][look.x]);
                 System.out.print("! It's cool I guess.");
