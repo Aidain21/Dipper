@@ -14,7 +14,6 @@ public class TileFills {
             case 'f': return new Floor();
             case 'w': return new Walls.Wall();
             case 'b': return new Box();
-            case 's': return new Lever();
             case '1':
             case '2':
             case '3':
@@ -30,6 +29,10 @@ public class TileFills {
         else if(fill=='p')
             return new InLevelPortal(x,y);
         return new TileFills();
+    }
+
+    public TileFills CreateTileFills(char fill, char newFill){
+        return new Lever(newFill);
     }
 
     public char getTileChar(){

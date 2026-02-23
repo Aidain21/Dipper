@@ -94,6 +94,12 @@ public class level extends ApplicationAdapter {
         }
     }
 
+    public void changeTile(int r, int c, char fill, char nFill){
+        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            level1[c][r]=generator.CreateTileFills(fill,nFill);
+        }
+    }
+
     public char tileAtWorldPos(float x, float y) {
         int rX = Math.round( x / 32);
         int rY = Math.round( y / 32);
