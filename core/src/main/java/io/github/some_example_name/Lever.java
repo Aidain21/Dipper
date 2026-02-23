@@ -1,6 +1,9 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.graphics.Texture;
 public class Lever extends TileFills{
+    public static Texture leverTexture = new Texture("lever.png");
+    //public static Texture lever2Texture = new Texture("lever2.png");
     TileFills gen;
     boolean isFlipped=false;
     char newFill='f';

@@ -2,6 +2,7 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Walls extends TileFills{
     public static Texture brickWallTexture = new Texture("brickWall.png");
@@ -16,14 +17,17 @@ public class Walls extends TileFills{
 
     // Bouncy Walls
     public static class Bouncy extends TileFills {
-        // int rotation;
-        public Bouncy (char i) {
+        Sprite sprite;
+        public Bouncy (char i) { // int x, int y, float r
             fill = i;
-            //this.rotation = r;
+            sprite = new Sprite(bouncy);
+            //sprite.setPosition(x, y);
+            //sprite.setRotation(r);
         }
-//        public static void rotateWall() {
-//            this.
+//        public static void rotateWall(float r) {
+//            this.sprite.rotate((this.sprite.getRotation + r)%360);
 //        }
+        //public void drawWall(SpriteBatch batch) {this.sprite.draw(batch);}
     }
     public static int getWallRotation(char i) {
         switch(i) {
@@ -33,4 +37,5 @@ public class Walls extends TileFills{
             default: return 0;
         }
     }
+
 }

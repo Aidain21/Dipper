@@ -100,6 +100,12 @@ public class level extends ApplicationAdapter {
         }
     }
 
+//    public void changeTile(int r, int c, char fill, float i){
+//        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+//            level1[c][r]=generator.CreateTileFills(r, c, fill, i);
+//        }
+//    }
+
     public char tileAtWorldPos(float x, float y) {
         int rX = Math.round( x / 32);
         int rY = Math.round( y / 32);
@@ -129,6 +135,7 @@ public class level extends ApplicationAdapter {
                     case 'b': batch.draw(crateTexture, i*32, j*32, 32, 32); break;
                     case 'w': batch.draw(Walls.brickWallTexture, i*32, j*32, 32, 32); break;
                     case 'f': drawBackground(batch, i, j); break;
+                    case 's': drawBackground(batch, i, j); batch.draw(Lever.leverTexture, i*32, j*32); break;
                     case '1':
                     case '2':
                     case '3':

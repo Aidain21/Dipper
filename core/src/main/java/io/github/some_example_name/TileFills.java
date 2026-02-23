@@ -34,6 +34,7 @@ public class TileFills {
     public TileFills CreateTileFills(char fill, char newFill){
         return new Lever(newFill);
     }
+    //public TileFills CreateTileFills(int x, int y, char fill, float r) {return new Walls.Bouncy(x, y, fill, r);}
 
     public char getTileChar(){
         return fill;
