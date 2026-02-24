@@ -12,6 +12,7 @@ public class level extends ApplicationAdapter {
     int spawnRow=1;
     int spawnCol=1;
     TileFills generator = new TileFills();
+    BouncyWall[][] bouncyWalls;
 
     Texture backgroundTexture = new Texture("background.png");
     Texture crateTexture = new Texture("blockCrate.png");
@@ -35,7 +36,7 @@ public class level extends ApplicationAdapter {
 
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
-
+        bouncyWalls = new BouncyWall[colCount][rowCount];
         for (int i = 0; i < rowCount; i++) {
             level1[0][i]=(generator.CreateTileFills('w'));
             level1[colCount-1][i]=(generator.CreateTileFills('w'));
@@ -53,6 +54,10 @@ public class level extends ApplicationAdapter {
 
     public TileFills[][] getLevel(){
         return level1;
+    }
+
+    public BouncyWall[][] getObject(char obj){
+        return bouncyWalls;
     }
 
     public int getRowCount(){
@@ -100,11 +105,17 @@ public class level extends ApplicationAdapter {
         }
     }
 
-//    public void changeTile(int r, int c, char fill, float i){
-//        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-//            level1[c][r]=generator.CreateTileFills(r, c, fill, i);
-//        }
-//    }
+    // Bouncy Wall Object Overload
+    public void changeTile(int r, int c, char fill, float i){
+        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            level1[c][r]=generator.CreateTileFills(r, c, fill, i);
+        }
+        bouncyWalls[r][c]= new BouncyWall(r, c, i);
+    }
+
+    public float rotationAt(float x, float y) {
+        return bouncyWalls[Math.round((x/32))][Math.round((y/32))].getRotation()%360;
+    }
 
     public char tileAtWorldPos(float x, float y) {
         int rX = Math.round( x / 32);
@@ -133,17 +144,12 @@ public class level extends ApplicationAdapter {
                 switch(level1[j][i].getTileChar()) {
                     case 'l': batch.draw(portalTexture, i*32, j*32, 32, 32); break;
                     case 'b': batch.draw(crateTexture, i*32, j*32, 32, 32); break;
-                    case 'w': batch.draw(Walls.brickWallTexture, i*32, j*32, 32, 32); break;
+                    case 'w': batch.draw(Wall.brickWallTexture, i*32, j*32, 32, 32); break;
                     case 'f': drawBackground(batch, i, j); break;
                     case 's': drawBackground(batch, i, j); batch.draw(Lever.leverTexture, i*32, j*32); break;
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
+                    case 'r':
                         drawBackground(batch, i, j);
-                        Walls.bouncy.setRotation(Walls.getWallRotation(level1[j][i].getTileChar()));
-                        Walls.bouncy.setPosition(i * 32, j * 32);
-                        Walls.bouncy.draw(batch);
+                        (Main.currentLevel.getObject('b')[i][j]).getSprite().draw(batch);
                         break;
                     default: break;
                 }

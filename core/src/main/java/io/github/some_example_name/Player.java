@@ -53,6 +53,8 @@ public class Player {
                 case '2':
                 case '3':
                 case '4':
+                case 'r':
+                case 's':
                     return;
                 case 'l':
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
@@ -84,13 +86,12 @@ public class Player {
             case 'f':
                 break;
             case 's':
+                curLevel.getObject('b')[6][3].rotateWall(90);
                 ((Lever) curLevel.getLevel()[look.x][look.y]).onFlip(2,2,curLevel);
                 TextBox.text[0] ="lever! It probably added something new!";
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-                TextBox.text[0] ="Bouncy Wall! Maybe this could deflect something.";
+                break;
+            case 'r':
+                TextBox.text[0] ="A Bouncy Wall! Maybe this could deflect something.";
                 break;
             default:
                 TextBox.text[0] = "I see a thing that I don't detect! It's cool I guess.";

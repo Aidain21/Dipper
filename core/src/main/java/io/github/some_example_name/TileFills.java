@@ -4,6 +4,7 @@ public class TileFills {
     char fill;
     boolean canWalk=false;
     boolean movable=false;
+    //float rotation = 0;
 
     public TileFills() {
         fill = ' ';
@@ -12,12 +13,8 @@ public class TileFills {
     public TileFills CreateTileFills(char fill){
         switch (fill) {
             case 'f': return new Floor();
-            case 'w': return new Walls.Wall();
+            case 'w': return new Wall();
             case 'b': return new Box();
-            case '1':
-            case '2':
-            case '3':
-            case '4': return new Walls.Bouncy(fill);
             default: break;
         }
         return new TileFills();
@@ -34,7 +31,9 @@ public class TileFills {
     public TileFills CreateTileFills(char fill, char newFill){
         return new Lever(newFill);
     }
-    //public TileFills CreateTileFills(int x, int y, char fill, float r) {return new Walls.Bouncy(x, y, fill, r);}
+    public BouncyWall CreateTileFills(int x, int y, char fill, float r) {
+        return new BouncyWall(x, y, r);
+    }
 
     public char getTileChar(){
         return fill;
