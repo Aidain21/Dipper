@@ -35,6 +35,8 @@ public class TileFills {
         return new Lever(newFill);
     }
 
+    public TileFills CreateTileFills(String fill, int damage){ return new Spikes(damage);}
+
     public String getTileString(){
         return fill;
     }
