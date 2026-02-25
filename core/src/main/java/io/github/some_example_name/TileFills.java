@@ -2,13 +2,17 @@ package io.github.some_example_name;
 
 public class TileFills {
     String fill;
+    //if you can walk on a tile
     boolean canWalk=false;
+    //if you can move a tile
     boolean movable=false;
 
+    //default constructor for empty tiles
     public TileFills() {
         fill = " ";
     }
 
+    //called when only handed the name of a tile, returns a new tile
     public TileFills CreateTileFills(String fill){
         switch (fill) {
             case "floor": return new Floor();
@@ -23,17 +27,26 @@ public class TileFills {
         return new TileFills();
     }
 
+    //called when handed a name and 2 numbers, currently used for portals
     public TileFills CreateTileFills(String fill, int x, int y){
-        if(fill=="portal")
-            return new Portal(x,y);
-        else if(fill=="inportal")
-            return new InLevelPortal(x,y);
-        return new TileFills();
+        switch (fill) {
+            case "portal":
+                return new Portal(x, y);
+            case "inportal":
+                return new InLevelPortal(x, y);
+            default:
+                break;
+        }
+            return new TileFills();
     }
 
+    //called when given 2 names, used currently for the lever
     public TileFills CreateTileFills(String fill, String newFill){
         return new Lever(newFill);
     }
+
+    //called when given a name and number, currently just for spikes
+    public TileFills CreateTileFills(String fill, int damage){ return new Spikes(damage);}
 
     public String getTileString(){
         return fill;
