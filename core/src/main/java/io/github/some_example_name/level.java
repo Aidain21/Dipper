@@ -31,6 +31,13 @@ public class level extends ApplicationAdapter {
 
     }
 
+    public level(int r, int c, int spawnR, int spawnC, boolean auto){
+        rowCount=r;
+        colCount=c;
+        spawnRow=spawnR;
+        spawnCol=spawnC;
+    }
+
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
 
