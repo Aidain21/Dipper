@@ -18,7 +18,8 @@ public class LevelDraw {
                     case "box": batch.draw(crateTexture, i*32, j*32, 32, 32); break;
                     case "wall": batch.draw(Walls.brickWallTexture, i*32, j*32, 32, 32); break;
                     case "floor": batch.draw(backgroundTexture, i * 32, j * 32, 32, 32); break;
-                    case "button": batch.draw(buttonTexture, i*32, j*32, 32,32); break;
+                    case "button": batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
+                    batch.draw(buttonTexture, i*32, j*32, 32,32); break;
                     case "1":
                     case "2":
                     case "3":

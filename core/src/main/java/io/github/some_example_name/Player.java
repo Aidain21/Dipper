@@ -60,6 +60,7 @@ public class Player {
                 case "2":
                 case "3":
                 case "4":
+                case "button":
                     return;
                 case "portal":
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
