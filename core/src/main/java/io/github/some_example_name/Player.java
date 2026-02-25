@@ -23,9 +23,12 @@ public class Player {
 
     //moves player based on direction inputted and current level
     public void gridMove(Vector2 direct, level curLevel) {
+
+        //sets where the player is trying to move to.
         Vector2Int dir = new Vector2Int(direct);
         Vector2Int end = new Vector2Int(pos.x + dir.x, pos.y + dir.y);
 
+        //changes both player sprites direction and interact direction
         facing = dir;
         if (dir.x == 0 && dir.y == 1) {
             pSprite.setRotation(0);
@@ -40,11 +43,15 @@ public class Player {
             pSprite.setRotation(90);
         }
 
+        //stops player from walking off-screen
         if (end.x < LEVEL_BOUNDS[0][0] || end.x > LEVEL_BOUNDS[1][0] ||
             end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
             return;
         }
 
+        //walking interactions based on what is stored in the tile's data
+        //such as a wall stopping the walking from being done
+        //or a portal teleporting you when you step on it
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
             switch (curLevel.level1[end.y][end.x].getTileString()) {
                 case "wall":
@@ -64,12 +71,20 @@ public class Player {
                     break;
             }
         }
+
+        //sets players position if nothing else was done to stop it.
         pos = new Vector2Int(end.x, end.y);
     }
 
+    //all of these only happen when the player presses E.
     public void playerInteract(level curLevel) {
+
+        //selects the tile one ahead of the direction the player is facing
         Vector2Int look = new Vector2Int(pos.x + facing.x, pos.y + facing.y);
 
+        //based on what string is stored in the selected tiles' data
+        //switches what happens when you interact
+        //You can use TextBox.text[0] = "string" to change the dialogue line
         switch (curLevel.level1[look.y][look.x].getTileString()) {
             case "wall":
                 TextBox.text[0] = "I see a wall! It's solid like a rock.";
