@@ -7,7 +7,7 @@ public class BouncyWall extends TileFills {
     public static Sprite bouncy = new Sprite(new Texture("bouncyWall.png"));
     Sprite sprite;
     public BouncyWall(int x, int y, float r) { // int x, int y, float r
-        fill = 'r';
+        fill = "bouncy";
         sprite = new Sprite(bouncy);
         sprite.setPosition(x*32, y*32);
         sprite.setRotation(r);

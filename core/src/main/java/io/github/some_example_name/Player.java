@@ -58,6 +58,7 @@ public class Player {
                 case "box":
                 case "button":
                 case "bouncy":
+                case "lever":
                     return;
                 case "portal":
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
@@ -101,7 +102,7 @@ public class Player {
             case "floor":
                 break;
             case "lever":
-                curLevel.getObject('b')[6][3].rotateWall(90);
+                ((BouncyWall) curLevel.getObject()[6][3]).rotateWall(90);
                 ((Lever) curLevel.getLevel()[look.x][look.y]).onFlip(2,2,curLevel);
                 TextBox.text[0] ="I see a lever! It probably added something new!";
                 break;

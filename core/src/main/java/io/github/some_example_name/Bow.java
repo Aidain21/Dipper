@@ -50,9 +50,12 @@ public class Bow {
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
             float wall = wallR(arrow);
-            char pos = arrowPos(arrow);
+            String pos = arrowPos(arrow);
             boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow, wall);
             boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal"));
+            if (pos.equals("button")) {
+                ((Button) currentLevel.getLevel()[Math.round(arrow.getX()/32)][Math.round(arrow.getY()/32)]).isPressed();
+            }
             int arrowRotation = (int) arrow.getRotation()%360;
             switch (arrowRotation) {
                 case 90: // North
@@ -126,7 +129,7 @@ public class Bow {
     }
 
     private boolean shouldRicochet(int rotation, Sprite arrow, float w) {
-        if (arrowPos(arrow) == "bouncy") {
+        if (arrowPos(arrow).equals("bouncy")) {
             switch (rotation) {
                 case 90: return (w == 0 || w == 270);
                 case 0: return (w == 180 || w == 270);

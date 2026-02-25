@@ -1,8 +1,6 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class level extends ApplicationAdapter {
@@ -12,7 +10,7 @@ public class level extends ApplicationAdapter {
     int spawnRow=1;
     int spawnCol=1;
     TileFills generator = new TileFills();
-    BouncyWall[][] bouncyWalls;
+    Object[][] objects;
 
     public level(int r, int c) {
         rowCount=r;
@@ -30,7 +28,7 @@ public class level extends ApplicationAdapter {
 
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
-        bouncyWalls = new BouncyWall[colCount][rowCount];
+        objects = new Object[colCount][rowCount];
         for (int i = 0; i < rowCount; i++) {
             level1[0][i]=(generator.CreateTileFills("wall"));
             level1[colCount-1][i]=(generator.CreateTileFills("wall"));
@@ -50,8 +48,8 @@ public class level extends ApplicationAdapter {
         return level1;
     }
 
-    public BouncyWall[][] getObject(char obj){
-        return bouncyWalls;
+    public Object[][] getObject(){
+        return objects;
     }
 
     public int getSpawnRow(){
@@ -96,14 +94,14 @@ public class level extends ApplicationAdapter {
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(r, c, fill, i);
         }
-        bouncyWalls[r][c]= new BouncyWall(r, c, i);
+        objects[r][c]= new BouncyWall(r, c, i);
     }
 
     public float rotationAt(float x, float y) {
         int rX = Math.round( x / 32);
         int rY = Math.round( y / 32);
-        if (bouncyWalls[rX][rY] == null) return -1;
-        return bouncyWalls[rX][rY].getRotation();
+        if (level1[rY][rX].getTileString().equals("bouncy")) return ((BouncyWall) objects[rX][rY]).getRotation();
+        return -1;
     }
 
     public String tileAtWorldPos(float x, float y) {
