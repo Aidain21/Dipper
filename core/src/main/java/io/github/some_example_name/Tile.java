@@ -1,5 +1,5 @@
 package io.github.some_example_name;
-
+/*
 public class Tile {
 
     private int TileLimit=10;
@@ -10,7 +10,7 @@ public class Tile {
         inTile[0]=new TileFills();
     }
 
-    public Tile(char letter){
+    public Tile(String letter){
         inTile[0]=temp.CreateTileFills(letter);
     }
 
@@ -22,9 +22,9 @@ public class Tile {
         return inTile;
     }
 
-    public int findInTile(char search){
+    public int findInTile(String search){
         for(int i=0;i<TileLimit;i++){
-            if(inTile[i].getTileChar()==search)
+            if(inTile[i].getTileString().equals(search))
                 return i;
         }
         return -1;
@@ -52,4 +52,5 @@ public class Tile {
         inTile=fill;
     }
 
-}
+}s
+ */

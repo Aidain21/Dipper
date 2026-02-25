@@ -52,7 +52,7 @@ public class Bow {
             float wall = wallR(arrow);
             char pos = arrowPos(arrow);
             boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow, wall);
-            boolean arrowStop = (!arrowRicochet && pos != 'f' && pos != 'p' && pos != 'l');
+            boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal"));
             int arrowRotation = (int) arrow.getRotation()%360;
             switch (arrowRotation) {
                 case 90: // North
@@ -62,12 +62,10 @@ public class Bow {
                             if (wall == 0) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 36);
                                 arrow.setRotation(0);
-
                             }
                             if (wall == 270) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 36);
                                 arrow.setRotation(180);
-
                             }
                         }
                     }
@@ -128,7 +126,7 @@ public class Bow {
     }
 
     private boolean shouldRicochet(int rotation, Sprite arrow, float w) {
-        if (arrowPos(arrow) == 'r') {
+        if (arrowPos(arrow) == "bouncy") {
             switch (rotation) {
                 case 90: return (w == 0 || w == 270);
                 case 0: return (w == 180 || w == 270);
@@ -142,7 +140,7 @@ public class Bow {
 
     private float wallR(Sprite arrow) { return currentLevel.rotationAt(arrow.getX(), arrow.getY())%360;}
 
-    private char arrowPos(Sprite arrow) { return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());}
+    private String arrowPos(Sprite arrow) { return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());}
 
     // Removes one arrow at a time
     private void removeArrow(int i) {
