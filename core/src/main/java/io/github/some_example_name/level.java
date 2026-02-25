@@ -11,6 +11,7 @@ public class level extends ApplicationAdapter {
     int colCount;
     int spawnRow=1;
     int spawnCol=1;
+    //generates new tiles
     TileFills generator = new TileFills();
 
 
@@ -31,6 +32,7 @@ public class level extends ApplicationAdapter {
 
     }
 
+    //creates a new level and fills it in with walls and floors
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
 
@@ -72,21 +74,32 @@ public class level extends ApplicationAdapter {
 
 
  */
+    //changeTile creates a new tile depending on given inputs
+    //only given name
     public void changeTile(int r, int c, String fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(fill);
         }
     }
 
+    //given name and 2 nums, portals
     public void changeTile(int r, int c, String fill, int nextX, int nextY){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
         }
     }
 
+    //given 2 names, lever
     public void changeTile(int r, int c, String fill, String nFill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(fill,nFill);
+        }
+    }
+
+    //given name and 1 num, spikes
+    public void changeTile(int r, int c, String fill, int damage){
+        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            level1[c][r]=generator.CreateTileFills(fill,damage);
         }
     }
 
@@ -102,7 +115,6 @@ public class level extends ApplicationAdapter {
     }
 
 
-//add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
         if(level1[c1][r1].movable && level1[c2][r2].movable) {
             TileFills temp = level1[c1][r1];
