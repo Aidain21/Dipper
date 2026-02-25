@@ -3,9 +3,9 @@ package io.github.some_example_name;
 public class Lever extends TileFills{
     TileFills gen;
     boolean isFlipped=false;
-    char newFill='f';
-    public Lever(char nFill){
-        fill='s';
+    String newFill="floor";
+    public Lever(String nFill){
+        fill="lever";
         newFill=nFill;
     }
 
@@ -16,7 +16,7 @@ public class Lever extends TileFills{
         }
     }
 
-    public void onFlip(char fill, int x, int y, level l,int nextx, int nexty){
+    public void onFlip(String fill, int x, int y, level l,int nextx, int nexty){
         if(!isFlipped){
             l.changeTile(x,y,newFill,nextx,nexty);
             isFlipped=true;

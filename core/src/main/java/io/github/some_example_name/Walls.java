@@ -11,13 +11,13 @@ public class Walls extends TileFills{
 
     // Brick Wall
     public static class Wall extends TileFills {
-        public Wall() {fill = 'w';}
+        public Wall() {fill = "wall";}
     }
 
     // Bouncy Walls
     public static class Bouncy extends TileFills {
         // int rotation;
-        public Bouncy (char i) {
+        public Bouncy (String i) {
             fill = i;
             //this.rotation = r;
         }
@@ -25,11 +25,11 @@ public class Walls extends TileFills{
 //            this.
 //        }
     }
-    public static int getWallRotation(char i) {
+    public static int getWallRotation(String i) {
         switch(i) {
-            case '2': return 90;
-            case '3': return 180;
-            case '4': return 270;
+            case "2": return 90;
+            case "3": return 180;
+            case "4": return 270;
             default: return 0;
         }
     }

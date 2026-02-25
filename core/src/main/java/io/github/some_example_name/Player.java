@@ -46,18 +46,18 @@ public class Player {
         }
 
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
-            switch (curLevel.level1[end.y][end.x].getTileChar()) {
-                case 'w':
-                case 'b':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
+            switch (curLevel.level1[end.y][end.x].getTileString()) {
+                case "wall":
+                case "box":
+                case "1":
+                case "2":
+                case "3":
+                case "4":
                     return;
-                case 'l':
+                case "portal":
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
                     return;
-                case 'p':
+                case "inportal":
                     pos=((InLevelPortal) curLevel.level1[end.y][end.x]).newPos();
                     return;
                 default:
@@ -70,27 +70,27 @@ public class Player {
     public void playerInteract(level curLevel) {
         Vector2Int look = new Vector2Int(pos.x + facing.x, pos.y + facing.y);
 
-        switch (curLevel.level1[look.y][look.x].getTileChar()) {
-            case 'w':
+        switch (curLevel.level1[look.y][look.x].getTileString()) {
+            case "wall":
                 TextBox.text[0] = "I see a wall! It's solid like a rock.";
                 break;
-            case 'l':
+            case "level":
                 TextBox.text[0] = "I see a level transition! It's a swirly magic portal.";
                 break;
-            case 'b':
+            case "box":
                 curLevel.swapTiles(look.x,look.y,look.x + facing.x,look.y + facing.y);
                 TextBox.text[0] = "I see a block! I probably just pushed it.";
-            case ' ':
-            case 'f':
+            case " ":
+            case "floor":
                 break;
-            case 's':
+            case "lever":
                 ((Lever) curLevel.getLevel()[look.x][look.y]).onFlip(2,2,curLevel);
                 TextBox.text[0] ="I see a lever! It probably added something new!";
                 break;
-            case '1':
-            case '2':
-            case '3':
-            case '4':
+            case "1":
+            case "2":
+            case "3":
+            case "4":
                 TextBox.text[0] ="Bouncy Wall! Maybe this could deflect something.";
                 break;
             default:
