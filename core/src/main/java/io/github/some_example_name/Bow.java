@@ -49,25 +49,24 @@ public class Bow {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow);
-            //boolean  arrowRicochet = (arrowPos(arrow) == 0 && wallR(arrow) == 270);
-            boolean arrowStop = (arrowPos(arrow) != 'f' && !arrowRicochet && arrowPos(arrow) != 'p' && arrowPos(arrow) != 'l');
-            int arrowRotation = (int) arrow.getRotation();
-            if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation()%360);
-            //System.out.print(wallR(arrow) == 270);
+            float wall = wallR(arrow);
+            char pos = arrowPos(arrow);
+            boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow, wall);
+            boolean arrowStop = (!arrowRicochet && pos != 'f' && pos != 'p' && pos != 'l');
+            int arrowRotation = (int) arrow.getRotation()%360;
             switch (arrowRotation) {
                 case 90: // North
                     if (!arrowStop) {
                         arrow.translateY(400f * delta);
                         if (arrowRicochet) {
-                            //if (wallR(arrow) == 0) {
-                                //arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 32);
-                                //arrow.setRotation(0);
+                            if (wall == 0) {
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 36);
+                                arrow.setRotation(0);
 
-                            //}
-                            if (wallR(arrow) == 270) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 32);
-                                arrow.rotate(90);
+                            }
+                            if (wall == 270) {
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 36);
+                                arrow.setRotation(180);
 
                             }
                         }
@@ -77,14 +76,13 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateX(400f * delta);
                         if (arrowRicochet) {
-                            if (wallR(arrow) == 270) {
+                            if (wall== 270) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 - 25);
-                                arrow.setRotation(0);
+                                arrow.setRotation(270);
                             }
-                            if (wallR(arrow) == 180) {
+                            if (wall == 180) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 + 16);
-                                arrow.rotate(450);
-                                System.out.print(arrow.getRotation());
+                                arrow.setRotation(90);
                             }
                         }
                     }
@@ -93,13 +91,13 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateY(-400f * delta);
                         if (arrowRicochet) {
-//                            if (wallR(arrow) == 180) {
-//                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 4);
-//                                arrow.rotate(270);
-//                            }
-                            if (wallR(arrow) == 90) {
+                            if (wall == 180) {
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 4);
+                                arrow.setRotation(180);
+                            }
+                            if (wall == 90) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 5);
-                                arrow.rotate(90);
+                                arrow.setRotation(0);
                             }
                         }
                     }
@@ -108,13 +106,13 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateX(-400f * delta);
                         if (arrowRicochet) {
-//                            if (wallR(arrow) == 90) {
-//                                arrow.setPosition(arrow.getX()-arrow.getX()%32 - 5, arrow.getY()-arrow.getY()%32 + 16);
-//                                arrow.rotate(270);
-//                            }
-                            if (wallR(arrow) == 0) {
+                            if (wall == 90) {
+                                arrow.setPosition(arrow.getX()-arrow.getX()%32 - 5, arrow.getY()-arrow.getY()%32 + 16);
+                                arrow.setRotation(90);
+                            }
+                            if (wall== 0) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 - 4, arrow.getY()-arrow.getY()%32 - 17);
-                                arrow.rotate(90);
+                                arrow.setRotation(270);
                             }
                         }
                     }
@@ -129,13 +127,13 @@ public class Bow {
         }
     }
 
-    private boolean shouldRicochet(int rotation, Sprite arrow) {
+    private boolean shouldRicochet(int rotation, Sprite arrow, float w) {
         if (arrowPos(arrow) == 'r') {
             switch (rotation) {
-                case 90: return (wallR(arrow) == 0 || wallR(arrow) == 270);
-                case 0: return (wallR(arrow) == 180 || wallR(arrow) == 270);
-                case 270: return (wallR(arrow) == 90 || wallR(arrow) == 180);
-                case 180: return (wallR(arrow) == 0 || wallR(arrow) == 90);
+                case 90: return (w == 0 || w == 270);
+                case 0: return (w == 180 || w == 270);
+                case 270: return (w== 90 || w == 180);
+                case 180: return (w == 0 || w == 90);
                 default: break;
             }
         }

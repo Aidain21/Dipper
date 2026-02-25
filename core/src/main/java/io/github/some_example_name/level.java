@@ -114,7 +114,10 @@ public class level extends ApplicationAdapter {
     }
 
     public float rotationAt(float x, float y) {
-        return bouncyWalls[Math.round((x/32))][Math.round((y/32))].getRotation()%360;
+        int rX = Math.round( x / 32);
+        int rY = Math.round( y / 32);
+        if (bouncyWalls[rX][rY] == null) return -1;
+        return bouncyWalls[rX][rY].getRotation();
     }
 
     public char tileAtWorldPos(float x, float y) {
