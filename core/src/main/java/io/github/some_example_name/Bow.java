@@ -49,9 +49,9 @@ public class Bow {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            boolean arrowRicochet = (arrowPos(arrow) == '1' || arrowPos(arrow) == '2' || arrowPos(arrow) == '3' || arrowPos(arrow) == '4');
+            boolean arrowRicochet = (arrowPos(arrow).equals("1") || arrowPos(arrow).equals("2") || arrowPos(arrow).equals("3") || arrowPos(arrow).equals("4"));
             boolean should = shouldRicochet((int) arrow.getRotation(), arrow);
-            boolean arrowStop = (arrowPos(arrow) == 'w' || arrowPos(arrow) == 'b' || (arrowRicochet && !should));
+            boolean arrowStop = (arrowPos(arrow).equals("wall") || arrowPos(arrow).equals("box") || (arrowRicochet && !should));
             int arrowRotation = (int) arrow.getRotation();
             if (arrow.getRotation() > 270) arrow.setRotation(arrow.getRotation() - 360);
             switch (arrowRotation) {
@@ -59,11 +59,11 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateY(400f * delta);
                         if (arrowRicochet) {
-                            if (arrowPos(arrow) == '1') {
+                            if (arrowPos(arrow).equals("1")) {
                                 arrow.translate(25,15);
                                 arrow.rotate(270);
                             }
-                            if (arrowPos(arrow) == '4') {
+                            if (arrowPos(arrow).equals("4")) {
                                 arrow.translate(-16,15);
                                 arrow.rotate(90);
                             }
@@ -74,11 +74,11 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateX(400f * delta);
                         if (arrowRicochet) {
-                            if (arrowPos(arrow) == '4') {
+                            if (arrowPos(arrow).equals("4")) {
                                 arrow.translate(7, -25);
                                 arrow.rotate(270);
                             }
-                            if (arrowPos(arrow) == '3') {
+                            if (arrowPos(arrow).equals("3")) {
                                 arrow.translate(7, 16);
                                 arrow.rotate(90);
                             }
@@ -89,11 +89,11 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateY(-400f * delta);
                         if (arrowRicochet) {
-                            if (arrowPos(arrow) == '3') {
+                            if (arrowPos(arrow).equals("3")) {
                                 arrow.translate(-16,-7);
                                 arrow.rotate(270);
                             }
-                            if (arrowPos(arrow) == '2') {
+                            if (arrowPos(arrow).equals("2")) {
                                 arrow.translate(25, -7);
                                 arrow.rotate(90);
                             }
@@ -104,11 +104,11 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateX(-400f * delta);
                         if (arrowRicochet) {
-                            if (arrowPos(arrow) == '2') {
+                            if (arrowPos(arrow).equals("2")) {
                                 arrow.translate(-16, 16);
                                 arrow.rotate(270);
                             }
-                            if (arrowPos(arrow) == '1') {
+                            if (arrowPos(arrow).equals("1")) {
                                 arrow.translate(-16, -25);
                                 arrow.rotate(90);
                             }
@@ -127,15 +127,15 @@ public class Bow {
 
     private boolean shouldRicochet(int rotation, Sprite arrow) {
         switch(rotation) {
-            case 90: return (arrowPos(arrow) == '1' || arrowPos(arrow) == '4');
-            case 0: return (arrowPos(arrow) == '3' || arrowPos(arrow) == '4');
-            case 270: return (arrowPos(arrow) == '2' || arrowPos(arrow) == '3');
-            case 180: return (arrowPos(arrow) == '1' || arrowPos(arrow) == '2');
+            case 90: return (arrowPos(arrow).equals("1") || arrowPos(arrow).equals("4"));
+            case 0: return (arrowPos(arrow).equals("3") || arrowPos(arrow).equals("4"));
+            case 270: return (arrowPos(arrow).equals("2") || arrowPos(arrow).equals("3"));
+            case 180: return (arrowPos(arrow).equals("1") || arrowPos(arrow).equals("2"));
             default: return false;
         }
     }
 
-    private char arrowPos(Sprite arrow) {
+    private String arrowPos(Sprite arrow) {
         return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());
     }
 

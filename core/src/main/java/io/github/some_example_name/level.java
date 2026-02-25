@@ -35,16 +35,16 @@ public class level extends ApplicationAdapter {
         level1=new TileFills[colCount][rowCount];
 
         for (int i = 0; i < rowCount; i++) {
-            level1[0][i]=(generator.CreateTileFills('w'));
-            level1[colCount-1][i]=(generator.CreateTileFills('w'));
+            level1[0][i]=(generator.CreateTileFills("wall"));
+            level1[colCount-1][i]=(generator.CreateTileFills("wall"));
         }
         for (int i = 0; i < colCount; i++) {
-            level1[i][0]=(generator.CreateTileFills('w'));
-            level1[i][rowCount-1]=(generator.CreateTileFills('w'));
+            level1[i][0]=(generator.CreateTileFills("wall"));
+            level1[i][rowCount-1]=(generator.CreateTileFills("wall"));
         }
         for (int i = 1; i < rowCount-1; i++) {
             for (int j = 1; j < colCount-1; j++) {
-                level1[j][i]=(generator.CreateTileFills('f'));
+                level1[j][i]=(generator.CreateTileFills("floor"));
             }
         }
     }
@@ -72,28 +72,28 @@ public class level extends ApplicationAdapter {
 
 
  */
-    public void changeTile(int r, int c, char fill){
+    public void changeTile(int r, int c, String fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(fill);
         }
     }
 
-    public void changeTile(int r, int c, char fill, int nextX, int nextY){
+    public void changeTile(int r, int c, String fill, int nextX, int nextY){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
         }
     }
 
-    public void changeTile(int r, int c, char fill, char nFill){
+    public void changeTile(int r, int c, String fill, String nFill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(fill,nFill);
         }
     }
 
-    public char tileAtWorldPos(float x, float y) {
+    public String tileAtWorldPos(float x, float y) {
         int rX = Math.round( x / 32);
         int rY = Math.round( y / 32);
-        return level1[rY][rX].getTileChar();
+        return level1[rY][rX].getTileString();
     }
 
     public Vector2Int changeLevel(Portal p){

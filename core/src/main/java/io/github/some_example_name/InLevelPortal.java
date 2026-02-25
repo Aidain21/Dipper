@@ -5,7 +5,7 @@ public class InLevelPortal extends TileFills{
     int newY;
 
     public InLevelPortal(int x, int y){
-        fill='p';
+        fill="inportal";
         newX=x;
         newY=y;
         canWalk=true;
