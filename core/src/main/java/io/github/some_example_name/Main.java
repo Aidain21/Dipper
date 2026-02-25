@@ -31,6 +31,7 @@ public class Main extends ApplicationAdapter {
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",0,0);
         templevel.changeTile( 4,4,"bouncy", 180);
+        templevel.changeTile(1, 5, "button", 90);
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,"portal",0,1);
@@ -49,6 +50,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(6,3,"bouncy", 180);
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
+        currentLevel.changeTile(8, 3, "button", 180);
         bow = new Bow();
         textBox = new TextBox();
         viewport = new FitViewport(960,720);
