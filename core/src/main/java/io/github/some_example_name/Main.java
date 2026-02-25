@@ -123,7 +123,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
-        currentLevel.drawLevel(batch);
+        LevelDraw.drawLevel(batch,currentLevel);
 
         //the logo
         //batch.draw(image, 140, 210);

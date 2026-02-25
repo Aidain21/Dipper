@@ -13,9 +13,7 @@ public class level extends ApplicationAdapter {
     int spawnCol=1;
     TileFills generator = new TileFills();
 
-    Texture backgroundTexture = new Texture("background.png");
-    Texture crateTexture = new Texture("blockCrate.png");
-    Texture portalTexture = new Texture("portal.png");
+
 
     public level(int r, int c) {
         rowCount=r;
@@ -53,14 +51,6 @@ public class level extends ApplicationAdapter {
 
     public TileFills[][] getLevel(){
         return level1;
-    }
-
-    public int getRowCount(){
-        return rowCount;
-    }
-
-    public int getColCount(){
-        return colCount;
     }
 
     public int getSpawnRow(){
@@ -121,30 +111,5 @@ public class level extends ApplicationAdapter {
         }
     }
 
-    public void drawLevel(SpriteBatch batch){
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < colCount; j++) {
-                switch(level1[j][i].getTileChar()) {
-                    case 'l': batch.draw(portalTexture, i*32, j*32, 32, 32); break;
-                    case 'b': batch.draw(crateTexture, i*32, j*32, 32, 32); break;
-                    case 'w': batch.draw(Walls.brickWallTexture, i*32, j*32, 32, 32); break;
-                    case 'f': drawBackground(batch, i, j); break;
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                        drawBackground(batch, i, j);
-                        Walls.bouncy.setRotation(Walls.getWallRotation(level1[j][i].getTileChar()));
-                        Walls.bouncy.setPosition(i * 32, j * 32);
-                        Walls.bouncy.draw(batch);
-                        break;
-                    default: break;
-                }
 
-            }
-        }
-    }
-    private void drawBackground(SpriteBatch batch, int i , int j) {
-        batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
-    }
 }
