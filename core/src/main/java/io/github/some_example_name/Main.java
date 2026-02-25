@@ -36,6 +36,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(1,5,"inportal",3,3);
         currentLevel.changeTile(5,5,"box");
         currentLevel.changeTile(7,7,"lever","box");
+        currentLevel.changeTile(9, 9, "button");
         currentLevel.changeTile(1,10,"1");
         currentLevel.changeTile(10,10,"4");
         currentLevel.changeTile(1,1,"2");

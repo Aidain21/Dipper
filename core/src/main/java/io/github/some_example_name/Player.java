@@ -86,6 +86,10 @@ public class Player {
         //switches what happens when you interact
         //You can use TextBox.text[0] = "string" to change the dialogue line
         switch (curLevel.level1[look.y][look.x].getTileString()) {
+            case "button":
+                ((Button) curLevel.getLevel()[look.x][look.y]).isPressed();
+                TextBox.text[0] = "I see a button!";
+                break;
             case "wall":
                 TextBox.text[0] = "I see a wall! It's solid like a rock.";
                 break;
