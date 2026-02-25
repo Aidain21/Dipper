@@ -93,8 +93,12 @@ public class level extends ApplicationAdapter {
     public void changeTile(int r, int c, String fill, float i){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             level1[c][r]=generator.CreateTileFills(r, c, fill, i);
+            switch(fill) {
+                case "bouncy": objects[r][c] = new BouncyWall(r, c, i); break;
+                case "button": objects[r][c] = new Button(r, c, i); break;
+                default: break;
+            }
         }
-        objects[r][c]= new BouncyWall(r, c, i);
     }
 
     public float rotationAt(float x, float y) {
@@ -114,7 +118,6 @@ public class level extends ApplicationAdapter {
         Main.bow.deleteArrows();
         return Main.moveLevel(p.nextX,p.nextY);
     }
-
 
 //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){

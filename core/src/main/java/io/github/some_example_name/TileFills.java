@@ -14,7 +14,6 @@ public class TileFills {
             case "floor": return new Floor();
             case "wall": return new Wall();
             case "box": return new Box();
-            case "button": return new Button();
             default: break;
         }
         return new TileFills();
@@ -31,8 +30,13 @@ public class TileFills {
     public TileFills CreateTileFills(String fill, String newFill){
         return new Lever(newFill);
     }
-    public BouncyWall CreateTileFills(int x, int y, String fill, float r) {
-        return new BouncyWall(x, y, r);
+    public TileFills CreateTileFills(int x, int y, String fill, float r) {
+        switch(fill) {
+            case "bouncy": return new BouncyWall(x, y, r);
+            case "button": return new Button(x, y, r);
+            default: break;
+        }
+        return new TileFills();
     }
 
     public String getTileString(){

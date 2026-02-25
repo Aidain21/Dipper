@@ -11,9 +11,10 @@ public class Bow {
     public Bow() {}
     private final Texture arrowTexture = new Texture("arrow.png");
     private final Array<Sprite> arrowArray = new Array<>();
-    public final float cooldownTime = 0.75f;
+    public final float cooldownTime = 0.7f;
     public float cooldown = 0f;
-    private float time = 0f;
+    private final Array<Float> timer = new Array<>();
+    private final Array<Integer> count = new Array<>();
 
     // Creates arrow, rotates and sets position based on the direction
     public void createArrow(float posX, float posY, char nesw) {
@@ -21,9 +22,10 @@ public class Bow {
         arrow.setSize(100, 24);
         arrow.setPosition(posX*32, posY*32);
         arrowArray.add(arrow);
+        count.add(0);
+        timer.add(0f);
         arrow.setOrigin(20, 12.5f);
         arrow.setScale(0.75f);
-
         switch(nesw) {
             case 'n': arrow.translateX(-4); arrow.setRotation(90); break;
             case 'e': arrow.translateY(4); break;
@@ -51,17 +53,23 @@ public class Bow {
             Sprite arrow = arrowArray.get(i);
             float wall = wallR(arrow);
             String pos = arrowPos(arrow);
+            int ricCount = count.get(i);
+            float ti = timer.get(i);
             boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow, wall);
             boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal"));
             if (pos.equals("button")) {
-                ((Button) currentLevel.getLevel()[Math.round(arrow.getX()/32)][Math.round(arrow.getY()/32)]).isPressed();
+                ((Button) currentLevel.getObject()[Math.round(arrow.getX()/32)][Math.round(arrow.getY()/32)]).isPressed();
             }
             int arrowRotation = (int) arrow.getRotation()%360;
+            int ric = 5;
             switch (arrowRotation) {
                 case 90: // North
                     if (!arrowStop) {
                         arrow.translateY(400f * delta);
                         if (arrowRicochet) {
+                            ricCount ++;
+                            count.set(i, ricCount);
+                            if (ricCount >= ric) break;
                             if (wall == 0) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 36);
                                 arrow.setRotation(0);
@@ -77,6 +85,9 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateX(400f * delta);
                         if (arrowRicochet) {
+                            ricCount ++;
+                            count.set(i, ricCount);
+                            if (ricCount >= ric) break;
                             if (wall== 270) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 - 25);
                                 arrow.setRotation(270);
@@ -92,6 +103,9 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateY(-400f * delta);
                         if (arrowRicochet) {
+                            ricCount ++;
+                            count.set(i, ricCount);
+                            if (ricCount >= ric) break;
                             if (wall == 180) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 4);
                                 arrow.setRotation(180);
@@ -107,6 +121,9 @@ public class Bow {
                     if (!arrowStop) {
                         arrow.translateX(-400f * delta);
                         if (arrowRicochet) {
+                            ricCount ++;
+                            count.set(i, ricCount);
+                            if (ricCount >= ric) break;
                             if (wall == 90) {
                                 arrow.setPosition(arrow.getX()-arrow.getX()%32 - 5, arrow.getY()-arrow.getY()%32 + 16);
                                 arrow.setRotation(90);
@@ -121,9 +138,8 @@ public class Bow {
                 default:
                     break;
             }
-
             if (arrowStop) {
-                removeArrow(i);
+                removeArrow(i, ti);
             }
         }
     }
@@ -146,11 +162,13 @@ public class Bow {
     private String arrowPos(Sprite arrow) { return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());}
 
     // Removes one arrow at a time
-    private void removeArrow(int i) {
+    private void removeArrow(int i, float time) {
         time += Gdx.graphics.getDeltaTime();
-        if (time >= 0.7f) {
+        timer.set(i, time);
+        if (timer.get(i) >= 0.9f) {
             arrowArray.removeIndex(i);
-            time = 0f;
+            count.removeIndex(i);
+            timer.removeIndex(i);
         }
     }
 
