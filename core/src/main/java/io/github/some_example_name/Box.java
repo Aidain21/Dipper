@@ -1,8 +1,49 @@
 package io.github.some_example_name;
 
 public class Box extends TileFills{
+    int coverX, coverY, oldX, oldY;
+    boolean covering;
     public Box(){
         fill="box";
         movable=true;
+        covering = false;
+    }
+    public void cover(int x, int y, int x2, int y2) {
+        this.coverX = x;
+        this.coverY = y;
+        this.oldX = x2;
+        this.oldY = y2;
+        this.covering = true;}
+    public boolean isCovering() {return this.covering;}
+    public void uncover() {this.coverX = 0; this.coverY = 0; this.oldX = 0; this.oldY = 0; this.covering = false;}
+    public void tryPush(int lookX, int lookY, int facingX, int facingY, level curLevel) {
+        int tx = lookX + facingX;
+        int ty = lookY + facingY;
+        if (tx < 0 || ty < 0 || tx >= curLevel.colCount || ty >= curLevel.rowCount)
+            return;
+        TileFills currentTile = curLevel.level1[lookY][lookX];
+        TileFills targetTile  = curLevel.level1[ty][tx];
+        if (!(currentTile instanceof Box)) return;
+        Box box = (Box) currentTile;
+        String targetType = targetTile.getTileString();
+        if (targetType.equals("box")) return;
+        if (box.isCovering()) {
+            if (!targetType.equals("pressureButton")) curLevel.swapTiles(lookX, lookY, tx, ty);
+            curLevel.swapTiles(box.coverX, box.coverY, box.oldX, box.oldY);
+            TileFills coveredTile = curLevel.level1[box.coverY][box.coverX];
+            if (coveredTile instanceof PressureButton) ((PressureButton) coveredTile).unpress();
+            box.uncover();
+            return;
+        }
+        // Press a pressure button if the box is moved onto it
+        if (targetType.equals("pressureButton")) {
+            if (targetTile instanceof PressureButton) {
+                PressureButton button = (PressureButton) targetTile;
+                button.press();
+                box.cover(tx, ty, lookX, lookY);
+            }
+        }
+        // Finally, swap the box with the target tile
+        curLevel.swapTiles(lookX, lookY, tx, ty);
     }
 }

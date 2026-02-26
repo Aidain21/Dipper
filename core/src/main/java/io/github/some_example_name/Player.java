@@ -104,21 +104,17 @@ public class Player {
             case "floor": break;
             case "wall": TextBox.text[0] = "I see a wall! It's solid like a rock."; break;
             case "level": TextBox.text[0] = "I see a level transition! It's a swirly magic portal."; break;
-            case "box":
-                if (curLevel.level1[look.y + facing.y][look.x + facing.x].getTileString().equals("pressureButton")) {
-                    ((PressureButton) curLevel.level1[look.y + facing.y][look.x + facing.x]).press();
-                }
-                curLevel.swapTiles(look.x,look.y,look.x + facing.x,look.y + facing.y);
-                TextBox.text[0] = "I see a block! I probably just pushed it.";
+            case "box": TextBox.text[0] = "I see a block! I probably just pushed it.";
+                ((Box) curLevel.level1[look.y][look.x]).tryPush(look.x, look.y, facing.x, facing.y, curLevel);
                 break;
             case "lever":
                 ((BouncyWall) curLevel.getLevel()[3][6]).rotateWall(90);
                 ((Lever) curLevel.getLevel()[look.y][look.x]).onFlip(2,2,curLevel);
                 TextBox.text[0] = "I see a lever! It probably added something new!";
                 break;
-            case "bouncy": TextBox.text[0] = "A Bouncy Wall! Maybe this could deflect something."; break;
+            case "bouncy": TextBox.text[0] = "A Bouncy Wall! Maybe this could deflect something!"; break;
             case "colorButton": TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
-            case "pressureButton": TextBox.text[1] = (((PressureButton) curLevel.level1[look.y][look.x]).isPressed()+ " 0"); break;
+            case "pressureButton": TextBox.text[0] = "A Pressure Button! I need something heavy!"; break;
             default: break;
         }
     }

@@ -68,8 +68,7 @@ public class level extends ApplicationAdapter {
     public void changeTile(int r, int c, String fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
             if (fill.equals("pressureButton")) {
-                TileFills tile = generator.CreateTileFills(fill, r, c);
-                level1[c][r] = tile;
+                level1[c][r] = generator.CreateTileFills(fill, r, c);
                 return;
             }
             level1[c][r]=generator.CreateTileFills(fill);
@@ -91,8 +90,7 @@ public class level extends ApplicationAdapter {
     // Rotation Overload
     public void changeTile(int r, int c, String fill, float i){
         if (r > 0 && r < rowCount && c > 0 && c < colCount){
-            TileFills tile = generator.CreateTileFills(r, c, fill, i);
-            level1[c][r] = tile;
+            level1[c][r] = generator.CreateTileFills(r, c, fill, i);
         }
     }
 
@@ -122,10 +120,5 @@ public class level extends ApplicationAdapter {
             level1[c1][r1] = level1[c2][r2];
             level1[c2][r2] = temp;
         }
-    }
-
-    public void coverTile(int r1, int r2, int c1, int c2) {
-        TileFills temp = level1[c2][r2];
-
     }
 }

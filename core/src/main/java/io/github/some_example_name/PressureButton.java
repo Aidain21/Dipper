@@ -10,14 +10,18 @@ public class PressureButton extends TileFills{
         sprite = new Sprite(LevelDraw.pressureButtonTx);
         movable = true;
         pressed = false;
-        sprite.setPosition(x, y);
+        sprite.setPosition(x*32, y*32);
     }
     public void press() {
         this.pressed = true;
-        //this.sprite.setAlpha(0);
+        this.sprite.setAlpha(0);
         TextBox.text[1] = "Pressure Button is Pressed!!!";
     }
-    public void unpress() {pressed = false;}
-    public boolean isPressed() {return this.pressed;}
+    public void unpress() {
+        this.sprite.setAlpha(1);
+        this.pressed = false;
+        TextBox.text[1] = "Pressure Button no longer Presseed.";
+    }
+    //public boolean isPressed() {return this.pressed;}
     public Sprite getSprite() {return this.sprite;}
 }

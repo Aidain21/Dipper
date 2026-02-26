@@ -55,11 +55,10 @@ public class Bow {
             int ricCount = count.get(i);
             float time = timer.get(i);
             boolean arrowRicochet = shouldRicochet(pos, (int) arrow.getRotation(), wall);
-            boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal") && !pos.equals("button"));
+            boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal")
+                && !pos.equals("button") && !pos.equals("pressureButton"));
             TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
-            if (f instanceof ColorButton) {
-                ((ColorButton) f).isPressed();
-            }
+            if (f instanceof ColorButton) ((ColorButton) f).isPressed();
             int arrowRotation = (int) arrow.getRotation()%360;
             int ric = 5;
             switch (arrowRotation) {
@@ -135,8 +134,7 @@ public class Bow {
                         }
                     }
                     break;
-                default:
-                    break;
+                default: break;
             }
             if (arrowStop) {
                 removeArrow(i, time);
