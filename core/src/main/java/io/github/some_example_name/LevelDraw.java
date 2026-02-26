@@ -32,10 +32,7 @@ public class LevelDraw {
                     case "lever": batch.draw(Lever.leverTexture, i * 32, j * 32, 32, 32); break;
                     case "inportal": batch.draw(inPortalTx, i * 32, j * 32, 32, 32); break;
                     case "colorButton": ((ColorButton) level.level1[j][i]).getSprite().draw(batch); break;
-                    case "pressureButton":
-                        ((PressureButton) level.level1[j][i]).getSprite().draw(batch); break;
-                        //System.out.print(((PressureButton) level.level1[j][i]).isPressed());
-                        //if (((PressureButton) level.level1[j][i]).isPressed()) batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
+                    case "pressureButton": ((PressureButton) level.level1[j][i]).getSprite().draw(batch); break;
                     default: break;
                 }
             }
