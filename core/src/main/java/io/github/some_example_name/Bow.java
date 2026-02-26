@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import static io.github.some_example_name.Main.currentLevel;
 
 public class Bow {
     public Bow() {}
@@ -47,18 +46,19 @@ public class Bow {
     // + Collision
     // + Ricochet
     // + (eventually) buttons and other interactions
-    public void arrowLogic() {
+    public void arrowLogic(level curLvl) {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
             Sprite arrow = arrowArray.get(i);
-            float wall = wallR(arrow);
-            String pos = arrowPos(arrow);
+            float wall = curLvl.rotationAt(arrow.getX(), arrow.getY())%360;
+            String pos = curLvl.tileAtWorldPos(arrow.getX(), arrow.getY());
             int ricCount = count.get(i);
-            float ti = timer.get(i);
-            boolean arrowRicochet = shouldRicochet((int) arrow.getRotation(), arrow, wall);
-            boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal"));
-            if (pos.equals("button")) {
-                ((Button) currentLevel.getObject()[Math.round(arrow.getX()/32)][Math.round(arrow.getY()/32)]).isPressed();
+            float time = timer.get(i);
+            boolean arrowRicochet = shouldRicochet(pos, (int) arrow.getRotation(), wall);
+            boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal") && !pos.equals("button"));
+            TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
+            if (f instanceof ColorButton) {
+                ((ColorButton) f).isPressed();
             }
             int arrowRotation = (int) arrow.getRotation()%360;
             int ric = 5;
@@ -139,13 +139,13 @@ public class Bow {
                     break;
             }
             if (arrowStop) {
-                removeArrow(i, ti);
+                removeArrow(i, time);
             }
         }
     }
 
-    private boolean shouldRicochet(int rotation, Sprite arrow, float w) {
-        if (arrowPos(arrow).equals("bouncy")) {
+    private boolean shouldRicochet(String pos, int rotation, float w) {
+        if (pos.equals("bouncy")) {
             switch (rotation) {
                 case 90: return (w == 0 || w == 270);
                 case 0: return (w == 180 || w == 270);
@@ -156,10 +156,6 @@ public class Bow {
         }
         return false;
     }
-
-    private float wallR(Sprite arrow) { return currentLevel.rotationAt(arrow.getX(), arrow.getY())%360;}
-
-    private String arrowPos(Sprite arrow) { return currentLevel.tileAtWorldPos(arrow.getX(), arrow.getY());}
 
     // Removes one arrow at a time
     private void removeArrow(int i, float time) {

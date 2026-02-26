@@ -31,14 +31,14 @@ public class Main extends ApplicationAdapter {
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",0,0);
         templevel.changeTile( 4,4,"bouncy", 180);
-        templevel.changeTile(1, 5, "button", 90);
+        templevel.changeTile(1, 5, "g", 90);
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,"portal",0,1);
         currentLevel.changeTile(1,5,"inportal",3,3);
         currentLevel.changeTile(5,5,"box");
         currentLevel.changeTile(7,7,"lever","box");
-        currentLevel.changeTile(10, 8, "button", 270);
+        currentLevel.changeTile(10,8,"y", 270);
         currentLevel.changeTile(1,10,"bouncy", 0);
         currentLevel.changeTile(9,10,"bouncy", 270);
         currentLevel.changeTile(1,1,"bouncy", 90);
@@ -50,7 +50,8 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(6,3,"bouncy", 180);
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
-        currentLevel.changeTile(8, 3, "button", 180);
+        currentLevel.changeTile(9,5,"button");
+        currentLevel.changeTile(4, 2, "pressureButton");
         bow = new Bow();
         textBox = new TextBox();
         viewport = new FitViewport(960,720);
@@ -125,7 +126,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-        bow.arrowLogic();
+        bow.arrowLogic(currentLevel);
     }
 
     private void draw() {

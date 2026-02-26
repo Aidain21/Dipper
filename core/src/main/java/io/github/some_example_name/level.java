@@ -10,7 +10,6 @@ public class level extends ApplicationAdapter {
     int spawnRow=1;
     int spawnCol=1;
     TileFills generator = new TileFills();
-    Object[][] objects;
 
     public level(int r, int c) {
         rowCount=r;
@@ -28,7 +27,6 @@ public class level extends ApplicationAdapter {
 
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
-        objects = new Object[colCount][rowCount];
         for (int i = 0; i < rowCount; i++) {
             level1[0][i]=(generator.CreateTileFills("wall"));
             level1[colCount-1][i]=(generator.CreateTileFills("wall"));
@@ -46,10 +44,6 @@ public class level extends ApplicationAdapter {
 
     public TileFills[][] getLevel(){
         return level1;
-    }
-
-    public Object[][] getObject(){
-        return objects;
     }
 
     public int getSpawnRow(){
@@ -73,6 +67,11 @@ public class level extends ApplicationAdapter {
  */
     public void changeTile(int r, int c, String fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            if (fill.equals("pressureButton")) {
+                TileFills tile = generator.CreateTileFills(fill, r, c);
+                level1[c][r] = tile;
+                return;
+            }
             level1[c][r]=generator.CreateTileFills(fill);
         }
     }
@@ -89,22 +88,19 @@ public class level extends ApplicationAdapter {
         }
     }
 
-    // Bouncy Wall Object Overload
+    // Rotation Overload
     public void changeTile(int r, int c, String fill, float i){
-        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=generator.CreateTileFills(r, c, fill, i);
-            switch(fill) {
-                case "bouncy": objects[r][c] = new BouncyWall(r, c, i); break;
-                case "button": objects[r][c] = new Button(r, c, i); break;
-                default: break;
-            }
+        if (r > 0 && r < rowCount && c > 0 && c < colCount){
+            TileFills tile = generator.CreateTileFills(r, c, fill, i);
+            level1[c][r] = tile;
         }
     }
 
     public float rotationAt(float x, float y) {
-        int rX = Math.round( x / 32);
-        int rY = Math.round( y / 32);
-        if (level1[rY][rX].getTileString().equals("bouncy")) return ((BouncyWall) objects[rX][rY]).getRotation();
+        int rX = Math.round(x / 32);
+        int rY = Math.round(y / 32);
+        TileFills tile = level1[rY][rX];
+        if (tile instanceof BouncyWall) return ((BouncyWall) tile).getRotation();
         return -1;
     }
 
@@ -119,12 +115,17 @@ public class level extends ApplicationAdapter {
         return Main.moveLevel(p.nextX,p.nextY);
     }
 
-//add error checking
+    //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
         if(level1[c1][r1].movable && level1[c2][r2].movable) {
             TileFills temp = level1[c1][r1];
             level1[c1][r1] = level1[c2][r2];
             level1[c2][r2] = temp;
         }
+    }
+
+    public void coverTile(int r1, int r2, int c1, int c2) {
+        TileFills temp = level1[c2][r2];
+
     }
 }

@@ -12,8 +12,8 @@ public class BouncyWall extends TileFills {
     }
 
     public void rotateWall(float r) {
-        this.sprite.rotate(r);
-        if (this.sprite.getRotation() >= 270) this.sprite.setRotation(this.sprite.getRotation()%360);
+        float rotation = (this.getRotation() + r)%360;
+        this.sprite.setRotation(rotation);
     }
     public int getRotation() {return (int) this.sprite.getRotation();}
     public Sprite getSprite() {return this.sprite;}
