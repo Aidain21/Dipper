@@ -29,7 +29,15 @@ public class LevelDraw {
                     case "portal": batch.draw(portalTexture, i*32, j*32, 32, 32); break;
                     case "box": batch.draw(crateTexture, i*32, j*32, 32, 32); break;
                     case "wall": batch.draw(brickWallTexture, i*32, j*32, 32, 32); break;
-                    case "button": batch.draw(buttonTx, i*32, j*32, 32, 32); break;
+                    case "button":
+                        if (((Button) level.level1[j][i]).pressedStatus()) {
+                            batch.draw(rButtonTx, i * 32, j * 32, 32, 32);
+                            break;
+                        }
+                        else {
+                            batch.draw(buttonTx, i * 32, j * 32, 32, 32);
+                            break;
+                        }
                     case "lever":
                         if (((Lever) level.level1[j][i]).flipStatus()) {
                             batch.draw(lever2Texture, i * 32, j * 32, 32, 32);
