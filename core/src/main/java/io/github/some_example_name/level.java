@@ -1,8 +1,6 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class level extends ApplicationAdapter {
@@ -13,8 +11,6 @@ public class level extends ApplicationAdapter {
     int spawnCol=1;
     //generates new tiles
     TileFills generator = new TileFills();
-
-
 
     public level(int r, int c) {
         rowCount=r;
@@ -28,14 +24,11 @@ public class level extends ApplicationAdapter {
         spawnRow=spawnR;
         spawnCol=spawnC;
         createLevel();
-
-
     }
 
     //creates a new level and fills it in with walls and floors
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
-
         for (int i = 0; i < rowCount; i++) {
             level1[0][i]=(generator.CreateTileFills("wall"));
             level1[colCount-1][i]=(generator.CreateTileFills("wall"));
@@ -78,6 +71,10 @@ public class level extends ApplicationAdapter {
     //only given name
     public void changeTile(int r, int c, String fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
+            if (fill.equals("pressureButton")) {
+                level1[c][r] = generator.CreateTileFills(fill, r, c);
+                return;
+            }
             level1[c][r]=generator.CreateTileFills(fill);
         }
     }
@@ -103,6 +100,21 @@ public class level extends ApplicationAdapter {
         }
     }
 
+    // Rotation Overload
+    public void changeTile(int r, int c, String fill, float i){
+        if (r > 0 && r < rowCount && c > 0 && c < colCount){
+            level1[c][r] = generator.CreateTileFills(r, c, fill, i);
+        }
+    }
+
+    public float rotationAt(float x, float y) {
+        int rX = Math.round(x / 32);
+        int rY = Math.round(y / 32);
+        TileFills tile = level1[rY][rX];
+        if (tile instanceof BouncyWall) return ((BouncyWall) tile).getRotation();
+        return -1;
+    }
+
     public String tileAtWorldPos(float x, float y) {
         int rX = Math.round( x / 32);
         int rY = Math.round( y / 32);
@@ -115,6 +127,7 @@ public class level extends ApplicationAdapter {
     }
 
 
+    //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
         if(level1[c1][r1].movable && level1[c2][r2].movable) {
             TileFills temp = level1[c1][r1];
@@ -122,6 +135,4 @@ public class level extends ApplicationAdapter {
             level1[c2][r2] = temp;
         }
     }
-
-
 }

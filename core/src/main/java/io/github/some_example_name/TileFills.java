@@ -16,15 +16,11 @@ public class TileFills {
     public TileFills CreateTileFills(String fill){
         switch (fill) {
             case "floor": return new Floor();
-            case "wall": return new Walls.Wall();
+            case "wall": return new Wall();
             case "box": return new Box();
-            case "1":
-            case "2":
-            case "3":
-            case "4": return new Walls.Bouncy(fill);
-            default: break;
+            case "button": return new Button();
+            default: return new TileFills();
         }
-        return new TileFills();
     }
 
     //called when handed a name and 2 numbers, currently used for portals
@@ -38,6 +34,13 @@ public class TileFills {
                 break;
         }
             return new TileFills();
+        if(fill.equals("portal"))
+            return new Portal(x,y);
+        else if(fill.equals("inportal"))
+            return new InLevelPortal(x,y);
+       else if (fill.equals("pressureButton"))
+            return new PressureButton(x, y);
+       return new TileFills();
     }
 
     //called when given 2 names, used currently for the lever
@@ -47,6 +50,18 @@ public class TileFills {
 
     //called when given a name and number, currently just for spikes
     public TileFills CreateTileFills(String fill, int damage){ return new Spikes(damage);}
+
+    // Rotation
+    public TileFills CreateTileFills(int x, int y, String fill, float r) {
+        switch(fill) {
+            case "bouncy": return new BouncyWall(x, y, r);
+            case "r":
+            case "g":
+            case "b":
+            case "y": return new ColorButton(x, y, fill, r);
+            default: return new TileFills();
+        }
+    }
 
     public String getTileString(){
         return fill;

@@ -52,23 +52,23 @@ public class Player {
         //walking interactions based on what is stored in the tile's data
         //such as a wall stopping the walking from being done
         //or a portal teleporting you when you step on it
+        // break = no collision | return = collision
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
             switch (curLevel.level1[end.y][end.x].getTileString()) {
-                case "wall":
-                case "box":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                    return;
                 case "portal":
                     pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
                     return;
                 case "inportal":
                     pos=((InLevelPortal) curLevel.level1[end.y][end.x]).newPos();
                     return;
-                default:
+
+                // Place below for no collision
+
+                case "button":
+                case "pressureButton":
+                case "floor":
                     break;
+                default: return;
             }
         }
 
@@ -86,42 +86,33 @@ public class Player {
         //switches what happens when you interact
         //You can use TextBox.text[0] = "string" to change the dialogue line
         switch (curLevel.level1[look.y][look.x].getTileString()) {
-            case "wall":
-                TextBox.text[0] = "I see a wall! It's solid like a rock.";
+            case "button":
+                ((Button) curLevel.getLevel()[look.y][look.x]).isPressed();
+                TextBox.text[0] = "I see a button!";
                 break;
-            case "level":
-                TextBox.text[0] = "I see a level transition! It's a swirly magic portal.";
-                break;
-            case "box":
-                curLevel.swapTiles(look.x,look.y,look.x + facing.x,look.y + facing.y);
-                TextBox.text[0] = "I see a block! I probably just pushed it.";
             case " ":
-            case "floor":
+            case "floor": break;
+            case "wall": TextBox.text[0] = "I see a wall! It's solid like a rock."; break;
+            case "level": TextBox.text[0] = "I see a level transition! It's a swirly magic portal."; break;
+            case "box": TextBox.text[0] = "I see a block! I probably just pushed it.";
+                ((Box) curLevel.level1[look.y][look.x]).tryPush(look.x, look.y, facing.x, facing.y, curLevel);
                 break;
             case "lever":
-                ((Lever) curLevel.getLevel()[look.x][look.y]).onFlip(2,2,curLevel);
-                TextBox.text[0] ="I see a lever! It probably added something new!";
+                ((BouncyWall) curLevel.getLevel()[3][6]).rotateWall(90);
+                ((Lever) curLevel.getLevel()[look.y][look.x]).onFlip(2,2,curLevel);
+                TextBox.text[0] = "I see a lever! It probably added something new!";
                 break;
-            case "1":
-            case "2":
-            case "3":
-            case "4":
-                TextBox.text[0] ="Bouncy Wall! Maybe this could deflect something.";
-                break;
-            default:
-                TextBox.text[0] = "I see a thing that I don't detect! It's cool I guess.";
-                break;
+            case "bouncy": TextBox.text[0] = "A Bouncy Wall! Maybe this could deflect something!"; break;
+            case "colorButton": TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
+            case "pressureButton": TextBox.text[0] = "A Pressure Button! I need something heavy!"; break;
+            default: break;
         }
     }
-
-
 
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
         pSprite.setPosition(pos.x * 32, pos.y *32);
         pSprite.draw(batch);
     }
-
-
 }
 

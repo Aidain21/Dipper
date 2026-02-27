@@ -30,21 +30,28 @@ public class Main extends ApplicationAdapter {
         levels = new map(2,2,12,12);
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",0,0);
+        templevel.changeTile( 4,4,"bouncy", 180);
+        templevel.changeTile(1, 5, "g", 90);
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,"portal",0,1);
         currentLevel.changeTile(1,5,"inportal",3,3);
         currentLevel.changeTile(5,5,"box");
         currentLevel.changeTile(7,7,"lever","box");
-        currentLevel.changeTile(1,10,"1");
-        currentLevel.changeTile(10,10,"4");
-        currentLevel.changeTile(1,1,"2");
-        currentLevel.changeTile(10,1,"3");
-        currentLevel.changeTile(5,8,"3");
-        currentLevel.changeTile(5,7,"4");
-        currentLevel.changeTile(6,8,"2");
-        currentLevel.changeTile(6,7,"1");
-        currentLevel.changeTile(6,3,"3");
+        currentLevel.changeTile(10,8,"y", 270);
+        currentLevel.changeTile(1,10,"bouncy", 0);
+        currentLevel.changeTile(9,10,"bouncy", 270);
+        currentLevel.changeTile(1,1,"bouncy", 90);
+        currentLevel.changeTile(9,1,"bouncy", 180);
+        currentLevel.changeTile(5,9,"bouncy", 180);
+        currentLevel.changeTile(5,8,"bouncy", 270);
+        currentLevel.changeTile(6,9,"bouncy", 90);
+        currentLevel.changeTile(6,8,"bouncy", 0);
+        currentLevel.changeTile(6,3,"bouncy", 180);
+        currentLevel.changeTile(10,10,"wall");
+        currentLevel.changeTile(10,1,"wall");
+        currentLevel.changeTile(9,5,"button");
+        currentLevel.changeTile(4, 2, "pressureButton");
         bow = new Bow();
         textBox = new TextBox();
         viewport = new FitViewport(960,720);
@@ -119,7 +126,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-        bow.arrowLogic();
+        bow.arrowLogic(currentLevel);
     }
 
     private void draw() {
