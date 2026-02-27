@@ -60,7 +60,7 @@ public class Bow {
             TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
             if (f instanceof ColorButton) ((ColorButton) f).isPressed();
             int arrowRotation = (int) arrow.getRotation()%360;
-            int ric = 5;
+            int ric = 20;
             switch (arrowRotation) {
                 case 90: // North
                     if (arrowStop) break;

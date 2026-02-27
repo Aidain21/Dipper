@@ -64,7 +64,6 @@ public class Player {
 
                 // Place below for no collision
 
-                case "button":
                 case "pressureButton":
                 case "floor":
                     break;
@@ -88,7 +87,6 @@ public class Player {
         switch (curLevel.level1[look.y][look.x].getTileString()) {
             case "button":
                 ((Button) curLevel.getLevel()[look.y][look.x]).isPressed();
-                ((BouncyWall) curLevel.getLevel()[3][6]).rotateWall(90);
                 TextBox.text[0] = "I see a button!";
                 break;
             case " ":
