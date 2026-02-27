@@ -29,10 +29,10 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         levels = new map(2,2,12,12);
         level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,"portal",1,0);
+        templevel.changeTile(3,2,"portal",1,1);
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
-        currentLevel.changeTile(2,4,"portal",1,1);
+        currentLevel.changeTile(2,4,"portal",0,1);
         currentLevel.changeTile(1,5,"inportal",3,3);
         currentLevel.changeTile(5,5,"box");
         currentLevel.changeTile(7,7,"lever","box");
@@ -93,6 +93,10 @@ public class Main extends ApplicationAdapter {
                 player.playerInteract(currentLevel);
                 inputTimer = 0.1f;
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+                levels.getMap()[1][1].printLevel();
+                inputTimer = 0.1f;
+            }
 
 
         } else {
@@ -141,6 +145,7 @@ public class Main extends ApplicationAdapter {
 
     public static Vector2Int moveLevel(int x, int y){
         currentLevel=levels.getMap()[y][x];
+        currentLevel.printLevel();
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
 
     }

@@ -31,9 +31,7 @@ public class level extends ApplicationAdapter {
 
     }
 
-    public level(int r, int c, int spawnR, int spawnC, boolean auto){
-        rowCount=r;
-        colCount=c;
+    public level(int spawnR, int spawnC, boolean auto){
         spawnRow=spawnR;
         spawnCol=spawnC;
     }
@@ -80,21 +78,15 @@ public class level extends ApplicationAdapter {
 
  */
     public void changeTile(int r, int c, String fill){
-        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=generator.CreateTileFills(fill);
-        }
+        level1[c][r]=generator.CreateTileFills(fill);
     }
 
     public void changeTile(int r, int c, String fill, int nextX, int nextY){
-        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
-        }
+        level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
     }
 
     public void changeTile(int r, int c, String fill, String nFill){
-        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=generator.CreateTileFills(fill,nFill);
-        }
+        level1[c][r]=generator.CreateTileFills(fill,nFill);
     }
 
     public String tileAtWorldPos(float x, float y) {
@@ -115,6 +107,15 @@ public class level extends ApplicationAdapter {
             TileFills temp = level1[c1][r1];
             level1[c1][r1] = level1[c2][r2];
             level1[c2][r2] = temp;
+        }
+    }
+
+    public void printLevel () {
+        for (TileFills[] arr : level1) {
+            for (TileFills t : arr) {
+                System.out.print(t.getTileString().charAt(0));
+            }
+            System.out.println();
         }
     }
 

@@ -52,7 +52,7 @@ public class Player {
         //walking interactions based on what is stored in the tile's data
         //such as a wall stopping the walking from being done
         //or a portal teleporting you when you step on it
-        if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
+        if (end.x < curLevel.level1[0].length && end.y < curLevel.level1.length) {
             switch (curLevel.level1[end.y][end.x].getTileString()) {
                 case "wall":
                 case "box":
