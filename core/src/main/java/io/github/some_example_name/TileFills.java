@@ -1,11 +1,14 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 public class TileFills {
     String fill;
     //if you can walk on a tile
     boolean canWalk=false;
     //if you can move a tile
     boolean movable=false;
+    Sprite sprite;
 
     //default constructor for empty tiles
     public TileFills() {
@@ -26,16 +29,11 @@ public class TileFills {
     //called when handed a name and 2 numbers, currently used for portals
     public TileFills CreateTileFills(String fill, int x, int y){
         switch (fill) {
-            case "portal":
-                return new Portal(x, y);
-            case "inportal":
-                return new InLevelPortal(x, y);
-            case "pressureButton":
-                return new PressureButton(x, y);
-            default:
-                break;
+            case "portal": return new Portal(x, y);
+            case "inportal": return new InLevelPortal(x, y);
+            case "pressureButton": return new PressureButton(x, y);
+            default: return new TileFills();
         }
-            return new TileFills();
     }
 
     //called when given 2 names, used currently for the lever
@@ -61,5 +59,7 @@ public class TileFills {
     public String getTileString(){
         return fill;
     }
+    public Sprite getSprite() { return sprite;}
+
 }
 

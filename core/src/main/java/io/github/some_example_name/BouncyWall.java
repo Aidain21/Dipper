@@ -3,7 +3,6 @@ package io.github.some_example_name;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class BouncyWall extends TileFills {
-    Sprite sprite;
     public BouncyWall(int x, int y, float r) { // int x, int y, float r
         fill = "bouncy";
         sprite = new Sprite(LevelDraw.bouncy);
@@ -16,5 +15,4 @@ public class BouncyWall extends TileFills {
         this.sprite.setRotation(rotation);
     }
     public int getRotation() {return (int) this.sprite.getRotation();}
-    public Sprite getSprite() {return this.sprite;}
 }

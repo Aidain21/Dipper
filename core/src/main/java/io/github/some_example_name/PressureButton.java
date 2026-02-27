@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class PressureButton extends TileFills{
     boolean pressed;
-    Sprite sprite;
     public PressureButton(int x, int y) {
         fill = "pressureButton";
         sprite = new Sprite(LevelDraw.pressureButtonTx);
@@ -23,5 +22,4 @@ public class PressureButton extends TileFills{
         TextBox.text[1] = "Pressure Button no longer Presseed.";
     }
     //public boolean isPressed() {return this.pressed;}
-    public Sprite getSprite() {return this.sprite;}
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ColorButton extends TileFills {
     boolean pressed = false;
-    Sprite sprite;
     public ColorButton(float x, float y, String color, float r) {
         fill = "colorButton";
         switch(color) {
@@ -21,5 +20,4 @@ public class ColorButton extends TileFills {
         pressed = true;
         TextBox.text[1] = "Colored Button!!";
     }
-    public Sprite getSprite() {return this.sprite;}
 }
