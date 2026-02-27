@@ -12,6 +12,7 @@ public class Player {
     public Vector2Int facing;
     public Texture img;
     public Sprite pSprite;
+    public int health=5;
 
     public Player() {
         pos = new Vector2Int(2,7);
@@ -67,6 +68,11 @@ public class Player {
                 case "button":
                 case "pressureButton":
                 case "floor":
+                    break;
+                case "spikes": TextBox.text[0] = "That's a spike! I shouldn't step on that!";;
+                    health-=((Spikes) curLevel.getLevel()[end.y][end.x]).getDamage();
+                    if(health<=0)
+                        System.out.println("you died :(");
                     break;
                 default: return;
             }

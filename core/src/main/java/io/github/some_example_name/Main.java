@@ -48,6 +48,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(6,9,"bouncy", 90);
         currentLevel.changeTile(6,8,"bouncy", 0);
         currentLevel.changeTile(6,3,"bouncy", 180);
+        currentLevel.changeTile(6,1,"spikes", 180);
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
         currentLevel.changeTile(9,5,"button");

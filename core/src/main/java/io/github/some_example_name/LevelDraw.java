@@ -21,7 +21,7 @@ public class LevelDraw {
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
                 String tile = level.level1[j][i].getTileString();
-                if (!tile.equals("box") && !tile.equals("portal") && !tile.equals("wall"))
+                if (!tile.equals("box") && !tile.equals("portal") && !tile.equals("wall") && !tile.equals("spikes"))
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 switch(level.level1[j][i].getTileString()) {
                     case "portal": batch.draw(portalTexture, i*32, j*32, 32, 32); break;
@@ -33,6 +33,7 @@ public class LevelDraw {
                     case "inportal": batch.draw(inPortalTx, i * 32, j * 32, 32, 32); break;
                     case "colorButton": ((ColorButton) level.level1[j][i]).getSprite().draw(batch); break;
                     case "pressureButton": ((PressureButton) level.level1[j][i]).getSprite().draw(batch); break;
+                    case "spikes":break;
                     default: break;
                 }
             }
