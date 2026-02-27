@@ -45,13 +45,13 @@ public class TileFills {
     public TileFills CreateTileFills(String fill, int damage){ return new Spikes(damage);}
 
     // Rotation
-    public TileFills CreateTileFills(int x, int y, String fill, float r) {
+    public TileFills CreateTileFills(String fill, float r) {
         switch(fill) {
-            case "bouncy": return new BouncyWall(x, y, r);
+            case "bouncy": return new BouncyWall(r);
             case "r":
             case "g":
             case "b":
-            case "y": return new ColorButton(x, y, fill, r);
+            case "y": return new ColorButton(fill, r);
             default: return new TileFills();
         }
     }

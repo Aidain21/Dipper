@@ -152,7 +152,6 @@ public class Main extends ApplicationAdapter {
 
     public static Vector2Int moveLevel(int x, int y){
         currentLevel=levels.getMap()[y][x];
-        currentLevel.printLevel();
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
 
     }

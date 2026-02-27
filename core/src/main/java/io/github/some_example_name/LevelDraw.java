@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class LevelDraw {
+
     public static Texture backgroundTexture = new Texture("background.png");
     public static Texture brickWallTexture = new Texture("brickWall.png");
     public static Texture crateTexture = new Texture("blockCrate.png");
@@ -42,6 +43,7 @@ public class LevelDraw {
                     case "bouncy":
                     case "colorButton":
                     case "pressureButton":
+                        level.level1[j][i].getSprite().setPosition(i * 32, j *32);
                         (level.level1[j][i]).getSprite().draw(batch); break;
                     default: break;
                 }
