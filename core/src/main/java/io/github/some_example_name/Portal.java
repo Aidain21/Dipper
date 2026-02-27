@@ -6,7 +6,8 @@ public class Portal extends TileFills{
     int nextX;
     int nextY;
     public Portal(int x, int y){
-        fill="portal";
+        fill = "portal";
+        texture = LevelDraw.portalTexture;
         nextX=x;
         nextY=y;
         canWalk=true;

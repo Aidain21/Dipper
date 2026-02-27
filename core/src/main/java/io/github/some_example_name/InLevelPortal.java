@@ -6,6 +6,7 @@ public class InLevelPortal extends TileFills{
 
     public InLevelPortal(int x, int y){
         fill="inportal";
+        texture = LevelDraw.inPortalTx;
         newX=x;
         newY=y;
         canWalk=true;

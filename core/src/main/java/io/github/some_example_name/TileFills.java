@@ -1,14 +1,16 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
+import com.badlogic.gdx.graphics.Texture;
 public class TileFills {
     String fill;
     //if you can walk on a tile
     boolean canWalk=false;
     //if you can move a tile
     boolean movable=false;
-    Sprite sprite;
+    // Texture / Sprite
+    Sprite sprite = null;
+    Texture texture = null;
 
     //default constructor for empty tiles
     public TileFills() {
@@ -56,10 +58,13 @@ public class TileFills {
         }
     }
 
-    public String getTileString(){
-        return fill;
+    public String getTileString() {return fill;}
+    public Sprite getSprite() {return sprite;}
+    public Texture getTexture() {return texture;}
+    public String getType() {
+        if (texture != null) return "texture";
+        else if (sprite != null) return "sprite";
+        return "N/A";
     }
-    public Sprite getSprite() { return sprite;}
-
 }
 

@@ -4,6 +4,7 @@ public class Spikes extends TileFills{
     int damage=1;
     public Spikes(int d){
         fill="spikes";
+        texture = LevelDraw.spikesTx;
         damage=d;
         canWalk=true;
     }

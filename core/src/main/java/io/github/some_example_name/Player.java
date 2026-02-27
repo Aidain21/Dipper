@@ -88,6 +88,7 @@ public class Player {
         switch (curLevel.level1[look.y][look.x].getTileString()) {
             case "button":
                 ((Button) curLevel.getLevel()[look.y][look.x]).isPressed();
+                ((BouncyWall) curLevel.getLevel()[3][6]).rotateWall(90);
                 TextBox.text[0] = "I see a button!";
                 break;
             case " ":
@@ -98,7 +99,6 @@ public class Player {
                 ((Box) curLevel.level1[look.y][look.x]).tryPush(look.x, look.y, facing.x, facing.y, curLevel);
                 break;
             case "lever":
-                ((BouncyWall) curLevel.getLevel()[3][6]).rotateWall(90);
                 ((Lever) curLevel.getLevel()[look.y][look.x]).onFlip(2,2,curLevel);
                 TextBox.text[0] = "I see a lever! It probably added something new!";
                 break;

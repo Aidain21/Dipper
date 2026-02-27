@@ -5,6 +5,7 @@ public class Box extends TileFills{
     boolean covering;
     public Box(){
         fill="box";
+        texture = LevelDraw.crateTexture;
         movable=true;
         covering = false;
     }

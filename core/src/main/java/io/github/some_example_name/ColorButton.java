@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ColorButton extends TileFills {
     boolean pressed = false;
-    public ColorButton(float x, float y, String color, float r) {
+    public ColorButton(int x, int y, String color, float r) {
         fill = "colorButton";
         switch(color) {
             case "b": sprite = new Sprite(LevelDraw.bButtonTx); break;

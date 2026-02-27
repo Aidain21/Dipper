@@ -15,34 +15,24 @@ public class LevelDraw {
     public static Texture inPortalTx = new Texture("inPortal.png");
     public static Texture bouncy = new Texture("bouncyWall.png");
     public static Texture buttonTx = new Texture("button.png");
+    public static Texture buttonPressTx = new Texture("buttonPressTx.png");
     public static Texture pressureButtonTx = new Texture("pressureButton.png");
-    public static Texture leverTexture = new Texture("lever.png");
-    public static Texture lever2Texture = new Texture("lever2.png");
+    public static Texture leverTx = new Texture("lever.png");
+    public static Texture lever2Tx = new Texture("lever2.png");
+    public static Texture spikesTx = new Texture("spikes.png");
 
     public static void drawLevel(SpriteBatch batch, level level){
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
+
+                // Draws background first, if texture is not the full 32/32 pixels
                 String tile = level.level1[j][i].getTileString();
                 if (!tile.equals("box") && !tile.equals("portal") && !tile.equals("wall"))
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
-                switch(level.level1[j][i].getTileString()) {
-                    case "portal": batch.draw(portalTexture, i*32, j*32, 32, 32); break;
-                    case "box": batch.draw(crateTexture, i*32, j*32, 32, 32); break;
-                    case "wall": batch.draw(brickWallTexture, i*32, j*32, 32, 32); break;
-                    case "button": batch.draw(buttonTx, i*32, j*32, 32, 32); break;
-                    case "lever":
-                        if (((Lever) level.level1[j][i]).flipStatus())
-                            {batch.draw(lever2Texture, i * 32, j * 32, 32, 32);}
-                        else batch.draw(leverTexture, i * 32, j * 32, 32, 32);
-                        break;
-                    case "inportal": batch.draw(inPortalTx, i * 32, j * 32, 32, 32); break;
 
-                    // place below for Sprites
-
-                    case "bouncy":
-                    case "colorButton":
-                    case "pressureButton":
-                        (level.level1[j][i]).getSprite().draw(batch); break;
+                switch (level.level1[j][i].getType()) {
+                    case "texture": batch.draw((level.level1[j][i]).getTexture(), i * 32, j * 32, 32, 32); break;
+                    case "sprite": (level.level1[j][i]).getSprite().draw(batch); break;
                     default: break;
                 }
             }

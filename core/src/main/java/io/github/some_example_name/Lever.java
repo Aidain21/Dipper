@@ -1,12 +1,12 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.graphics.Texture;
 public class Lever extends TileFills{
     TileFills gen;
     boolean isFlipped=false;
     String newFill="floor";
     public Lever(String nFill){
         fill="lever";
+        texture = LevelDraw.leverTx;
         newFill=nFill;
     }
 
@@ -14,6 +14,7 @@ public class Lever extends TileFills{
         if(!isFlipped){
             l.changeTile(x,y,newFill);
             isFlipped=true;
+            texture = LevelDraw.lever2Tx;
         }
     }
 
@@ -23,5 +24,4 @@ public class Lever extends TileFills{
             isFlipped=true;
         }
     }
-    public boolean flipStatus() {return this.isFlipped;}
 }

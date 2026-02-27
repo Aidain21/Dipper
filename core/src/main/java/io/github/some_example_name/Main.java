@@ -51,6 +51,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
         currentLevel.changeTile(9,5,"button");
+        currentLevel.changeTile(3,9,"spike", 1);
         currentLevel.changeTile(4, 2, "pressureButton");
         bow = new Bow();
         textBox = new TextBox();
