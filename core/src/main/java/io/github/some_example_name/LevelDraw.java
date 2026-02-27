@@ -31,11 +31,10 @@ public class LevelDraw {
                     case "wall": batch.draw(brickWallTexture, i*32, j*32, 32, 32); break;
                     case "button": batch.draw(buttonTx, i*32, j*32, 32, 32); break;
                     case "lever":
-                        if (((Lever) level.level1[j][i]).flipStatus()) {
-                            batch.draw(lever2Texture, i * 32, j * 32, 32, 32);
-                            break;
-                        }
-                        batch.draw(leverTexture, i * 32, j * 32, 32, 32); break;
+                        if (((Lever) level.level1[j][i]).flipStatus())
+                            {batch.draw(lever2Texture, i * 32, j * 32, 32, 32);}
+                        else batch.draw(leverTexture, i * 32, j * 32, 32, 32);
+                        break;
                     case "inportal": batch.draw(inPortalTx, i * 32, j * 32, 32, 32); break;
 
                     // place below for Sprites
