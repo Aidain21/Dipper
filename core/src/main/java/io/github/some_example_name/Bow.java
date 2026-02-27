@@ -45,7 +45,7 @@ public class Bow {
     // Arrow Logic: Makes arrow move in a direction
     // + Collision
     // + Ricochet
-    // + (eventually) buttons and other interactions
+    // + Button & other Interactions
     public void arrowLogic(level curLvl) {
         float delta = Gdx.graphics.getDeltaTime();
         for (int i = arrowArray.size - 1; i >= 0; i--) {
@@ -63,75 +63,67 @@ public class Bow {
             int ric = 5;
             switch (arrowRotation) {
                 case 90: // North
-                    if (!arrowStop) {
-                        arrow.translateY(400f * delta);
-                        if (arrowRicochet) {
-                            ricCount ++;
-                            count.set(i, ricCount);
-                            if (ricCount >= ric) break;
-                            if (wall == 0) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 36);
-                                arrow.setRotation(0);
-                            }
-                            if (wall == 270) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 36);
-                                arrow.setRotation(180);
-                            }
-                        }
+                    if (arrowStop) break;
+                    arrow.translateY(400f * delta);
+                    if (!arrowRicochet) break;
+                    ricCount ++;
+                    count.set(i, ricCount);
+                    if (ricCount >= ric) break;
+                    if (wall == 0) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 36);
+                        arrow.setRotation(0);
+                    }
+                    if (wall == 270) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 36);
+                        arrow.setRotation(180);
                     }
                     break;
                 case 0: // East
-                    if (!arrowStop) {
-                        arrow.translateX(400f * delta);
-                        if (arrowRicochet) {
-                            ricCount ++;
-                            count.set(i, ricCount);
-                            if (ricCount >= ric) break;
-                            if (wall== 270) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 - 25);
-                                arrow.setRotation(270);
-                            }
-                            if (wall == 180) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 + 16);
-                                arrow.setRotation(90);
-                            }
-                        }
+                    if (arrowStop) break;
+                    arrow.translateX(400f * delta);
+                    if (!arrowRicochet) break;
+                    ricCount ++;
+                    count.set(i, ricCount);
+                    if (ricCount >= ric) break;
+                    if (wall== 270) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 - 25);
+                        arrow.setRotation(270);
+                    }
+                    if (wall == 180) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 + 28, arrow.getY()-arrow.getY()%32 + 16);
+                        arrow.setRotation(90);
                     }
                     break;
                 case 270: // South
-                    if (!arrowStop) {
-                        arrow.translateY(-400f * delta);
-                        if (arrowRicochet) {
-                            ricCount ++;
-                            count.set(i, ricCount);
-                            if (ricCount >= ric) break;
-                            if (wall == 180) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 4);
-                                arrow.setRotation(180);
-                            }
-                            if (wall == 90) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 5);
-                                arrow.setRotation(0);
-                            }
-                        }
+                    if (arrowStop) break;
+                    arrow.translateY(-400f * delta);
+                    if (!arrowRicochet) break;
+                    ricCount ++;
+                    count.set(i, ricCount);
+                    if (ricCount >= ric) break;
+                    if (wall == 180) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 + 15, arrow.getY()-arrow.getY()%32 + 4);
+                        arrow.setRotation(180);
+                    }
+                    if (wall == 90) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 + 48, arrow.getY()-arrow.getY()%32 + 5);
+                        arrow.setRotation(0);
                     }
                     break;
                 case 180: // West
-                    if (!arrowStop) {
-                        arrow.translateX(-400f * delta);
-                        if (arrowRicochet) {
-                            ricCount ++;
-                            count.set(i, ricCount);
-                            if (ricCount >= ric) break;
-                            if (wall == 90) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 - 5, arrow.getY()-arrow.getY()%32 + 16);
-                                arrow.setRotation(90);
-                            }
-                            if (wall== 0) {
-                                arrow.setPosition(arrow.getX()-arrow.getX()%32 - 4, arrow.getY()-arrow.getY()%32 - 17);
-                                arrow.setRotation(270);
-                            }
-                        }
+                    if (arrowStop) break;
+                    arrow.translateX(-400f * delta);
+                    if (!arrowRicochet) break;
+                    ricCount ++;
+                    count.set(i, ricCount);
+                    if (ricCount >= ric) break;
+                    if (wall == 90) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 - 5, arrow.getY()-arrow.getY()%32 + 16);
+                        arrow.setRotation(90);
+                    }
+                    if (wall== 0) {
+                        arrow.setPosition(arrow.getX()-arrow.getX()%32 - 4, arrow.getY()-arrow.getY()%32 - 17);
+                        arrow.setRotation(270);
                     }
                     break;
                 default: break;

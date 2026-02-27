@@ -28,14 +28,16 @@ public class Box extends TileFills{
         String targetType = targetTile.getTileString();
         if (targetType.equals("box")) return;
         if (box.isCovering()) {
-            if (!targetType.equals("pressureButton")) curLevel.swapTiles(lookX, lookY, tx, ty);
+            if (!targetType.equals("pressureButton"))
+                curLevel.swapTiles(lookX, lookY, tx, ty);
             curLevel.swapTiles(box.coverX, box.coverY, box.oldX, box.oldY);
             TileFills coveredTile = curLevel.level1[box.coverY][box.coverX];
-            if (coveredTile instanceof PressureButton) ((PressureButton) coveredTile).unpress();
+            if (coveredTile instanceof PressureButton)
+                ((PressureButton) coveredTile).unpress();
             box.uncover();
             return;
         }
-        // Press a pressure button if the box is moved onto it
+        // Presses pressure button if the box is moved onto it
         if (targetType.equals("pressureButton")) {
             if (targetTile instanceof PressureButton) {
                 PressureButton button = (PressureButton) targetTile;
@@ -43,7 +45,6 @@ public class Box extends TileFills{
                 box.cover(tx, ty, lookX, lookY);
             }
         }
-        // Finally, swap the box with the target tile
         curLevel.swapTiles(lookX, lookY, tx, ty);
     }
 }

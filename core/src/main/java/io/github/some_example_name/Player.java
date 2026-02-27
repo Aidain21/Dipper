@@ -52,34 +52,24 @@ public class Player {
         //walking interactions based on what is stored in the tile's data
         //such as a wall stopping the walking from being done
         //or a portal teleporting you when you step on it
+        // break = no collision | return = collision
         if (end.x < curLevel.colCount && end.y < curLevel.rowCount) {
+            switch (curLevel.level1[end.y][end.x].getTileString()) {
+                case "portal":
+                    pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
+                    return;
+                case "inportal":
+                    pos=((InLevelPortal) curLevel.level1[end.y][end.x]).newPos();
+                    return;
 
-            // Changed player collision to != floor because most tiles have collision (can go back to switch statement if this changes)
-            String endTile = curLevel.level1[end.y][end.x].getTileString();
-            if (!endTile.equals("floor") &&  !endTile.equals("portal") && !endTile.equals("inportal") && !endTile.equals("pressureButton"))
-                return;
-            else if (endTile.equals("portal")) {
-                pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]); return;
+                // Place below for no collision
+
+                case "button":
+                case "pressureButton":
+                case "floor":
+                    break;
+                default: return;
             }
-            else if (endTile.equals("inportal")) {
-                pos = ((InLevelPortal) curLevel.level1[end.y][end.x]).newPos();
-                return;
-            }
-//            switch (curLevel.level1[end.y][end.x].getTileString()) {
-//                case "wall":
-//                case "box":
-//                case "button":
-//                case "bouncy":
-//                case "lever":
-//                    return;
-//                case "portal":
-//                    pos = curLevel.changeLevel((Portal) curLevel.level1[end.y][end.x]);
-//                    return;
-//                case "inportal":
-//                    pos=((InLevelPortal) curLevel.level1[end.y][end.x]).newPos();
-//                    return;
-//                default: break;
-//            }
         }
 
         //sets players position if nothing else was done to stop it.
@@ -119,14 +109,10 @@ public class Player {
         }
     }
 
-
-
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
         pSprite.setPosition(pos.x * 32, pos.y *32);
         pSprite.draw(batch);
     }
-
-
 }
 
