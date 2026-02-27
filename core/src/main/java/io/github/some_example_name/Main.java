@@ -29,7 +29,7 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         levels = new map(2,2,12,12);
         level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,"portal",0,0);
+        templevel.changeTile(3,2,"portal",1,1);
         templevel.changeTile( 4,4,"bouncy", 180);
         templevel.changeTile(1, 5, "g", 90f);
         levels.getMap()[1][0]=templevel;
@@ -99,6 +99,10 @@ public class Main extends ApplicationAdapter {
             }
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 player.playerInteract(currentLevel);
+                inputTimer = 0.1f;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+                levels.getMap()[1][1].printLevel();
                 inputTimer = 0.1f;
             }
 

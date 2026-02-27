@@ -22,10 +22,8 @@ public class LevelDraw {
     public static Texture spikesTx = new Texture("spikes.png");
 
     public static void drawLevel(SpriteBatch batch, level level){
-        for (int i = 0; i < level.level1.length; i++) {
-            for (int j = 0; j < level.level1[0].length; j++) {
-
-                // Draws background first, if texture is not the full 32/32 pixels
+        for (int j = 0; j < level.level1.length; j++) {
+            for (int i = 0; i < level.level1[0].length; i++) {
                 String tile = level.level1[j][i].getTileString();
                 if (!tile.equals("box") && !tile.equals("portal") && !tile.equals("wall"))
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
