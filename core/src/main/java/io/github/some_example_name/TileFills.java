@@ -30,17 +30,12 @@ public class TileFills {
                 return new Portal(x, y);
             case "inportal":
                 return new InLevelPortal(x, y);
+            case "pressureButton":
+                return new PressureButton(x, y);
             default:
                 break;
         }
             return new TileFills();
-        if(fill.equals("portal"))
-            return new Portal(x,y);
-        else if(fill.equals("inportal"))
-            return new InLevelPortal(x,y);
-       else if (fill.equals("pressureButton"))
-            return new PressureButton(x, y);
-       return new TileFills();
     }
 
     //called when given 2 names, used currently for the lever
