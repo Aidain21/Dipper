@@ -7,10 +7,10 @@ public class BouncyWall extends TileFills {
         sprite = new Sprite(LevelDraw.bouncy);
         sprite.setRotation(r);
     }
-
-    public void rotateWall(float r) {
-        float rotation = (this.getRotation() + r)%360;
-        this.sprite.setRotation(rotation);
+    public BouncyWall(int x, int y, float r) {
+        fill = "bouncy";
+        sprite = new Sprite(LevelDraw.bouncy);
+        sprite.setRotation(r);
+        sprite.setPosition(x*32, y*32);
     }
-    public int getRotation() {return (int) this.sprite.getRotation();}
 }

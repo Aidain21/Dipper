@@ -29,12 +29,9 @@ public class LevelDraw {
                 String tile = level.level1[j][i].getTileString();
                 if (!tile.equals("box") && !tile.equals("portal") && !tile.equals("wall"))
                     batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
-
                 switch (level.level1[j][i].getType()) {
                     case "texture": batch.draw((level.level1[j][i]).getTexture(), i * 32, j * 32, 32, 32); break;
-                    case "sprite":
-                        level.level1[j][i].getSprite().setPosition(i * 32, j *32);
-                        (level.level1[j][i]).getSprite().draw(batch); break;
+                    case "sprite": (level.level1[j][i]).getSprite().draw(batch); break;
                     default: break;
                 }
             }

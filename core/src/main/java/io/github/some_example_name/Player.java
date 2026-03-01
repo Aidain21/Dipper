@@ -86,7 +86,7 @@ public class Player {
         //You can use TextBox.text[0] = "string" to change the dialogue line
         switch (curLevel.level1[look.y][look.x].getTileString()) {
             case "button":
-                ((Button) curLevel.getLevel()[look.y][look.x]).isPressed();
+                ((Button) curLevel.getLevel()[look.y][look.x]).press();
                 TextBox.text[0] = "I see a button!";
                 break;
             case " ":
@@ -94,15 +94,17 @@ public class Player {
             case "wall": TextBox.text[0] = "I see a wall! It's solid like a rock."; break;
             case "level": TextBox.text[0] = "I see a level transition! It's a swirly magic portal."; break;
             case "box": TextBox.text[0] = "I see a block! I probably just pushed it.";
-                ((Box) curLevel.level1[look.y][look.x]).tryPush(look.x, look.y, facing.x, facing.y, curLevel);
+                ((Box) curLevel.getLevel()[look.y][look.x]).tryPush(look.x, look.y, facing.x, facing.y, curLevel);
                 break;
-            case "lever":
+            case "lever": TextBox.text[0] = "I see a lever! It probably added something new!";
                 ((Lever) curLevel.getLevel()[look.y][look.x]).onFlip(2,2,curLevel);
-                TextBox.text[0] = "I see a lever! It probably added something new!";
                 break;
             case "bouncy": TextBox.text[0] = "A Bouncy Wall! Maybe this could deflect something!"; break;
-            case "colorButton": TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
-            case "pressureButton": TextBox.text[0] = "A Pressure Button! I need something heavy!"; break;
+            case "rB":
+            case "gB":
+            case "bB":
+            case "yB":TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
+            case "pressureButton": TextBox.text[0] = "A Pressure Button! I need something heavy!";
             default: break;
         }
     }

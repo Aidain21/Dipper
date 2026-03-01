@@ -104,7 +104,7 @@ public class level extends ApplicationAdapter {
     // Rotation Overload
     public void changeTile(int r, int c, String fill, float i){
         if (r > 0 && r < rowCount && c > 0 && c < colCount){
-            level1[c][r] = generator.CreateTileFills(fill, i);
+            level1[c][r] = generator.CreateTileFills(r, c, fill, i);
         }
     }
 
@@ -112,7 +112,7 @@ public class level extends ApplicationAdapter {
         int rX = Math.round(x / 32);
         int rY = Math.round(y / 32);
         TileFills tile = level1[rY][rX];
-        if (tile instanceof BouncyWall) return ((BouncyWall) tile).getRotation();
+        if (tile instanceof BouncyWall) return tile.getRotation();
         return -1;
     }
 

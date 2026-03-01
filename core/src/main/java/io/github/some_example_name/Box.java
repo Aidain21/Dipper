@@ -20,30 +20,24 @@ public class Box extends TileFills{
     public void tryPush(int lookX, int lookY, int facingX, int facingY, level curLevel) {
         int tx = lookX + facingX;
         int ty = lookY + facingY;
-        if (tx < 0 || ty < 0 || tx >= curLevel.colCount || ty >= curLevel.rowCount)
-            return;
         TileFills currentTile = curLevel.level1[lookY][lookX];
         TileFills targetTile  = curLevel.level1[ty][tx];
-        if (!(currentTile instanceof Box)) return;
+        if (targetTile instanceof Box) return;
         Box box = (Box) currentTile;
-        String targetType = targetTile.getTileString();
-        if (targetType.equals("box")) return;
         if (box.isCovering()) {
-            if (!targetType.equals("pressureButton"))
+            if (!(targetTile instanceof PressureButton))
                 curLevel.swapTiles(lookX, lookY, tx, ty);
             curLevel.swapTiles(box.coverX, box.coverY, box.oldX, box.oldY);
-            TileFills coveredTile = curLevel.level1[box.coverY][box.coverX];
+            TileFills coveredTile = curLevel.level1[lookY][lookX];
             if (coveredTile instanceof PressureButton)
                 ((PressureButton) coveredTile).unpress();
             box.uncover();
             return;
         }
         // Presses pressure button if the box is moved onto it
-        if (targetType.equals("pressureButton")) {
-            if (targetTile instanceof PressureButton) {
-                ((PressureButton) targetTile).press();
-                box.cover(tx, ty, lookX, lookY);
-            }
+        if (targetTile instanceof PressureButton) {
+            ((PressureButton) targetTile).press();
+            box.cover(tx, ty, lookX, lookY);
         }
         curLevel.swapTiles(lookX, lookY, tx, ty);
     }

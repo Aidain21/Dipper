@@ -50,10 +50,23 @@ public class TileFills {
     public TileFills CreateTileFills(String fill, float r) {
         switch(fill) {
             case "bouncy": return new BouncyWall(r);
-            case "r":
-            case "g":
-            case "b":
-            case "y": return new ColorButton(fill, r);
+            case "rB":
+            case "gB":
+            case "bB":
+            case "yB": return new ColorButton(fill, r);
+            default: return new TileFills();
+        }
+    }
+
+    // Objects
+    public TileFills CreateTileFills(int x, int y, String fill, float r) {
+        switch(fill) {
+            case "bouncy": return new BouncyWall(x, y, r);
+            case "rB":
+            case "gB":
+            case "bB":
+            case "yB": return new ColorButton(x, y, fill, r);
+            case "pressureButton": return new PressureButton(x, y);
             default: return new TileFills();
         }
     }
@@ -61,6 +74,7 @@ public class TileFills {
     public String getTileString() {return fill;}
     public Sprite getSprite() {return sprite;}
     public Texture getTexture() {return texture;}
+    public float getRotation() {return sprite.getRotation();}
     public String getType() {
         if (texture != null) return "texture";
         else if (sprite != null) return "sprite";
