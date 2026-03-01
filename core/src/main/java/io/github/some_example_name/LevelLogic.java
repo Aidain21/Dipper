@@ -15,35 +15,40 @@ public class LevelLogic extends LevelTemplates {
         level3logic();
     }
     public void level3logic() {
+        Button button1 = (Button) level3.level1[6][8];
+        Button comboButton1 = (Button) level3.level1[13][5];
+        Button comboButton2 = (Button) level3.level1[13][6];
+        Button comboButton3 = (Button) level3.level1[13][7];
+        ColorButton gButton1 = (ColorButton) level3.level1[6][10];
+        ColorButton rButton1 = (ColorButton) level3.level1[16][22];
+        BouncyWall wall1 = (BouncyWall) level3.level1[11][1];
 
         // rotates when buttons pressed
-        if (((Button) level3.level1[6][8]).isPressed()) {
+        if (button1.isPressed()) {
             TextBox.text[2] = "logic test";
             cooldown += Gdx.graphics.getDeltaTime();
             if (cooldown >= 0.2f) {
-                level3.level1[6][10].getSprite().rotate(90);
+                gButton1.getSprite().rotate(90);
                 cooldown = 0f;
             }
         }
-        if (((ColorButton) level3.level1[16][22]).isPressed() && !rPress) {
+        if (rButton1.isPressed() && !rPress) {
             TextBox.text[2] = "logic test 2";
-            level3.level1[11][1].getSprite().rotate(90);
-            rPress = ((ColorButton) level3.level1[16][22]).isPressed();
+            wall1.getSprite().rotate(90);
+            rPress = rButton1.isPressed();
         }
-        else if (!((ColorButton) level3.level1[16][22]).isPressed() && rPress) {
-            level3.level1[11][1].getSprite().rotate(270);
+        else if (!rButton1.isPressed() && rPress) {
+            wall1.getSprite().rotate(270);
             rPress = false;
         }
         // reveals path if button combination is correct
-        if (!bCombination && ((Button) level3.level1[13][7]).isPressed() && !((Button) level3.level1[13][6]).isPressed()
-            && ((Button) level3.level1[13][5]).isPressed()) {
+        if (!bCombination && comboButton1.isPressed() && !comboButton2.isPressed() && comboButton3.isPressed()) {
             TextBox.text[2] = "logic test 3";
             bCombination = true;
-            ((Button) level3.level1[13][7]).lock();
-            ((Button) level3.level1[13][6]).lock();
-            ((Button) level3.level1[13][5]).lock();
+            comboButton1.lock();
+            comboButton2.lock();
+            comboButton3.lock();
         }
-
         if (!bCombination) return;
         wallTimer += Gdx.graphics.getDeltaTime();
         if (wallTimer >= 0.6f) {

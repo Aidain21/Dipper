@@ -12,7 +12,16 @@ public class TextBox {
         text = new String[] {"Row 1", "Row 2", "Row 3"};
         textRight = new String[] {"Row 4", "Row 5", "Row 6"};
     }
-
+    public static void clearText() {
+        for (int i = 0; i <= 2; i++) {
+            text[i] = "";
+            textRight[i] = "";
+        }
+    }
+    public static void resetText() {
+        text = new String[] {"Row 1", "Row 2", "Row 3"};
+        textRight = new String[] {"Row 4", "Row 5", "Row 6"};
+    }
     public void drawTextBox(SpriteBatch batch) {
         BitmapFont font = new BitmapFont();
         font.draw(batch, text[0], 5, Gdx.graphics.getHeight() - 5);

@@ -19,7 +19,7 @@ public class Main extends ApplicationAdapter {
     static level currentLevel;
     static map levels;
     static Bow bow;
-    TextBox textBox;
+    public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
 
@@ -83,8 +83,20 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
+
+        if (!player.isAlive()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) player.playerRestart(currentLevel);
+            return;
+        }
+
         // Movement
         if (inputTimer <= 0) {
+            // Player Movement Lock
+            if (Player.playerLock) {
+                player.locked();
+                return;
+            }
+
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
                 inputTimer = 0.1f;
@@ -109,8 +121,6 @@ public class Main extends ApplicationAdapter {
                 levels.getMap()[1][1].printLevel();
                 inputTimer = 0.1f;
             }
-
-
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
@@ -137,6 +147,7 @@ public class Main extends ApplicationAdapter {
     private void logic() {
         bow.arrowLogic(currentLevel);
         log.logic(currentLevel);
+        player.playerLogic();
     }
 
     private void draw() {
@@ -159,7 +170,6 @@ public class Main extends ApplicationAdapter {
     public static Vector2Int moveLevel(int x, int y){
         currentLevel=levels.getMap()[y][x];
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
-
     }
 
 }

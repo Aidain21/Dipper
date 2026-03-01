@@ -56,7 +56,7 @@ public class Bow {
             String pos = curLvl.tileAtWorldPos(arrow.getX(), arrow.getY());
             boolean arrowRicochet = shouldRicochet(pos, (int) arrow.getRotation(), wall);
             boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal")
-                && !pos.equals("button") && !pos.equals("pressureButton"));
+                && !pos.equals("button") && !pos.equals("pressureButton") && !pos.equals("void"));
             TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
             if (f instanceof ColorButton && !hasPressed.get(i)) {
                 ((ColorButton) f).press();

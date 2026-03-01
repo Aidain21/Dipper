@@ -11,6 +11,7 @@ public class TileFills {
     // Texture / Sprite
     Sprite sprite = null;
     Texture texture = null;
+    boolean drawBackground = true;
 
     //default constructor for empty tiles
     public TileFills() {
@@ -20,10 +21,11 @@ public class TileFills {
     //called when only handed the name of a tile, returns a new tile
     public TileFills CreateTileFills(String fill){
         switch (fill) {
-            case "floor": return new Floor();
-            case "wall": return new Wall();
+            case "floor": return new SimpleTextures.Floor();
+            case "wall": return new SimpleTextures.Wall();
             case "box": return new Box();
             case "button": return new Button();
+            case "void": return new SimpleTextures.Void();
             default: return new TileFills();
         }
     }
@@ -31,8 +33,8 @@ public class TileFills {
     //called when handed a name and 2 numbers, currently used for portals
     public TileFills CreateTileFills(String fill, int x, int y){
         switch (fill) {
-            case "portal": return new Portal(x, y);
-            case "inportal": return new InLevelPortal(x, y);
+            case "portal": return new SimpleTextures.Portal(x, y);
+            case "inportal": return new SimpleTextures.InLevelPortal(x, y);
             case "pressureButton": return new PressureButton(x, y);
             default: return new TileFills();
         }
@@ -44,9 +46,9 @@ public class TileFills {
     }
 
     //called when given a name and number, currently just for spikes
-    public TileFills CreateTileFills(String fill, int damage){ return new Spikes(damage);}
+    public TileFills CreateTileFills(String fill, int damage){ return new SimpleTextures.Spikes(damage);}
 
-    // Rotation
+    // Default Sprite
     public TileFills CreateTileFills(String fill, float r) {
         switch(fill) {
             case "bouncy": return new BouncyWall(r);
@@ -75,6 +77,8 @@ public class TileFills {
     public Sprite getSprite() {return sprite;}
     public Texture getTexture() {return texture;}
     public float getRotation() {return sprite.getRotation();}
+    public boolean drawBackground() {return drawBackground;}
+    public boolean canWalk() {return canWalk;}
     public String getType() {
         if (texture != null) return "texture";
         else if (sprite != null) return "sprite";

@@ -122,7 +122,7 @@ public class level extends ApplicationAdapter {
         return level1[rY][rX].getTileString();
     }
 
-    public Vector2Int changeLevel(Portal p){
+    public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
         return Main.moveLevel(p.nextX,p.nextY);
     }

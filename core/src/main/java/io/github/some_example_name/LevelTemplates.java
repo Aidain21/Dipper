@@ -33,7 +33,9 @@ public class LevelTemplates {
 
         TileFills bu = gen.CreateTileFills("button");
         TileFills f = gen.CreateTileFills("floor");
+        TileFills s = gen.CreateTileFills("spikes", 1);
         TileFills b = gen.CreateTileFills("box");
+        TileFills v = gen.CreateTileFills("void");
         TileFills pb = gen.CreateTileFills("pressureButton",-1,-1);
         TileFills p = gen.CreateTileFills("portal",-1,-1);
         TileFills i = gen.CreateTileFills("inportal",-1,-1);
@@ -51,14 +53,14 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,i ,f ,f ,f ,f ,w },// 12
             {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 10
-            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 8
+            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,f ,f ,w },// 8
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,G1,G2,G3,G4,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,Y1,Y2,Y3,Y4,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,B1,B2,B3,B4,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R1,R2,R3,R4,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
-            {w ,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R1,R2,R3,R4,f ,f ,f ,f ,s ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,s ,s ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };

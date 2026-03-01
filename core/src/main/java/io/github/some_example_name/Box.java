@@ -6,6 +6,7 @@ public class Box extends TileFills{
     public Box(){
         fill="box";
         texture = LevelDraw.crateTexture;
+        drawBackground = false;
         movable=true;
         covering = false;
     }

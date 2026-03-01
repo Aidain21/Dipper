@@ -20,20 +20,16 @@ public class LevelDraw {
     public static Texture leverTx = new Texture("lever.png");
     public static Texture lever2Tx = new Texture("lever2.png");
     public static Texture spikesTx = new Texture("spikes.png");
+    public static Texture voidTx = new Texture("void.png");
+    public static Texture playerTx = new Texture("char.png");
 
     public static void drawLevel(SpriteBatch batch, level level){
         for (int j = 0; j < level.level1.length; j++) {
             for (int i = 0; i < level.level1[0].length; i++) {
-
-                // Draws background first, if texture is not the full 32/32 pixels
-                String tile = level.level1[j][i].getTileString();
-                if (!tile.equals("box") && !tile.equals("portal") && !tile.equals("wall"))
-                    batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
-                switch (level.level1[j][i].getType()) {
-                    case "texture": batch.draw((level.level1[j][i]).getTexture(), i * 32, j * 32, 32, 32); break;
-                    case "sprite": (level.level1[j][i]).getSprite().draw(batch); break;
-                    default: break;
-                }
+                TileFills tile = level.level1[j][i];
+                if (tile.drawBackground()) batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
+                if (tile.getType().equals("texture")) batch.draw(tile.getTexture(), i * 32, j * 32, 32, 32);
+                else if (tile.getType().equals("sprite")) tile.getSprite().draw(batch);
             }
         }
     }
