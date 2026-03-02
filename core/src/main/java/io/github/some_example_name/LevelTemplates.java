@@ -70,6 +70,7 @@ public class LevelTemplates {
         addDataToTile(level3, pb, 4,2);
         invertLevelY(level3);
         createObjects(level3);
+        map.addName(level3);
         map.levelMap[1][1] = level3;
         level3.changeTile(2, 1, "wall");
 

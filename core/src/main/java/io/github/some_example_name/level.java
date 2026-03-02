@@ -9,6 +9,7 @@ public class level extends ApplicationAdapter {
     int colCount;
     int spawnRow=1;
     int spawnCol=1;
+    String name ="";
     //generates new tiles
     TileFills generator = new TileFills();
 
