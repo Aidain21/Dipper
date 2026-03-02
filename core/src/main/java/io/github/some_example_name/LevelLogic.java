@@ -21,7 +21,7 @@ public class LevelLogic extends LevelTemplates {
         Button comboButton3 = (Button) level3.level1[13][7];
         ColorButton gButton1 = (ColorButton) level3.level1[6][10];
         ColorButton rButton1 = (ColorButton) level3.level1[16][22];
-        BouncyWall wall1 = (BouncyWall) level3.level1[11][1];
+        SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
 
         // rotates when buttons pressed
         if (button1.isPressed()) {

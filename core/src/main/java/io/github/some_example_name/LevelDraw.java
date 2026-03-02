@@ -24,6 +24,7 @@ public class LevelDraw {
     public static Texture voidTx = new Texture("void.png");
     //public static Texture playerTx = new Texture("char.png");
     public static Texture characterTx = new Texture("character.png");
+    public static Texture fallBoxTx = new Texture("fallBox.png");
     public static TextureRegion characterFront = new TextureRegion(characterTx, 64, 0, 32, 64);
     public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 64);
     public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 64);

@@ -51,7 +51,7 @@ public class TileFills {
     // Default Sprite
     public TileFills CreateTileFills(String fill, float r) {
         switch(fill) {
-            case "bouncy": return new BouncyWall(r);
+            case "bouncy": return new SimpleTextures.BouncyWall(r);
             case "rB":
             case "gB":
             case "bB":
@@ -63,7 +63,7 @@ public class TileFills {
     // Objects
     public TileFills CreateTileFills(int x, int y, String fill, float r) {
         switch(fill) {
-            case "bouncy": return new BouncyWall(x, y, r);
+            case "bouncy": return new SimpleTextures.BouncyWall(x, y, r);
             case "rB":
             case "gB":
             case "bB":

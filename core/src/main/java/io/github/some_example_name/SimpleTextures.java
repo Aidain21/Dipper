@@ -1,5 +1,6 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 public class SimpleTextures extends TileFills{
 
     // Brick Wall
@@ -86,6 +87,21 @@ public class SimpleTextures extends TileFills{
             Player.dealDamage(0.5f);
             Player.originalX = x;
             Player.originalY = y;
+        }
+    }
+
+    // Bouncy Wall
+    public static class BouncyWall extends TileFills {
+        public BouncyWall(float r) {
+            fill = "bouncy";
+            sprite = new Sprite(LevelDraw.bouncy);
+            sprite.setRotation(r);
+        }
+        public BouncyWall(int x, int y, float r) {
+            fill = "bouncy";
+            sprite = new Sprite(LevelDraw.bouncy);
+            sprite.setRotation(r);
+            sprite.setPosition(x*32, y*32);
         }
     }
 }

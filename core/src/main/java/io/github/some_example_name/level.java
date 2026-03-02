@@ -112,7 +112,7 @@ public class level extends ApplicationAdapter {
         int rX = Math.round(x / 32);
         int rY = Math.round(y / 32);
         TileFills tile = level1[rY][rX];
-        if (tile instanceof BouncyWall) return tile.getRotation();
+        if (tile instanceof SimpleTextures.BouncyWall) return tile.getRotation();
         return -1;
     }
 
@@ -130,7 +130,8 @@ public class level extends ApplicationAdapter {
 
     //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
-        if(level1[c1][r1].movable && level1[c2][r2].movable) {
+        if((level1[c1][r1].movable && level1[c2][r2].movable)
+            || (level1[c1][r1].movable && (level1[c2][r2] instanceof Box) && !level1[c2][r2].movable)) {
             TileFills temp = level1[c1][r1];
             level1[c1][r1] = level1[c2][r2];
             level1[c2][r2] = temp;
