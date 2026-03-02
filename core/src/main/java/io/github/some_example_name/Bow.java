@@ -26,7 +26,7 @@ public class Bow {
         timer.add(0f);
         hasPressed.add(false);
         arrow.setOrigin(20, 12.5f);
-        arrow.setScale(0.75f);
+        arrow.setScale(0.5f);
         switch(nesw) {
             case 'n': arrow.translateX(-4); arrow.setRotation(90); break;
             case 'e': arrow.translateY(4); break;

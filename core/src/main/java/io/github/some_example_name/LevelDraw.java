@@ -2,6 +2,7 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class LevelDraw {
     public static Texture backgroundTexture = new Texture("background.png");
@@ -21,7 +22,12 @@ public class LevelDraw {
     public static Texture lever2Tx = new Texture("lever2.png");
     public static Texture spikesTx = new Texture("spikes.png");
     public static Texture voidTx = new Texture("void.png");
-    public static Texture playerTx = new Texture("char.png");
+    //public static Texture playerTx = new Texture("char.png");
+    public static Texture characterTx = new Texture("character.png");
+    public static TextureRegion characterFront = new TextureRegion(characterTx, 64, 0, 32, 64);
+    public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 64);
+    public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 64);
+    public static TextureRegion characterRight = new TextureRegion(characterTx, 32, 0, 32, 64);
 
     public static void drawLevel(SpriteBatch batch, level level){
         for (int j = 0; j < level.level1.length; j++) {

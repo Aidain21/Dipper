@@ -19,11 +19,15 @@ public class Player {
     public static boolean playerFalling = false;
     public static int originalX = 0;
     public static int originalY = 0;
+    Sprite pFront = new Sprite(LevelDraw.characterFront);
+    Sprite pBack = new Sprite(LevelDraw.characterBack);
+    Sprite pLeft = new Sprite(LevelDraw.characterLeft);
+    Sprite pRight = new Sprite(LevelDraw.characterRight);
 
     public Player() {
         pos = new Vector2Int(2,7);
         facing = new Vector2Int(1,0);
-        pSprite = new Sprite(LevelDraw.playerTx);
+        pSprite = new Sprite(LevelDraw.characterFront);
         pSprite.setOrigin(pSprite.getWidth() / 2, pSprite.getHeight() / 2);
     }
 
@@ -36,16 +40,16 @@ public class Player {
         //changes both player sprites direction and interact direction
         facing = dir;
         if (dir.x == 0 && dir.y == 1) {
-            pSprite.setRotation(0);
+            pSprite = pBack;
         }
         if (dir.x == 0 && dir.y == -1) {
-            pSprite.setRotation(180);
+            pSprite = pFront;
         }
         if (dir.x == 1 && dir.y == 0) {
-            pSprite.setRotation(270);
+            pSprite = pRight;
         }
         if (dir.x == -1 && dir.y == 0) {
-            pSprite.setRotation(90);
+            pSprite = pLeft;
         }
 
         //stops player from walking off-screen
