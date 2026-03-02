@@ -7,6 +7,7 @@ public class PressureButton extends TileFills{
     public PressureButton(int x, int y) {
         fill = "pressureButton";
         sprite = new Sprite(LevelDraw.pressureButtonTx);
+        canWalk = true;
         movable = true;
         pressed = false;
         sprite.setPosition(x*32, y*32);

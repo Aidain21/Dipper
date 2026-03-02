@@ -26,6 +26,11 @@ public class level extends ApplicationAdapter {
         createLevel();
     }
 
+    public level(int spawnR, int spawnC, boolean auto){
+        spawnRow=spawnR;
+        spawnCol=spawnC;
+    }
+
     //creates a new level and fills it in with walls and floors
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
@@ -81,16 +86,12 @@ public class level extends ApplicationAdapter {
 
     //given name and 2 nums, portals
     public void changeTile(int r, int c, String fill, int nextX, int nextY){
-        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
-        }
+        level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
     }
 
     //given 2 names, lever
     public void changeTile(int r, int c, String fill, String nFill){
-        if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            level1[c][r]=generator.CreateTileFills(fill,nFill);
-        }
+        level1[c][r]=generator.CreateTileFills(fill,nFill);
     }
 
     //given name and 1 num, spikes
@@ -111,7 +112,7 @@ public class level extends ApplicationAdapter {
         int rX = Math.round(x / 32);
         int rY = Math.round(y / 32);
         TileFills tile = level1[rY][rX];
-        if (tile instanceof BouncyWall) return ((BouncyWall) tile).getRotation();
+        if (tile instanceof SimpleTextures.BouncyWall) return tile.getRotation();
         return -1;
     }
 
@@ -121,7 +122,7 @@ public class level extends ApplicationAdapter {
         return level1[rY][rX].getTileString();
     }
 
-    public Vector2Int changeLevel(Portal p){
+    public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
         return Main.moveLevel(p.nextX,p.nextY);
     }
@@ -129,10 +130,22 @@ public class level extends ApplicationAdapter {
 
     //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){
-        if(level1[c1][r1].movable && level1[c2][r2].movable) {
+        if((level1[c1][r1].movable && level1[c2][r2].movable)
+            || (level1[c1][r1].movable && (level1[c2][r2] instanceof Box) && !level1[c2][r2].movable)) {
             TileFills temp = level1[c1][r1];
             level1[c1][r1] = level1[c2][r2];
             level1[c2][r2] = temp;
         }
     }
+
+    public void printLevel () {
+        for (TileFills[] arr : level1) {
+            for (TileFills t : arr) {
+                System.out.print(t.getTileString().charAt(0));
+            }
+            System.out.println();
+        }
+    }
+
+
 }

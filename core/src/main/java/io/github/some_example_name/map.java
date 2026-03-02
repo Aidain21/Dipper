@@ -21,6 +21,7 @@ public class map {
             }
         }
         levelMap[0][0] = new level(levelR, levelC, 1, 1);
+        LevelTemplates.addTemplatesToMap(this);
     }
 
     public level[][] getMap() {

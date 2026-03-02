@@ -19,8 +19,9 @@ public class Main extends ApplicationAdapter {
     static level currentLevel;
     static map levels;
     static Bow bow;
-    TextBox textBox;
+    public static TextBox textBox;
     Viewport viewport;
+    LevelLogic log;
 
     @Override
     public void create() {
@@ -29,16 +30,18 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         levels = new map(2,2,12,12);
         level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,"portal",0,0);
-        templevel.changeTile( 4,4,"bouncy", 180);
-        templevel.changeTile(1, 5, "g", 90f);
+        templevel.changeTile(3,2,"portal",1,1);
+        templevel.changeTile(5,5,"portal",0,0);
+        templevel.changeTile( 4,4,"bouncy", 180f);
+        templevel.changeTile(1, 5, "gB", 90f);
+        templevel.changeTile(5, 2, "box");
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,"portal",0,1);
         currentLevel.changeTile(1,5,"inportal",3,3);
         currentLevel.changeTile(5,5,"box");
         currentLevel.changeTile(7,7,"lever","box");
-        currentLevel.changeTile(10,8,"y", 270f);
+        currentLevel.changeTile(10,8,"yB", 270f);
         currentLevel.changeTile(1,10,"bouncy", 0f);
         currentLevel.changeTile(9,10,"bouncy", 270f);
         currentLevel.changeTile(1,1,"bouncy", 90f);
@@ -51,8 +54,10 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
         currentLevel.changeTile(9,5,"button");
+        currentLevel.changeTile(3,9,"spike", 1);
         currentLevel.changeTile(4, 2, "pressureButton");
         bow = new Bow();
+        log = new LevelLogic();
         textBox = new TextBox();
         viewport = new FitViewport(960,720);
 
@@ -78,8 +83,20 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
+
+        if (!player.isAlive()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) player.playerRestart(currentLevel);
+            return;
+        }
+
         // Movement
         if (inputTimer <= 0) {
+            // Player Movement Lock
+            if (Player.playerLock) {
+                player.locked();
+                return;
+            }
+
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
                 inputTimer = 0.1f;
@@ -100,8 +117,10 @@ public class Main extends ApplicationAdapter {
                 player.playerInteract(currentLevel);
                 inputTimer = 0.1f;
             }
-
-
+            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+                levels.getMap()[1][1].printLevel();
+                inputTimer = 0.1f;
+            }
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
@@ -127,6 +146,8 @@ public class Main extends ApplicationAdapter {
 
     private void logic() {
         bow.arrowLogic(currentLevel);
+        log.logic(currentLevel);
+        player.playerLogic();
     }
 
     private void draw() {
@@ -149,7 +170,6 @@ public class Main extends ApplicationAdapter {
     public static Vector2Int moveLevel(int x, int y){
         currentLevel=levels.getMap()[y][x];
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
-
     }
 
 }
