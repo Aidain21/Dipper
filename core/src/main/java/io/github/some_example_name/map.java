@@ -3,12 +3,16 @@ package io.github.some_example_name;
 import com.badlogic.gdx.ApplicationAdapter;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class map {
 
     level[][] levelMap;
     int mapRows;
     int mapCols;
+    String[] adj={"happy","sad","tired"};
+    String[] noun={"cave","store","building"};
+    String[] verb={"dancing","running","sleeping"};
 
     public map(int r, int c, int levelR, int levelC) {
         mapRows = r;
@@ -26,6 +30,13 @@ public class map {
 
     public level[][] getMap() {
         return levelMap;
+    }
+
+    public void addName(level l){
+        int a=(int) (Math.random()*((adj.length-1)+1));
+        int n=(int) (Math.random()*((noun.length-1)+1));
+        int v=(int) (Math.random()*((verb.length-1)+1));
+        l.name=adj[a]+" "+verb[v]+" "+noun[n];
     }
 
     //checks if the map is empty, currently unused
