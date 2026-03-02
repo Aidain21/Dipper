@@ -121,6 +121,9 @@ public class Main extends ApplicationAdapter {
                 levels.getMap()[1][1].printLevel();
                 inputTimer = 0.1f;
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+                MainMenuUI.CreateMenu();
+            }
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }

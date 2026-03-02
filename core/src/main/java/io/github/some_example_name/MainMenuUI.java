@@ -12,7 +12,7 @@ public class MainMenuUI {
     public static Stage stage;
 
     public static void CreateMenu() {
-        Skin buttonSkin;
+        Skin buttonSkin = new Skin(Gdx.files.internal("assets/uiButton.png"));
         TextButton resume = new TextButton("Resume", buttonSkin);
         TextButton restartRoom = new TextButton("Restart Room", buttonSkin);
         TextButton restartGame = new TextButton("Restart Game", buttonSkin);
