@@ -13,10 +13,12 @@ public class Player {
     public static Sprite pSprite;
     public static boolean playerLock = false;
     public static float lockTimer = 0f;
+    public static float distance = 0f;
     public static boolean alive = true;
     public static float playerMaxHealth = 3f;
     public static float playerHealth = playerMaxHealth;
     public static boolean playerFalling = false;
+    public static boolean playerSliding = false;
     public static int originalX = 0;
     public static int originalY = 0;
     Sprite pFront = new Sprite(LevelDraw.characterFront);
@@ -69,6 +71,7 @@ public class Player {
                 case "inportal": pos = ((SimpleTextures.InLevelPortal) nextTile).newPos(); return;
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(pos.x, pos.y); break;
+                case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(pos.x, pos.y); break;
                 default: break;
             }
 
@@ -131,17 +134,29 @@ public class Player {
 
     public void locked() {
         lockTimer -= Gdx.graphics.getDeltaTime();
+        distance += Gdx.graphics.getDeltaTime();
         if (playerFalling && (lockTimer-0.5f) >= 0) {
             pSprite.setPosition((pos.x + facing.x)*32, (pos.y + facing.y)*32);
             pSprite.setScale(lockTimer-0.5f);
         }
+        if (playerSliding && (lockTimer-0.5f) >= 0) {
+            pSprite.setPosition((pos.x + facing.x * distance)*32, (pos.y + facing.y * distance)*32);
+            //pSprite.setScale(lockTimer-0.5f);
+        }
+
         if (lockTimer <= 0) {
             if (playerFalling) pos = new Vector2Int(originalX, originalY);
             playerLock = false;
             playerFalling = false;
+            if (playerSliding) {
+                pos = new Vector2Int(Math.round(pSprite.getY()/32),Math.round(pSprite.getX()/32));
+            }
+            playerSliding = false;
+            distance = 0f;
             pSprite.setScale(1f);
         }
     }
+
     public void playerRestart(level curLevel) {
         alive = true;
         Main.textBox = new TextBox();
@@ -152,7 +167,10 @@ public class Player {
 
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
-        pSprite.setPosition(pos.x * 32, pos.y *32);
+        if (!playerSliding) {
+            pSprite.setPosition(pos.x * 32, pos.y *32);
+        }
+
         pSprite.draw(batch);
     }
 }

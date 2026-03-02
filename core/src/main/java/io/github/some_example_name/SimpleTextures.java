@@ -23,6 +23,26 @@ public class SimpleTextures extends TileFills{
         }
     }
 
+    public static class IceFloor extends TileFills{
+        public IceFloor(){
+            fill="iceFloor";
+            texture = LevelDraw.lever2Tx;
+            drawBackground = false;
+            canWalk=true;
+            movable=true;
+        }
+
+        public void slide(int x, int y) {
+            TextBox.textRight[0] = "every day im slidin";
+            Player.playerLock = true;
+            Player.playerSliding = true;
+            Player.lockTimer = 1.7f;
+            //Player.dealDamage(0.5f);
+            //Player.originalX = x;
+            //Player.originalY = y;
+        }
+    }
+
     // Portal
     public static class Portal extends TileFills{
         int nextX;

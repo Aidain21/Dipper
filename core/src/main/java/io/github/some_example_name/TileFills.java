@@ -22,6 +22,7 @@ public class TileFills {
     public TileFills CreateTileFills(String fill){
         switch (fill) {
             case "floor": return new SimpleTextures.Floor();
+            case "iceFloor" : return new SimpleTextures.IceFloor();
             case "wall": return new SimpleTextures.Wall();
             case "box": return new Box();
             case "button": return new Button();
