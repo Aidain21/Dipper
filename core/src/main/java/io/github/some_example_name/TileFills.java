@@ -36,6 +36,10 @@ public class TileFills {
             case "portal": return new SimpleTextures.Portal(x, y);
             case "inportal": return new SimpleTextures.InLevelPortal(x, y);
             case "pressureButton": return new PressureButton(x, y);
+            case "rGate":
+            case "gGate":
+            case "bGate":
+            case "yGate": return new SimpleTextures.ColorGate(fill, x, y);
             default: return new TileFills();
         }
     }
@@ -69,6 +73,10 @@ public class TileFills {
             case "bB":
             case "yB": return new ColorButton(x, y, fill, r);
             case "pressureButton": return new PressureButton(x, y);
+            case "rGate":
+            case "gGate":
+            case "bGate":
+            case "yGate": return new SimpleTextures.ColorGate(fill, x, y);
             default: return new TileFills();
         }
     }

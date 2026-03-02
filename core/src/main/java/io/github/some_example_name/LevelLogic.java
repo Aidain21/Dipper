@@ -22,6 +22,11 @@ public class LevelLogic extends LevelTemplates {
         ColorButton gButton1 = (ColorButton) level3.level1[6][10];
         ColorButton rButton1 = (ColorButton) level3.level1[16][22];
         SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
+        SimpleTextures.ColorGate gate1 = (SimpleTextures.ColorGate) level3.level1[15][20];
+
+        if (rButton1.isPressed()) {
+            gate1.open(20, 15);
+        }
 
         // rotates when buttons pressed
         if (button1.isPressed()) {
