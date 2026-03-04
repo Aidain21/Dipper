@@ -20,8 +20,23 @@ public class LevelLogic extends LevelTemplates {
         Button comboButton2 = (Button) level3.level1[13][6];
         Button comboButton3 = (Button) level3.level1[13][7];
         ColorButton gButton1 = (ColorButton) level3.level1[6][10];
+        ColorButton gButton2 = (ColorButton) level3.level1[14][23];
+        ColorButton gButton3 = (ColorButton) level3.level1[16][24];
         ColorButton rButton1 = (ColorButton) level3.level1[16][22];
         SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
+        SimpleTextures.ColorGate gate1 = (SimpleTextures.ColorGate) level3.level1[15][20];
+        boolean greenButtonsPressed = true;
+        for (int i = 0; i < 24; i++) {
+            if ((LevelTemplates.colorButtonList[i] != null) &&!LevelTemplates.colorButtonList[i].isPressed() && LevelTemplates.colorButtonList[i].getTileString().equals("gB")) {
+                greenButtonsPressed = false;
+                break;
+            }
+        }
+        if (greenButtonsPressed) gate1.open();
+
+        if (gButton2.isPressed() && gButton3.isPressed()) {
+            gate1.open();
+        }
 
         // rotates when buttons pressed
         if (button1.isPressed()) {

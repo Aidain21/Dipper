@@ -106,7 +106,11 @@ public class Player {
             case "rB":
             case "gB":
             case "bB":
-            case "yB":TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
+            case "yB": TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
+            case "rGate":
+            case "gGate":
+            case "bGate":
+            case "yGate": TextBox.text[0] = "A Colored Gate! It must be linked to something!"; break;
             case "pressureButton": TextBox.text[0] = "A Pressure Button! I need something heavy!"; break;
             case "spikes": TextBox.text[0] = "Spikes!! I shouldn't touch them."; break;
             case "void": TextBox.text[0] = "... I shouldn't fall in there."; break;

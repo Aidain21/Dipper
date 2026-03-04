@@ -26,6 +26,10 @@ public class TileFills {
             case "box": return new Box();
             case "button": return new Button();
             case "void": return new SimpleTextures.Void();
+            case "rGate":
+            case "gGate":
+            case "bGate":
+            case "yGate": return new SimpleTextures.ColorGate(fill);
             default: return new TileFills();
         }
     }

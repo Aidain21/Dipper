@@ -105,4 +105,30 @@ public class SimpleTextures extends TileFills{
             sprite.setPosition(x*32, y*32);
         }
     }
+
+    // Color Gate
+    public static class ColorGate extends TileFills {
+        boolean open;
+        public ColorGate(String tileFill) {
+            fill = tileFill;
+            drawBackground = false;
+            open = false;
+            setColor();
+        }
+        public void setColor() {
+            switch(fill) {
+                case "rGate": texture = LevelDraw.redGateTx; break;
+                case "gGate": texture = LevelDraw.greenGateTx; break;
+                case "bGate": texture = LevelDraw.blueGateTx; break;
+                case "yGate": texture = LevelDraw.yellowGateTx; break;
+                default: break;
+            }
+        }
+        public void open() {
+            this.open = true;
+            this.canWalk = true;
+            this.drawBackground = true;
+            this.texture = LevelDraw.openGateTx;
+        }
+    }
 }
