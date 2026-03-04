@@ -90,6 +90,12 @@ public class level extends ApplicationAdapter {
         level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
     }
 
+    //given name, 2 nums and an unused boolean to differentiate, 2 way portal
+    public void changeTile(int r, int c, String fill, int nextX, int nextY, boolean twoway){
+        level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
+        level1[nextY][nextX]=generator.CreateTileFills(fill,r,c);
+    }
+
     //given 2 names, lever
     public void changeTile(int r, int c, String fill, String nFill){
         level1[c][r]=generator.CreateTileFills(fill,nFill);

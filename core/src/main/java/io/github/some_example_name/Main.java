@@ -57,6 +57,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(3,9,"spike", 1);
         currentLevel.changeTile(4, 2, "pressureButton");
         currentLevel.name="Lone Beginnings";
+        currentLevel.changeTile(3,5,"twowayportal",5,3,true);
         bow = new Bow();
         log = new LevelLogic();
         textBox = new TextBox();

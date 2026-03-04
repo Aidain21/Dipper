@@ -67,6 +67,7 @@ public class Player {
             switch(nextTile.getTileString()) {
                 case "portal": pos = curLevel.changeLevel((SimpleTextures.Portal) nextTile); return;
                 case "inportal": pos = ((SimpleTextures.InLevelPortal) nextTile).newPos(); return;
+                case "twowayportal": pos = ((SimpleTextures.TwoWayPortal) nextTile).newPos(); return;
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(pos.x, pos.y); break;
                 default: break;
