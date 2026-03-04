@@ -26,7 +26,7 @@ public class SimpleTextures extends TileFills{
     public static class IceFloor extends TileFills{
         public IceFloor(){
             fill="iceFloor";
-            texture = LevelDraw.lever2Tx;
+            texture = LevelDraw.iceTx;
             drawBackground = false;
             canWalk=true;
             movable=true;
