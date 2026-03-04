@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 public class MainMenuUI {
     public static Stage stage;
 
-    public static void CreateMenu() {
-        Skin buttonSkin = new Skin(Gdx.files.internal("assets/uiButton.png"));
+    public static Stage CreateMenu() {
+        Skin buttonSkin = new Skin(Gdx.files.internal("uiskin.json"));
         TextButton resume = new TextButton("Resume", buttonSkin);
         TextButton restartRoom = new TextButton("Restart Room", buttonSkin);
         TextButton restartGame = new TextButton("Restart Game", buttonSkin);
@@ -56,5 +56,6 @@ public class MainMenuUI {
         table.add(restartGame).left().width(200).height(100);
         table.add(controls).right().width(200).height(100);
 
+        return stage;
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -22,6 +23,8 @@ public class Main extends ApplicationAdapter {
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
+    private boolean isPaused = false;
+    private Stage pauseMenu;
 
     @Override
     public void create() {
@@ -63,18 +66,24 @@ public class Main extends ApplicationAdapter {
 
         Gdx.graphics.setWindowedMode(960, 720);
 
+        pauseMenu = MainMenuUI.CreateMenu();
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.begin();
-        input();
-        logic();
+        if (!isPaused) {
+            ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+            viewport.apply();
+            batch.setProjectionMatrix(viewport.getCamera().combined);
+            batch.begin();
+            input();
+            logic();
+            batch.end();
+        }
         draw();
-        batch.end();
+
+        pauseMenu.act(Gdx.graphics.getDeltaTime());
+        pauseMenu.draw();
     }
 
     @Override
@@ -122,7 +131,7 @@ public class Main extends ApplicationAdapter {
                 inputTimer = 0.1f;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-                MainMenuUI.CreateMenu();
+                isPaused = !isPaused;
             }
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
