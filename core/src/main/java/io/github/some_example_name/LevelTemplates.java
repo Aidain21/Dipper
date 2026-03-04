@@ -39,6 +39,7 @@ public class LevelTemplates {
         TileFills pb = gen.CreateTileFills("pressureButton",-1,-1);
         TileFills p = gen.CreateTileFills("portal",-1,-1);
         TileFills i = gen.CreateTileFills("inportal",-1,-1);
+        TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
 
 
         level3.level1 = new TileFills[][] {
@@ -58,16 +59,17 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,G1,G2,G3,G4,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,Y1,Y2,Y3,Y4,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,B1,B2,B3,B4,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
+            {w ,f ,p2,f ,f ,f ,b ,f ,f ,f ,B1,B2,B3,B4,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R1,R2,R3,R4,f ,f ,f ,f ,s ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,s ,s ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
-        addDataToTile(level3, p, 0,1);
-        addDataToTile(level3, i, 10,1);
-        addDataToTile(level3, pb, 3,2);
-        addDataToTile(level3, pb, 4,2);
+        addDataToTile(level3, p, 0,1, false);
+        addDataToTile(level3, i, 10,1, false);
+        addDataToTile(level3, pb, 3,2, false);
+        addDataToTile(level3, pb, 4,2, false);
+        addDataToTile(level3, p2, 10,9, true);
         invertLevelY(level3);
         createObjects(level3);
         map.addName(level3);
@@ -79,11 +81,17 @@ public class LevelTemplates {
 
     //works for portal, inportal, and pressureButton
     //add commands in order of top to bottom then left to right with multiples
-    public static void addDataToTile(level level, TileFills tile, int x, int y) {
+    public static void addDataToTile(level level, TileFills tile, int x, int y, boolean twoWay) {
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
                 if (level.level1[i][j].equals(tile)) {
-                    level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
+                    if (twoWay) {
+                        level.changeTile(j, i, level.level1[i][j].getTileString(), y+1, x);//, true);
+                        level.changeTile(x,y,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
+                        System.out.println(j+""+i);
+                    }
+                    else
+                        level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
                 }
             }
         }
