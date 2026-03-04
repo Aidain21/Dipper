@@ -2,6 +2,8 @@ package io.github.some_example_name;
 
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
+    public static int buttonCount = 0;
+    public static ColorButton[] colorButtonList = new ColorButton[24];
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
         TileFills w = gen.CreateTileFills("wall");
@@ -31,6 +33,11 @@ public class LevelTemplates {
         TileFills G3 = gen.CreateTileFills("gB",180f);
         TileFills G4 = gen.CreateTileFills("gB",270f);
 
+        TileFills rG = gen.CreateTileFills("rGate");
+        TileFills gG = gen.CreateTileFills("gGate");
+        TileFills bG = gen.CreateTileFills("bGate");
+        TileFills yG = gen.CreateTileFills("yGate");
+
         TileFills bu = gen.CreateTileFills("button");
         TileFills f = gen.CreateTileFills("floor");
         TileFills s = gen.CreateTileFills("spikes", 1);
@@ -41,19 +48,18 @@ public class LevelTemplates {
         TileFills i = gen.CreateTileFills("inportal",-1,-1);
         TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
 
-
         level3.level1 = new TileFills[][] {
         //   0     2     4     6     8    10    12    14    16    18    20    22    24    26    28
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
             {w ,w ,w ,w ,w ,w ,p ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w4,w },// 18
-            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,Y3,f ,f ,f ,f ,f ,w },
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,bG,f ,f ,Y3,f ,f ,f ,f ,f ,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,w1,f ,f ,f ,f ,R4,w ,G2,f ,f ,f ,f ,w },// 16
-            {w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,f ,f ,B4,w ,Y2,f ,f ,f ,f ,w },
-            {w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G1,f ,f ,f ,f ,f ,w },// 14
-            {w ,f ,f ,f ,f ,bu,bu,bu,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,i ,f ,f ,f ,f ,w },// 12
-            {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 10
+            {w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,gG,f ,B4,w ,Y2,f ,f ,f ,f ,w },
+            {w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,rG,f ,f ,G1,f ,f ,f ,f ,f ,w },// 14
+            {w ,f ,f ,f ,f ,bu,bu,bu,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,f ,f ,yG,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,gG,f ,f ,f ,i ,f ,f ,f ,f ,w },// 12
+            {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,gG,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,rG,f ,f ,f ,f ,f ,f ,f ,f ,w },// 10
             {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,f ,f ,w },// 8
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
@@ -103,11 +109,13 @@ public class LevelTemplates {
                 TileFills tile = level.level1[i][j];
                 switch(tile.getTileString()) {
                     // Sprite Objects
-                    case "bouncy":
                     case "rB":
                     case "gB":
                     case "bB":
-                    case "yB":
+                    case "yB": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation());
+                        colorButtonList[buttonCount] = (ColorButton) tile;
+                        buttonCount++; break;
+                    case "bouncy":
                     case "pressureButton": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation()); break;
 
                     // Texture Objects
