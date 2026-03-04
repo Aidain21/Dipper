@@ -52,16 +52,6 @@ public class SimpleTextures extends TileFills{
         }
     }
 
-    public static class TwoWayPortal extends TileFills{
-        Vector2Int nextPortal;
-        public TwoWayPortal(int x, int y){
-            fill="twowayportal";
-            texture=LevelDraw.inPortalTx;
-            nextPortal= new Vector2Int(x,y);
-            canWalk=true;
-        }
-        public Vector2Int newPos(){return nextPortal;}
-    }
 
 
     // Spikes

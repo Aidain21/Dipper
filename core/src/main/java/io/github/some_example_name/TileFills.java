@@ -35,7 +35,6 @@ public class TileFills {
         switch (fill) {
             case "portal": return new SimpleTextures.Portal(x, y);
             case "inportal": return new SimpleTextures.InLevelPortal(x, y);
-            case "twowayportal": return new SimpleTextures.TwoWayPortal(x, y);
             case "pressureButton": return new PressureButton(x, y);
             default: return new TileFills();
         }
