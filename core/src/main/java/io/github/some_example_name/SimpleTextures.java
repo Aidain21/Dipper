@@ -108,31 +108,26 @@ public class SimpleTextures extends TileFills{
     // Color Gate
     public static class ColorGate extends TileFills {
         boolean open;
-        public ColorGate(String tileFill, int x, int y) {
+        public ColorGate(String tileFill) {
             fill = tileFill;
             drawBackground = false;
             open = false;
-            sprite = new Sprite(LevelDraw.playerTx);
-            //if (open) this.sprite = new Sprite(LevelDraw.playerTx);
-            sprite.setPosition(x*32, y*32);
             setColor();
         }
         public void setColor() {
             switch(fill) {
-                case "rGate": sprite.setColor(1, 0, 0, 1); break;
-                case "gGate": sprite.setColor(0, 1, 0, 1); break;
-                case "bGate": sprite.setColor(0, 0, 1, 1); break;
-                case "yGate": sprite.setColor(1, 1, 0, 1); break;
+                case "rGate": texture = LevelDraw.redGateTx; break;
+                case "gGate": texture = LevelDraw.greenGateTx; break;
+                case "bGate": texture = LevelDraw.blueGateTx; break;
+                case "yGate": texture = LevelDraw.yellowGateTx; break;
                 default: break;
             }
         }
-        public void open(int x, int y) {
+        public void open() {
             this.open = true;
             this.canWalk = true;
-            this.sprite = new Sprite(LevelDraw.playerTx);
-            this.sprite.setPosition(x*32, y*32);
-            this.sprite.setColor(1,1,1,0);
-            setColor();
+            this.drawBackground = true;
+            this.texture = LevelDraw.openGateTx;
         }
     }
 }
