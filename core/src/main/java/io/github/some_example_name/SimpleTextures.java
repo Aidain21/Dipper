@@ -29,17 +29,13 @@ public class SimpleTextures extends TileFills{
             texture = LevelDraw.iceTx;
             drawBackground = false;
             canWalk=true;
-            movable=true;
         }
 
-        public void slide(int x, int y) {
+        public void slide() {
             TextBox.textRight[0] = "every day im slidin";
-            Player.playerLock = true;
             Player.playerSliding = true;
-            Player.lockTimer = 1.7f;
-            //Player.dealDamage(0.5f);
-            //Player.originalX = x;
-            //Player.originalY = y;
+            Player.playerLock = true;
+            Player.lockTimer = 0.5f;
         }
     }
 

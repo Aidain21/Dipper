@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Objects;
+
 public class Player {
 
     public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {29,19}};
@@ -71,7 +73,7 @@ public class Player {
                 case "inportal": pos = ((SimpleTextures.InLevelPortal) nextTile).newPos(); return;
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(pos.x, pos.y); break;
-                case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(pos.x, pos.y); break;
+                case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(); return;
                 default: break;
             }
 
@@ -130,17 +132,18 @@ public class Player {
             TextBox.text[1] = "Press 0 to restart.";
         }
         TextBox.textRight[2] = ("Health: " + playerHealth);
+        TextBox.text[2] = pos.x + " " + pos.y + " " + pSprite.getX() + " " + pSprite.getY();
     }
 
-    public void locked() {
+    public void locked(level curLevel) {
         lockTimer -= Gdx.graphics.getDeltaTime();
         distance += Gdx.graphics.getDeltaTime();
         if (playerFalling && (lockTimer-0.5f) >= 0) {
             pSprite.setPosition((pos.x + facing.x)*32, (pos.y + facing.y)*32);
             pSprite.setScale(lockTimer-0.5f);
         }
-        if (playerSliding && (lockTimer-0.5f) >= 0) {
-            pSprite.setPosition((pos.x + facing.x * distance)*32, (pos.y + facing.y * distance)*32);
+        if (playerSliding && (lockTimer) >= 0) {
+            pSprite.setPosition((pos.x + facing.x * distance*2)*32, (pos.y + facing.y * distance*2)*32);
             //pSprite.setScale(lockTimer-0.5f);
         }
 
@@ -149,11 +152,16 @@ public class Player {
             playerLock = false;
             playerFalling = false;
             if (playerSliding) {
-                pos = new Vector2Int(Math.round(pSprite.getY()/32),Math.round(pSprite.getX()/32));
+                pos = new Vector2Int(Math.round(pSprite.getX()/32),Math.round(pSprite.getY()/32));
             }
             playerSliding = false;
             distance = 0f;
             pSprite.setScale(1f);
+
+            if (Objects.equals(curLevel.level1[pos.y][pos.x].fill, "iceFloor") &&
+            curLevel.level1[pos.y + facing.y][pos.x + facing.x].canWalk) {
+                ((SimpleTextures.IceFloor) curLevel.level1[pos.y][pos.x]).slide();
+            }
         }
     }
 
