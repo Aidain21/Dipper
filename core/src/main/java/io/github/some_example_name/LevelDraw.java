@@ -22,6 +22,7 @@ public class LevelDraw {
     public static Texture lever2Tx = new Texture("lever2.png");
     public static Texture spikesTx = new Texture("spikes.png");
     public static Texture voidTx = new Texture("void.png");
+    public static Texture iceTx = new Texture("iceTile.png");
     //public static Texture playerTx = new Texture("char.png");
     public static Texture fallBoxTx = new Texture("fallBox.png");
     public static Texture characterTx = new Texture("character.png");

@@ -91,13 +91,15 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
+        if (Player.playerLock) {
+            player.locked(currentLevel);
+            return;
+        }
+
         // Movement
         if (inputTimer <= 0) {
             // Player Movement Lock
-            if (Player.playerLock) {
-                player.locked();
-                return;
-            }
+
 
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
@@ -120,7 +122,7 @@ public class Main extends ApplicationAdapter {
                 inputTimer = 0.1f;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-                levels.getMap()[1][1].printLevel();
+                Player.debug = !Player.debug;
                 inputTimer = 0.1f;
             }
         } else {

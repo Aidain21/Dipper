@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Objects;
+
 public class Player {
 
     public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {29,19}};
@@ -13,16 +15,20 @@ public class Player {
     public static Sprite pSprite;
     public static boolean playerLock = false;
     public static float lockTimer = 0f;
+    public static float distance = 0f;
     public static boolean alive = true;
     public static float playerMaxHealth = 3f;
     public static float playerHealth = playerMaxHealth;
     public static boolean playerFalling = false;
+    public static boolean playerSliding = false;
     public static int originalX = 0;
     public static int originalY = 0;
     Sprite pFront = new Sprite(LevelDraw.characterFront);
     Sprite pBack = new Sprite(LevelDraw.characterBack);
     Sprite pLeft = new Sprite(LevelDraw.characterLeft);
     Sprite pRight = new Sprite(LevelDraw.characterRight);
+
+    public static boolean debug;
 
     public Player() {
         pos = new Vector2Int(2,7);
@@ -69,6 +75,7 @@ public class Player {
                 case "inportal": pos = ((SimpleTextures.InLevelPortal) nextTile).newPos(); return;
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(pos.x, pos.y); break;
+                case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(); return;
                 default: break;
             }
 
@@ -131,21 +138,41 @@ public class Player {
             TextBox.text[1] = "Press 0 to restart.";
         }
         TextBox.textRight[2] = ("Health: " + playerHealth);
+        TextBox.text[2] = pos.x + " " + pos.y + " " + pSprite.getX() + " " + pSprite.getY();
     }
 
-    public void locked() {
+    public void locked(level curLevel) {
         lockTimer -= Gdx.graphics.getDeltaTime();
+        distance += Gdx.graphics.getDeltaTime();
         if (playerFalling && (lockTimer-0.5f) >= 0) {
             pSprite.setPosition((pos.x + facing.x)*32, (pos.y + facing.y)*32);
             pSprite.setScale(lockTimer-0.5f);
         }
+        if (playerSliding && (lockTimer) > 0) {
+            pSprite.setPosition((pos.x + facing.x * distance * 4) * 32, (pos.y + facing.y * distance * 4) * 32);
+
+            //pSprite.setScale(lockTimer-0.5f);
+        }
+
         if (lockTimer <= 0) {
             if (playerFalling) pos = new Vector2Int(originalX, originalY);
             playerLock = false;
             playerFalling = false;
+            if (playerSliding) {
+                pos = new Vector2Int(Math.round(pSprite.getX()/32),Math.round(pSprite.getY()/32));
+                pSprite.setPosition(pos.x * 32, pos.y *32);
+            }
+            playerSliding = false;
+            distance = 0f;
             pSprite.setScale(1f);
+
+            if (Objects.equals(curLevel.level1[pos.y][pos.x].fill, "iceFloor") &&
+            curLevel.level1[pos.y + facing.y][pos.x + facing.x].canWalk) {
+                ((SimpleTextures.IceFloor) curLevel.level1[pos.y][pos.x]).slide();
+            }
         }
     }
+
     public void playerRestart(level curLevel) {
         alive = true;
         Main.textBox = new TextBox();
@@ -156,7 +183,15 @@ public class Player {
 
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
-        pSprite.setPosition(pos.x * 32, pos.y *32);
+
+        if (debug) {
+            System.out.println(pos.x + " " + pos.y);
+        }
+
+        if (!playerSliding) {
+            pSprite.setPosition(pos.x * 32, pos.y *32);
+        }
+
         pSprite.draw(batch);
     }
 }
