@@ -44,5 +44,7 @@ public class LevelDraw {
                 else if (tile.getType().equals("sprite")) tile.getSprite().draw(batch);
             }
         }
+
+
     }
 }

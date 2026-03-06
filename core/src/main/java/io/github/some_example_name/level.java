@@ -10,6 +10,8 @@ public class level extends ApplicationAdapter {
     int spawnRow=1;
     int spawnCol=1;
     String name ="";
+    boolean filledIn=false;
+
     //generates new tiles
     TileFills generator = new TileFills();
 
@@ -17,6 +19,7 @@ public class level extends ApplicationAdapter {
         rowCount=r;
         colCount=c;
         createLevel();
+        filledIn=true;
     }
 
     public level(int r, int c, int spawnR, int spawnC){
@@ -25,11 +28,13 @@ public class level extends ApplicationAdapter {
         spawnRow=spawnR;
         spawnCol=spawnC;
         createLevel();
+        filledIn=true;
     }
 
     public level(int spawnR, int spawnC, boolean auto){
         spawnRow=spawnR;
         spawnCol=spawnC;
+        filledIn=true;
     }
 
     //creates a new level and fills it in with walls and floors

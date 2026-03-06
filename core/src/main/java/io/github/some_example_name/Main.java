@@ -154,6 +154,7 @@ public class Main extends ApplicationAdapter {
 
     private void draw() {
         LevelDraw.drawLevel(batch,currentLevel);
+        MiniMap.drawMap(batch, levels, currentLevel);
 
         //the logo
         //batch.draw(image, 140, 210);
