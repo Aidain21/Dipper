@@ -28,6 +28,8 @@ public class Player {
     Sprite pLeft = new Sprite(LevelDraw.characterLeft);
     Sprite pRight = new Sprite(LevelDraw.characterRight);
 
+    public static boolean debug;
+
     public Player() {
         pos = new Vector2Int(2,7);
         facing = new Vector2Int(1,0);
@@ -142,8 +144,9 @@ public class Player {
             pSprite.setPosition((pos.x + facing.x)*32, (pos.y + facing.y)*32);
             pSprite.setScale(lockTimer-0.5f);
         }
-        if (playerSliding && (lockTimer) >= 0) {
-            pSprite.setPosition((pos.x + facing.x * distance*2)*32, (pos.y + facing.y * distance*2)*32);
+        if (playerSliding && (lockTimer) > 0) {
+            pSprite.setPosition((pos.x + facing.x * distance * 4) * 32, (pos.y + facing.y * distance * 4) * 32);
+
             //pSprite.setScale(lockTimer-0.5f);
         }
 
@@ -153,6 +156,7 @@ public class Player {
             playerFalling = false;
             if (playerSliding) {
                 pos = new Vector2Int(Math.round(pSprite.getX()/32),Math.round(pSprite.getY()/32));
+                pSprite.setPosition(pos.x * 32, pos.y *32);
             }
             playerSliding = false;
             distance = 0f;
@@ -175,6 +179,11 @@ public class Player {
 
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
+
+        if (debug) {
+            System.out.println(pos.x + " " + pos.y);
+        }
+
         if (!playerSliding) {
             pSprite.setPosition(pos.x * 32, pos.y *32);
         }

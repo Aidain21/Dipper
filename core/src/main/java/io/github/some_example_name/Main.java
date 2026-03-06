@@ -120,7 +120,7 @@ public class Main extends ApplicationAdapter {
                 inputTimer = 0.1f;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-                levels.getMap()[1][1].printLevel();
+                Player.debug = !Player.debug;
                 inputTimer = 0.1f;
             }
         } else {
