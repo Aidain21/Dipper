@@ -128,6 +128,12 @@ public class level extends ApplicationAdapter {
         return -1;
     }
 
+    public TileFills tileObjectAt(float x, float y) {
+        int rX = Math.round(x / 32);
+        int rY = Math.round(y / 32);
+        return level1[rY][rX];
+    }
+
     public String tileAtWorldPos(float x, float y) {
         int rX = Math.round( x / 32);
         int rY = Math.round( y / 32);
