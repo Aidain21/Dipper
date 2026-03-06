@@ -47,6 +47,7 @@ public class LevelTemplates {
         TileFills p = gen.CreateTileFills("portal",-1,-1);
         TileFills i = gen.CreateTileFills("inportal",-1,-1);
         TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
+        TileFills iF = gen.CreateTileFills("iceFloor");
 
         level3.level1 = new TileFills[][] {
         //   0     2     4     6     8    10    12    14    16    18    20    22    24    26    28
@@ -63,10 +64,10 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,s ,f ,w },
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,s ,f ,w },// 8
             {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
-            {w ,f ,p2,f ,f ,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,iF,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
+            {w ,f ,f ,f ,iF,iF,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,p2,f ,iF,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
+            {w ,f ,f ,f ,iF,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,b ,f ,f ,f ,f ,f ,f ,w ,w ,w ,w ,w ,w ,w ,w ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
