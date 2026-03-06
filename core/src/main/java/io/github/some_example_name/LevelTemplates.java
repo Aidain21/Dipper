@@ -87,6 +87,7 @@ public class LevelTemplates {
 
     //works for portal, inportal, and pressureButton
     //add commands in order of top to bottom then left to right with multiples
+    //two way is to check if 2 portals are being created
     public static void addDataToTile(level level, TileFills tile, int x, int y, boolean twoWay) {
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
@@ -94,7 +95,6 @@ public class LevelTemplates {
                     if (twoWay) {
                         level.changeTile(j, i, level.level1[i][j].getTileString(), y+1, x);//, true);
                         level.changeTile(x,y,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
-                        System.out.println(j+""+i);
                     }
                     else
                         level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
