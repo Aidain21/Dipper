@@ -181,6 +181,11 @@ public class Player {
         playerHealth = playerMaxHealth;
     }
 
+    public void movePlayer(int x, int y) {
+        pos.x = x;
+        pos.y = y;
+    }
+
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
 

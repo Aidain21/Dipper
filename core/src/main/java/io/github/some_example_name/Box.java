@@ -70,6 +70,11 @@ public class Box extends TileFills{
             }
             return;
         }
+        if (!targetTile.movable) {
+            curLevel.swapTiles(lookX, lookY, lookX - facingX, lookY - facingY);
+            Main.player.movePlayer(lookX - facingX*2, lookY - facingY*2);
+        }
+
         // Presses pressure button if the box is moved onto it
         if (targetTile instanceof PressureButton) {
             ((PressureButton) targetTile).press();
