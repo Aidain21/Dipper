@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -25,12 +26,14 @@ public class Main extends ApplicationAdapter {
     LevelLogic log;
     private boolean isPaused = false;
     private Stage pauseMenu;
+    private Skin buttonSkin;
 
     @Override
     public void create() {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        buttonSkin = new Skin(Gdx.files.internal("uiskin.json"));
         levels = new map(2,2,12,12);
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",1,1);
@@ -66,7 +69,6 @@ public class Main extends ApplicationAdapter {
 
         Gdx.graphics.setWindowedMode(960, 720);
 
-        pauseMenu = MainMenuUI.CreateMenu();
     }
 
     @Override
@@ -132,6 +134,9 @@ public class Main extends ApplicationAdapter {
             }
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
+                if (isPaused) {
+                    MainMenuUI.MainMenuUI(buttonSkin);
+                }
             }
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
