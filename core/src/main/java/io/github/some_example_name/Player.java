@@ -150,8 +150,6 @@ public class Player {
         }
         if (playerSliding && (lockTimer) > 0) {
             pSprite.setPosition((pos.x + facing.x * distance * 4) * 32, (pos.y + facing.y * distance * 4) * 32);
-
-            //pSprite.setScale(lockTimer-0.5f);
         }
 
         if (lockTimer <= 0) {

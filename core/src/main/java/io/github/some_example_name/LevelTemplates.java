@@ -1,9 +1,9 @@
 package io.github.some_example_name;
 
+import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
-    public static int buttonCount3 = 0;
-    public static ColorButton[] colorButtonList3 = new ColorButton[24];
+    public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
         TileFills w = gen.CreateTileFills("wall");
@@ -61,9 +61,9 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,i ,f ,s ,s ,f ,w },// 12
             {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,s ,f ,w },
             {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,f ,w },// 10
-            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,s ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,s ,f ,w },// 8
-            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,G3,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,s ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w ,B2,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,s ,f ,w },// 8
+            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,iF,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
             {w ,f ,f ,f ,iF,iF,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,p2,f ,iF,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
@@ -114,8 +114,7 @@ public class LevelTemplates {
                     case "gB":
                     case "bB":
                     case "yB": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation());
-                        colorButtonList3[buttonCount3] = (ColorButton) tile;
-                        buttonCount3++; break;
+                        colorButtons3.add((ColorButton) tile); break;
                     case "bouncy":
                     case "pressureButton": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation()); break;
 
