@@ -10,14 +10,14 @@ public class MiniMap {
         for (int j = 0; j < m.length; j++) {
             for (int i = 0; i < m[0].length; i++) {
                 //shows the current level
+
+                // Draws background or void if there is no level
+                if(Arrays.deepEquals(m[j][i].getLevel(), temp.getLevel()))
+                    batch.draw(LevelDraw.voidTx,800+(i*32),650+(j*32),32, 32);
+                else batch.draw(LevelDraw.backgroundTexture,800+(i*32),650+(j*32),32, 32);
+
                 if(m[j][i].equals(level))
                     batch.draw(LevelDraw.playerTx,800+(i*32),650+(j*32),32, 32);
-                //empty levels
-                else if(Arrays.deepEquals(m[j][i].getLevel(), temp.getLevel()))
-                    batch.draw(LevelDraw.voidTx,800+(i*32),650+(j*32),32, 32);
-                //shows the rest of the levels
-                else
-                    batch.draw(LevelDraw.backgroundTexture,800+(i*32),650+(j*32),32, 32);
             }
         }
     }
