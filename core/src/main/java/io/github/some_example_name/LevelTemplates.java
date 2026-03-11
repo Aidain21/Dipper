@@ -1,5 +1,14 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.utils.Json;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static int buttonCount3 = 0;
@@ -49,7 +58,7 @@ public class LevelTemplates {
         TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
         TileFills iF = gen.CreateTileFills("iceFloor");
 
-        level3.level1 = new TileFills[][] {
+        TileFills[][] testy = new TileFills[][] {
         //   0     2     4     6     8    10    12    14    16    18    20    22    24    26    28
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
             {w ,w ,w ,w ,w ,w ,p ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,gG,f ,f ,f ,f ,f ,f ,f ,w4,w },// 18
@@ -72,6 +81,28 @@ public class LevelTemplates {
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
+
+        saveAsJson(testy);
+
+        level3.level1 = testy;
+
+        AsLevel test = new AsLevel(new String[][] {});
+        Json json = new Json();
+        File theFile = new File("testy.json");
+        try {
+            Scanner coolGuy = new Scanner(theFile);
+            String jsonStuff = coolGuy.nextLine();
+            test = json.fromJson(AsLevel.class, jsonStuff);
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("An error occurred: File not found.");
+
+        }
+        System.out.println(Arrays.deepToString(test.level));
+
+
+
+
         addDataToTile(level3, p, 0,1, false);
         addDataToTile(level3, i, 10,1, false);
         addDataToTile(level3, pb, 3,2, false);
@@ -129,6 +160,26 @@ public class LevelTemplates {
         }
     }
 
+    public static void saveAsJson (TileFills[][] level) {
+        String[][] textForm = new String[level.length][level[0].length];
+        Json guyThatDoesTheJson = new Json();
+        for (int i = 0; i < level.length; i++) {
+            for (int j = 0; j < level[0].length; j++) {
+                textForm[i][j] = level[i][j].getTileString();
+            }
+        }
+
+
+
+        try (FileWriter file = new FileWriter("testy.json")) {
+
+            file.write(guyThatDoesTheJson.toJson(new AsLevel(textForm)));
+            //file.flush();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+    }
+
     public static void invertLevelY(level level) {
         int start = 0;
         int end = level.level1.length - 1;
@@ -142,6 +193,13 @@ public class LevelTemplates {
             // Move the indices toward the center
             start++;
             end--;
+        }
+    }
+
+    public static class AsLevel {
+        public String[][] level;
+        public AsLevel(String[][] lvl){
+            level = lvl;
         }
     }
 }
