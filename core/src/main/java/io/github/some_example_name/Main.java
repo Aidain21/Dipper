@@ -21,7 +21,7 @@ public class Main extends ApplicationAdapter {
     static Bow bow;
     public static TextBox textBox;
     Viewport viewport;
-    LevelLogic log;
+    static LevelLogic log;
 
     @Override
     public void create() {

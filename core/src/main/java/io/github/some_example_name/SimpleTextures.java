@@ -147,5 +147,11 @@ public class SimpleTextures extends TileFills{
             this.drawBackground = true;
             this.texture = LevelDraw.openGateTx;
         }
+        public void close() {
+            this.open = false;
+            this.canWalk = false;
+            this.drawBackground = false;
+            setColor();
+        }
     }
 }

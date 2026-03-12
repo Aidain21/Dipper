@@ -7,14 +7,27 @@ public class LevelLogic extends LevelTemplates {
     boolean press1 = false;
     boolean press2 = false;
     boolean bCombination = false;
+    boolean getColorGates = true;
+    SimpleTextures.ColorGate rGate = null;
+    SimpleTextures.ColorGate gGate = null;
+    SimpleTextures.ColorGate bGate = null;
+    SimpleTextures.ColorGate yGate = null;
     int step = 0;
     float wallTimer = 0f;
     TileFills tile = new TileFills();
 
     public void logic(level curLevel) {
         level3logic();
-        ColorGateLogic();
+        ColorGateLogic(curLevel);
     }
+
+    public void colorGateReset() {
+        if (rGate != null) rGate.close();
+        if (gGate != null) gGate.close();
+        if (bGate != null) bGate.close();
+        if (yGate != null) yGate.close();
+    }
+
     public void level3logic() {
         Button button1 = (Button) level3.level1[6][8];
         Button comboButton1 = (Button) level3.level1[13][5];
@@ -62,11 +75,22 @@ public class LevelLogic extends LevelTemplates {
             } else bCombination = false;
         }
     }
-    public void ColorGateLogic() {
-        SimpleTextures.ColorGate gGate = (SimpleTextures.ColorGate) level3.level1[17][20];
-        SimpleTextures.ColorGate rGate = (SimpleTextures.ColorGate) level3.level1[17][26];
-        SimpleTextures.ColorGate bGate = (SimpleTextures.ColorGate) level3.level1[17][25];
-        SimpleTextures.ColorGate yGate = (SimpleTextures.ColorGate) level3.level1[17][21];
+    public void ColorGateLogic(level curLevel) {
+        if (getColorGates) {
+            for (int i = 0; i < curLevel.level1.length; i++) {
+                for (int j = 0; j < curLevel.level1[0].length; j++) {
+                    TileFills tile = curLevel.level1[i][j];
+                    switch(tile.getTileString()) {
+                        case "rGate": rGate = (SimpleTextures.ColorGate) tile; break;
+                        case "gGate": gGate = (SimpleTextures.ColorGate) tile; break;
+                        case "bGate": bGate = (SimpleTextures.ColorGate) tile; break;
+                        case "yGate": yGate = (SimpleTextures.ColorGate) tile; break;
+                        default: break;
+                    }
+                }
+            }
+            getColorGates = false;
+        }
         boolean redButtonsPressed = true;
         boolean greenButtonsPressed = true;
         boolean blueButtonsPressed = true;

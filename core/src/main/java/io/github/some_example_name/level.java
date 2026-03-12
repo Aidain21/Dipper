@@ -142,6 +142,8 @@ public class level extends ApplicationAdapter {
 
     public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
+        Main.log.colorGateReset();
+        Main.log.getColorGates = true;
         return Main.moveLevel(p.nextX,p.nextY);
     }
 
