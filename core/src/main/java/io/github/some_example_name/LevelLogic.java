@@ -13,7 +13,7 @@ public class LevelLogic extends LevelTemplates {
 
     public void logic(level curLevel) {
         level3logic();
-        //ColorGateLogic();
+        ColorGateLogic();
     }
     public void level3logic() {
         Button button1 = (Button) level3.level1[7][23];
@@ -24,9 +24,9 @@ public class LevelLogic extends LevelTemplates {
             wall2.getSprite().rotate(90);
             press1 = true;
         }
-        else if (!button1.isPressed() && press1) {
+        if (!button1.isPressed() && press1) {
             wall1.getSprite().rotate(90);
-            wall1.getSprite().rotate(270);
+            wall2.getSprite().rotate(270);
             press1 = false;
         }
     }
@@ -78,10 +78,10 @@ public class LevelLogic extends LevelTemplates {
 //        }
 //    }
     public void ColorGateLogic() {
-        SimpleTextures.ColorGate gGate = (SimpleTextures.ColorGate) level3.level1[17][20];
-        SimpleTextures.ColorGate rGate = (SimpleTextures.ColorGate) level3.level1[17][26];
-        SimpleTextures.ColorGate bGate = (SimpleTextures.ColorGate) level3.level1[17][25];
-        SimpleTextures.ColorGate yGate = (SimpleTextures.ColorGate) level3.level1[17][21];
+        SimpleTextures.ColorGate rGate = (SimpleTextures.ColorGate) level3.level1[18][7];
+        SimpleTextures.ColorGate gGate = (SimpleTextures.ColorGate) level3.level1[18][8];
+        SimpleTextures.ColorGate bGate = (SimpleTextures.ColorGate) level3.level1[18][9];
+        SimpleTextures.ColorGate yGate = (SimpleTextures.ColorGate) level3.level1[18][10];
         boolean redButtonsPressed = true;
         boolean greenButtonsPressed = true;
         boolean blueButtonsPressed = true;
