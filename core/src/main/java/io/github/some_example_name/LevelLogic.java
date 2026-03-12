@@ -13,55 +13,70 @@ public class LevelLogic extends LevelTemplates {
 
     public void logic(level curLevel) {
         level3logic();
-        ColorGateLogic();
+        //ColorGateLogic();
     }
     public void level3logic() {
-        Button button1 = (Button) level3.level1[6][8];
-        Button comboButton1 = (Button) level3.level1[13][5];
-        Button comboButton2 = (Button) level3.level1[13][6];
-        Button comboButton3 = (Button) level3.level1[13][7];
-        ColorButton yButton = (ColorButton) level3.level1[2][17];
-        Button button2 = (Button) level3.level1[7][8];
-        SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
-
-        // rotates when buttons pressed
+        Button button1 = (Button) level3.level1[7][23];
+        SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[4][19];
+        SimpleTextures.BouncyWall wall2 = (SimpleTextures.BouncyWall) level3.level1[4][28];
         if (button1.isPressed() && !press1) {
-            TextBox.text[2] = "logic test";
-            yButton.getSprite().rotate(90);
-            press1 = button1.isPressed();
-        }
-        if (button2.isPressed() && !press2) {
-            TextBox.text[2] = "logic test 2";
-            wall1.getSprite().rotate(90);
-            press2 = button2.isPressed();
-        }
-        else if (!button2.isPressed() && press2) {
             wall1.getSprite().rotate(270);
-            press2 = false;
+            wall2.getSprite().rotate(90);
+            press1 = true;
         }
         else if (!button1.isPressed() && press1) {
-            yButton.getSprite().rotate(270);
+            wall1.getSprite().rotate(90);
+            wall1.getSprite().rotate(270);
             press1 = false;
         }
-        // reveals path if button combination is correct
-        if (!bCombination && comboButton1.isPressed() && !comboButton2.isPressed() && comboButton3.isPressed()) {
-            TextBox.text[2] = "logic test 3";
-            bCombination = true;
-            comboButton1.lock();
-            comboButton2.lock();
-            comboButton3.lock();
-        }
-        if (!bCombination) return;
-        wallTimer += Gdx.graphics.getDeltaTime();
-        if (wallTimer >= 0.6f) {
-            int i = 16 + step;
-            if (i <= 19) {
-                for (int j = 5; j <= 7; j++) if (i != 18 || j != 6) level3.level1[i][j] = tile.CreateTileFills("floor");
-                step++;
-                wallTimer = 0f;
-            } else bCombination = false;
-        }
     }
+//    public void level3logi() {
+//        Button button1 = (Button) level3.level1[6][8];
+//        Button comboButton1 = (Button) level3.level1[13][5];
+//        Button comboButton2 = (Button) level3.level1[13][6];
+//        Button comboButton3 = (Button) level3.level1[13][7];
+//        ColorButton yButton = (ColorButton) level3.level1[2][17];
+//        Button button2 = (Button) level3.level1[7][8];
+//        SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
+//
+//        // rotates when buttons pressed
+//        if (button1.isPressed() && !press1) {
+//            TextBox.text[2] = "logic test";
+//            yButton.getSprite().rotate(90);
+//            press1 = button1.isPressed();
+//        }
+//        if (button2.isPressed() && !press2) {
+//            TextBox.text[2] = "logic test 2";
+//            wall1.getSprite().rotate(90);
+//            press2 = button2.isPressed();
+//        }
+//        else if (!button2.isPressed() && press2) {
+//            wall1.getSprite().rotate(270);
+//            press2 = false;
+//        }
+//        else if (!button1.isPressed() && press1) {
+//            yButton.getSprite().rotate(270);
+//            press1 = false;
+//        }
+//        // reveals path if button combination is correct
+//        if (!bCombination && comboButton1.isPressed() && !comboButton2.isPressed() && comboButton3.isPressed()) {
+//            TextBox.text[2] = "logic test 3";
+//            bCombination = true;
+//            comboButton1.lock();
+//            comboButton2.lock();
+//            comboButton3.lock();
+//        }
+//        if (!bCombination) return;
+//        wallTimer += Gdx.graphics.getDeltaTime();
+//        if (wallTimer >= 0.6f) {
+//            int i = 16 + step;
+//            if (i <= 19) {
+//                for (int j = 5; j <= 7; j++) if (i != 18 || j != 6) level3.level1[i][j] = tile.CreateTileFills("floor");
+//                step++;
+//                wallTimer = 0f;
+//            } else bCombination = false;
+//        }
+//    }
     public void ColorGateLogic() {
         SimpleTextures.ColorGate gGate = (SimpleTextures.ColorGate) level3.level1[17][20];
         SimpleTextures.ColorGate rGate = (SimpleTextures.ColorGate) level3.level1[17][26];
