@@ -3,6 +3,7 @@ package io.github.some_example_name;
 import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
+    public static level level4 = new level(2,2,true);
     public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
@@ -67,12 +68,13 @@ public class LevelTemplates {
             {w ,f ,f ,f ,iF,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
             {w ,f ,f ,f ,iF,iF,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,p2,f ,iF,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
-            {w ,f ,f ,f ,iF,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,iF,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,i ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,b ,f ,f ,f ,f ,f ,f ,w ,w ,w ,w ,w ,w ,w ,w ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
-        addDataToTile(level3, p, 0,1, false);
+        addDataToTile(level3, p, 2,1, false);
+        addDataToTile(level3, p, 0,0, false);
         addDataToTile(level3, i, 10,1, false);
         addDataToTile(level3, pb, 3,2, false);
         addDataToTile(level3, pb, 4,2, false);
@@ -84,6 +86,26 @@ public class LevelTemplates {
         level3.changeTile(2, 1, "wall");
 
         //add more levels below here
+
+        level4.level1 = new TileFills[][] {
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,R1,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,b ,f ,b ,f ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w },
+            {w ,rG,rG,rG,rG,rG,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,R3,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
+        };
+
+        invertLevelY(level4);
+        createObjects(level4);
+        map.addName(level4);
+        map.levelMap[1][2] = level4;
     }
 
     //works for portal, inportal, and pressureButton
@@ -96,9 +118,12 @@ public class LevelTemplates {
                     if (twoWay) {
                         level.changeTile(j, i, level.level1[i][j].getTileString(), y+1, x);//, true);
                         level.changeTile(x,y,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
+                        return;
                     }
-                    else
-                        level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
+                    else {
+                        level.changeTile(j, i, level.level1[i][j].getTileString(), x, y);
+                        return;
+                    }
                 }
             }
         }

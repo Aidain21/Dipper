@@ -28,7 +28,7 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        levels = new map(2,2,12,12);
+        levels = new map(4,2,12,12);
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",1,1);
         templevel.changeTile(5,5,"portal",0,0);
