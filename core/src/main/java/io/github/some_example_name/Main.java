@@ -75,20 +75,24 @@ public class Main extends ApplicationAdapter {
     }
 
     @Override
-    public void render() {
+    public void render() { // This method is causing errors with the pause feature
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+
         if (!isPaused) {
-            ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-            viewport.apply();
-            batch.setProjectionMatrix(viewport.getCamera().combined);
-            batch.begin();
             input();
             logic();
-            batch.end();
         }
-        draw();
 
-        pauseMenu.act(Gdx.graphics.getDeltaTime());
-        pauseMenu.draw();
+        batch.begin();
+        draw();
+        batch.end();
+
+        if (isPaused) {
+            pauseMenu.act(Gdx.graphics.getDeltaTime());
+            pauseMenu.draw();
+        }
     }
 
     @Override
