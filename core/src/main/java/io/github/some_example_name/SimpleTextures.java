@@ -23,6 +23,23 @@ public class SimpleTextures extends TileFills{
         }
     }
 
+    public static class IceFloor extends TileFills{
+        public IceFloor(){
+            fill="iceFloor";
+            texture = LevelDraw.iceTx;
+            drawBackground = false;
+            canWalk=true;
+        }
+
+        public void slide() {
+            TextBox.textRight[0] = "every day im slidin";
+            Player.playerSliding = true;
+            Player.playerLock = true;
+            Player.lockTimer = 0.25f;
+
+        }
+    }
+
     // Portal
     public static class Portal extends TileFills{
         int nextX;
@@ -51,6 +68,7 @@ public class SimpleTextures extends TileFills{
             return new Vector2Int(newX,newY);
         }
     }
+
 
 
     // Spikes
@@ -102,6 +120,32 @@ public class SimpleTextures extends TileFills{
             sprite = new Sprite(LevelDraw.bouncy);
             sprite.setRotation(r);
             sprite.setPosition(x*32, y*32);
+        }
+    }
+
+    // Color Gate
+    public static class ColorGate extends TileFills {
+        boolean open;
+        public ColorGate(String tileFill) {
+            fill = tileFill;
+            drawBackground = false;
+            open = false;
+            setColor();
+        }
+        public void setColor() {
+            switch(fill) {
+                case "rGate": texture = LevelDraw.redGateTx; break;
+                case "gGate": texture = LevelDraw.greenGateTx; break;
+                case "bGate": texture = LevelDraw.blueGateTx; break;
+                case "yGate": texture = LevelDraw.yellowGateTx; break;
+                default: break;
+            }
+        }
+        public void open() {
+            this.open = true;
+            this.canWalk = true;
+            this.drawBackground = true;
+            this.texture = LevelDraw.openGateTx;
         }
     }
 }

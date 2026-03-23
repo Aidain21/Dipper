@@ -7,16 +7,19 @@ public class TextBox {
 
     public static String[] text;
     public static String[] textRight;
+    public static String[] levelName;
 
     public TextBox() {
         text = new String[] {"Row 1", "Row 2", "Row 3"};
         textRight = new String[] {"Row 4", "Row 5", "Row 6"};
+        levelName = new String[] {"Lone Beginnings"};
     }
     public static void clearText() {
         for (int i = 0; i <= 2; i++) {
             text[i] = "";
             textRight[i] = "";
         }
+        levelName[0]="";
     }
     public void drawTextBox(SpriteBatch batch) {
         BitmapFont font = new BitmapFont();
@@ -27,5 +30,7 @@ public class TextBox {
         font.draw(batch, textRight[0], (float) Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - 5);
         font.draw(batch, textRight[1], (float) Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - 25);
         font.draw(batch, textRight[2], (float) Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - 45);
+
+        font.draw(batch, levelName[0], (float) Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - 65);
     }
 }

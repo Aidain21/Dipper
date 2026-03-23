@@ -54,9 +54,11 @@ public class Bow {
             Sprite arrow = arrowArray.get(i);
             float wall = curLvl.rotationAt(arrow.getX(), arrow.getY())%360;
             String pos = curLvl.tileAtWorldPos(arrow.getX(), arrow.getY());
+            TileFills tile = curLvl.tileObjectAt(arrow.getX(), arrow.getY());
             boolean arrowRicochet = shouldRicochet(pos, (int) arrow.getRotation(), wall);
             boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal")
-                && !pos.equals("button") && !pos.equals("pressureButton") && !pos.equals("void"));
+                && !pos.equals("button") && !pos.equals("pressureButton") && !pos.equals("void")
+                && !((pos.equals("rGate")||pos.equals("bGate")||pos.equals("gGate")||pos.equals("yGate")) && ((SimpleTextures.ColorGate) tile).open));
             TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
             if (f instanceof ColorButton && !hasPressed.get(i)) {
                 ((ColorButton) f).press();

@@ -9,6 +9,9 @@ public class level extends ApplicationAdapter {
     int colCount;
     int spawnRow=1;
     int spawnCol=1;
+    String name ="";
+    boolean filledIn=false;
+
     //generates new tiles
     TileFills generator = new TileFills();
 
@@ -16,6 +19,7 @@ public class level extends ApplicationAdapter {
         rowCount=r;
         colCount=c;
         createLevel();
+        filledIn=true;
     }
 
     public level(int r, int c, int spawnR, int spawnC){
@@ -24,11 +28,13 @@ public class level extends ApplicationAdapter {
         spawnRow=spawnR;
         spawnCol=spawnC;
         createLevel();
+        filledIn=true;
     }
 
     public level(int spawnR, int spawnC, boolean auto){
         spawnRow=spawnR;
         spawnCol=spawnC;
+        filledIn=true;
     }
 
     //creates a new level and fills it in with walls and floors
@@ -89,6 +95,12 @@ public class level extends ApplicationAdapter {
         level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
     }
 
+    //given name, 2 nums and an unused boolean to differentiate, 2 way portal
+    public void changeTile(int r, int c, String fill, int nextX, int nextY, boolean twoway){
+        level1[c][r]=generator.CreateTileFills(fill,nextX,nextY);
+        level1[nextY][nextX]=generator.CreateTileFills(fill,r,c);
+    }
+
     //given 2 names, lever
     public void changeTile(int r, int c, String fill, String nFill){
         level1[c][r]=generator.CreateTileFills(fill,nFill);
@@ -114,6 +126,12 @@ public class level extends ApplicationAdapter {
         TileFills tile = level1[rY][rX];
         if (tile instanceof SimpleTextures.BouncyWall) return tile.getRotation();
         return -1;
+    }
+
+    public TileFills tileObjectAt(float x, float y) {
+        int rX = Math.round(x / 32);
+        int rY = Math.round(y / 32);
+        return level1[rY][rX];
     }
 
     public String tileAtWorldPos(float x, float y) {

@@ -1,7 +1,9 @@
 package io.github.some_example_name;
 
+import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
+    public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
         TileFills w = gen.CreateTileFills("wall");
@@ -31,6 +33,11 @@ public class LevelTemplates {
         TileFills G3 = gen.CreateTileFills("gB",180f);
         TileFills G4 = gen.CreateTileFills("gB",270f);
 
+        TileFills rG = gen.CreateTileFills("rGate");
+        TileFills gG = gen.CreateTileFills("gGate");
+        TileFills bG = gen.CreateTileFills("bGate");
+        TileFills yG = gen.CreateTileFills("yGate");
+
         TileFills bu = gen.CreateTileFills("button");
         TileFills f = gen.CreateTileFills("floor");
         TileFills s = gen.CreateTileFills("spikes", 1);
@@ -39,37 +46,40 @@ public class LevelTemplates {
         TileFills pb = gen.CreateTileFills("pressureButton",-1,-1);
         TileFills p = gen.CreateTileFills("portal",-1,-1);
         TileFills i = gen.CreateTileFills("inportal",-1,-1);
-
+        TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
+        TileFills iF = gen.CreateTileFills("iceFloor");
 
         level3.level1 = new TileFills[][] {
         //   0     2     4     6     8    10    12    14    16    18    20    22    24    26    28
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
-            {w ,w ,w ,w ,w ,w ,p ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w4,w },// 18
-            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,Y3,f ,f ,f ,f ,f ,w },
-            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,w1,f ,f ,f ,f ,R4,w ,G2,f ,f ,f ,f ,w },// 16
-            {w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,f ,f ,B4,w ,Y2,f ,f ,f ,f ,w },
-            {w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G1,f ,f ,f ,f ,f ,w },// 14
+            {w ,w ,w ,w ,w ,w ,p ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,gG,f ,f ,f ,f ,f ,f ,f ,w4,w },// 18
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,gG,yG,yG,yG,bG,bG,rG,rG,f ,w },
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,w1,f ,f ,gG,f ,f ,gG,gG,bG,bG,rG,f ,w },// 16
+            {w ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,gG,gG,gG,gG,f ,f ,f ,f ,f ,w },
+            {w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 14
             {w ,f ,f ,f ,f ,bu,bu,bu,f ,f ,f ,f ,f ,w1,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,i ,f ,f ,f ,f ,w },// 12
-            {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 10
-            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,f ,f ,w },// 8
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,G1,G2,G3,G4,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,Y1,Y2,Y3,Y4,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,B1,B2,B3,B4,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R1,R2,R3,R4,f ,f ,f ,f ,s ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
-            {w ,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,s ,s ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,i ,f ,s ,s ,f ,w },// 12
+            {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,s ,f ,w },
+            {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,f ,w },// 10
+            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,G3,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,s ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w ,B2,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,s ,f ,w },// 8
+            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,iF,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
+            {w ,f ,f ,f ,iF,iF,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,p2,f ,iF,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
+            {w ,f ,f ,f ,iF,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,b ,f ,f ,f ,f ,f ,f ,w ,w ,w ,w ,w ,w ,w ,w ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
-        addDataToTile(level3, p, 0,1);
-        addDataToTile(level3, i, 10,1);
-        addDataToTile(level3, pb, 3,2);
-        addDataToTile(level3, pb, 4,2);
+        addDataToTile(level3, p, 0,1, false);
+        addDataToTile(level3, i, 10,1, false);
+        addDataToTile(level3, pb, 3,2, false);
+        addDataToTile(level3, pb, 4,2, false);
+        addDataToTile(level3, p2, 10,9, true);
         invertLevelY(level3);
         createObjects(level3);
+        map.addName(level3);
         map.levelMap[1][1] = level3;
         level3.changeTile(2, 1, "wall");
 
@@ -78,11 +88,17 @@ public class LevelTemplates {
 
     //works for portal, inportal, and pressureButton
     //add commands in order of top to bottom then left to right with multiples
-    public static void addDataToTile(level level, TileFills tile, int x, int y) {
+    //two way is to check if 2 portals are being created
+    public static void addDataToTile(level level, TileFills tile, int x, int y, boolean twoWay) {
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
                 if (level.level1[i][j].equals(tile)) {
-                    level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
+                    if (twoWay) {
+                        level.changeTile(j, i, level.level1[i][j].getTileString(), y+1, x);//, true);
+                        level.changeTile(x,y,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
+                    }
+                    else
+                        level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
                 }
             }
         }
@@ -94,11 +110,12 @@ public class LevelTemplates {
                 TileFills tile = level.level1[i][j];
                 switch(tile.getTileString()) {
                     // Sprite Objects
-                    case "bouncy":
                     case "rB":
                     case "gB":
                     case "bB":
-                    case "yB":
+                    case "yB": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation());
+                        colorButtons3.add((ColorButton) tile); break;
+                    case "bouncy":
                     case "pressureButton": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation()); break;
 
                     // Texture Objects

@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-    Player player;
+    static Player player;
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
@@ -57,11 +57,14 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(6,9,"bouncy", 90f);
         currentLevel.changeTile(6,8,"bouncy", 0f);
         currentLevel.changeTile(6,3,"bouncy", 180f);
+        currentLevel.changeTile(7, 6, "yGate");
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
         currentLevel.changeTile(9,5,"button");
         currentLevel.changeTile(3,9,"spike", 1);
         currentLevel.changeTile(4, 2, "pressureButton");
+        currentLevel.name="Lone Beginnings";
+        currentLevel.changeTile(3,5,"inportal",5,3,true);
         bow = new Bow();
         log = new LevelLogic();
         textBox = new TextBox();
@@ -100,13 +103,15 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
+        if (Player.playerLock) {
+            player.locked(currentLevel);
+            return;
+        }
+
         // Movement
         if (inputTimer <= 0) {
             // Player Movement Lock
-            if (Player.playerLock) {
-                player.locked();
-                return;
-            }
+
 
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
@@ -129,7 +134,7 @@ public class Main extends ApplicationAdapter {
                 inputTimer = 0.1f;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-                levels.getMap()[1][1].printLevel();
+                Player.debug = !Player.debug;
                 inputTimer = 0.1f;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -169,6 +174,7 @@ public class Main extends ApplicationAdapter {
 
     private void draw() {
         LevelDraw.drawLevel(batch,currentLevel);
+        MiniMap.drawMap(batch, levels, currentLevel);
 
         //the logo
         //batch.draw(image, 140, 210);
@@ -186,6 +192,7 @@ public class Main extends ApplicationAdapter {
 
     public static Vector2Int moveLevel(int x, int y){
         currentLevel=levels.getMap()[y][x];
+        textBox.levelName[0]=currentLevel.name;
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
     }
 
