@@ -140,7 +140,7 @@ public class Main extends ApplicationAdapter {
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
                 if (isPaused) {
-                    MainMenuUI.MainMenuUI(buttonSkin);
+                    MainMenuUI pause = new MainMenuUI(buttonSkin);
                 }
             }
         } else {

@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class MainMenuUI {
-    private static Stage stage;
-    private static Skin buttonSkin;
+    private Stage stage;
+    private Skin buttonSkin;
 
-    public static void MainMenuUI(Skin skin) {
-        this.buttonSkin = buttonSkin;
-        this.stage = stage;
+    public MainMenuUI(Skin skin) {
+        this.buttonSkin = skin;
+        this.stage = new Stage();
 
         TextButton resume = new TextButton("Resume", buttonSkin);
         TextButton restartRoom = new TextButton("Restart Room", buttonSkin);
