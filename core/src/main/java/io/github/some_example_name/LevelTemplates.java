@@ -1,10 +1,10 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.utils.Json;
+import com.google.gson.*;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,9 +12,11 @@ import java.io.IOException;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static int buttonCount3 = 0;
+    public static TileFills[] tileArray;
     public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
+
         TileFills w = gen.CreateTileFills("wall");
 
         TileFills w1 = gen.CreateTileFills("bouncy",0f);
@@ -58,7 +60,10 @@ public class LevelTemplates {
         TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
         TileFills iF = gen.CreateTileFills("iceFloor");
 
-        TileFills[][] testy = new TileFills[][] {
+        tileArray = new TileFills[]{w,w1,w2,w3,w4,R1,R2,R3,R4,B1,B2,B3,B4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,
+            rG,gG,bG,yG,bu,f,s,b,v,pb,p,i,p2,iF};
+
+        level3.level1 = new TileFills[][] {
         //   0     2     4     6     8    10    12    14    16    18    20    22    24    26    28
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
             {w ,w ,w ,w ,w ,w ,p ,w ,w ,w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,gG,f ,f ,f ,f ,f ,f ,f ,w4,w },// 18
@@ -82,24 +87,6 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
 
-        saveAsJson(testy);
-
-        level3.level1 = testy;
-
-        AsLevel test = new AsLevel(new String[][] {});
-        Json json = new Json();
-        File theFile = new File("testy.json");
-        try {
-            Scanner coolGuy = new Scanner(theFile);
-            String jsonStuff = coolGuy.nextLine();
-            test = json.fromJson(AsLevel.class, jsonStuff);
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("An error occurred: File not found.");
-
-        }
-        System.out.println(Arrays.deepToString(test.level));
-
 
 
 
@@ -110,9 +97,17 @@ public class LevelTemplates {
         addDataToTile(level3, p2, 10,9, true);
         invertLevelY(level3);
         createObjects(level3);
+
+
+
+        saveAsJson(level3);
+        level3 = loadJson("testy.json");
+
         map.addName(level3);
         map.levelMap[1][1] = level3;
         level3.changeTile(2, 1, "wall");
+
+
 
         //add more levels below here
     }
@@ -160,24 +155,48 @@ public class LevelTemplates {
         }
     }
 
-    public static void saveAsJson (TileFills[][] level) {
+    public static void saveAsJson (level level) {
+        /*
         String[][] textForm = new String[level.length][level[0].length];
-        Json guyThatDoesTheJson = new Json();
+
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[0].length; j++) {
                 textForm[i][j] = level[i][j].getTileString();
             }
         }
-
-
-
+       */
+        Gson guyThatDoesTheJson = new Gson();
         try (FileWriter file = new FileWriter("testy.json")) {
 
-            file.write(guyThatDoesTheJson.toJson(new AsLevel(textForm)));
+            file.write(guyThatDoesTheJson.toJson(level));
             //file.flush();
         } catch (IOException e) {
             System.out.println("An error occurred.");
         }
+    }
+
+    public static level loadJson(String fileName) {
+        level test = new level(3,5,true);
+        Gson gson = new Gson();
+        File theFile = new File(fileName);
+        try {
+            Scanner coolGuy = new Scanner(theFile);
+            String jsonStuff = coolGuy.nextLine();
+            test = gson.fromJson(jsonStuff, level.class);
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("An error occurred: File not found.");
+        }
+        //System.out.println(Arrays.deepToString(test.level));
+        /*
+        TileFills[][] levelTiles = new TileFills[test.level.length][test.level[0].length];
+        for (int i = 0; i < test.level.length; i++){
+            for (int j = 0; j < test.level[0].length; j++){
+
+            }
+        }
+        */
+        return test;
     }
 
     public static void invertLevelY(level level) {
@@ -193,13 +212,6 @@ public class LevelTemplates {
             // Move the indices toward the center
             start++;
             end--;
-        }
-    }
-
-    public static class AsLevel {
-        public String[][] level;
-        public AsLevel(String[][] lvl){
-            level = lvl;
         }
     }
 }

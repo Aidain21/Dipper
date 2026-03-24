@@ -9,8 +9,8 @@ public class TileFills {
     //if you can move a tile
     boolean movable=false;
     // Texture / Sprite
-    Sprite sprite = null;
-    Texture texture = null;
+    transient Sprite sprite = null;
+    transient Texture texture = null;
     boolean drawBackground = true;
 
     //default constructor for empty tiles
