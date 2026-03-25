@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -24,8 +23,7 @@ public class Main extends ApplicationAdapter {
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
-    private boolean isPaused = false;
-    private Stage pauseMenu;
+    private MainMenuUI pauseMenu;
     private Skin buttonSkin;
 
     @Override
@@ -69,39 +67,57 @@ public class Main extends ApplicationAdapter {
         log = new LevelLogic();
         textBox = new TextBox();
         viewport = new FitViewport(960,720);
-
+        pauseMenu = new MainMenuUI(buttonSkin);
         Gdx.graphics.setWindowedMode(960, 720);
-
+        Gdx.input.setInputProcessor(null);
+        pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
-    public void render() { // This method is causing errors with the pause feature
+    public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        if (!isPaused) {
+        //Button for pause menu
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if (pauseMenu.isVisible()) {
+                pauseMenu.hide();
+                Gdx.input.setInputProcessor(null);
+            }
+            else {
+                pauseMenu.show();
+                Gdx.input.setInputProcessor(pauseMenu.getStage());
+            }
+        }
+
+        if (!pauseMenu.isVisible()) { //If the pause menu open don't update logic or take input
             input();
             logic();
         }
 
+        //Restarts game if button is pressed
+        if (pauseMenu.getRestartStatus()) {
+            pauseMenu.setRestartStatus();
+            create();
+        }
         batch.begin();
         draw();
         batch.end();
 
-        if (isPaused) {
-            pauseMenu.act(Gdx.graphics.getDeltaTime());
-            pauseMenu.draw();
+        if (pauseMenu.isVisible()) {
+            pauseMenu.getStage().act(Gdx.graphics.getDeltaTime());
+            pauseMenu.getStage().draw();
         }
     }
 
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
+        pauseMenu.resize(width, height);
     }
 
     private void input() {
-
         if (!player.isAlive()) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) player.playerRestart(currentLevel);
             return;
@@ -141,12 +157,6 @@ public class Main extends ApplicationAdapter {
                 Player.debug = !Player.debug;
                 inputTimer = 0.1f;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-                isPaused = !isPaused;
-                if (isPaused) {
-                    MainMenuUI pause = new MainMenuUI(buttonSkin);
-                }
-            }
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
@@ -180,9 +190,6 @@ public class Main extends ApplicationAdapter {
         LevelDraw.drawLevel(batch,currentLevel);
         MiniMap.drawMap(batch, levels, currentLevel);
 
-        //the logo
-        //batch.draw(image, 140, 210);
-
         textBox.drawTextBox(batch);
         player.drawPlayer(batch);
         bow.drawArrow(batch);
@@ -192,6 +199,7 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         image.dispose();
+        pauseMenu.dispose();
     }
 
     public static Vector2Int moveLevel(int x, int y){
