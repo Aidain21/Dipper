@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
+    public static level level4 = new level(1,1,true);
     public static int buttonCount3 = 0;
     public static TileFills[] tileArray;
     public static ColorButton[] colorButtonList3 = new ColorButton[24];
@@ -63,6 +64,7 @@ public class LevelTemplates {
         tileArray = new TileFills[]{w,w1,w2,w3,w4,R1,R2,R3,R4,B1,B2,B3,B4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,
             rG,gG,bG,yG,bu,f,s,b,v,pb,p,i,p2,iF};
 
+
         level3.level1 = new TileFills[][] {
         //   0     2     4     6     8    10    12    14    16    18    20    22    24    26    28
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
@@ -87,9 +89,6 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
 
-
-
-
         addDataToTile(level3, p, 0,1, false);
         addDataToTile(level3, i, 10,1, false);
         addDataToTile(level3, pb, 3,2, false);
@@ -98,18 +97,36 @@ public class LevelTemplates {
         invertLevelY(level3);
         createObjects(level3);
 
-
-
         saveAsJson(level3);
         level3 = loadJson("testy.json");
 
         map.addName(level3);
         map.levelMap[1][1] = level3;
-        level3.changeTile(2, 1, "wall");
+        //level3.changeTile(2, 1, "wall");
 
 
 
         //add more levels below here
+
+        tileArray = new TileFills[]{w,w1,w2,w3,w4,R1,R2,R3,R4,B1,B2,B3,B4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,
+            rG,gG,bG,yG,bu,f,s,b,v,pb,p,i,p2,iF};
+
+        level4.level1 = new TileFills[][] {
+            {w,w1,w2,w3,w4},
+            {R1,R2,R3,R4,bu},
+            {rG,gG,bG,yG,f},
+            {s,b,pb,v,i},
+            {p2,iF,w,w,w}
+        };
+
+        invertLevelY(level4);
+        createObjects(level4);
+
+        //saveAsJson(level4);
+        //level4 = loadJson("testy.json");
+
+        //map.addName(level4);
+        //map.levelMap[1][1] = level4;
     }
 
     //works for portal, inportal, and pressureButton
@@ -156,18 +173,8 @@ public class LevelTemplates {
     }
 
     public static void saveAsJson (level level) {
-        /*
-        String[][] textForm = new String[level.length][level[0].length];
-
-        for (int i = 0; i < level.length; i++) {
-            for (int j = 0; j < level[0].length; j++) {
-                textForm[i][j] = level[i][j].getTileString();
-            }
-        }
-       */
         Gson guyThatDoesTheJson = new Gson();
         try (FileWriter file = new FileWriter("testy.json")) {
-
             file.write(guyThatDoesTheJson.toJson(level));
             //file.flush();
         } catch (IOException e) {
@@ -187,15 +194,6 @@ public class LevelTemplates {
         catch (FileNotFoundException e) {
             System.out.println("An error occurred: File not found.");
         }
-        //System.out.println(Arrays.deepToString(test.level));
-        /*
-        TileFills[][] levelTiles = new TileFills[test.level.length][test.level[0].length];
-        for (int i = 0; i < test.level.length; i++){
-            for (int j = 0; j < test.level[0].length; j++){
-
-            }
-        }
-        */
         return test;
     }
 
