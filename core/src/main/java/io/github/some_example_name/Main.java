@@ -28,49 +28,15 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         buttonSkin = new Skin(Gdx.files.internal("uiskin.json"));
-        levels = new map(2,2,12,12);
-        level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,"portal",1,1);
-        templevel.changeTile(5,5,"portal",0,0);
-        templevel.changeTile( 4,4,"bouncy", 180f);
-        templevel.changeTile(1, 5, "gB", 90f);
-        templevel.changeTile(5, 2, "box");
-        levels.getMap()[1][0]=templevel;
-        currentLevel=levels.getMap()[0][0];
-        currentLevel.changeTile(2,4,"portal",0,1);
-        currentLevel.changeTile(1,5,"inportal",3,3);
-        currentLevel.changeTile(5,5,"box");
-        currentLevel.changeTile(7,7,"lever","box");
-        currentLevel.changeTile(10,8,"yB", 270f);
-        currentLevel.changeTile(1,10,"bouncy", 0f);
-        currentLevel.changeTile(9,10,"bouncy", 270f);
-        currentLevel.changeTile(1,1,"bouncy", 90f);
-        currentLevel.changeTile(9,1,"bouncy", 180f);
-        currentLevel.changeTile(5,9,"bouncy", 180f);
-        currentLevel.changeTile(5,8,"bouncy", 270f);
-        currentLevel.changeTile(6,9,"bouncy", 90f);
-        currentLevel.changeTile(6,8,"bouncy", 0f);
-        currentLevel.changeTile(6,3,"bouncy", 180f);
-        currentLevel.changeTile(7, 6, "yGate");
-        currentLevel.changeTile(10,10,"wall");
-        currentLevel.changeTile(10,1,"wall");
-        currentLevel.changeTile(9,5,"button");
-        currentLevel.changeTile(3,9,"spike", 1);
-        currentLevel.changeTile(4, 2, "pressureButton");
-        currentLevel.name="Lone Beginnings";
-        currentLevel.changeTile(3,5,"inportal",5,3,true);
-        bow = new Bow();
-        log = new LevelLogic();
-        textBox = new TextBox();
-        viewport = new FitViewport(960,720);
+        viewport = new FitViewport(960, 720);
         pauseMenu = new MainMenuUI(buttonSkin);
         Gdx.graphics.setWindowedMode(960, 720);
-        Gdx.input.setInputProcessor(null);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        resetGame();
     }
 
     @Override
@@ -98,8 +64,8 @@ public class Main extends ApplicationAdapter {
 
         //Restarts game if button is pressed
         if (pauseMenu.getRestartStatus()) {
-            pauseMenu.setRestartStatus();
-            create();
+            pauseMenu.setRestartStatus(false);
+            resetGame();
         }
         batch.begin();
         draw();
@@ -109,6 +75,49 @@ public class Main extends ApplicationAdapter {
             pauseMenu.getStage().act(Gdx.graphics.getDeltaTime());
             pauseMenu.getStage().draw();
         }
+    }
+    private void resetGame() {
+        player = new Player();
+        levels = new map(2, 2, 12, 12);
+
+        level templevel = new level(8, 8, 1, 1);
+        templevel.changeTile(3, 2, "portal", 1, 1);
+        templevel.changeTile(5, 5, "portal", 0, 0);
+        templevel.changeTile(4, 4, "bouncy", 180f);
+        templevel.changeTile(1, 5, "gB", 90f);
+        templevel.changeTile(5, 2, "box");
+        levels.getMap()[1][0] = templevel;
+
+        currentLevel = levels.getMap()[0][0];
+        currentLevel.changeTile(2, 4, "portal", 0, 1);
+        currentLevel.changeTile(1, 5, "inportal", 3, 3);
+        currentLevel.changeTile(5, 5, "box");
+        currentLevel.changeTile(7, 7, "lever", "box");
+        currentLevel.changeTile(10, 8, "yB", 270f);
+        currentLevel.changeTile(1, 10, "bouncy", 0f);
+        currentLevel.changeTile(9, 10, "bouncy", 270f);
+        currentLevel.changeTile(1, 1, "bouncy", 90f);
+        currentLevel.changeTile(9, 1, "bouncy", 180f);
+        currentLevel.changeTile(5, 9, "bouncy", 180f);
+        currentLevel.changeTile(5, 8, "bouncy", 270f);
+        currentLevel.changeTile(6, 9, "bouncy", 90f);
+        currentLevel.changeTile(6, 8, "bouncy", 0f);
+        currentLevel.changeTile(6, 3, "bouncy", 180f);
+        currentLevel.changeTile(7, 6, "yGate");
+        currentLevel.changeTile(10, 10, "wall");
+        currentLevel.changeTile(10, 1, "wall");
+        currentLevel.changeTile(9, 5, "button");
+        currentLevel.changeTile(3, 9, "spike", 1);
+        currentLevel.changeTile(4, 2, "pressureButton");
+        currentLevel.name = "Lone Beginnings";
+        currentLevel.changeTile(3, 5, "inportal", 5, 3, true);
+
+        bow = new Bow();
+        log = new LevelLogic();
+        textBox = new TextBox();
+        inputTimer = 0f;
+
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override

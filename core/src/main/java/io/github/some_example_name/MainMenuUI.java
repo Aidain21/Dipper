@@ -43,7 +43,7 @@ public class MainMenuUI {
         restartGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                setRestartStatus();
+                setRestartStatus(true);
                 hide();
             }
         });
@@ -82,8 +82,8 @@ public class MainMenuUI {
         return restartStatus;
     }
 
-    public void setRestartStatus() {
-        restartStatus = !restartStatus;
+    public void setRestartStatus(boolean bool) {
+        restartStatus = bool;
     }
 
     public boolean isVisible() {
