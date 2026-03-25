@@ -3,7 +3,7 @@ package io.github.some_example_name;
 import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
-    public static level alexlevel1 = new level(4,2,true);
+    public static level alexlevel1 = new level(1,5,true);
     public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
@@ -87,22 +87,25 @@ public class LevelTemplates {
 
         //add more levels below here
 
+
+        //add some secret to top right corner in future
         alexlevel1.level1 = new TileFills[][] {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
-            {w ,f ,f ,p2,f ,f ,w ,f ,f ,R1,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,b ,f ,b ,f ,v ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w },
-            {w ,f ,f ,f ,f ,f ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w },
-            {w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
+            {w ,f ,b ,f ,b ,f ,v ,f ,f ,s ,s ,s ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,s ,s ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
+            {w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,v ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,f ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
-            {w ,w ,w ,R3,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,w },
+            {w ,p2,w ,f ,f ,f ,f ,f ,f ,f ,f ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,p ,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
         };
 
-        addDataToTile(alexlevel1, p2, 1,1, true);
+        addDataToTile(alexlevel1, p2, 3,alexlevel1.level1.length-2, false);
+        addDataToTile(alexlevel1, p, 1,1, false);
 
         invertLevelY(alexlevel1);
         createObjects(alexlevel1);
