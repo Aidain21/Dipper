@@ -3,7 +3,7 @@ package io.github.some_example_name;
 import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
-    public static level level4 = new level(4,2,true);
+    public static level alexlevel1 = new level(4,2,true);
     public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
@@ -87,7 +87,7 @@ public class LevelTemplates {
 
         //add more levels below here
 
-        level4.level1 = new TileFills[][] {
+        alexlevel1.level1 = new TileFills[][] {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
             {w ,f ,f ,p2,f ,f ,w ,f ,f ,R1,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,b ,f ,b ,f ,v ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w },
@@ -102,15 +102,15 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
         };
 
-        addDataToTile(level4, p2, 1,1, true);
+        addDataToTile(alexlevel1, p2, 1,1, true);
 
-        invertLevelY(level4);
-        createObjects(level4);
-        map.addName(level4);
+        invertLevelY(alexlevel1);
+        createObjects(alexlevel1);
+        map.addName(alexlevel1);
 
 
 
-        map.levelMap[1][2] = level4;
+        map.levelMap[1][2] = alexlevel1;
     }
 
     //works for portal, inportal, and pressureButton
