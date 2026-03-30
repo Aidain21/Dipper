@@ -68,7 +68,7 @@ public class LevelTemplates {
             {w ,f ,f ,f ,iF,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
             {w ,f ,f ,f ,iF,iF,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,p2,f ,iF,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
-            {w ,f ,f ,f ,iF,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,i ,f ,f ,b ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,iF,f ,f ,f ,f ,f ,B3,B3,R3,R3,Y3,B3,w ,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,b ,f ,f ,f ,f ,f ,f ,w ,w ,w ,w ,w ,w ,w ,w ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 2
             {w ,w2,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
@@ -91,7 +91,7 @@ public class LevelTemplates {
         //add some secret to top right corner in future
         alexlevel1.level1 = new TileFills[][] {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
-            {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,p ,w },
             {w ,f ,b ,f ,b ,f ,v ,f ,f ,s ,s ,s ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
             {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,s ,s ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
             {w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,v ,w },
@@ -105,6 +105,7 @@ public class LevelTemplates {
         };
 
         addDataToTile(alexlevel1, p2, 3,alexlevel1.level1.length-2, false);
+        addDataToTile(alexlevel1, p, 1,0sa, false);
         addDataToTile(alexlevel1, p, 1,1, false);
         addDataToTile(alexlevel1, p, 0,0, false);
 
