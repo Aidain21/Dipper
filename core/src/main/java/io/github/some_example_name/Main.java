@@ -23,7 +23,7 @@ public class Main extends ApplicationAdapter {
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
-    private MainMenuUI pauseMenu;
+    private PauseMenuUI pauseMenu;
     private Skin buttonSkin;
 
     @Override
@@ -32,10 +32,12 @@ public class Main extends ApplicationAdapter {
         image = new Texture("libgdx.png");
         buttonSkin = new Skin(Gdx.files.internal("uiskin.json"));
         viewport = new FitViewport(960, 720);
-        pauseMenu = new MainMenuUI(buttonSkin);
+        pauseMenu = new PauseMenuUI(buttonSkin);
         Gdx.graphics.setWindowedMode(960, 720);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        //moved level,player,bow,box, etc. to resetGame method to
+        // be able to get the restart game to work
         resetGame();
     }
 
@@ -57,7 +59,7 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        if (!pauseMenu.isVisible()) { //If the pause menu open don't update logic or take input
+        if (!pauseMenu.isVisible()) { //If the pause menu is open don't update logic or take input
             input();
             logic();
         }
@@ -76,7 +78,7 @@ public class Main extends ApplicationAdapter {
             pauseMenu.getStage().draw();
         }
     }
-    private void resetGame() {
+    private void resetGame() {//this handles level and player declaration
         player = new Player();
         levels = new map(2, 2, 12, 12);
 

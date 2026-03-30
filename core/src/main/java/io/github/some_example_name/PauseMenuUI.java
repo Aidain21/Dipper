@@ -1,3 +1,5 @@
+//Restart room still needs to be implemented.
+//Bug where if you restart game while falling it crashes upon respawn.
 package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
@@ -9,13 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class MainMenuUI {
+public class PauseMenuUI {
     private Stage stage;
     private Skin buttonSkin;
     private Boolean visible;
     private Boolean restartStatus;
 
-    public MainMenuUI(Skin skin) {
+    public PauseMenuUI(Skin skin) {
         this.buttonSkin = skin;
         this.stage = new Stage(new ScreenViewport());
         this.visible = false;
@@ -24,7 +26,6 @@ public class MainMenuUI {
         TextButton resume = new TextButton("Resume", buttonSkin);
         TextButton restartRoom = new TextButton("Restart Room", buttonSkin);
         TextButton restartGame = new TextButton("Restart Game", buttonSkin);
-        TextButton controls = new TextButton("Controls", buttonSkin);
 
         resume.addListener(new ChangeListener() {
             @Override
@@ -48,13 +49,6 @@ public class MainMenuUI {
             }
         });
 
-        controls.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-
-            }
-        });
-
         Table table = new Table();
         table.setDebug(true);
         table.setColor(0, 0, 0, 0.8f); // semi-transparent black
@@ -65,8 +59,6 @@ public class MainMenuUI {
         table.add(resume).width(200).height(80).row();
         table.add(restartRoom).width(200).height(80).row();
         table.add(restartGame).width(200).height(80).row();
-        table.add(controls).width(200).height(80).row();
-
     }
     public void show() {
         visible = true;
