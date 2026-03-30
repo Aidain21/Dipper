@@ -13,34 +13,34 @@ public class LevelLogic extends LevelTemplates {
 
     public void logic(level curLevel) {
         level3logic();
-        ColorGateLogic();
+        //ColorGateLogic();
     }
     public void level3logic() {
         Button button1 = (Button) level3.level1[6][8];
         Button comboButton1 = (Button) level3.level1[13][5];
         Button comboButton2 = (Button) level3.level1[13][6];
         Button comboButton3 = (Button) level3.level1[13][7];
-        ColorButton yButton = (ColorButton) level3.level1[2][17];
+        //ColorButton yButton = (ColorButton) level3.level1[2][17];
         Button button2 = (Button) level3.level1[7][8];
-        SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
+        //SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
 
         // rotates when buttons pressed
         if (button1.isPressed() && !press1) {
             TextBox.text[2] = "logic test";
-            yButton.getSprite().rotate(90);
+            //yButton.getSprite().rotate(90);
             press1 = button1.isPressed();
         }
         if (button2.isPressed() && !press2) {
             TextBox.text[2] = "logic test 2";
-            wall1.getSprite().rotate(90);
+            //wall1.getSprite().rotate(90);
             press2 = button2.isPressed();
         }
         else if (!button2.isPressed() && press2) {
-            wall1.getSprite().rotate(270);
+            //wall1.getSprite().rotate(270);
             press2 = false;
         }
         else if (!button1.isPressed() && press1) {
-            yButton.getSprite().rotate(270);
+            //yButton.getSprite().rotate(270);
             press1 = false;
         }
         // reveals path if button combination is correct

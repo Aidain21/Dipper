@@ -90,6 +90,9 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
 
+        saveAsJson(level3);
+        level3 = loadJson("testy.json");
+        Drawing.tempReAddTextures(level3);
         addDataToTile(level3, p, 0,1, false);
         addDataToTile(level3, i, 10,1, false);
         addDataToTile(level3, pb, 3,2, false);
@@ -97,9 +100,6 @@ public class LevelTemplates {
         addDataToTile(level3, p2, 10,9, true);
         invertLevelY(level3);
         createObjects(level3);
-
-        //saveAsJson(level3);
-        //level3 = loadJson("testy.json");
 
         map.addName(level3);
         map.levelMap[1][1] = level3;
@@ -177,7 +177,7 @@ public class LevelTemplates {
                 TileFills tile = level.level1[i][j];
                 switch(tile.getTileString()) {
                     // Sprite Objects
-                    case "rB":
+                    /*case "rB":
                     case "gB":
                     case "bB":
                     case "yB": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation());
@@ -185,7 +185,7 @@ public class LevelTemplates {
                         buttonCount3++; break;
                     case "bouncy":
                     case "pressureButton": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation()); break;
-
+*/
                     // Texture Objects
                     case "box":
                     case "button": tile = tile.CreateTileFills(tile.getTileString()); break;

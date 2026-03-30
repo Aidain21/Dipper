@@ -113,11 +113,13 @@ public class SimpleTextures extends TileFills{
         public BouncyWall(float r) {
             fill = "bouncy";
             sprite = new Sprite(LevelDraw.bouncy);
-            sprite.setRotation(r);
+            rotation = r;
+            sprite.setRotation(rotation);
         }
         public BouncyWall(int x, int y, float r) {
             fill = "bouncy";
             sprite = new Sprite(LevelDraw.bouncy);
+            rotation = r;
             sprite.setRotation(r);
             sprite.setPosition(x*32, y*32);
         }

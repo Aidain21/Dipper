@@ -11,6 +11,7 @@ public class TileFills {
     // Texture / Sprite
     transient Sprite sprite = null;
     transient Texture texture = null;
+    float rotation = 0;
     boolean drawBackground = true;
 
     //default constructor for empty tiles
