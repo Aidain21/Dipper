@@ -178,8 +178,26 @@ public class Main extends ApplicationAdapter {
     }
 
     public void artInput() {
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.input.getY();
+
+        TextBox.text[0] = mouseX + " " + mouseY;
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
             Drawing.end();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+           Drawing.changeDrawTile(1);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            Drawing.changeDrawTile(-1);
+        }
+
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            Drawing.drawTile(mouseX,mouseY, false);
+        }
+        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
+            Drawing.drawTile(mouseX,mouseY,true);
         }
     }
 
