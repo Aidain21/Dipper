@@ -73,9 +73,17 @@ public class Main extends ApplicationAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
-        input();
-        logic();
-        draw();
+        if (!Drawing.drawing) {
+            input();
+            logic();
+            draw();
+        }
+        else {
+            artInput();
+            artLogic();
+            artDraw();
+        }
+
         batch.end();
     }
 
@@ -145,6 +153,9 @@ public class Main extends ApplicationAdapter {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
+            Drawing.start();
+        }
 
     }
 
@@ -164,6 +175,21 @@ public class Main extends ApplicationAdapter {
         textBox.drawTextBox(batch);
         player.drawPlayer(batch);
         bow.drawArrow(batch);
+    }
+
+    public void artInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
+            Drawing.end();
+        }
+    }
+
+    public void artLogic() {
+
+    }
+
+    public void artDraw() {
+        LevelDraw.drawLevel(batch,Drawing.workingLevel);
+        textBox.drawTextBox(batch);
     }
 
     @Override
