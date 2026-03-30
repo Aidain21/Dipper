@@ -105,7 +105,7 @@ public class LevelTemplates {
         };
 
         addDataToTile(alexlevel1, p2, 3,alexlevel1.level1.length-2, false);
-        addDataToTile(alexlevel1, p, 1,0sa, false);
+        addDataToTile(alexlevel1, p, 1,0, false);
         addDataToTile(alexlevel1, p, 1,1, false);
         addDataToTile(alexlevel1, p, 0,0, false);
 
