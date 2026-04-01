@@ -14,21 +14,25 @@ public class Drawing {
 
     public static boolean drawing;
     public static String currentFile;
-    public Vector2Int size;
+    //public Vector2Int size;
     public static level workingLevel;
-    public TileFills[][] grid;
+    //public TileFills[][] grid;
+    public static TileFills curTile;
+    public static int tileNum = 0;
 
 
 
     public static void start() {
         drawing = true;
+        TextBox.clearText();
         Scanner scan = new Scanner(System.in);
         //System.out.print("Enter Json File Name: ");
         //currentFile = scan.nextLine();
-        currentFile = "HELLO.json";
+        currentFile = "HELLO2.json";
         workingLevel = loadArtJson(currentFile);
+        TextBox.textRight[0] = "Editing level: " + currentFile;
         tempReAddTextures(workingLevel);
-
+        curTile = new TileFills().CreateTileFills("wall");
         //size.x = scan.nextInt();
         //size.y = scan.nextInt();
 
@@ -37,6 +41,36 @@ public class Drawing {
     public static void end() {
         saveAsArtJson(workingLevel, currentFile);
         drawing = false;
+    }
+
+    public static void drawTile(int mouseX, int mouseY, boolean erase) {
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((720-mouseY - 15) / 32.0f);
+        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            if (erase) {
+                workingLevel.level1[rY][rX] = new TileFills().CreateTileFills("floor");
+            }
+            else {
+                workingLevel.level1[rY][rX] = curTile;
+            }
+
+        }
+    }
+
+    public static void changeDrawTile(int change) {
+        if (tileNum + change < 0) {
+            curTile = LevelTemplates.tileArray[LevelTemplates.tileArray.length - 1];
+        }
+        else if (tileNum + change > LevelTemplates.tileArray.length - 1) {
+            curTile = LevelTemplates.tileArray[0];
+        }
+        else {
+            curTile = LevelTemplates.tileArray[tileNum+change];
+        }
+
+        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
+        TextBox.textRight[2] = "Tile Num: " + tileNum;
+
     }
 
 
@@ -73,6 +107,8 @@ public class Drawing {
         }
         return test;
     }
+
+
 
     public static void tempReAddTextures(level level) {
         TileFills gen = new TileFills();
