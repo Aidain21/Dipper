@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-    Player player;
+    static Player player;
     public float inputTimer = 0f;
     static level currentLevel;
     static map levels;
@@ -28,7 +28,7 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        levels = new map(2,2,12,12);
+        levels = new map(4,2,12,12);
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",1,1);
         templevel.changeTile(5,5,"portal",0,0);
@@ -51,6 +51,7 @@ public class Main extends ApplicationAdapter {
         currentLevel.changeTile(6,9,"bouncy", 90f);
         currentLevel.changeTile(6,8,"bouncy", 0f);
         currentLevel.changeTile(6,3,"bouncy", 180f);
+        currentLevel.changeTile(7, 6, "yGate");
         currentLevel.changeTile(10,10,"wall");
         currentLevel.changeTile(10,1,"wall");
         currentLevel.changeTile(9,5,"button");

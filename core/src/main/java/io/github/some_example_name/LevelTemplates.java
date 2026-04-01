@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static level level4 = new level(1,1,true);
@@ -16,9 +17,10 @@ public class LevelTemplates {
     public static int buttonCount3 = 0;
     public static TileFills[] tileArray;
     public static ColorButton[] colorButtonList3 = new ColorButton[24];
+    public static level alexlevel1 = new level(1,5,true);
+    public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
         TileFills gen = new TileFills();
-
         TileFills w = gen.CreateTileFills("wall");
 
         TileFills w1 = gen.CreateTileFills("bouncy",0f);
@@ -78,9 +80,9 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,i ,f ,s ,s ,f ,w },// 12
             {w ,w1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w3,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,s ,f ,w },
             {w ,f ,f ,f ,f ,f ,pb,f ,f ,f ,f ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,s ,f ,w },// 10
-            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,s ,f ,w },
-            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,s ,f ,w },// 8
-            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,pb,f ,f ,f ,f ,f ,f ,f ,G3,f ,f ,f ,f ,f ,f ,f ,f ,v ,v ,v ,v ,f ,s ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,R4,w ,B2,f ,f ,b ,f ,b ,f ,b ,v ,v ,v ,v ,f ,s ,f ,w },// 8
+            {w ,f ,f ,f ,f ,f ,f ,f ,bu,f ,f ,f ,f ,Y1,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,f ,f ,f ,iF,f ,f ,f ,bu,f ,f ,f ,f ,f ,f ,f ,R4,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },// 6
             {w ,f ,f ,f ,iF,iF,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,f ,b ,f ,f ,f ,f ,f ,w },
             {w ,f ,p2,f ,iF,f ,b ,f ,f ,f ,f ,f ,f ,f ,f ,f ,G4,w ,f ,f ,f ,f ,b ,f ,b ,f ,f ,f ,f ,w },// 4
@@ -94,6 +96,8 @@ public class LevelTemplates {
         level3 = loadJson("testy.json");
         Drawing.tempReAddTextures(level3);
         addDataToTile(level3, p, 0,1, false);
+        addDataToTile(level3, p, 2,1, false);
+        addDataToTile(level3, p, 0,0, false);
         addDataToTile(level3, i, 10,1, false);
         addDataToTile(level3, pb, 3,2, false);
         addDataToTile(level3, pb, 4,2, false);
@@ -151,6 +155,36 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
         };
+
+
+        //add some secret to top right corner in future
+        alexlevel1.level1 = new TileFills[][] {
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,p ,w },
+            {w ,f ,b ,f ,b ,f ,v ,f ,f ,s ,s ,s ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
+            {w ,f ,f ,f ,f ,f ,w ,f ,f ,s ,s ,s ,s ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,w },
+            {w ,w ,w ,w ,w ,w ,w ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,v ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,p ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,v ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
+            {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w ,w },
+            {w ,p2,w ,f ,f ,f ,f ,f ,f ,f ,f ,w ,w ,w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,b ,p ,w },
+            {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
+        };
+
+        addDataToTile(alexlevel1, p2, 3,alexlevel1.level1.length-2, false);
+        addDataToTile(alexlevel1, p, 1,0, false);
+        addDataToTile(alexlevel1, p, 1,1, false);
+        addDataToTile(alexlevel1, p, 0,0, false);
+
+        invertLevelY(alexlevel1);
+        createObjects(alexlevel1);
+        map.addName(alexlevel1);
+
+
+
+        map.levelMap[1][2] = alexlevel1;
     }
 
     //works for portal, inportal, and pressureButton
@@ -161,11 +195,14 @@ public class LevelTemplates {
             for (int j = 0; j < level.level1[0].length; j++) {
                 if (level.level1[i][j].equals(tile)) {
                     if (twoWay) {
-                        level.changeTile(j, i, level.level1[i][j].getTileString(), y+1, x);//, true);
-                        level.changeTile(x,y,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
+                        level.changeTile(j, i, level.level1[i][j].getTileString(), x, y);//, true);
+                        level.changeTile(x,level.level1.length-y-1,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
+                        return;
                     }
-                    else
-                        level.changeTile(j,i,level.level1[i][j].getTileString(),x,y);
+                    else {
+                        level.changeTile(j, i, level.level1[i][j].getTileString(), x, y);
+                        return;
+                    }
                 }
             }
         }
@@ -181,8 +218,7 @@ public class LevelTemplates {
                     case "gB":
                     case "bB":
                     case "yB": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation());
-                        colorButtonList3[buttonCount3] = (ColorButton) tile;
-                        buttonCount3++; break;
+                        colorButtons3.add((ColorButton) tile); break;
                     case "bouncy":
                     case "pressureButton": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation()); break;
 */

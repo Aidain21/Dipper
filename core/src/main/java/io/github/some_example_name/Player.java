@@ -150,8 +150,6 @@ public class Player {
         }
         if (playerSliding && (lockTimer) > 0) {
             pSprite.setPosition((pos.x + facing.x * distance * 4) * 32, (pos.y + facing.y * distance * 4) * 32);
-
-            //pSprite.setScale(lockTimer-0.5f);
         }
 
         if (lockTimer <= 0) {
@@ -179,6 +177,11 @@ public class Player {
         pos.x = curLevel.getSpawnRow();
         pos.y = curLevel.getSpawnCol();
         playerHealth = playerMaxHealth;
+    }
+
+    public void movePlayer(int x, int y) {
+        pos.x = x;
+        pos.y = y;
     }
 
     //Draw the player

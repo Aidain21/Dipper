@@ -71,17 +71,17 @@ public class LevelLogic extends LevelTemplates {
         boolean greenButtonsPressed = true;
         boolean blueButtonsPressed = true;
         boolean yellowButtonsPressed = true;
-        for (int i = 0; i < 24; i++) {
-            if ((LevelTemplates.colorButtonList3[i] != null) &&!LevelTemplates.colorButtonList3[i].isPressed() && LevelTemplates.colorButtonList3[i].getTileString().equals("rB")) {
+        for (int i = 0; i < LevelTemplates.colorButtons3.size(); i++) {
+            if (!LevelTemplates.colorButtons3.get(i).isPressed() && LevelTemplates.colorButtons3.get(i).getTileString().equals("rB")) {
                 redButtonsPressed = false;
             }
-            if ((LevelTemplates.colorButtonList3[i] != null) &&!LevelTemplates.colorButtonList3[i].isPressed() && LevelTemplates.colorButtonList3[i].getTileString().equals("gB")) {
+            if (!LevelTemplates.colorButtons3.get(i).isPressed() && LevelTemplates.colorButtons3.get(i).getTileString().equals("gB")) {
                 greenButtonsPressed = false;
             }
-            if ((LevelTemplates.colorButtonList3[i] != null) &&!LevelTemplates.colorButtonList3[i].isPressed() && LevelTemplates.colorButtonList3[i].getTileString().equals("bB")) {
+            if (!LevelTemplates.colorButtons3.get(i).isPressed() && LevelTemplates.colorButtons3.get(i).getTileString().equals("bB")) {
                 blueButtonsPressed = false;
             }
-            if ((LevelTemplates.colorButtonList3[i] != null) &&!LevelTemplates.colorButtonList3[i].isPressed() && LevelTemplates.colorButtonList3[i].getTileString().equals("yB")) {
+            if (!LevelTemplates.colorButtons3.get(i).isPressed() && LevelTemplates.colorButtons3.get(i).getTileString().equals("yB")) {
                 yellowButtonsPressed = false;
             }
         }
