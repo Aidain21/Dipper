@@ -42,7 +42,10 @@ public class LevelDraw {
                 TileFills tile = level.level1[j][i];
                 if (tile.drawBackground()) batch.draw(backgroundTexture, i * 32, j * 32, 32, 32);
                 if (tile.getType().equals("texture")) batch.draw(tile.getTexture(), i * 32, j * 32, 32, 32);
-                else if (tile.getType().equals("sprite")) tile.getSprite().draw(batch);
+                else if (tile.getType().equals("sprite")) {
+                    tile.getSprite().setPosition(i*32, j*32);
+                    tile.getSprite().draw(batch);
+                }
             }
         }
 

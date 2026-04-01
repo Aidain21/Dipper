@@ -167,6 +167,10 @@ public class Drawing {
                     case "button": tile = bu; break;
                     case "floor": tile = f; break;
                     case "portal": tile = p; break;
+                    case "box": tile = b; break;
+                    case "inportal": tile = in; break;
+                    case "void": tile = v; break;
+                    case "spikes": tile = s; break;
                     case "bouncyWall":
                         System.out.print("aslfkja");
                         tile = w1;
