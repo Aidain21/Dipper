@@ -60,12 +60,15 @@ public class Drawing {
     public static void changeDrawTile(int change) {
         if (tileNum + change < 0) {
             curTile = LevelTemplates.tileArray[LevelTemplates.tileArray.length - 1];
+            tileNum = LevelTemplates.tileArray.length - 1;
         }
         else if (tileNum + change > LevelTemplates.tileArray.length - 1) {
             curTile = LevelTemplates.tileArray[0];
+            tileNum = 0;
         }
         else {
             curTile = LevelTemplates.tileArray[tileNum+change];
+            tileNum += change;
         }
 
         TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();

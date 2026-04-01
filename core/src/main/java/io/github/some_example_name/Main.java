@@ -187,9 +187,9 @@ public class Main extends ApplicationAdapter {
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-           Drawing.changeDrawTile(1);
+            Drawing.changeDrawTile(1);
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             Drawing.changeDrawTile(-1);
         }
 
