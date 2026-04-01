@@ -69,6 +69,14 @@ public class Main extends ApplicationAdapter {
             pauseMenu.setRestartStatus(false);
             resetGame();
         }
+        //restarts current level if button is pressed
+        //currently only resets player not changes made to the level
+        //call loadjson to reset the json level
+        if (pauseMenu.getRestartRoomStatus()) {
+            pauseMenu.setRestartRoomStatus(false);
+            player.playerRestart(currentLevel);
+        }
+
         batch.begin();
         draw();
         batch.end();

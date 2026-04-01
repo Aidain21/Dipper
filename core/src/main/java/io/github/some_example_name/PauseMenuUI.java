@@ -16,12 +16,14 @@ public class PauseMenuUI {
     private Skin buttonSkin;
     private Boolean visible;
     private Boolean restartStatus;
+    private Boolean restartRoomStatus;
 
     public PauseMenuUI(Skin skin) {
         this.buttonSkin = skin;
         this.stage = new Stage(new ScreenViewport());
         this.visible = false;
         this.restartStatus = false;
+        this.restartRoomStatus = false;
 
         TextButton resume = new TextButton("Resume", buttonSkin);
         TextButton restartRoom = new TextButton("Restart Room", buttonSkin);
@@ -37,7 +39,8 @@ public class PauseMenuUI {
         restartRoom.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-
+                setRestartRoomStatus(true);
+                hide();
             }
         });
 
@@ -69,11 +72,15 @@ public class PauseMenuUI {
         visible = false;
         Gdx.input.setInputProcessor(null);
     }
-
+    public boolean getRestartRoomStatus() {
+        return restartRoomStatus;
+    }
     public boolean getRestartStatus() {
         return restartStatus;
     }
-
+    public void setRestartRoomStatus(boolean bool) {
+        restartRoomStatus = bool;
+    }
     public void setRestartStatus(boolean bool) {
         restartStatus = bool;
     }
