@@ -38,6 +38,7 @@ public class Main extends ApplicationAdapter {
         levels.getMap()[1][0]=templevel;
         currentLevel=levels.getMap()[0][0];
         currentLevel.changeTile(2,4,"portal",0,1);
+        currentLevel.changeTile(2,5,"portal",3,0);
         currentLevel.changeTile(1,5,"inportal",3,3);
         currentLevel.changeTile(5,5,"box");
         currentLevel.changeTile(7,7,"lever","box");

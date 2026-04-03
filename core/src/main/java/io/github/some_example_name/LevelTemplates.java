@@ -14,6 +14,7 @@ public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static level level4 = new level(1,1,true);
     public static level levelX = new level(1,1,true);
+    public static level levelHello = new level(1,1,true);
     public static int buttonCount3 = 0;
     public static TileFills[] tileArray;
     public static ColorButton[] colorButtonList3 = new ColorButton[24];
@@ -92,10 +93,10 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
 
-        saveAsJson(level3);
-        level3 = loadJson("testy.json");
-        Drawing.tempReAddTextures(level3);
-        addDataToTile(level3, p, 0,1, false);
+        //saveAsJson(level3);
+        //level3 = loadJson("testy.json");
+        //Drawing.tempReAddTextures(level3);
+
         addDataToTile(level3, p, 2,1, false);
         addDataToTile(level3, p, 0,0, false);
         addDataToTile(level3, i, 10,1, false);
@@ -185,6 +186,16 @@ public class LevelTemplates {
 
 
         map.levelMap[1][2] = alexlevel1;
+
+
+
+        levelHello = loadJson("HELLO2.json");
+        Drawing.tempReAddTextures(levelHello);
+        //invertLevelY(levelHello);
+        //createObjects(levelHello);
+        map.addName(levelHello);
+
+        map.levelMap[0][3] = levelHello;
     }
 
     //works for portal, inportal, and pressureButton
