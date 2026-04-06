@@ -13,12 +13,15 @@ import java.util.Scanner;
 public class Drawing {
 
     public static boolean drawing;
+    public static boolean placingPortal;
+    public static boolean twoWay;
     public static String currentFile;
     //public Vector2Int size;
     public static level workingLevel;
     //public TileFills[][] grid;
     public static TileFills curTile;
     public static int tileNum = 0;
+    public static Vector2Int portalEdit = new Vector2Int(0,0);
 
 
 
@@ -53,6 +56,28 @@ public class Drawing {
         drawing = false;
     }
 
+    public static void startPlacePortal(int x, int y) {
+        twoWay = false;
+        placingPortal = true;
+        portalEdit = new Vector2Int(x,y);
+    }
+
+    public static void endPlacePortal(int mouseX, int mouseY) {
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((720-mouseY - 15) / 32.0f);
+        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            workingLevel.level1[portalEdit.x][portalEdit.y] =
+                new TileFills().CreateTileFills("inportal", rX, rY);
+            if (twoWay) {
+                workingLevel.level1[rY][rX] = new TileFills().CreateTileFills("inportal", portalEdit.y, portalEdit.x);
+                workingLevel.level1[rY][rX].refill();
+            }
+        }
+        placingPortal = false;
+        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
+        TextBox.textRight[2] = "Tile Num: " + tileNum;
+    }
+
     public static void getTileData(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((720-mouseY - 15) / 32.0f);
@@ -62,6 +87,8 @@ public class Drawing {
             TextBox.text[2] = "x y: " + workingLevel.level1[rY][rX].getData().x
                 + " " + workingLevel.level1[rY][rX].getData().y;
         }
+
+
     }
 
     public static void drawTile(int mouseX, int mouseY, boolean erase) {
@@ -73,6 +100,9 @@ public class Drawing {
             }
             else {
                 workingLevel.level1[rY][rX] = curTile;
+                if (workingLevel.level1[rY][rX].getTileString() == "inportal") {
+                    startPlacePortal(rY,rX);
+                }
             }
 
         }
