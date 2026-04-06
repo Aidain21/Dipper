@@ -190,31 +190,55 @@ public class Main extends ApplicationAdapter {
 
         //TextBox.text[0] = mouseX + " " + mouseY;
         Drawing.getTileData(mouseX,mouseY);
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
-            Drawing.end();
+        if (!Drawing.placingPortal) {
+            if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
+                Drawing.end();
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                Drawing.changeDrawTile(1);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                Drawing.changeDrawTile(-1);
+            }
+
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Drawing.curTile.getTileString() != "inportal") {
+                Drawing.drawTile(mouseX,mouseY, false);
+            }
+
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && Drawing.curTile.getTileString() == "inportal") {
+                Drawing.drawTile(mouseX,mouseY, false);
+            }
+
+            if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
+                Drawing.drawTile(mouseX,mouseY,true);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+                Drawing.rotateTile(mouseX,mouseY);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                Drawing.getTileData(mouseX,mouseY);
+            }
+        }
+        else {
+            TextBox.textRight[1] = "Placing portal end";
+            TextBox.textRight[2] = "Two Way: " + Drawing.twoWay;
+
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                Drawing.endPlacePortal(mouseX,mouseY);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                Drawing.twoWay = !Drawing.twoWay;
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                Drawing.twoWay = !Drawing.twoWay;
+            }
+
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            Drawing.changeDrawTile(1);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            Drawing.changeDrawTile(-1);
-        }
-
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            Drawing.drawTile(mouseX,mouseY, false);
-        }
-        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-            Drawing.drawTile(mouseX,mouseY,true);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            Drawing.rotateTile(mouseX,mouseY);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            Drawing.getTileData(mouseX,mouseY);
-        }
 
     }
 
