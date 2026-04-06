@@ -19,6 +19,7 @@ public class Main extends ApplicationAdapter {
     static level currentLevel;
     static map levels;
     static Bow bow;
+    boolean fullMap=false;
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
@@ -164,6 +165,13 @@ public class Main extends ApplicationAdapter {
             Drawing.start(true);
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            if(!fullMap)
+                fullMap=true;
+            else
+                fullMap=false;
+        }
+
     }
 
     private void logic() {
@@ -173,16 +181,21 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
-        LevelDraw.drawLevel(batch,currentLevel);
-        MiniMap.drawMap(batch, levels, currentLevel);
+        if(!fullMap) {
+            LevelDraw.drawLevel(batch, currentLevel);
+            MiniMap.drawMap(batch, levels, currentLevel, false);
 
-        //the logo
-        //batch.draw(image, 140, 210);
+            //the logo
+            //batch.draw(image, 140, 210);
 
-        textBox.drawTextBox(batch);
-        player.drawPlayer(batch);
-        bow.drawArrow(batch);
+            textBox.drawTextBox(batch);
+            player.drawPlayer(batch);
+            bow.drawArrow(batch);
+        }
+        else
+            MiniMap.drawMap(batch, levels, currentLevel, true);
     }
+
 
     public void artInput() {
         int mouseX = Gdx.input.getX();
