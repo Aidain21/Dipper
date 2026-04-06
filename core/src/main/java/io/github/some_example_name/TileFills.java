@@ -12,6 +12,9 @@ public class TileFills {
     transient Sprite sprite = null;
     transient Texture texture = null;
     float rotation = 0;
+    //Vector2Int pos = new Vector2Int(0,0);
+    int dataX = 0;
+    int dataY = 0;
     boolean drawBackground = true;
 
     //default constructor for empty tiles
@@ -32,6 +35,7 @@ public class TileFills {
             case "gGate":
             case "bGate":
             case "yGate": return new SimpleTextures.ColorGate(fill);
+            case "pressureButton": return new PressureButton();
             default: return new TileFills();
         }
     }
@@ -41,7 +45,7 @@ public class TileFills {
         switch (fill) {
             case "portal": return new SimpleTextures.Portal(x, y);
             case "inportal": return new SimpleTextures.InLevelPortal(x, y);
-            case "pressureButton": return new PressureButton(x, y);
+
             default: return new TileFills();
         }
     }
@@ -67,22 +71,38 @@ public class TileFills {
     }
 
     // Objects
-    public TileFills CreateTileFills(int x, int y, String fill, float r) {
+
+    public TileFills refill() {
         switch(fill) {
-            case "bouncy": return new SimpleTextures.BouncyWall(x, y, r);
+            case "floor":
+            case "iceFloor":
+            case "wall":
+            case "box":
+            case "button":
+            case "void":
+            case "rGate":
+            case "gGate":
+            case "bGate":
+            case "yGate":
+            case "pressureButton": return CreateTileFills(fill);
+            case "bouncy":
             case "rB":
             case "gB":
             case "bB":
-            case "yB": return new ColorButton(x, y, fill, r);
-            case "pressureButton": return new PressureButton(x, y);
+            case "yB": return CreateTileFills(fill, rotation);
+            case "portal":
+            case "inportal": return CreateTileFills(fill, dataX, dataY);
+            case "spikes": return CreateTileFills(fill, dataX);
             default: return new TileFills();
+
         }
     }
 
     public String getTileString() {return fill;}
     public Sprite getSprite() {return sprite;}
     public Texture getTexture() {return texture;}
-    public float getRotation() {return sprite.getRotation();}
+    public float getRotation() {return rotation;}
+    public Vector2Int getData() {return new Vector2Int(dataX, dataY);}
     public boolean drawBackground() {return drawBackground;}
     public boolean canWalk() {return canWalk;}
     public String getType() {

@@ -82,10 +82,7 @@ public class level extends ApplicationAdapter {
     //only given name
     public void changeTile(int r, int c, String fill){
         if((r>0 && r<rowCount) && (c>0 && c<colCount)){
-            if (fill.equals("pressureButton")) {
-                level1[c][r] = generator.CreateTileFills(fill, r, c);
-                return;
-            }
+
             level1[c][r]=generator.CreateTileFills(fill);
         }
     }
@@ -116,7 +113,7 @@ public class level extends ApplicationAdapter {
     // Rotation Overload
     public void changeTile(int r, int c, String fill, float i){
         if (r > 0 && r < rowCount && c > 0 && c < colCount){
-            level1[c][r] = generator.CreateTileFills(r, c, fill, i);
+            level1[c][r] = generator.CreateTileFills(fill, i);
         }
     }
 
@@ -142,7 +139,7 @@ public class level extends ApplicationAdapter {
 
     public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
-        return Main.moveLevel(p.nextX,p.nextY);
+        return Main.moveLevel(p.dataX,p.dataY);
     }
 
 
@@ -156,14 +153,6 @@ public class level extends ApplicationAdapter {
         }
     }
 
-    public void printLevel () {
-        for (TileFills[] arr : level1) {
-            for (TileFills t : arr) {
-                System.out.print(t.getTileString().charAt(0));
-            }
-            System.out.println();
-        }
-    }
 
 
 }

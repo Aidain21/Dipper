@@ -42,30 +42,26 @@ public class SimpleTextures extends TileFills{
 
     // Portal
     public static class Portal extends TileFills{
-        int nextX;
-        int nextY;
         public Portal(int x, int y){
             fill = "portal";
             texture = LevelDraw.portalTexture;
-            nextX=x;
-            nextY=y;
+            dataX=x;
+            dataY=y;
             canWalk=true;
         }
     }
 
     // In Level Portal
     public static class InLevelPortal extends TileFills{
-        int newX;
-        int newY;
         public InLevelPortal(int x, int y){
             fill="inportal";
             texture = LevelDraw.inPortalTx;
-            newX=x;
-            newY=y;
+            dataX=x;
+            dataY=y;
             canWalk=true;
         }
         public Vector2Int newPos(){
-            return new Vector2Int(newX,newY);
+            return new Vector2Int(dataX,dataY);
         }
     }
 
@@ -73,18 +69,18 @@ public class SimpleTextures extends TileFills{
 
     // Spikes
     public static class Spikes extends TileFills{
-        int damage=1;
+
         public Spikes(int d){
             fill="spikes";
             texture = LevelDraw.spikesTx;
-            damage=d;
+            dataX=d;
             canWalk=true;
         }
 
         public void spiked() {
             Player.playerLock = true;
             Player.lockTimer = 0.7f;
-            Player.dealDamage(damage);
+            Player.dealDamage(dataX);
             TextBox.text[1] = "OOUCH";
         }
     }
@@ -115,13 +111,6 @@ public class SimpleTextures extends TileFills{
             sprite = new Sprite(LevelDraw.bouncy);
             rotation = r;
             sprite.setRotation(rotation);
-        }
-        public BouncyWall(int x, int y, float r) {
-            fill = "bouncy";
-            sprite = new Sprite(LevelDraw.bouncy);
-            rotation = r;
-            sprite.setRotation(r);
-            sprite.setPosition(x*32, y*32);
         }
     }
 

@@ -13,18 +13,7 @@ public class ColorButton extends TileFills {
             case "rB": sprite = new Sprite(LevelDraw.rButtonTx); break;
             default: break;
         }
-        sprite.setRotation(r);
-    }
-    public ColorButton(int x, int y, String color, float r) {
-        fill = color;
-        switch(color) {
-            case "bB": sprite = new Sprite(LevelDraw.bButtonTx); break;
-            case "gB": sprite = new Sprite(LevelDraw.gButtonTx); break;
-            case "yB": sprite = new Sprite(LevelDraw.yButtonTx); break;
-            case "rB": sprite = new Sprite(LevelDraw.rButtonTx); break;
-            default: break;
-        }
-        sprite.setPosition(x*32, y*32);
+        rotation = r;
         sprite.setRotation(r);
     }
 

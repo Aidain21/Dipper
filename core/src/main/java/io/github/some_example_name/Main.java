@@ -25,6 +25,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        Tile.startTile();
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
@@ -156,7 +157,11 @@ public class Main extends ApplicationAdapter {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
-            Drawing.start();
+            Drawing.start(false);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
+            Drawing.start(true);
         }
 
     }
@@ -183,7 +188,8 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        TextBox.text[0] = mouseX + " " + mouseY;
+        //TextBox.text[0] = mouseX + " " + mouseY;
+        Drawing.getTileData(mouseX,mouseY);
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
             Drawing.end();
         }
@@ -201,6 +207,15 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
             Drawing.drawTile(mouseX,mouseY,true);
         }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            Drawing.rotateTile(mouseX,mouseY);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            Drawing.getTileData(mouseX,mouseY);
+        }
+
     }
 
     public void artLogic() {

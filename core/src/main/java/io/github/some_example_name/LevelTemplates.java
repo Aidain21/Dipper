@@ -1,10 +1,11 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.utils.Json;
 import com.google.gson.*;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,58 +16,55 @@ public class LevelTemplates {
     public static level level4 = new level(1,1,true);
     public static level levelX = new level(1,1,true);
     public static level levelHello = new level(1,1,true);
-    public static int buttonCount3 = 0;
-    public static TileFills[] tileArray;
-    public static ColorButton[] colorButtonList3 = new ColorButton[24];
+    //public static int buttonCount3 = 0;
+    //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static level alexlevel1 = new level(1,5,true);
     public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
-        TileFills gen = new TileFills();
-        TileFills w = gen.CreateTileFills("wall");
 
-        TileFills w1 = gen.CreateTileFills("bouncy",0f);
-        TileFills w2 = gen.CreateTileFills("bouncy",90f);
-        TileFills w3 = gen.CreateTileFills("bouncy",180f);
-        TileFills w4 = gen.CreateTileFills("bouncy",270f);
+        TileFills w = Tile.wall;
 
-        TileFills R1 = gen.CreateTileFills("rB",0f);
-        TileFills R2 = gen.CreateTileFills("rB",90f);
-        TileFills R3 = gen.CreateTileFills("rB",180f);
-        TileFills R4 = gen.CreateTileFills("rB",270f);
+        TileFills w1 = Tile.bouncyWall1;
+        TileFills w2 = Tile.bouncyWall2;
+        TileFills w3 = Tile.bouncyWall3;
+        TileFills w4 = Tile.bouncyWall4;
 
-        TileFills B1 = gen.CreateTileFills("bB",0f);
-        TileFills B2 = gen.CreateTileFills("bB",90f);
-        TileFills B3 = gen.CreateTileFills("bB",180f);
-        TileFills B4 = gen.CreateTileFills("bB",270f);
+        TileFills R1 = Tile.redButtonU;
+        TileFills R2 = Tile.redButtonL;
+        TileFills R3 = Tile.redButtonD;
+        TileFills R4 = Tile.redButtonR;
 
-        TileFills Y1 = gen.CreateTileFills("yB",0f);
-        TileFills Y2 = gen.CreateTileFills("yB",90f);
-        TileFills Y3 = gen.CreateTileFills("yB",180f);
-        TileFills Y4 = gen.CreateTileFills("yB",270f);
+        TileFills B1 = Tile.blueButtonU;
+        TileFills B2 = Tile.blueButtonL;
+        TileFills B3 = Tile.blueButtonD;
+        TileFills B4 = Tile.blueButtonR;
 
-        TileFills G1 = gen.CreateTileFills("gB",0f);
-        TileFills G2 = gen.CreateTileFills("gB",90f);
-        TileFills G3 = gen.CreateTileFills("gB",180f);
-        TileFills G4 = gen.CreateTileFills("gB",270f);
+        TileFills Y1 = Tile.yellowButtonU;
+        TileFills Y2 = Tile.yellowButtonL;
+        TileFills Y3 = Tile.yellowButtonD;
+        TileFills Y4 = Tile.yellowButtonR;
 
-        TileFills rG = gen.CreateTileFills("rGate");
-        TileFills gG = gen.CreateTileFills("gGate");
-        TileFills bG = gen.CreateTileFills("bGate");
-        TileFills yG = gen.CreateTileFills("yGate");
+        TileFills G1 = Tile.greenButtonU;
+        TileFills G2 = Tile.greenButtonL;
+        TileFills G3 = Tile.greenButtonD;
+        TileFills G4 = Tile.greenButtonR;
 
-        TileFills bu = gen.CreateTileFills("button");
-        TileFills f = gen.CreateTileFills("floor");
-        TileFills s = gen.CreateTileFills("spikes", 1);
-        TileFills b = gen.CreateTileFills("box");
-        TileFills v = gen.CreateTileFills("void");
-        TileFills pb = gen.CreateTileFills("pressureButton",-1,-1);
-        TileFills p = gen.CreateTileFills("portal",-1,-1);
-        TileFills i = gen.CreateTileFills("inportal",-1,-1);
-        TileFills p2 = gen.CreateTileFills("inportal",-1,-1);
-        TileFills iF = gen.CreateTileFills("iceFloor");
+        TileFills rG = Tile.redGate;
+        TileFills gG = Tile.greenGate;
+        TileFills bG = Tile.blueGate;
+        TileFills yG = Tile.yellowGate;
 
-        tileArray = new TileFills[]{w,w1,w2,w3,w4,R1,R2,R3,R4,B1,B2,B3,B4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,
-            rG,gG,bG,yG,bu,f,s,b,v,pb,p,i,p2,iF};
+        TileFills bu = Tile.button;
+        TileFills f = Tile.floor;
+        TileFills s = Tile.spikes;
+        TileFills b = Tile.box;
+        TileFills v = Tile.voidTile;
+        TileFills pb = Tile.pressureButton;
+        TileFills p = Tile.outPortal;
+        TileFills i = Tile.inPortal;
+        TileFills p2 = Tile.inPortal;
+        TileFills iF = Tile.iceFloor;
+
 
 
         level3.level1 = new TileFills[][] {
@@ -93,16 +91,14 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },// 0
         };
 
-        //saveAsJson(level3);
-        //level3 = loadJson("testy.json");
+        saveAsJson(level3);
+        level3 = loadJson("testy.json");
         //Drawing.tempReAddTextures(level3);
 
-        addDataToTile(level3, p, 2,1, false);
-        addDataToTile(level3, p, 0,0, false);
-        addDataToTile(level3, i, 10,1, false);
-        addDataToTile(level3, pb, 3,2, false);
-        addDataToTile(level3, pb, 4,2, false);
-        addDataToTile(level3, p2, 10,9, true);
+        addDataToTile(level3, Tile.outPortal.getTileString(), 2,1, false);
+        addDataToTile(level3, Tile.outPortal.getTileString(), 0,0, false);
+        addDataToTile(level3, Tile.inPortal.getTileString(), 10,1, false);
+        addDataToTile(level3, Tile.inPortal.getTileString(), 10,9, true);
         invertLevelY(level3);
         createObjects(level3);
 
@@ -113,9 +109,6 @@ public class LevelTemplates {
 
 
         //add more levels below here
-
-        tileArray = new TileFills[]{w,w1,w2,w3,w4,R1,R2,R3,R4,B1,B2,B3,B4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,
-            rG,gG,bG,yG,bu,f,s,b,v,pb,p,i,p2,iF};
 
         level4.level1 = new TileFills[][] {
             {w,w1,w2,w3,w4},
@@ -174,10 +167,10 @@ public class LevelTemplates {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
         };
 
-        addDataToTile(alexlevel1, p2, 3,alexlevel1.level1.length-2, false);
-        addDataToTile(alexlevel1, p, 1,0, false);
-        addDataToTile(alexlevel1, p, 1,1, false);
-        addDataToTile(alexlevel1, p, 0,0, false);
+        addDataToTile(alexlevel1, "inportal", 3,alexlevel1.level1.length-2, false);
+        addDataToTile(alexlevel1, "portal", 1,0, false);
+        addDataToTile(alexlevel1, "portal", 1,1, false);
+        addDataToTile(alexlevel1, "portal", 0,0, false);
 
         invertLevelY(alexlevel1);
         createObjects(alexlevel1);
@@ -190,9 +183,10 @@ public class LevelTemplates {
 
 
         levelHello = loadJson("HELLO2.json");
-        Drawing.tempReAddTextures(levelHello);
+        createObjects(levelHello);
+        //Drawing.tempReAddTextures(levelHello);
         //invertLevelY(levelHello);
-        //createObjects(levelHello);
+
         map.addName(levelHello);
 
         map.levelMap[0][3] = levelHello;
@@ -201,10 +195,10 @@ public class LevelTemplates {
     //works for portal, inportal, and pressureButton
     //add commands in order of top to bottom then left to right with multiples
     //two way is to check if 2 portals are being created
-    public static void addDataToTile(level level, TileFills tile, int x, int y, boolean twoWay) {
+    public static void addDataToTile(level level, String fill, int x, int y, boolean twoWay) {
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
-                if (level.level1[i][j].equals(tile)) {
+                if (level.level1[i][j].getTileString().equals(fill) && level.level1[i][j].dataX == -1) {
                     if (twoWay) {
                         level.changeTile(j, i, level.level1[i][j].getTileString(), x, y);//, true);
                         level.changeTile(x,level.level1.length-y-1,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
@@ -220,25 +214,14 @@ public class LevelTemplates {
     }
 
     public static void createObjects(level level) {
+        //gotta figure these guys out
+        List<String> banned = Arrays.asList("lever");
         for (int i = 0; i < level.level1.length; i++) {
             for (int j = 0; j < level.level1[0].length; j++) {
-                TileFills tile = level.level1[i][j];
-                switch(tile.getTileString()) {
-                    // Sprite Objects
-                    /*case "rB":
-                    case "gB":
-                    case "bB":
-                    case "yB": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation());
-                        colorButtons3.add((ColorButton) tile); break;
-                    case "bouncy":
-                    case "pressureButton": tile = tile.CreateTileFills(j, i, tile.getTileString(), tile.getRotation()); break;
-*/
-                    // Texture Objects
-                    case "box":
-                    case "button": tile = tile.CreateTileFills(tile.getTileString()); break;
-                    default: break;
+                if (!banned.contains(level.level1[i][j].getTileString())) {
+                    level.level1[i][j] = level.level1[i][j].refill();
                 }
-                level.level1[i][j] = tile;
+
             }
         }
     }
