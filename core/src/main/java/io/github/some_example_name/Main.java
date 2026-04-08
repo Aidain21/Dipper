@@ -108,12 +108,10 @@ public class Main extends ApplicationAdapter {
                 fullMap = true;
                 Player.playerLock = true;
                 Player.inMap =true;
-                //player.locked(currentLevel);
             } else {
                 fullMap = false;
                 Player.playerLock = false;
                 Player.inMap =false;
-                //player.locked(currentLevel);
             }
         }
 
