@@ -62,12 +62,12 @@ public class PauseMenuUI {
         });
 
         Table table = new Table();
-        table.setColor(0, 0, 0, 1f);
+        table.setColor(0, 0, 0, 1f); // color and transparency of buttons
         table.setFillParent(true);
         stage.addActor(table);
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0.2f, 0.2f, 0.2f, 0.75f);
+        pixmap.setColor(0.2f, 0.2f, 0.2f, 0.75f); //color and transparency of background
         pixmap.fill();
         Texture bgTexture = new Texture(pixmap);
         pixmap.dispose();

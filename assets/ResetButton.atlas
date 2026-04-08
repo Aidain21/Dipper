@@ -2,7 +2,6 @@
 ResetButton.png
 size: 128, 128
 format: RGBA8888
-filter: Linear, Linear
 repeat: none
 uiResetLevel
   rotate: false
