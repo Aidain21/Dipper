@@ -67,7 +67,7 @@ public class PauseMenuUI {
         stage.addActor(table);
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0.2f, 0.2f, 0.2f, 0.6f);
+        pixmap.setColor(0.2f, 0.2f, 0.2f, 0.75f);
         pixmap.fill();
         Texture bgTexture = new Texture(pixmap);
         pixmap.dispose();
