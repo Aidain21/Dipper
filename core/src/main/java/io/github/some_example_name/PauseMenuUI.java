@@ -3,31 +3,40 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class PauseMenuUI {
     private Stage stage;
-    private Skin buttonSkin;
+    private Skin resumeSkin;
+    private Skin resetSkin;
+    private Skin restartSkin;
     private Boolean visible;
     private Boolean restartStatus;
     private Boolean restartRoomStatus;
 
-    public PauseMenuUI(Skin skin) {
-        this.buttonSkin = skin;
-        this.stage = new Stage(new ScreenViewport());
+    public PauseMenuUI(Skin resumeSkin, Skin resetSkin, Skin restartSkin) {
+        this.resumeSkin = resumeSkin;
+        this.resetSkin = resetSkin;
+        this.restartSkin = restartSkin;
+        this.stage = new Stage(new FitViewport(960, 720));
         this.visible = false;
         this.restartStatus = false;
         this.restartRoomStatus = false;
 
-        TextButton resume = new TextButton("Resume", buttonSkin);
-        TextButton restartRoom = new TextButton("Restart Room", buttonSkin);
-        TextButton restartGame = new TextButton("Restart Game", buttonSkin);
+        Button resume = new Button(resumeSkin);
+        Button restartRoom = new Button(resetSkin);
+        Button restartGame = new Button(restartSkin);
 
         resume.addListener(new ChangeListener() {
             @Override
@@ -53,12 +62,23 @@ public class PauseMenuUI {
         });
 
         Table table = new Table();
-        table.setDebug(true);
-        table.setColor(0, 0, 0, 0.8f); // semi-transparent black
+        table.setColor(0, 0, 0, 1f);
         table.setFillParent(true);
         stage.addActor(table);
-        table.defaults().pad(10);
 
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0.2f, 0.2f, 0.2f, 1f);
+        pixmap.fill();
+        Texture bgTexture = new Texture(pixmap);
+        pixmap.dispose();
+
+        table.setBackground(new TextureRegionDrawable(new TextureRegion(bgTexture)));
+
+        table.defaults().pad(10);
+        Texture logoTexture = new Texture(Gdx.files.internal("uiPaused.png"));
+        Image logo = new Image(logoTexture);
+
+        table.add(logo).width(200).height(100).padBottom(20).row();
         table.add(resume).width(200).height(80).row();
         table.add(restartRoom).width(200).height(80).row();
         table.add(restartGame).width(200).height(80).row();

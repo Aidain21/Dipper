@@ -24,15 +24,19 @@ public class Main extends ApplicationAdapter {
     Viewport viewport;
     LevelLogic log;
     private PauseMenuUI pauseMenu;
-    private Skin buttonSkin;
+    private Skin resumeButtonSkin;
+    private Skin resetButtonSkin;
+    private Skin restartButtonSkin;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        buttonSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
+        resetButtonSkin = new Skin(Gdx.files.internal("ResetButton.json"));
+        restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
         viewport = new FitViewport(960, 720);
-        pauseMenu = new PauseMenuUI(buttonSkin);
+        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
         Gdx.graphics.setWindowedMode(960, 720);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
