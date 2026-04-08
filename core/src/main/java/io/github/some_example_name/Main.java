@@ -103,7 +103,7 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)&& !Player.playerSliding && !Player.playerFalling) {
             if (!fullMap) {
                 fullMap = true;
                 Player.playerLock = true;
