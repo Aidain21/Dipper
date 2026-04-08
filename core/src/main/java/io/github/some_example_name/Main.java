@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Objects;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -26,6 +28,8 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+
+
         Tile.startTile();
         player = new Player();
         batch = new SpriteBatch();
@@ -69,6 +73,8 @@ public class Main extends ApplicationAdapter {
 
         Gdx.graphics.setWindowedMode(960, 720);
 
+
+
     }
 
     @Override
@@ -87,8 +93,8 @@ public class Main extends ApplicationAdapter {
             artLogic();
             artDraw();
         }
-
         batch.end();
+
     }
 
     @Override
@@ -123,8 +129,6 @@ public class Main extends ApplicationAdapter {
         // Movement
         if (inputTimer <= 0) {
             // Player Movement Lock
-
-
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
                 inputTimer = 0.1f;
@@ -143,10 +147,6 @@ public class Main extends ApplicationAdapter {
             }
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 player.playerInteract(currentLevel);
-                inputTimer = 0.1f;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-                Player.debug = !Player.debug;
                 inputTimer = 0.1f;
             }
         } else {
@@ -169,12 +169,12 @@ public class Main extends ApplicationAdapter {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
-            Drawing.start(false);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
+            Drawing.start(true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
-            Drawing.start(true);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
+            Drawing.start(false);
         }
 
 
@@ -210,8 +210,12 @@ public class Main extends ApplicationAdapter {
         //TextBox.text[0] = mouseX + " " + mouseY;
         Drawing.getTileData(mouseX,mouseY);
         if (!Drawing.placingPortal) {
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
-                Drawing.end();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
+                Drawing.end(true);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+                Drawing.end(false);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
@@ -221,11 +225,13 @@ public class Main extends ApplicationAdapter {
                 Drawing.changeDrawTile(-1);
             }
 
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Drawing.curTile.getTileString() != "inportal") {
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) &&
+                !Objects.equals(Drawing.curTile.getTileString(), "inportal")) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && Drawing.curTile.getTileString() == "inportal") {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &&
+                Objects.equals(Drawing.curTile.getTileString(), "inportal")) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
@@ -278,7 +284,7 @@ public class Main extends ApplicationAdapter {
 
     public static Vector2Int moveLevel(int x, int y){
         currentLevel=levels.getMap()[y][x];
-        textBox.levelName[0]=currentLevel.name;
+        TextBox.levelName[0] = currentLevel.name;
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
     }
 

@@ -29,7 +29,6 @@ public class Player {
     Sprite pLeft = new Sprite(LevelDraw.characterLeft);
     Sprite pRight = new Sprite(LevelDraw.characterRight);
 
-    public static boolean debug;
 
     public Player() {
         pos = new Vector2Int(2,7);
@@ -189,15 +188,9 @@ public class Player {
 
     //Draw the player
     public void drawPlayer(SpriteBatch batch) {
-
-        if (debug) {
-            System.out.println(pos.x + " " + pos.y);
-        }
-
         if (!playerSliding) {
             pSprite.setPosition(pos.x * 32, pos.y *32);
         }
-
         pSprite.draw(batch);
     }
 }

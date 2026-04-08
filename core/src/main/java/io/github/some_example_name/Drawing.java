@@ -2,13 +2,20 @@ package io.github.some_example_name;
 
 import com.google.gson.Gson;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+
+//Load as: 7
+//Load: 8
+//Save as: 9
+//Save: 0
 
 public class Drawing {
 
@@ -29,12 +36,8 @@ public class Drawing {
         drawing = true;
         TextBox.clearText();
         if (!loadPlayerLevel) {
-            //Scanner scan = new Scanner(System.in);
-            //System.out.print("Enter Json File Name: ");
-            //currentFile = scan.nextLine();
-            currentFile = "HELLO2.json";
+            currentFile = JOptionPane.showInputDialog("Load JSON file:") + ".json";
             workingLevel = loadArtJson(currentFile);
-
         }
         else {
             currentFile = "temp.json";
@@ -51,7 +54,10 @@ public class Drawing {
 
     }
 
-    public static void end() {
+    public static void end(boolean saveAs) {
+        if (saveAs) {
+            currentFile = JOptionPane.showInputDialog("Save as:") + ".json";
+        }
         saveAsArtJson(workingLevel, currentFile);
         drawing = false;
     }
@@ -100,7 +106,7 @@ public class Drawing {
             }
             else {
                 workingLevel.level1[rY][rX] = curTile;
-                if (workingLevel.level1[rY][rX].getTileString() == "inportal") {
+                if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "inportal")) {
                     startPlacePortal(rY,rX);
                 }
             }
