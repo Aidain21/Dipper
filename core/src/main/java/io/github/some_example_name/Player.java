@@ -17,6 +17,7 @@ public class Player {
     public static float lockTimer = 0f;
     public static float distance = 0f;
     public static boolean alive = true;
+    public static boolean inMap=false;
     public static float playerMaxHealth = 3f;
     public static float playerHealth = playerMaxHealth;
     public static boolean playerFalling = false;
@@ -151,6 +152,8 @@ public class Player {
         if (playerSliding && (lockTimer) > 0) {
             pSprite.setPosition((pos.x + facing.x * distance * 4) * 32, (pos.y + facing.y * distance * 4) * 32);
         }
+        if(inMap)
+            return;
 
         if (lockTimer <= 0) {
             if (playerFalling) pos = new Vector2Int(originalX, originalY);

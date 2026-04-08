@@ -103,6 +103,20 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            if (!fullMap) {
+                fullMap = true;
+                Player.playerLock = true;
+                Player.inMap =true;
+                //player.locked(currentLevel);
+            } else {
+                fullMap = false;
+                Player.playerLock = false;
+                Player.inMap =false;
+                //player.locked(currentLevel);
+            }
+        }
+
         if (Player.playerLock) {
             player.locked(currentLevel);
             return;
@@ -165,12 +179,6 @@ public class Main extends ApplicationAdapter {
             Drawing.start(true);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
-            if(!fullMap)
-                fullMap=true;
-            else
-                fullMap=false;
-        }
 
     }
 
