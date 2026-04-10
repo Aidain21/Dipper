@@ -33,8 +33,6 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-
-
         Tile.startTile();
         player = new Player();
         batch = new SpriteBatch();
@@ -75,7 +73,7 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        if (!pauseMenu.isVisible()) { //If the pause menu is open don't update logic or take input
+        if (!pauseMenu.isVisible() && !Drawing.drawing) { //If the pause menu is open don't update logic or take input
             input();
             logic();
         }
@@ -91,10 +89,24 @@ public class Main extends ApplicationAdapter {
         if (pauseMenu.getRestartRoomStatus()) {
             pauseMenu.setRestartRoomStatus(false);
             player.playerRestart(currentLevel);
+
+            if (!Objects.equals(currentLevel.filename, "")) {
+                currentLevel = LevelTemplates.loadJson(currentLevel.filename);
+                LevelTemplates.createObjects(currentLevel);
+            }
+
         }
 
         batch.begin();
-        draw();
+        if (Drawing.drawing) {
+            artDraw();
+            artInput();
+            artLogic();
+        }
+        else {
+            draw();
+        }
+
         batch.end();
 
         if (pauseMenu.isVisible()) {
@@ -102,58 +114,11 @@ public class Main extends ApplicationAdapter {
             pauseMenu.getStage().draw();
         }
     }
+
     private void resetGame() {//this handles level and player declaration
         player = new Player();
-        levels = new map(2, 2, 12, 12);
-
-        level templevel = new level(8, 8, 1, 1);
-        templevel.changeTile(3, 2, "portal", 1, 1);
-        templevel.changeTile(5, 5, "portal", 0, 0);
-        templevel.changeTile(4, 4, "bouncy", 180f);
-        templevel.changeTile(1, 5, "gB", 90f);
-        templevel.changeTile(5, 2, "box");
-        levels.getMap()[1][0]=templevel;
-        currentLevel=levels.getMap()[0][0];
-        currentLevel.changeTile(2,4,"portal",0,1);
-        currentLevel.changeTile(2,5,"portal",3,0);
-        currentLevel.changeTile(1,5,"inportal",3,3);
-        currentLevel.changeTile(5,5,"box");
-        currentLevel.changeTile(7,7,"lever","box");
-        currentLevel.changeTile(10,8,"yB", 270f);
-        currentLevel.changeTile(1,10,"bouncy", 0f);
-        currentLevel.changeTile(9,10,"bouncy", 270f);
-        currentLevel.changeTile(1,1,"bouncy", 90f);
-        currentLevel.changeTile(9,1,"bouncy", 180f);
-        currentLevel.changeTile(5,9,"bouncy", 180f);
-        currentLevel.changeTile(5,8,"bouncy", 270f);
-        currentLevel.changeTile(6,9,"bouncy", 90f);
-        currentLevel.changeTile(6,8,"bouncy", 0f);
-        currentLevel.changeTile(6,3,"bouncy", 180f);
-        levels.getMap()[1][0] = templevel;
-
+        levels = new map(8, 8, 12, 12);
         currentLevel = levels.getMap()[0][0];
-        currentLevel.changeTile(2, 4, "portal", 0, 1);
-        currentLevel.changeTile(1, 5, "inportal", 3, 3);
-        currentLevel.changeTile(5, 5, "box");
-        currentLevel.changeTile(7, 7, "lever", "box");
-        currentLevel.changeTile(10, 8, "yB", 270f);
-        currentLevel.changeTile(1, 10, "bouncy", 0f);
-        currentLevel.changeTile(9, 10, "bouncy", 270f);
-        currentLevel.changeTile(1, 1, "bouncy", 90f);
-        currentLevel.changeTile(9, 1, "bouncy", 180f);
-        currentLevel.changeTile(5, 9, "bouncy", 180f);
-        currentLevel.changeTile(5, 8, "bouncy", 270f);
-        currentLevel.changeTile(6, 9, "bouncy", 90f);
-        currentLevel.changeTile(6, 8, "bouncy", 0f);
-        currentLevel.changeTile(6, 3, "bouncy", 180f);
-        currentLevel.changeTile(7, 6, "yGate");
-        currentLevel.changeTile(10, 10, "wall");
-        currentLevel.changeTile(10, 1, "wall");
-        currentLevel.changeTile(9, 5, "button");
-        currentLevel.changeTile(3, 9, "spike", 1);
-        currentLevel.changeTile(4, 2, "pressureButton");
-        currentLevel.name = "Lone Beginnings";
-        currentLevel.changeTile(3, 5, "inportal", 5, 3, true);
 
         bow = new Bow();
         log = new LevelLogic();
@@ -162,29 +127,6 @@ public class Main extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(null);
         Gdx.graphics.setWindowedMode(960, 720);
-
-
-
-    }
-
-    @Override
-    public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.begin();
-        if (!Drawing.drawing) {
-            input();
-            logic();
-            draw();
-        }
-        else {
-            artInput();
-            artLogic();
-            artDraw();
-        }
-        batch.end();
-
     }
 
     @Override
@@ -384,9 +326,6 @@ public class Main extends ApplicationAdapter {
             MiniMap.drawMap(batch, levels, currentLevel, true);
         }
         textBox.drawTextBox(batch);
-        textBox.drawTextBox(batch);
-        player.drawPlayer(batch);
-        bow.drawArrow(batch);
     }
 
     @Override

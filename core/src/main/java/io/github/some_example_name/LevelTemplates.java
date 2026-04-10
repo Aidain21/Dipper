@@ -19,6 +19,17 @@ public class LevelTemplates {
     public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
 
+        level level1 = loadJson("level1.json");
+        createObjects(level1);
+        map.addName(level1);
+        map.levelMap[0][0] = level1;
+
+
+        level level2 = loadJson("level2.json");
+        createObjects(level2);
+        map.addName(level2);
+        map.levelMap[1][0] = level2;
+
         level3 = loadJson("level3.json");
         createObjects(level3);
         map.addName(level3);
