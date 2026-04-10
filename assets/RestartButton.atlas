@@ -1,0 +1,23 @@
+
+RestartButton.png
+size: 128, 128
+format: RGBA8888
+repeat: none
+uiRestart
+  rotate: false
+  xy: 1, 59
+  size: 100, 40
+  split: 7, 8, 4, 4
+  pad: 0, 0, 0, 0
+  orig: 100, 40
+  offset: 0, 0
+  index: -1
+uiRestartPress
+  rotate: false
+  xy: 1, 17
+  size: 100, 40
+  split: 7, 8, 4, 4
+  pad: 0, 0, 0, 0
+  orig: 100, 40
+  offset: 0, 0
+  index: -1
