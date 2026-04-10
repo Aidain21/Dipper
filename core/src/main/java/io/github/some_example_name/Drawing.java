@@ -21,6 +21,7 @@ public class Drawing {
 
     public static boolean drawing;
     public static boolean placingPortal;
+    public static boolean placingOutPortal;
     public static boolean twoWay;
     public static String currentFile;
     //public Vector2Int size;
@@ -37,6 +38,10 @@ public class Drawing {
         TextBox.clearText();
         if (!loadPlayerLevel) {
             currentFile = JOptionPane.showInputDialog("Load JSON file:") + ".json";
+            if (currentFile.equals("null.json")) {
+                end(false);
+                return;
+            }
             workingLevel = loadArtJson(currentFile);
         }
         else {
@@ -45,10 +50,7 @@ public class Drawing {
         }
         TextBox.textRight[0] = "Editing level: " + currentFile;
         LevelTemplates.createObjects(workingLevel);
-        //tempReAddTextures(workingLevel);
         curTile = Tile.wall;
-        //size.x = scan.nextInt();
-        //size.y = scan.nextInt();
         TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
         TextBox.textRight[2] = "Tile Num: " + tileNum;
 
@@ -58,14 +60,23 @@ public class Drawing {
         if (saveAs) {
             currentFile = JOptionPane.showInputDialog("Save as:") + ".json";
         }
-        saveAsArtJson(workingLevel, currentFile);
+        if (!currentFile.equals("null.json")) {
+            saveAsArtJson(workingLevel, currentFile);
+        }
         drawing = false;
     }
 
-    public static void startPlacePortal(int x, int y) {
-        twoWay = false;
-        placingPortal = true;
-        portalEdit = new Vector2Int(x,y);
+    public static void startPlacePortal(int x, int y, boolean inPortal) {
+        if (inPortal) {
+            twoWay = false;
+            placingPortal = true;
+            portalEdit = new Vector2Int(x, y);
+        }
+        else {
+            portalEdit = new Vector2Int(x, y);
+            placingOutPortal = true;
+            Main.fullMap = true;
+        }
     }
 
     public static void endPlacePortal(int mouseX, int mouseY) {
@@ -83,6 +94,21 @@ public class Drawing {
         TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
         TextBox.textRight[2] = "Tile Num: " + tileNum;
     }
+
+    public static void endPlaceOutPortal(int mouseX, int mouseY) {
+        int rX = Math.round((mouseX - 31) / 64.0f);
+        int rY = Math.round((720 - mouseY - 31) / 64.0f);
+        if (rY > 0 && rX > 0 && rY < Main.levels.mapRows && rX < Main.levels.mapCols) {
+            workingLevel.level1[portalEdit.x][portalEdit.y] =
+                new TileFills().CreateTileFills("portal", rX, rY);
+        }
+        placingOutPortal = false;
+        Main.fullMap = false;
+        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
+        TextBox.textRight[2] = "Tile Num: " + tileNum;
+    }
+
+
 
     public static void getTileData(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 15) / 32.0f);
@@ -107,7 +133,10 @@ public class Drawing {
             else {
                 workingLevel.level1[rY][rX] = curTile;
                 if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "inportal")) {
-                    startPlacePortal(rY,rX);
+                    startPlacePortal(rY,rX,true);
+                }
+                if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "portal")) {
+                    startPlacePortal(rY,rX,false);
                 }
             }
 

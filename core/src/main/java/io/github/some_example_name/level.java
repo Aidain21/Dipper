@@ -11,6 +11,7 @@ public class level extends ApplicationAdapter {
     int spawnCol=1;
     String name ="";
     boolean filledIn=false;
+    String filename = "";
 
     //generates new tiles
     TileFills generator = new TileFills();

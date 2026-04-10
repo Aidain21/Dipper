@@ -19,9 +19,9 @@ public class Main extends ApplicationAdapter {
     static Player player;
     public float inputTimer = 0f;
     static level currentLevel;
-    static map levels;
+    public static map levels;
     static Bow bow;
-    boolean fullMap=false;
+    public static boolean fullMap = false;
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
@@ -34,7 +34,7 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        levels = new map(4,2,12,12);
+        levels = new map(8,8,12,12);
         level templevel=new level(8,8,1,1);
         templevel.changeTile(3,2,"portal",1,1);
         templevel.changeTile(5,5,"portal",0,0);
@@ -209,7 +209,7 @@ public class Main extends ApplicationAdapter {
 
         //TextBox.text[0] = mouseX + " " + mouseY;
         Drawing.getTileData(mouseX,mouseY);
-        if (!Drawing.placingPortal) {
+        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 Drawing.end(true);
             }
@@ -226,12 +226,14 @@ public class Main extends ApplicationAdapter {
             }
 
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) &&
-                !Objects.equals(Drawing.curTile.getTileString(), "inportal")) {
+                !Objects.equals(Drawing.curTile.getTileString(), "inportal") &&
+                !Objects.equals(Drawing.curTile.getTileString(), "portal")) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &&
-                Objects.equals(Drawing.curTile.getTileString(), "inportal")) {
+                (Objects.equals(Drawing.curTile.getTileString(), "inportal") ||
+                Objects.equals(Drawing.curTile.getTileString(), "portal"))) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
@@ -243,11 +245,11 @@ public class Main extends ApplicationAdapter {
                 Drawing.rotateTile(mouseX,mouseY);
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-                Drawing.getTileData(mouseX,mouseY);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+                fullMap = !fullMap;
             }
         }
-        else {
+        else if (Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap){
             TextBox.textRight[1] = "Placing portal end";
             TextBox.textRight[2] = "Two Way: " + Drawing.twoWay;
 
@@ -263,6 +265,19 @@ public class Main extends ApplicationAdapter {
             }
 
         }
+        else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
+            TextBox.textRight[1] = "Placing level portal";
+            //TextBox.textRight[2] = "Two Way: " + Drawing.twoWay;
+
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                Drawing.endPlaceOutPortal(mouseX,mouseY);
+            }
+        }
+        else if (!Drawing.placingPortal && !Drawing.placingOutPortal) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+                fullMap = !fullMap;
+            }
+        }
 
 
     }
@@ -272,7 +287,12 @@ public class Main extends ApplicationAdapter {
     }
 
     public void artDraw() {
-        LevelDraw.drawLevel(batch,Drawing.workingLevel);
+        if (!fullMap) {
+            LevelDraw.drawLevel(batch,Drawing.workingLevel);
+        }
+        else{
+            MiniMap.drawMap(batch, levels, currentLevel, true);
+        }
         textBox.drawTextBox(batch);
     }
 
@@ -283,7 +303,15 @@ public class Main extends ApplicationAdapter {
     }
 
     public static Vector2Int moveLevel(int x, int y){
+
         currentLevel=levels.getMap()[y][x];
+        /*
+        if (!Objects.equals(currentLevel.filename, "")) {
+            currentLevel = LevelTemplates.loadJson(currentLevel.filename);
+            LevelTemplates.createObjects(currentLevel);
+        }
+
+         */
         TextBox.levelName[0] = currentLevel.name;
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
     }

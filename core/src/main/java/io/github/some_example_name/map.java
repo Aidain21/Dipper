@@ -1,18 +1,15 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
-
 import java.util.Arrays;
-import java.util.Random;
 
 public class map {
 
     level[][] levelMap;
     int mapRows;
     int mapCols;
-    String[] adj={"happy","sad","tired"};
-    String[] noun={"cave","store","building"};
-    String[] verb={"dancing","running","sleeping"};
+    String[] adj={"happy","sad","tired","exciting","intense","hazy","sweltering","frigid"};
+    String[] noun={"cave","store","building","tower","dungeon","apartment"};
+    String[] verb={"dancing","running","sleeping","exploding","jumping","analyzing"};
 
     public map(int r, int c, int levelR, int levelC) {
         mapRows = r;
@@ -39,11 +36,4 @@ public class map {
         l.name=adj[a]+" "+verb[v]+" "+noun[n];
     }
 
-    //checks if the map is empty, currently unused
-    public boolean isEmpty(int r, int c) {
-        if (r<0 || r>mapRows-1 || c<0 || c>mapCols-1 || (Arrays.deepEquals(levelMap[c][r].getLevel(), new level(0, 0).getLevel()))) {
-            return true;
-        }
-        return false;
-    }
 }

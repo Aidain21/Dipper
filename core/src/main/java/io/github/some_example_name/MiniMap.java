@@ -11,8 +11,8 @@ public class MiniMap {
         int yStart=650;
         int size=32;
         if(full){
-            xStart=100;
-            yStart=250;
+            xStart=0;
+            yStart=0;
             size=64;
         }
         for (int j = 0; j < m.length; j++) {
