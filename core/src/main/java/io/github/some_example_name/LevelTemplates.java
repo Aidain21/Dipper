@@ -21,6 +21,8 @@ public class LevelTemplates {
 
         TileFills w = Tile.wall;
         TileFills f = Tile.floor;
+        //comment out this and uncomment the constructor for custom sizes
+        ///*
         levelX = new level(5,5,true);
         levelX.level1 = new TileFills[][] {
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
@@ -44,6 +46,9 @@ public class LevelTemplates {
             {w ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,f ,w },
             {w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w ,w },
         };
+
+         //*/
+        //levelX = new level(5,5,5,5,true);
 
         level level1 = loadJson("level1.json");
         createObjects(level1);

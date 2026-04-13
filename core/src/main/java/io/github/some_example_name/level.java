@@ -38,6 +38,15 @@ public class level extends ApplicationAdapter {
         filledIn=true;
     }
 
+    public level(int r, int c, int spawnR, int spawnC, boolean auto){
+        rowCount=r;
+        colCount=c;
+        spawnRow=spawnR;
+        spawnCol=spawnC;
+        createLevel();
+        filledIn=true;
+    }
+
     //creates a new level and fills it in with walls and floors
     public void createLevel(){
         level1=new TileFills[colCount][rowCount];
