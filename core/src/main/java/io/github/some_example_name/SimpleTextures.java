@@ -35,7 +35,7 @@ public class SimpleTextures extends TileFills{
             TextBox.updateTextBox("every day im slidin", 1);
             Player.playerSliding = true;
             Player.playerLock = true;
-            Player.lockTimer = 0.25f;
+            Player.lockTimer = 0.12f;
 
         }
     }

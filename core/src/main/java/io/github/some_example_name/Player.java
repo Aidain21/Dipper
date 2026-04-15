@@ -150,13 +150,13 @@ public class Player {
             pSprite.setScale(lockTimer-0.5f);
         }
         if (playerSliding && (lockTimer) > 0) {
-            pSprite.setPosition((pos.x + facing.x * distance * 4) * 32, (pos.y + facing.y * distance * 4) * 32);
+            pSprite.setPosition((pos.x + facing.x * distance * 8) * 32, (pos.y + facing.y * distance * 8) * 32);
         }
         if(inMap)
             return;
 
         if (lockTimer <= 0) {
-            if (playerFalling) pos = new Vector2Int(originalX, originalY);
+            if (playerFalling) pos = new Vector2Int(curLevel.getSpawnRow(), curLevel.getSpawnCol());
             playerLock = false;
             playerFalling = false;
             if (playerSliding) {
