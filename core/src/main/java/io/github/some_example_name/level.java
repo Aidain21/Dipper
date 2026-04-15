@@ -23,7 +23,7 @@ public class level extends ApplicationAdapter {
         filledIn=true;
     }
 
-    public level(int r, int c, int spawnR, int spawnC){
+    public level(int r, int c, int spawnR, int spawnC) {
         rowCount=r;
         colCount=c;
         spawnRow=spawnR;
