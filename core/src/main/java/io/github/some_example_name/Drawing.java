@@ -115,10 +115,10 @@ public class Drawing {
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((720-mouseY - 15) / 32.0f);
         if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
-            TextBox.text[0] = "fill: " + workingLevel.level1[rY][rX].getTileString();
-            TextBox.text[1] = "rot: " + workingLevel.level1[rY][rX].getRotation();
-            TextBox.text[2] = "x y: " + workingLevel.level1[rY][rX].getData().x
-                + " " + workingLevel.level1[rY][rX].getData().y;
+            TextBox.updateTextBox("Fill: " + workingLevel.level1[rY][rX].getTileString(),0);
+            TextBox.updateTextBox("Rotation: " + workingLevel.level1[rY][rX].getRotation(),1);
+            TextBox.updateTextBox("X,Y: " + workingLevel.level1[rY][rX].getData().x
+                + "," + workingLevel.level1[rY][rX].getData().y,2);
         }
 
 

@@ -241,8 +241,6 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        //TextBox.text[0] = mouseX + " " + mouseY;
-        //Drawing.getTileData(mouseX,mouseY);
         if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 Drawing.end(true);
@@ -277,6 +275,10 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
                 Drawing.rotateTile(mouseX,mouseY);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                Drawing.getTileData(mouseX,mouseY);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
