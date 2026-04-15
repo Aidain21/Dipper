@@ -13,6 +13,7 @@ public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static level levelX = new level(1,1,true);
     public static level levelHello = new level(1,1,true);
+    public static level iceLevel = new level(8,12,true);
     //public static int buttonCount3 = 0;
     //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static level alexlevel1 = new level(1,5,true);
@@ -70,6 +71,11 @@ public class LevelTemplates {
         createObjects(alexlevel1);
         map.addName(alexlevel1);
         map.levelMap[1][2] = alexlevel1;
+
+        iceLevel = loadJson("SamLevel1.json");
+        createObjects(iceLevel);
+        map.addName(iceLevel);
+        map.levelMap[3][3] = iceLevel;
 
         levelHello = loadJson("HELLO2.json");
         createObjects(levelHello);
