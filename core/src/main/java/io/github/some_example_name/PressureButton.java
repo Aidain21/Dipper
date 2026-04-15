@@ -15,12 +15,12 @@ public class PressureButton extends TileFills{
     public void press() {
         this.pressed = true;
         this.sprite.setAlpha(0);
-        TextBox.text[1] = "Pressure Button is Pressed!!!";
+        TextBox.updateTextBox("Pressure Button is Pressed!!!", 1);
     }
     public void unpress() {
         this.sprite.setAlpha(1);
         this.pressed = false;
-        TextBox.text[1] = "Pressure Button no longer Presseed.";
+        TextBox.updateTextBox("Pressure Button no longer Pressed.", 1);
     }
     //public boolean isPressed() {return this.pressed;}
 }

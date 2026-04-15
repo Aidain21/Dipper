@@ -21,10 +21,10 @@ public class ColorButton extends TileFills {
         pressed = !pressed;
         //if (pressed) {
             switch (this.fill) {
-                case "rB": TextBox.text[1] = "RED Button!!"; break;
-                case "gB": TextBox.text[1] = "GREEN Button!!"; break;
-                case "bB": TextBox.text[1] = "BLUE Button!!"; break;
-                case "yB": TextBox.text[1] = "YELLOW Button!!"; break;
+                case "rB": TextBox.updateTextBox("RED Button!!", 1); break;
+                case "gB": TextBox.updateTextBox("GREEN Button!!", 1); break;
+                case "bB":  TextBox.updateTextBox("BLUE Button!!", 1); break;
+                case "yB": TextBox.updateTextBox("YELLOW Button!!", 1); break;
                 default: break;
             }
         //}

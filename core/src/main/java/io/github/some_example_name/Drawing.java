@@ -48,11 +48,11 @@ public class Drawing {
             currentFile = "temp.json";
             workingLevel = Main.currentLevel;
         }
-        TextBox.textRight[0] = "Editing level: " + currentFile;
+        TextBox.updateTextBox("Editing level: " + currentFile,3);
         LevelTemplates.createObjects(workingLevel);
         curTile = Tile.wall;
-        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
-        TextBox.textRight[2] = "Tile Num: " + tileNum;
+        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
+        TextBox.updateTextBox("Tile Num: " + tileNum,5);
 
     }
 
@@ -63,6 +63,7 @@ public class Drawing {
         if (!currentFile.equals("null.json")) {
             saveAsArtJson(workingLevel, currentFile);
         }
+        TextBox.clearText();
         drawing = false;
     }
 
@@ -91,8 +92,8 @@ public class Drawing {
             }
         }
         placingPortal = false;
-        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
-        TextBox.textRight[2] = "Tile Num: " + tileNum;
+        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
+        TextBox.updateTextBox("Tile Num: " + tileNum,5);
     }
 
     public static void endPlaceOutPortal(int mouseX, int mouseY) {
@@ -104,8 +105,8 @@ public class Drawing {
         }
         placingOutPortal = false;
         Main.fullMap = false;
-        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
-        TextBox.textRight[2] = "Tile Num: " + tileNum;
+        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
+        TextBox.updateTextBox("Tile Num: " + tileNum,5);
     }
 
 
@@ -161,8 +162,8 @@ public class Drawing {
         tileNum = iterateArray(tileNum,change,Tile.drawTileArray.length);
 
 
-        TextBox.textRight[1] = "Current Tile: " + curTile.getTileString();
-        TextBox.textRight[2] = "Tile Num: " + tileNum;
+        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
+        TextBox.updateTextBox("Tile Num: " + tileNum,5);
 
     }
 

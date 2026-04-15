@@ -13,7 +13,7 @@ public class Button extends TileFills {
         pressed = !pressed;
         if (pressed) texture = LevelDraw.buttonPressTx;
         else texture = LevelDraw.buttonTx;
-        TextBox.text[1] = "I PRESSED a button!";
+        TextBox.updateTextBox("I PRESSED a button!", 1);
     }
     public boolean isPressed() {return pressed;}
     public void lock() {lock = true;}

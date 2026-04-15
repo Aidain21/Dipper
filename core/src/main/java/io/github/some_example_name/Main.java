@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.awt.*;
 import java.util.Objects;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -34,6 +35,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         Tile.startTile();
+        textBox = new TextBox();
         player = new Player();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
@@ -122,7 +124,7 @@ public class Main extends ApplicationAdapter {
 
         bow = new Bow();
         log = new LevelLogic();
-        textBox = new TextBox();
+        //TextBox.clearText();
         inputTimer = 0f;
 
         Gdx.input.setInputProcessor(null);
@@ -240,7 +242,7 @@ public class Main extends ApplicationAdapter {
         int mouseY = Gdx.input.getY();
 
         //TextBox.text[0] = mouseX + " " + mouseY;
-        Drawing.getTileData(mouseX,mouseY);
+        //Drawing.getTileData(mouseX,mouseY);
         if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 Drawing.end(true);
@@ -282,8 +284,8 @@ public class Main extends ApplicationAdapter {
             }
         }
         else if (Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap){
-            TextBox.textRight[1] = "Placing portal end";
-            TextBox.textRight[2] = "Two Way: " + Drawing.twoWay;
+            TextBox.updateTextBox("Placing portal end",4);
+            TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 Drawing.endPlacePortal(mouseX,mouseY);
@@ -298,8 +300,7 @@ public class Main extends ApplicationAdapter {
 
         }
         else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
-            TextBox.textRight[1] = "Placing level portal";
-            //TextBox.textRight[2] = "Two Way: " + Drawing.twoWay;
+            TextBox.updateTextBox("Placing level portal",4);
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 Drawing.endPlaceOutPortal(mouseX,mouseY);
@@ -345,7 +346,7 @@ public class Main extends ApplicationAdapter {
         }
 
          */
-        TextBox.levelName[0] = currentLevel.name;
+        TextBox.updateTextBox(currentLevel.name, 6);
         return new Vector2Int(currentLevel.getSpawnRow(), currentLevel.getSpawnCol());
     }
 

@@ -35,6 +35,7 @@ public class Player {
         facing = new Vector2Int(1,0);
         pSprite = new Sprite(LevelDraw.characterFront);
         pSprite.setOrigin(pSprite.getWidth() / 2, pSprite.getHeight() / 2);
+        TextBox.updateTextBox("Health: " + playerHealth,5);
     }
 
     //moves player based on direction inputted and current level
@@ -97,36 +98,37 @@ public class Player {
         switch (curLevel.level1[look.y][look.x].getTileString()) {
             case "button":
                 ((Button) curLevel.getLevel()[look.y][look.x]).press();
-                TextBox.text[0] = "I see a button!";
+                TextBox.updateTextBox("I see a button!",0);
                 break;
             case " ":
             case "floor": break;
-            case "wall": TextBox.text[0] = "I see a wall! It's solid like a rock."; break;
-            case "portal": TextBox.text[0] = "I see a level transition! It's a swirly magic portal."; break;
-            case "box": TextBox.text[0] = "I see a block! I probably just pushed it.";
+            case "wall": TextBox.updateTextBox("I see a wall! It's solid like a rock.",0); break;
+            case "portal": TextBox.updateTextBox("I see a level transition! It's a swirly magic portal.",0); break;
+            case "box": TextBox.updateTextBox("I see a block! I probably just pushed it.",0);
                 ((Box) curLevel.getLevel()[look.y][look.x]).tryPush(look.x, look.y, facing.x, facing.y, curLevel);
                 break;
-            case "lever": TextBox.text[0] = "I see a lever! It probably added something new!";
+            case "lever": TextBox.updateTextBox("I see a lever! It probably added something new!",0);
                 ((Lever) curLevel.getLevel()[look.y][look.x]).onFlip(2,2,curLevel);
                 break;
-            case "bouncy": TextBox.text[0] = "A Bouncy Wall! Maybe this could deflect something!"; break;
+            case "bouncy": TextBox.updateTextBox("A Bouncy Wall! Maybe this could deflect something!",0); break;
             case "rB":
             case "gB":
             case "bB":
-            case "yB": TextBox.text[0] = "A Colored Button! It must be linked to something!"; break;
+            case "yB": TextBox.updateTextBox("A Colored Button! It must be linked to something!",0); break;
             case "rGate":
             case "gGate":
             case "bGate":
-            case "yGate": TextBox.text[0] = "A Colored Gate! It must be linked to something!"; break;
-            case "pressureButton": TextBox.text[0] = "A Pressure Button! I need something heavy!"; break;
-            case "spikes": TextBox.text[0] = "Spikes!! I shouldn't touch them."; break;
-            case "void": TextBox.text[0] = "... I shouldn't fall in there."; break;
+            case "yGate": TextBox.updateTextBox("A Colored Gate! It must be linked to something!",0); break;
+            case "pressureButton": TextBox.updateTextBox("A Pressure Button! I need something heavy!",0); break;
+            case "spikes": TextBox.updateTextBox("Spikes!! I shouldn't touch them.",0); break;
+            case "void": TextBox.updateTextBox("... I shouldn't fall in there.",0); break;
             default: break;
         }
     }
 
     public static void dealDamage(float damage) {
         playerHealth -= damage;
+        TextBox.updateTextBox("Health: " + playerHealth,5);
         if (playerHealth <= 0) alive = false;
     }
     public boolean isAlive() {return alive;}
@@ -134,11 +136,10 @@ public class Player {
     public void playerLogic() {
         if (!alive) {
             TextBox.clearText();
-            TextBox.text[0] = "You Died!";
-            TextBox.text[1] = "Press 0 to restart.";
+            TextBox.updateTextBox("You Died!",0);
+            TextBox.updateTextBox("Press 0 to restart.", 1);
         }
-        TextBox.textRight[2] = ("Health: " + playerHealth);
-        TextBox.text[2] = pos.x + " " + pos.y + " " + pSprite.getX() + " " + pSprite.getY();
+        //TextBox.text[2] = pos.x + " " + pos.y + " " + pSprite.getX() + " " + pSprite.getY();
     }
 
     public void locked(level curLevel) {

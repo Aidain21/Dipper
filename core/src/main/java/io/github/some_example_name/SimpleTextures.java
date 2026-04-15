@@ -32,7 +32,7 @@ public class SimpleTextures extends TileFills{
         }
 
         public void slide() {
-            TextBox.textRight[0] = "every day im slidin";
+            TextBox.updateTextBox("every day im slidin", 1);
             Player.playerSliding = true;
             Player.playerLock = true;
             Player.lockTimer = 0.25f;
@@ -81,7 +81,7 @@ public class SimpleTextures extends TileFills{
             Player.playerLock = true;
             Player.lockTimer = 0.7f;
             Player.dealDamage(dataX);
-            TextBox.text[1] = "OOUCH";
+            TextBox.updateTextBox("OOUCH", 1);
         }
     }
 
@@ -94,7 +94,7 @@ public class SimpleTextures extends TileFills{
             canWalk = true;
         }
         public void fall(int x, int y) {
-            TextBox.text[1] = "AAAAaaa";
+            TextBox.updateTextBox("AAAAaaa", 1);
             Player.playerLock = true;
             Player.playerFalling = true;
             Player.lockTimer = 1.7f;

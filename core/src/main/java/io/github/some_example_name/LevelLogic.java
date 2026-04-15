@@ -26,12 +26,12 @@ public class LevelLogic extends LevelTemplates {
 
         // rotates when buttons pressed
         if (button1.isPressed() && !press1) {
-            TextBox.text[2] = "logic test";
+            //TextBox.text[2] = "logic test";
             //yButton.getSprite().rotate(90);
             press1 = button1.isPressed();
         }
         if (button2.isPressed() && !press2) {
-            TextBox.text[2] = "logic test 2";
+            //TextBox.text[2] = "logic test 2";
             //wall1.getSprite().rotate(90);
             press2 = button2.isPressed();
         }
@@ -45,7 +45,7 @@ public class LevelLogic extends LevelTemplates {
         }
         // reveals path if button combination is correct
         if (!bCombination && comboButton1.isPressed() && !comboButton2.isPressed() && comboButton3.isPressed()) {
-            TextBox.text[2] = "logic test 3";
+            //TextBox.text[2] = "logic test 3";
             bCombination = true;
             comboButton1.lock();
             comboButton2.lock();
