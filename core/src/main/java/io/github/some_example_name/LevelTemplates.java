@@ -13,7 +13,7 @@ public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static level levelX = new level(1,1,true);
     public static level levelHello = new level(1,1,true);
-    public static level iceLevel = new level(8,12,true);
+    public static level iceLevel = new level(20,40,8,12,true);
     //public static int buttonCount3 = 0;
     //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static level alexlevel1 = new level(1,5,true);
