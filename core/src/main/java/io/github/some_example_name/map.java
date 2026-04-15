@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 public class map {
 
-    level[][] levelMap;
+    static level[][] levelMap;
     int mapRows;
     int mapCols;
-    String[] adj={"happy","sad","tired","exciting","intense","hazy","sweltering","frigid"};
-    String[] noun={"cave","store","building","tower","dungeon","apartment"};
-    String[] verb={"dancing","running","sleeping","exploding","jumping","analyzing"};
+    static String[] adj={"happy","sad","tired","exciting","intense","hazy","sweltering","frigid"};
+    static String[] noun={"cave","store","building","tower","dungeon","apartment"};
+    static String[] verb={"dancing","running","sleeping","exploding","jumping","analyzing"};
 
     public map(int r, int c, int levelR, int levelC) {
         mapRows = r;
@@ -29,7 +29,7 @@ public class map {
         return levelMap;
     }
 
-    public void addName(level l){
+    public static void addName(level l){
         int a=(int) (Math.random()*((adj.length-1)+1));
         int n=(int) (Math.random()*((noun.length-1)+1));
         int v=(int) (Math.random()*((verb.length-1)+1));

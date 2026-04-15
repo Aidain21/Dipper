@@ -93,14 +93,12 @@ public class SimpleTextures extends TileFills{
             drawBackground = false;
             canWalk = true;
         }
-        public void fall(int x, int y) {
+        public void fall() {
             TextBox.updateTextBox("AAAAaaa", 1);
             Player.playerLock = true;
             Player.playerFalling = true;
             Player.lockTimer = 1.7f;
             Player.dealDamage(0.5f);
-            Player.originalX = x;
-            Player.originalY = y;
         }
     }
 

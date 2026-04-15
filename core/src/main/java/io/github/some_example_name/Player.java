@@ -75,7 +75,7 @@ public class Player {
                 case "portal": pos = curLevel.changeLevel((SimpleTextures.Portal) nextTile); return;
                 case "inportal": pos = ((SimpleTextures.InLevelPortal) nextTile).newPos(); return;
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
-                case "void": ((SimpleTextures.Void) nextTile).fall(pos.x, pos.y); break;
+                case "void": ((SimpleTextures.Void) nextTile).fall(); break;
                 case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(); return;
                 default: break;
             }
@@ -171,6 +171,7 @@ public class Player {
             curLevel.level1[pos.y + facing.y][pos.x + facing.x].canWalk) {
                 ((SimpleTextures.IceFloor) curLevel.level1[pos.y][pos.x]).slide();
             }
+            if (Objects.equals(curLevel.level1[pos.y][pos.x].fill, "void")) ((SimpleTextures.Void) curLevel.level1[pos.y][pos.x]).fall();
         }
     }
 
