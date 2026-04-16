@@ -131,6 +131,7 @@ public class Player {
         TextBox.updateTextBox("Health: " + playerHealth,5);
         if (playerHealth <= 0) alive = false;
     }
+
     public boolean isAlive() {return alive;}
 
     public void playerLogic() {
@@ -194,6 +195,14 @@ public class Player {
             pSprite.setPosition(pos.x * 32, pos.y *32);
         }
         pSprite.draw(batch);
+    }
+
+    public float getHealth() {
+        return playerHealth;
+    }
+
+    public void setHealth(float health) {
+        playerHealth = health;
     }
 }
 

@@ -86,11 +86,12 @@ public class Main extends ApplicationAdapter {
             resetGame();
         }
         //restarts current level if button is pressed
-        //currently only resets player not changes made to the level
-        //call loadjson to reset the json level
         if (pauseMenu.getRestartRoomStatus()) {
             pauseMenu.setRestartRoomStatus(false);
+            float hp = player.getHealth();
             player.playerRestart(currentLevel);
+            player.setHealth(hp);
+            player.dealDamage(0);
 
             if (!Objects.equals(currentLevel.filename, "")) {
                 currentLevel = LevelTemplates.loadJson(currentLevel.filename);
@@ -139,7 +140,10 @@ public class Main extends ApplicationAdapter {
 
     private void input() {
         if (!player.isAlive()) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) player.playerRestart(currentLevel);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+                player.playerRestart(currentLevel);
+                resetGame();
+            }
             return;
         }
 
