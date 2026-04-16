@@ -47,9 +47,9 @@ public class Main extends ApplicationAdapter {
         resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
         resetButtonSkin = new Skin(Gdx.files.internal("ResetButton.json"));
         restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
-        viewport = new FitViewport(960, 720);
+        viewport = new FitViewport(1600, 1040);
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
-        Gdx.graphics.setWindowedMode(960, 720);
+        Gdx.graphics.setWindowedMode(1600, 1040);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         //moved level,player,bow,box, etc. to resetGame method to
@@ -128,7 +128,7 @@ public class Main extends ApplicationAdapter {
         inputTimer = 0f;
 
         Gdx.input.setInputProcessor(null);
-        Gdx.graphics.setWindowedMode(960, 720);
+        Gdx.graphics.setWindowedMode(1600, 1040);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Player {
 
-    public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {29,19}};
+    public final int[][] LEVEL_BOUNDS = new int[][] {{0,0}, {49,29}};
     public Vector2Int pos;
     public Vector2Int facing;
     public static Sprite pSprite;
