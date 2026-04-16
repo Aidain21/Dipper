@@ -15,10 +15,7 @@ public class LevelTemplates {
     public static level levelHello = new level(1,1,true);
     public static level iceLevel = new level(20,40,8,12,true);
     public static level iceEasy = new level(15,10,7,5,true);
-    //public static int buttonCount3 = 0;
-    //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static level alexlevel1 = new level(1,5,true);
-    public static ArrayList<ColorButton> colorButtons3 = new ArrayList<>();
     public static void addTemplatesToMap(map map) {
 
         // setup(level, map x, map y)
