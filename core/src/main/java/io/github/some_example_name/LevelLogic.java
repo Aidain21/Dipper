@@ -20,7 +20,6 @@ public class LevelLogic extends LevelTemplates {
         Button comboButton1 = (Button) level3.level1[13][5];
         Button comboButton2 = (Button) level3.level1[13][6];
         Button comboButton3 = (Button) level3.level1[13][7];
-        //ColorButton yButton = (ColorButton) level3.level1[2][17];
         //Button button2 = (Button) level3.level1[7][8];
         //SimpleTextures.BouncyWall wall1 = (SimpleTextures.BouncyWall) level3.level1[11][1];
 
@@ -53,9 +52,6 @@ public class LevelLogic extends LevelTemplates {
         }
         if (!bCombination) return;
         wallTimer += Gdx.graphics.getDeltaTime();
-        System.out.print(" " + LevelTemplates.colorGates.get(2).get(0));
-        ((SimpleTextures.ColorGate) LevelTemplates.colorGates.get(2).get(0)).texture = LevelDraw.bButtonTx;
-        ((SimpleTextures.ColorGate) level3.level1[17][20]).open();
         if (wallTimer >= 0.6f) {
             int i = 16 + step;
             if (i <= 19) {
@@ -66,42 +62,41 @@ public class LevelLogic extends LevelTemplates {
         }
     }
     public void ColorGateLogic(level curLevel) {
-        //SimpleTextures.ColorGate gGate = (SimpleTextures.ColorGate) level3.level1[17][20];
-        //SimpleTextures.ColorGate rGate = (SimpleTextures.ColorGate) level3.level1[17][26];
-        //SimpleTextures.ColorGate bGate = (SimpleTextures.ColorGate) level3.level1[17][25];
-        //SimpleTextures.ColorGate yGate = (SimpleTextures.ColorGate) level3.level1[17][21];
         boolean redButtonsPressed = true;
         boolean greenButtonsPressed = true;
-        //if (greenButtonsPressed) TextBox.updateTextBox("true " + LevelTemplates.colorGates.get(0).get(0), 2);
         boolean blueButtonsPressed = true;
         boolean yellowButtonsPressed = true;
-        //curLevel.gates.get(3).open();
         for (int i = 0; i < curLevel.level1.length; i ++) {
             for (int j = 0; j < curLevel.level1[0].length; j++) {
-                //ColorButton button = LevelTemplates.colorButtons.get(i).get(j);
                 TileFills tile = curLevel.level1[i][j];
-                if (tile.getTileString().equals("rB")&& !((ColorButton) tile).isPressed()) redButtonsPressed=false;
-                if (tile.getTileString().equals("gB")&& !((ColorButton) tile).isPressed()) greenButtonsPressed=false;
-                // if (button.getTileString().equals("rB") && !button.isPressed()) {
-                //     redButtonsPressed = false;
-                // }
-                // if (button.getTileString().equals("gB") && !button.isPressed()) {
-                //     greenButtonsPressed = false;
-                //     TextBox.updateTextBox("false", 2);
-                // }
-                // if (button.getTileString().equals("bB") && !button.isPressed()) {
-                //     blueButtonsPressed = false;
-                // }
-                // if (button.getTileString().equals("yB") && !button.isPressed()) {
-                //     yellowButtonsPressed = false;
-                // }
+                switch (tile.getTileString()) {
+                    case "rB": if (!((ColorButton) tile).isPressed()) redButtonsPressed = false; break;
+                    case "gB": if (!((ColorButton) tile).isPressed()) greenButtonsPressed = false; break;
+                    case "bB": if (!((ColorButton) tile).isPressed()) blueButtonsPressed = false; break;
+                    case "yB": if (!((ColorButton) tile).isPressed()) yellowButtonsPressed = false; break;
+                    default: break;
+                }
             }
-            
-            //if (blueButtonsPressed) bGate.open();
-            //if (yellowButtonsPressed) ((SimpleTextures.ColorGate) LevelTemplates.colorGates.get(0).get(0)).texture = LevelDraw.backgroundTexture;
         }
-        if (redButtonsPressed) ((SimpleTextures.ColorGate) level3.level1[17][20]).open();//LevelTemplates.colorGates.get(2).get(7)).open();
-            if (greenButtonsPressed) TextBox.updateTextBox("true", 2);
+        for (int x = 0; x < curLevel.level1.length; x++) {
+            for (int y = 0; y < curLevel.level1[0].length; y++) {
+                TileFills tile = curLevel.level1[x][y];
+                switch (tile.getTileString()) {
+                    case "rGate": if (redButtonsPressed) ((SimpleTextures.ColorGate) tile).open();
+                        else ((SimpleTextures.ColorGate) tile).setColor();
+                        break;
+                    case "gGate": if (greenButtonsPressed) ((SimpleTextures.ColorGate) tile).open();
+                        else ((SimpleTextures.ColorGate) tile).setColor();
+                        break;
+                    case "bGate": if (blueButtonsPressed) ((SimpleTextures.ColorGate) tile).open();
+                        else ((SimpleTextures.ColorGate) tile).setColor();
+                        break;
+                    case "yGate": if (yellowButtonsPressed) ((SimpleTextures.ColorGate) tile).open();
+                        else ((SimpleTextures.ColorGate) tile).setColor();
+                        break;
+                    default: break;
+                }
+            }
+        }
     }
-        
 }

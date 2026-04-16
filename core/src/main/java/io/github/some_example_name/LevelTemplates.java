@@ -15,10 +15,6 @@ public class LevelTemplates {
     public static level levelHello = new level(1,1,true);
     public static level iceLevel = new level(20,40,8,12,true);
     public static level alexlevel1 = new level(1,5,true);
-    public static ArrayList<ArrayList<ColorButton>> colorButtons = new ArrayList<>();
-    public static ArrayList<ArrayList<SimpleTextures.ColorGate>> colorGates = new ArrayList<>();
-    //public static int buttonCount3 = 0;
-    //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static void addTemplatesToMap(map map) {
 
         TileFills w = Tile.wall;
@@ -109,27 +105,8 @@ public class LevelTemplates {
 
     public static void setup(level level, int x, int y) {
         createObjects(level);
-        createColorObjects(level);
         map.addName(level);
         map.levelMap[x][y] = level;
-    }
-
-    public static void createColorObjects(level level) {
-        ArrayList<ColorButton> buttons = new ArrayList<>();
-        //ArrayList<SimpleTextures.ColorGate> gates = new ArrayList<>();
-        for (int i = 0; i < level.level1.length; i++) {
-            for (int j = 0; j < level.level1[0].length; j++) {
-                TileFills tile = level.level1[i][j];
-                if (tile.getTileString().equals("rB") || tile.getTileString().equals("gB") || tile.getTileString().equals("bB") || tile.getTileString().equals("yB")) {
-                    buttons.add((ColorButton) tile);
-                }
-                if (tile.getTileString().equals("rGate") || tile.getTileString().equals("gGate") || tile.getTileString().equals("bGate") || tile.getTileString().equals("yGate")) {
-                    //level.gates.add((SimpleTextures.ColorGate) tile);
-                }
-            }
-        }
-        colorButtons.add(buttons);
-        //colorGates.add(gates);
     }
 
     public static level loadJson(String fileName) {
