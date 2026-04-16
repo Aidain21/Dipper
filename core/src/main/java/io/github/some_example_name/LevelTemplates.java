@@ -13,7 +13,8 @@ public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static level levelX = new level(1,1,true);
     public static level levelHello = new level(1,1,true);
-    public static level iceLevel = new level(8,12,true);
+    public static level iceLevel = new level(20,40,8,12,true);
+    public static level iceEasy = new level(15,10,7,5,true);
     //public static int buttonCount3 = 0;
     //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static level alexlevel1 = new level(1,5,true);
@@ -49,38 +50,30 @@ public class LevelTemplates {
         };
 
          //*/
-        //levelX = new level(5,5,5,5,true);
+        levelX = new level(15,15,5,5,true);
 
+
+        // setup(level, map x, map y)
         level level1 = loadJson("level1.json");
-        createObjects(level1);
-        map.addName(level1);
-        map.levelMap[0][0] = level1;
-
+        setup(level1, 0, 0);
 
         level level2 = loadJson("level2.json");
-        createObjects(level2);
-        map.addName(level2);
-        map.levelMap[1][0] = level2;
+        setup(level2, 1, 0);
+
+        iceEasy = loadJson("iceEasy.json");
+        setup(iceEasy, 3,2);
 
         level3 = loadJson("level3.json");
-        createObjects(level3);
-        map.addName(level3);
-        map.levelMap[1][1] = level3;
+        setup(level3, 1, 1);
 
         alexlevel1 = loadJson("alexlevel.json");
-        createObjects(alexlevel1);
-        map.addName(alexlevel1);
-        map.levelMap[1][2] = alexlevel1;
+        setup(alexlevel1, 1, 2);
 
         iceLevel = loadJson("SamLevel1.json");
-        createObjects(iceLevel);
-        map.addName(iceLevel);
-        map.levelMap[3][3] = iceLevel;
+        setup(iceLevel, 3, 3);
 
         levelHello = loadJson("HELLO2.json");
-        createObjects(levelHello);
-        map.addName(levelHello);
-        map.levelMap[0][3] = levelHello;
+        setup(levelHello, 0, 3);
     }
 
     //works for portal, inportal, and pressureButton
@@ -115,6 +108,12 @@ public class LevelTemplates {
 
             }
         }
+    }
+
+    public static void setup(level level, int x, int y) {
+        createObjects(level);
+        map.addName(level);
+        map.levelMap[x][y] = level;
     }
 
     public static level loadJson(String fileName) {
