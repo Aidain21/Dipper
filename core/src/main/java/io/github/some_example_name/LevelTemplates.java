@@ -14,6 +14,7 @@ public class LevelTemplates {
     public static level levelX = new level(1,1,true);
     public static level levelHello = new level(1,1,true);
     public static level iceLevel = new level(20,40,8,12,true);
+    public static level iceEasy = new level(15,10,7,5,true);
     //public static int buttonCount3 = 0;
     //public static ColorButton[] colorButtonList3 = new ColorButton[24];
     public static level alexlevel1 = new level(1,5,true);
@@ -49,7 +50,7 @@ public class LevelTemplates {
         };
 
          //*/
-        //levelX = new level(5,5,5,5,true);
+        levelX = new level(15,15,5,5,true);
 
 
         // setup(level, map x, map y)
@@ -58,6 +59,9 @@ public class LevelTemplates {
 
         level level2 = loadJson("level2.json");
         setup(level2, 1, 0);
+
+        iceEasy = loadJson("iceEasy.json");
+        setup(iceEasy, 3,2);
 
         level3 = loadJson("level3.json");
         setup(level3, 1, 1);
