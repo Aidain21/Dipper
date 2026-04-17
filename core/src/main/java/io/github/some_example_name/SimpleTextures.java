@@ -122,6 +122,9 @@ public class SimpleTextures extends TileFills{
             setColor();
         }
         public void setColor() {
+            this.open = false;
+            this.canWalk = false;
+            this.drawBackground = false;
             switch(fill) {
                 case "rGate": texture = LevelDraw.redGateTx; break;
                 case "gGate": texture = LevelDraw.greenGateTx; break;
