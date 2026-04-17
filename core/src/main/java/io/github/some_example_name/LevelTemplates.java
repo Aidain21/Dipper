@@ -16,6 +16,8 @@ public class LevelTemplates {
     public static level iceLevel = new level(20,40,8,12,true);
     public static level iceEasy = new level(15,10,7,5,true);
     public static level alexlevel1 = new level(1,5,true);
+    public static level gatesBig = new level(3,5,true);
+    public static level levelSelect = new level(3, 5, true);
     public static void addTemplatesToMap(map map) {
 
         // setup(level, map x, map y)
@@ -39,6 +41,12 @@ public class LevelTemplates {
 
         iceLevel = loadJson("SamLevel1.json");
         setup(iceLevel, 3, 3);
+
+        gatesBig = loadJson("gatesBig.json");
+        setup(gatesBig, 4, 2);
+
+        levelSelect = loadJson("levelSelect.json");
+        setup(levelSelect, 5, 1);
 
         levelHello = loadJson("HELLO2.json");
         setup(levelHello, 0, 3);

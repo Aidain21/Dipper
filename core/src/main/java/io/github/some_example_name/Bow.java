@@ -58,7 +58,9 @@ public class Bow {
             boolean arrowRicochet = shouldRicochet(pos, (int) arrow.getRotation(), wall);
             boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal")
                 && !pos.equals("button") && !pos.equals("pressureButton") && !pos.equals("void") && !pos.equals("iceFloor")
-                && !((pos.equals("rGate")||pos.equals("bGate")||pos.equals("gGate")||pos.equals("yGate")) && ((SimpleTextures.ColorGate) tile).open));
+                && !((pos.equals("rGate")||pos.equals("bGate")||pos.equals("gGate")||pos.equals("yGate"))
+                && ((SimpleTextures.ColorGate) tile).open));
+            if (pos.equals("box") && !tile.movable) arrowStop = false;
             TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
             if (f instanceof ColorButton && !hasPressed.get(i)) {
                 ((ColorButton) f).press();
