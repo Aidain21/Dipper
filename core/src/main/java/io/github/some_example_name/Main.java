@@ -28,6 +28,7 @@ public class Main extends ApplicationAdapter {
     Viewport viewport;
     LevelLogic log;
     private PauseMenuUI pauseMenu;
+    private EditorMenu editorMenu;
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
@@ -44,14 +45,23 @@ public class Main extends ApplicationAdapter {
         templevel.changeTile(3,2,"portal",1,1);
         templevel.changeTile(5,5,"portal",0,0);
         templevel.changeTile( 4,4,"bouncy", 180f);
+
+        //buttons for pause menu
         resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
         resetButtonSkin = new Skin(Gdx.files.internal("ResetButton.json"));
         restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
+
+        //buttons for level editor pause menu
+        saveSkin = new Skin();
+        saveAsSkin = new Skin();
+        exitWithoutSaving = new Skin();
+
         viewport = new FitViewport(1600, 1040);
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
+        editorMenu = new EditorMenu(); //pass in the skin
         Gdx.graphics.setWindowedMode(1600, 1040);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+        editorMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         //moved level,player,bow,box, etc. to resetGame method to
         // be able to get the restart game to work
         resetGame();
@@ -63,13 +73,17 @@ public class Main extends ApplicationAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        //Button for pause menu
+        //Button for pause menus
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            if (pauseMenu.isVisible()) {
+            if (Drawing.drawing) {
+                editorMenu.show();
+                Gdx.input.setInputProcessor(editorMenu.getStage());
+            }
+            else if (pauseMenu.isVisible()) {
                 pauseMenu.hide();
                 Gdx.input.setInputProcessor(null);
             }
-            else {
+            else if (!Drawing.drawing) {
                 pauseMenu.show();
                 Gdx.input.setInputProcessor(pauseMenu.getStage());
             }
