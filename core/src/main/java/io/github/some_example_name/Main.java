@@ -78,7 +78,11 @@ public class Main extends ApplicationAdapter {
 
         //Button for pause menus
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            if (Drawing.drawing) {
+            if (editorMenu.isVisible()) {
+                editorMenu.hide();
+                Gdx.input.setInputProcessor(null);
+            }
+            else if (Drawing.drawing) {
                 editorMenu.show();
                 Gdx.input.setInputProcessor(editorMenu.getStage());
             }
@@ -102,6 +106,7 @@ public class Main extends ApplicationAdapter {
             pauseMenu.setRestartStatus(false);
             resetGame();
         }
+
         //restarts current level if button is pressed
         if (pauseMenu.getRestartRoomStatus()) {
             pauseMenu.setRestartRoomStatus(false);

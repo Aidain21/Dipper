@@ -34,7 +34,7 @@ public class EditorMenu {
         save.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                Drawing.end(false);
+                Drawing.end("Save");
                 hide();
             }
         });
@@ -42,7 +42,7 @@ public class EditorMenu {
         saveAs.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                Drawing.end(true);
+                Drawing.end("SaveAs");
                 hide();
             }
         });
@@ -50,6 +50,7 @@ public class EditorMenu {
         exitWithoutSaving.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
+                Drawing.end("NoSave");
                 hide();
             }
         });
