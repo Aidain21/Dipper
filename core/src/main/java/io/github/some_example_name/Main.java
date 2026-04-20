@@ -32,6 +32,9 @@ public class Main extends ApplicationAdapter {
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
+    private Skin saveSkin;
+    private Skin saveAsSkin;
+    private Skin exitWithoutSavingSkin;
 
     @Override
     public void create() {
@@ -52,13 +55,13 @@ public class Main extends ApplicationAdapter {
         restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
 
         //buttons for level editor pause menu
-        saveSkin = new Skin();
-        saveAsSkin = new Skin();
-        exitWithoutSaving = new Skin();
+        saveSkin = new Skin(Gdx.files.internal("save.json"));
+        saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
+        exitWithoutSavingSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
 
         viewport = new FitViewport(1600, 1040);
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
-        editorMenu = new EditorMenu(); //pass in the skin
+        editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin); //pass in the skin
         Gdx.graphics.setWindowedMode(1600, 1040);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         editorMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -83,7 +86,7 @@ public class Main extends ApplicationAdapter {
                 pauseMenu.hide();
                 Gdx.input.setInputProcessor(null);
             }
-            else if (!Drawing.drawing) {
+            else if (!editorMenu.isVisible()) {
                 pauseMenu.show();
                 Gdx.input.setInputProcessor(pauseMenu.getStage());
             }
@@ -129,6 +132,11 @@ public class Main extends ApplicationAdapter {
         if (pauseMenu.isVisible()) {
             pauseMenu.getStage().act(Gdx.graphics.getDeltaTime());
             pauseMenu.getStage().draw();
+        }
+
+        if (editorMenu.isVisible()) {
+            editorMenu.getStage().act(Gdx.graphics.getDeltaTime());
+            editorMenu.getStage().draw();
         }
     }
 
@@ -354,6 +362,7 @@ public class Main extends ApplicationAdapter {
         batch.dispose();
         image.dispose();
         pauseMenu.dispose();
+        editorMenu.dispose();
     }
 
     public static Vector2Int moveLevel(int x, int y){
