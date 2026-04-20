@@ -40,10 +40,14 @@ public class Drawing {
         if (!loadPlayerLevel) {
             currentFile = JOptionPane.showInputDialog("Load JSON file:") + ".json";
             if (currentFile.equals("null.json")) {
-                end(false);
+                end("NoSave");
                 return;
             }
             workingLevel = loadArtJson(currentFile);
+            if (workingLevel == null) {
+                end("NoSave");
+                return;
+            }
         }
         else {
             if (Main.currentLevel.filename != "") {
@@ -64,11 +68,11 @@ public class Drawing {
 
     }
 
-    public static void end(boolean saveAs) {
-        if (saveAs) {
+    public static void end(String saveStatus) {
+        if (Objects.equals(saveStatus, "SaveAs")) {
             currentFile = JOptionPane.showInputDialog("Save as:") + ".json";
         }
-        if (!currentFile.equals("null.json")) {
+        if (!Objects.equals(saveStatus, "NoSave")) {
             saveAsArtJson(workingLevel, currentFile);
         }
         TextBox.clearText();
@@ -197,10 +201,15 @@ public class Drawing {
         }
         catch (FileNotFoundException e) {
             try {
+                String width = JOptionPane.showInputDialog("Width (Max 50):");
+                int intWidth = isPosInteger(width) ? Integer.parseInt(width) : -1;
+                String height = JOptionPane.showInputDialog("Height (Max 30):");
+                int intHeight = isPosInteger(height) ? Integer.parseInt(height) : -1;
+                if (intWidth == -1 || intHeight == -1) {
+                    return null;
+                }
                 theFile.createNewFile();
-                int width = Integer.parseInt(JOptionPane.showInputDialog("Width (Max 30):"));
-                int height = Integer.parseInt(JOptionPane.showInputDialog("Height (Max 20):"));
-                level levelY = new level(width,height,5,5,true);
+                level levelY = new level(intWidth,intHeight,5,5,true);
                 saveAsArtJson(levelY, theFile.getName());
                 test = levelY;
             }
@@ -221,6 +230,16 @@ public class Drawing {
         }
         else {
             return start + change;
+        }
+    }
+
+    public static boolean isPosInteger(String str) {
+        if (str == null || str.isEmpty()) return false;
+        try {
+            int temp = Integer.parseInt(str);
+            return temp >= 0;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

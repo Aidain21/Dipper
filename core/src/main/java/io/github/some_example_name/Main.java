@@ -269,11 +269,15 @@ public class Main extends ApplicationAdapter {
 
         if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-                Drawing.end(true);
+                Drawing.end("SaveAs");
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-                Drawing.end(false);
+                Drawing.end("Save");
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
+                Drawing.end("NoSave");
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
