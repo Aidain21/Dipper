@@ -173,7 +173,9 @@ public class Player {
                 ((SimpleTextures.IceFloor) curLevel.level1[pos.y][pos.x]).slide();
             }
             if (Objects.equals(curLevel.level1[pos.y][pos.x].fill, "void")) ((SimpleTextures.Void) curLevel.level1[pos.y][pos.x]).fall();
-        }
+            if(curLevel.level1[pos.y][pos.x].getTileString().equals("inportal"))
+                pos = ((SimpleTextures.InLevelPortal) curLevel.level1[pos.y][pos.x]).newPos();
+            }
     }
 
     public void playerRestart(level curLevel) {
