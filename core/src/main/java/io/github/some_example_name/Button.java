@@ -3,6 +3,8 @@ package io.github.some_example_name;
 public class Button extends TileFills {
     boolean pressed = false;
     boolean lock = false;
+    public int posx = 0;
+    public int posy = 0;
     public Button() {
         fill = "button";
         texture = LevelDraw.buttonTx;
