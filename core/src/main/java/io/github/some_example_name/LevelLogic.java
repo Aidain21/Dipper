@@ -10,13 +10,18 @@ public class LevelLogic extends LevelTemplates {
     int step = 0;
     float wallTimer = 0f;
     TileFills tile = new TileFills();
+    float timer = 0.3f;
 
     public void logic(level curLevel) {
         level3logic();
         ColorGateLogic(curLevel);
     }
+
     public void level3logic() {
         //Button button1 = (Button) level3.level1[6][8];
+
+
+
         Button comboButton1 = (Button) level3.level1[13][5];
         Button comboButton2 = (Button) level3.level1[13][6];
         Button comboButton3 = (Button) level3.level1[13][7];
@@ -74,6 +79,14 @@ public class LevelLogic extends LevelTemplates {
                     case "gB": if (!((ColorButton) tile).isPressed()) greenButtonsPressed = false; break;
                     case "bB": if (!((ColorButton) tile).isPressed()) blueButtonsPressed = false; break;
                     case "yB": if (!((ColorButton) tile).isPressed()) yellowButtonsPressed = false; break;
+                    case "button": Button b = (Button) tile;
+                        if (b.isPressed()) {
+                            b.timer += Gdx.graphics.getDeltaTime();
+                            if (b.timer >= b.cooldown) {
+                                b.unpress();
+                                b.timer = 0;
+                            }
+                        } break;
                     default: break;
                 }
             }

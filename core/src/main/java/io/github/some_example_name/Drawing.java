@@ -22,6 +22,7 @@ public class Drawing {
     public static boolean drawing;
     public static boolean placingPortal;
     public static boolean placingOutPortal;
+    public static boolean placingButton;
     public static boolean twoWay;
     public static String currentFile;
     //public Vector2Int size;
@@ -30,6 +31,7 @@ public class Drawing {
     public static TileFills curTile;
     public static int tileNum = 0;
     public static Vector2Int portalEdit = new Vector2Int(0,0);
+    public static Vector2Int buttonEdit = new Vector2Int(0, 0);
     public static int screenHeight = 1040;
 
 
@@ -121,7 +123,23 @@ public class Drawing {
         TextBox.updateTextBox("Tile Num: " + tileNum,5);
     }
 
+    public static void startButton(int x, int y) {
+        placingButton = true;
+        buttonEdit = new Vector2Int(x, y);
+    }
 
+    public static void endButton(int mouseX, int mouseY) {
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
+        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            workingLevel.level1[buttonEdit.x][buttonEdit.y] =
+                new TileFills().CreateTileFills("button", rX, rY);
+            ((Button)workingLevel.level1[buttonEdit.x][buttonEdit.y]).setPos(rX, rY);
+        }
+        TextBox.updateTextBox("3 "+buttonEdit.x, 1);
+        TextBox.updateTextBox("4 "+buttonEdit.y, 2);
+        placingButton = false;
+    }
 
     public static void getTileData(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 15) / 32.0f);
@@ -151,8 +169,10 @@ public class Drawing {
                 if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "portal")) {
                     startPlacePortal(rY,rX,false);
                 }
+                if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "button")) {
+                    startButton(rY,rX);
+                }
             }
-
         }
     }
 

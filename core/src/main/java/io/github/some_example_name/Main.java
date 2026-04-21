@@ -245,7 +245,7 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap) {
+        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 Drawing.end("SaveAs");
             }
@@ -267,13 +267,15 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) &&
                 !Objects.equals(Drawing.curTile.getTileString(), "inportal") &&
-                !Objects.equals(Drawing.curTile.getTileString(), "portal")) {
+                !Objects.equals(Drawing.curTile.getTileString(), "portal") &&
+                !Objects.equals(Drawing.curTile.getTileString(), "button")) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &&
                 (Objects.equals(Drawing.curTile.getTileString(), "inportal") ||
-                Objects.equals(Drawing.curTile.getTileString(), "portal"))) {
+                Objects.equals(Drawing.curTile.getTileString(), "portal") ||
+                Objects.equals(Drawing.curTile.getTileString(), "button"))) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
@@ -307,7 +309,9 @@ public class Main extends ApplicationAdapter {
             if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                 Drawing.twoWay = !Drawing.twoWay;
             }
-
+        }
+        else if (Drawing.placingButton) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) Drawing.endButton(mouseX, mouseY);
         }
         else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
             TextBox.updateTextBox("Placing level portal",4);
@@ -321,8 +325,6 @@ public class Main extends ApplicationAdapter {
                 fullMap = !fullMap;
             }
         }
-
-
     }
 
     public void artLogic() {

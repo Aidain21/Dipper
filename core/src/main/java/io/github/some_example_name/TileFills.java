@@ -43,6 +43,7 @@ public class TileFills {
     //called when handed a name and 2 numbers, currently used for portals
     public TileFills CreateTileFills(String fill, int x, int y){
         switch (fill) {
+            case "button": return new Button(x, y);
             case "portal": return new SimpleTextures.Portal(x, y);
             case "inportal": return new SimpleTextures.InLevelPortal(x, y);
 
@@ -78,7 +79,6 @@ public class TileFills {
             case "iceFloor":
             case "wall":
             case "box":
-            case "button":
             case "void":
             case "rGate":
             case "gGate":
@@ -91,6 +91,7 @@ public class TileFills {
             case "bB":
             case "yB": return CreateTileFills(fill, rotation);
             case "portal":
+            case "button":
             case "inportal": return CreateTileFills(fill, dataX, dataY);
             case "spikes": return CreateTileFills(fill, dataX);
             default: return new TileFills();
