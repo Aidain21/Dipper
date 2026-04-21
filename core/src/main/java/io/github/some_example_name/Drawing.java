@@ -125,13 +125,15 @@ public class Drawing {
     }
 
     public static void endButton(int mouseX, int mouseY) {
-        int rx = Math.round((mouseX - 15)/64.0f);
-        int ry = Math.round((screenHeight - mouseY - 15)/64.0f);
-        if (rx > 0 && rx > 0 && ry < workingLevel.level1.length && rx < workingLevel.level1[0].length) {
-            workingLevel.level1[buttonEdit.x][buttonEdit.y] = new TileFills().CreateTileFills("button");
-            ((Button) workingLevel.level1[buttonEdit.x][buttonEdit.y]).posx = rx;
-            ((Button) workingLevel.level1[buttonEdit.x][buttonEdit.y]).posy = ry;
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
+        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            workingLevel.level1[buttonEdit.x][buttonEdit.y] =
+                new TileFills().CreateTileFills("button", rX, rY);
+            ((Button)workingLevel.level1[buttonEdit.x][buttonEdit.y]).setPos(rX, rY);
         }
+        TextBox.updateTextBox("3 "+buttonEdit.x, 1);
+        TextBox.updateTextBox("4 "+buttonEdit.y, 2);
         placingButton = false;
     }
 
@@ -167,7 +169,6 @@ public class Drawing {
                     startButton(rY,rX);
                 }
             }
-
         }
     }
 

@@ -245,7 +245,7 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap) {
+        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 Drawing.end(true);
             }
