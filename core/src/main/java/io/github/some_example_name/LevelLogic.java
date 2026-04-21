@@ -10,6 +10,7 @@ public class LevelLogic extends LevelTemplates {
     int step = 0;
     float wallTimer = 0f;
     TileFills tile = new TileFills();
+    float timer = 0.3f;
 
     public void logic(level curLevel) {
         level3logic();
@@ -62,6 +63,11 @@ public class LevelLogic extends LevelTemplates {
         }
     }
     public void ColorGateLogic(level curLevel) {
+        timer -= Gdx.graphics.getDeltaTime();
+        if (timer <=0) {
+            pressed = false;
+            timer = 0.3f;
+        }
         boolean redButtonsPressed = true;
         boolean greenButtonsPressed = true;
         boolean blueButtonsPressed = true;
