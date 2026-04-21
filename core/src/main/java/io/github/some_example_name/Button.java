@@ -5,7 +5,8 @@ import com.badlogic.gdx.Gdx;
 public class Button extends TileFills {
     boolean pressed = false;
     boolean lock = false;
-    private float timer = 0.3f;
+    public float timer = 0f;
+    public float cooldown = 0.37f;
     public Button() {
         fill = "button";
         texture = LevelDraw.buttonTx;
@@ -20,14 +21,16 @@ public class Button extends TileFills {
 
     public void press(level curLevel) {
         if (lock) return;
-        pressed = true;
+        if (pressed) return;
         texture = LevelDraw.buttonPressTx;
-        ((SimpleTextures.BouncyWall)curLevel.level1[dataY][dataX]).getSprite().rotate(270);
+        if (curLevel.level1[dataY][dataX] instanceof SimpleTextures.BouncyWall)
+            ((SimpleTextures.BouncyWall) curLevel.level1[dataY][dataX]).wallRotate(90);
         TextBox.updateTextBox("I PRESSED a button!", 1);
+        pressed = true;
     }
 
     public void unpress() {
-        pressed = false;
+        this.pressed = false;
         texture = LevelDraw.buttonTx;
     }
 
