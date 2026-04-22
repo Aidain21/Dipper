@@ -30,14 +30,15 @@ public class StartMenu {
 
         start.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                hide();
+            public void changed(ChangeEvent event, Actor actor) {
+                Main.instance.onStartGame();
             }
         });
 
         editor.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
+                Drawing.start(true);
                 hide();
             }
         });
