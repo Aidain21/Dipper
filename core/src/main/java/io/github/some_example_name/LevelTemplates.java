@@ -18,6 +18,7 @@ public class LevelTemplates {
     public static level iceEasy = new level(15,10,7,5,true);
     public static level alexlevel1 = new level(1,5,true);
     public static level alexlevel2 = new level(1,5,true);
+    public static level alexlevel3 = new level(1,5,true);
     public static level gatesBig = new level(3,5,true);
     public static level levelSelect = new level(3, 5, true);
     public static level asdf = new level(5,5,true);
@@ -74,6 +75,9 @@ public class LevelTemplates {
 
         alexlevel2 = loadJson("alexlevel2.json");
         setup(alexlevel2, 4, 0);
+
+        alexlevel3 = loadJson("alexlevel3.json");
+        setup(alexlevel3, 5, 0);
     }
 
     //works for portal, inportal, and pressureButton
