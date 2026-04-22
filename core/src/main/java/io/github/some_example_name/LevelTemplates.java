@@ -3,6 +3,7 @@ package io.github.some_example_name;
 import com.google.gson.*;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +20,21 @@ public class LevelTemplates {
     public static level gatesBig = new level(3,5,true);
     public static level levelSelect = new level(3, 5, true);
     public static void addTemplatesToMap(map map) {
+
+        /*
+        File dir = new File("levels");
+        File[] levels = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().endsWith(".txt");
+            }
+        });
+
+        for (int i = 0; i < 8; i++) {
+
+        }
+         */
+
+
 
         // setup(level, map x, map y)
         level level1 = loadJson("level1.json");
@@ -50,6 +66,8 @@ public class LevelTemplates {
 
         levelHello = loadJson("HELLO2.json");
         setup(levelHello, 0, 3);
+
+
     }
 
     //works for portal, inportal, and pressureButton
@@ -88,6 +106,7 @@ public class LevelTemplates {
 
     public static void setup(level level, int x, int y) {
         createObjects(level);
+        level.icon = level.icon.refill();
         map.addName(level);
         map.levelMap[x][y] = level;
     }
@@ -95,11 +114,14 @@ public class LevelTemplates {
     public static level loadJson(String fileName) {
         level test = new level(3,5,true);
         Gson gson = new Gson();
-        File theFile = new File(fileName);
+        File theFile = new File("levels/" + fileName);
         try {
             Scanner coolGuy = new Scanner(theFile);
             String jsonStuff = coolGuy.nextLine();
             test = gson.fromJson(jsonStuff, level.class);
+            if (test.icon == null) {
+                test.icon = Tile.floor;
+            }
         }
         catch (FileNotFoundException e) {
             System.out.println("An error occurred: File not found.");

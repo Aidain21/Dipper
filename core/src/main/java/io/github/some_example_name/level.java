@@ -12,6 +12,7 @@ public class level extends ApplicationAdapter {
     String name ="";
     boolean filledIn=false;
     String filename = "";
+    TileFills icon = Tile.floor;
 
     //generates new tiles
     TileFills generator = new TileFills();

@@ -289,6 +289,10 @@ public class Main extends ApplicationAdapter {
                 Drawing.getTileData(mouseX,mouseY);
             }
 
+            if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+                Drawing.workingLevel.icon = Drawing.curTile;
+            }
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
                 fullMap = !fullMap;
             }
@@ -332,6 +336,12 @@ public class Main extends ApplicationAdapter {
     public void artDraw() {
         if (!fullMap) {
             LevelDraw.drawLevel(batch,Drawing.workingLevel);
+            if (Drawing.curTile.getType().equals("texture")) batch.draw(Drawing.curTile.getTexture(),
+                Gdx.graphics.getWidth() -32, Gdx.graphics.getHeight() -32,32, 32);
+            else if (Drawing.curTile.getType().equals("sprite")) {
+                Drawing.curTile.getSprite().setPosition(Gdx.graphics.getWidth() -32, Gdx.graphics.getHeight() -32);
+                Drawing.curTile.getSprite().draw(batch);
+            }
         }
         else{
             MiniMap.drawMap(batch, levels, currentLevel, true);

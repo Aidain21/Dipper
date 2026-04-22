@@ -70,6 +70,7 @@ public class Drawing {
 
     public static void end(String saveStatus) {
         if (Objects.equals(saveStatus, "SaveAs")) {
+            //workingLevel.icon = curTile;
             currentFile = JOptionPane.showInputDialog("Save as:") + ".json";
         }
         if (!Objects.equals(saveStatus, "NoSave")) {
@@ -95,7 +96,7 @@ public class Drawing {
     public static void endPlacePortal(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
-        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+        if (rY > -1 && rX > -1 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
             workingLevel.level1[portalEdit.x][portalEdit.y] =
                 new TileFills().CreateTileFills("inportal", rX, rY);
             if (twoWay) {
@@ -111,7 +112,7 @@ public class Drawing {
     public static void endPlaceOutPortal(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 31) / 64.0f);
         int rY = Math.round((screenHeight - mouseY - 31) / 64.0f);
-        if (rY > 0 && rX > 0 && rY < Main.levels.mapRows && rX < Main.levels.mapCols) {
+        if (rY > -1 && rX > -1 && rY < Main.levels.mapRows && rX < Main.levels.mapCols) {
             workingLevel.level1[portalEdit.x][portalEdit.y] =
                 new TileFills().CreateTileFills("portal", rX, rY);
         }
@@ -126,8 +127,8 @@ public class Drawing {
     public static void getTileData(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
-        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
-            TextBox.updateTextBox("Fill: " + workingLevel.level1[rY][rX].getTileString(),0);
+        if (rY > -1 && rX > -1 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            TextBox.updateTextBox("Pos: " + rX + "," + rY,0);
             TextBox.updateTextBox("Rotation: " + workingLevel.level1[rY][rX].getRotation(),1);
             TextBox.updateTextBox("X,Y: " + workingLevel.level1[rY][rX].getData().x
                 + "," + workingLevel.level1[rY][rX].getData().y,2);
@@ -139,7 +140,7 @@ public class Drawing {
     public static void drawTile(int mouseX, int mouseY, boolean erase) {
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
-        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+        if (rY > -1 && rX > -1 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
             if (erase) {
                 workingLevel.level1[rY][rX] = new TileFills().CreateTileFills("floor");
             }
@@ -161,7 +162,7 @@ public class Drawing {
         float[] angles = new float[] {0f,90f,180f,270f};
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
-        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+        if (rY > -1 && rX > -1 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
             if (rotatable.contains(workingLevel.level1[rY][rX].getTileString())) {
                 workingLevel.level1[rY][rX] = new TileFills().CreateTileFills(workingLevel.level1[rY][rX].getTileString(),
                     angles[iterateArray(Math.round(workingLevel.level1[rY][rX].rotation/90),1,angles.length)]);
@@ -182,7 +183,7 @@ public class Drawing {
 
     public static void saveAsArtJson (level level, String fileName) {
         Gson guyThatDoesTheJson = new Gson();
-        try (FileWriter file = new FileWriter(fileName)) {
+        try (FileWriter file = new FileWriter("levels/" + fileName)) {
             file.write(guyThatDoesTheJson.toJson(level));
             //file.flush();
         } catch (IOException e) {
@@ -193,7 +194,7 @@ public class Drawing {
     public static level loadArtJson(String fileName) {
         level test = new level(3,5,true);
         Gson gson = new Gson();
-        File theFile = new File(fileName);
+        File theFile = new File("levels/" + fileName);
         try {
             Scanner coolGuy = new Scanner(theFile);
             String jsonStuff = coolGuy.nextLine();
