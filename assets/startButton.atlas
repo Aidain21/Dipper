@@ -1,0 +1,15 @@
+
+startButton.png
+size: 128, 128
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+startButton
+  rotate: false
+  xy: 1, 59
+  size: 100, 40
+  split: 6, 8, 4, 4
+  pad: 0, 0, 0, 0
+  orig: 100, 40
+  offset: 0, 0
+  index: -1

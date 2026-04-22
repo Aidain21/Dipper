@@ -27,38 +27,55 @@ public class Main extends ApplicationAdapter {
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
+    private StartMenu startMenu;
+    private Skin startSkin;
+    private Skin editorSkin;
     private PauseMenuUI pauseMenu;
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
+    private int createValue = 1; // this is used when to determine creating all the objects when the start menu is not
 
     @Override
     public void create() {
-        Tile.startTile();
-        textBox = new TextBox();
-        player = new Player();
-        batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
-        levels = new map(8,8,12,12);
-        level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,"portal",1,1);
-        templevel.changeTile(5,5,"portal",0,0);
-        templevel.changeTile( 4,4,"bouncy", 180f);
-        resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
-        resetButtonSkin = new Skin(Gdx.files.internal("ResetButton.json"));
-        restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
-        viewport = new FitViewport(1600, 1040);
-        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
-        Gdx.graphics.setWindowedMode(1600, 1040);
-        pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        //if (createValue % 2 != 0) {
+            startSkin = new Skin(Gdx.files.internal("startButton.json"));
+            editorSkin = new Skin(Gdx.files.internal("editorButton.json"));
+            startMenu = new StartMenu(startSkin, editorSkin);
+            createValue += startMenu.show();
+            Gdx.input.setInputProcessor(startMenu.getStage());
+        //}
 
-        //moved level,player,bow,box, etc. to resetGame method to
-        // be able to get the restart game to work
-        resetGame();
+        //if (!startMenu.isVisible())
+            Tile.startTile();
+            textBox = new TextBox();
+            player = new Player();
+            batch = new SpriteBatch();
+            image = new Texture("libgdx.png");
+            levels = new map(8,8,12,12);
+            level templevel=new level(8,8,1,1);
+            templevel.changeTile(3,2,"portal",1,1);
+            templevel.changeTile(5,5,"portal",0,0);
+            templevel.changeTile( 4,4,"bouncy", 180f);
+            resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
+            resetButtonSkin = new Skin(Gdx.files.internal("ResetButton.json"));
+            restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
+            viewport = new FitViewport(1600, 1040);
+            pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
+            Gdx.graphics.setWindowedMode(1600, 1040);
+            pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+            //moved level,player,bow,box, etc. to resetGame method to
+            // be able to get the restart game to work
+            resetGame();
     }
 
     @Override
     public void render() {
+        //if (createValue % 2 == 0) {
+        //    create();
+        //}
+
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
@@ -344,6 +361,7 @@ public class Main extends ApplicationAdapter {
         batch.dispose();
         image.dispose();
         pauseMenu.dispose();
+        startMenu.dispose();
     }
 
     public static Vector2Int moveLevel(int x, int y){
