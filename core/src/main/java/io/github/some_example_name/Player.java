@@ -31,6 +31,7 @@ public class Player {
 
 
     public Player() {
+        playerHealth = playerMaxHealth;
         pos = new Vector2Int(2,7);
         facing = new Vector2Int(1,0);
         pSprite = new Sprite(LevelDraw.characterFront);
