@@ -31,6 +31,7 @@ public class LevelDraw {
     public static Texture blueGateTx = new Texture("bGate.png");
     public static Texture yellowGateTx = new Texture("yGate.png");
     public static Texture openGateTx = new Texture("gateOpen.png");
+    public static Texture dipperBossTx = new Texture("dipperBossTx.png");
     public static TextureRegion characterFront = new TextureRegion(characterTx, 64, 0, 32, 64);
     public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 64);
     public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 64);
