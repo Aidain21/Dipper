@@ -35,6 +35,7 @@ public class Main extends ApplicationAdapter {
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
+    private Skin exitSkin;
     public static boolean gameStarted = false;
     public static Main instance;
     private Skin saveSkin;
@@ -70,7 +71,8 @@ public class Main extends ApplicationAdapter {
         resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
         resetButtonSkin  = new Skin(Gdx.files.internal("ResetButton.json"));
         restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
-        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin);
+        exitSkin = new Skin(Gdx.files.internal("exitButton.json"));
+        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
 
         //buttons for level editor pause menu
         saveSkin = new Skin(Gdx.files.internal("save.json"));
@@ -431,4 +433,3 @@ public class Main extends ApplicationAdapter {
     }
 
 }
-

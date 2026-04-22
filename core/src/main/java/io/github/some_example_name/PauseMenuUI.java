@@ -21,14 +21,16 @@ public class PauseMenuUI {
     private Skin resumeSkin;
     private Skin resetSkin;
     private Skin restartSkin;
+    private Skin exitSkin;
     private Boolean visible;
     private Boolean restartStatus;
     private Boolean restartRoomStatus;
 
-    public PauseMenuUI(Skin resumeSkin, Skin resetSkin, Skin restartSkin) {
+    public PauseMenuUI(Skin resumeSkin, Skin resetSkin, Skin restartSkin, Skin exitSkin) {
         this.resumeSkin = resumeSkin;
         this.resetSkin = resetSkin;
         this.restartSkin = restartSkin;
+        this.exitSkin = exitSkin;
         this.stage = new Stage(new FitViewport(960, 720));
         this.visible = false;
         this.restartStatus = false;
@@ -37,6 +39,7 @@ public class PauseMenuUI {
         Button resume = new Button(resumeSkin);
         Button restartRoom = new Button(resetSkin);
         Button restartGame = new Button(restartSkin);
+        Button exit = new Button(exitSkin);
 
         resume.addListener(new ChangeListener() {
             @Override
@@ -54,6 +57,14 @@ public class PauseMenuUI {
         });
 
         restartGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                setRestartStatus(true);
+                hide();
+            }
+        });
+
+        exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 setRestartStatus(true);
@@ -83,6 +94,7 @@ public class PauseMenuUI {
         table.add(resume).width(200).height(80).row();
         table.add(restartRoom).width(200).height(80).row();
         table.add(restartGame).width(200).height(80).row();
+        table.add(exit).width(200).height(80).row();
     }
 
     public void show() {
