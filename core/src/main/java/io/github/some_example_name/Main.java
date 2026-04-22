@@ -75,10 +75,8 @@ public class Main extends ApplicationAdapter {
         //buttons for level editor pause menu
         saveSkin = new Skin(Gdx.files.internal("save.json"));
         saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
-        exitWithoutSavingSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
+        exitWithoutSavingSkin = new Skin(Gdx.files.internal("exitEditor.json"));
 
-        viewport = new FitViewport(1600, 1040);
-        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
         editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin); //pass in the skin
         Gdx.graphics.setWindowedMode(1600, 1040);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -412,10 +410,10 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        image.dispose();
-        pauseMenu.dispose();
+        if (image != null) image.dispose();
+        if (pauseMenu != null) pauseMenu.dispose();
+        if (editorMenu != null) editorMenu.dispose();
         startMenu.dispose();
-        editorMenu.dispose();
     }
 
     public static Vector2Int moveLevel(int x, int y){
