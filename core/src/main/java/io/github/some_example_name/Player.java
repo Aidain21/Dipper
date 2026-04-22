@@ -81,7 +81,7 @@ public class Player {
             }
 
         }
-
+        //if (curLevel == LevelTemplates.finalBoss) DipperBoss.dipperMove(-end.x, end.y);
         //sets players position if nothing else was done to stop it.
         pos = new Vector2Int(end.x, end.y);
     }

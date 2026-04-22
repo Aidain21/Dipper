@@ -20,6 +20,7 @@ public class LevelTemplates {
     public static level gatesBig = new level(3,5,true);
     public static level levelSelect = new level(3, 5, true);
     public static level asdf = new level(5,5,true);
+    public static level finalBoss = new level(15,5,true);
     public static void addTemplatesToMap(map map) {
 
         // setup(level, map x, map y)
@@ -58,6 +59,9 @@ public class LevelTemplates {
 
         alexlevel2 = loadJson("alexlevel2.json");
         setup(alexlevel2, 4, 0);
+
+        finalBoss = loadJson("finalBoss.json");
+        setup(finalBoss, 6, 6);
     }
 
     //works for portal, inportal, and pressureButton

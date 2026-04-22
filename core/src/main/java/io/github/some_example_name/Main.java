@@ -23,6 +23,7 @@ public class Main extends ApplicationAdapter {
     static level currentLevel;
     public static map levels;
     static Bow bow;
+    static DipperBoss dip;
     public static boolean fullMap = false;
     public static TextBox textBox;
     Viewport viewport;
@@ -37,6 +38,7 @@ public class Main extends ApplicationAdapter {
         Tile.startTile();
         textBox = new TextBox();
         player = new Player();
+        dip = new DipperBoss();
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         levels = new map(8,8,12,12);
@@ -227,7 +229,8 @@ public class Main extends ApplicationAdapter {
     private void draw() {
         if(!fullMap) {
             LevelDraw.drawLevel(batch, currentLevel);
-            MiniMap.drawMap(batch, levels, currentLevel, false);
+            if(currentLevel != LevelTemplates.finalBoss)
+                MiniMap.drawMap(batch, levels, currentLevel, false);
 
             //the logo
             //batch.draw(image, 140, 210);
@@ -238,6 +241,7 @@ public class Main extends ApplicationAdapter {
         }
         else
             MiniMap.drawMap(batch, levels, currentLevel, true);
+        if (currentLevel == LevelTemplates.finalBoss) DipperBoss.drawDipper(batch);
     }
 
 
@@ -351,6 +355,7 @@ public class Main extends ApplicationAdapter {
     public static Vector2Int moveLevel(int x, int y){
 
         currentLevel=levels.getMap()[y][x];
+        //if (currentLevel == LevelTemplates.finalBoss) dip = new DipperBoss();
         /*
         if (!Objects.equals(currentLevel.filename, "")) {
             currentLevel = LevelTemplates.loadJson(currentLevel.filename);
