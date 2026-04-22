@@ -14,6 +14,7 @@ public class LevelLogic extends LevelTemplates {
 
     public void logic(level curLevel) {
         level3logic();
+        AlexLevel3Logic();
         ColorGateLogic(curLevel);
     }
 
@@ -64,6 +65,30 @@ public class LevelLogic extends LevelTemplates {
                 step++;
                 wallTimer = 0f;
             } else bCombination = false;
+        }
+    }
+
+    public void AlexLevel3Logic(){
+        PressureButton pb1= (PressureButton) alexlevel3.level1[18][2];
+        PressureButton pb2= (PressureButton) alexlevel3.level1[2][17];
+
+        if(pb1.pressed) {
+            alexlevel3.level1[18][4] = tile.CreateTileFills("floor");
+            alexlevel3.level1[17][4]=tile.CreateTileFills("floor");
+            alexlevel3.level1[16][4]=tile.CreateTileFills("floor");
+            alexlevel3.level1[15][4]=tile.CreateTileFills("floor");
+        }
+
+        if(pb2.pressed) {
+            alexlevel3.level1[1][16] = tile.CreateTileFills("floor");
+            alexlevel3.level1[1][15] = tile.CreateTileFills("floor");
+            alexlevel3.level1[1][14] = tile.CreateTileFills("floor");
+            alexlevel3.level1[2][16] = tile.CreateTileFills("floor");
+            alexlevel3.level1[2][15] = tile.CreateTileFills("floor");
+            alexlevel3.level1[2][14] = tile.CreateTileFills("floor");
+            alexlevel3.level1[3][16] = tile.CreateTileFills("floor");
+            alexlevel3.level1[3][15] = tile.CreateTileFills("floor");
+            alexlevel3.level1[3][14] = tile.CreateTileFills("floor");
         }
     }
     public void ColorGateLogic(level curLevel) {
