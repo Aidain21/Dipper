@@ -31,11 +31,15 @@ public class Main extends ApplicationAdapter {
     private Skin startSkin;
     private Skin editorSkin;
     private PauseMenuUI pauseMenu;
+    private EditorMenu editorMenu;
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
     public static boolean gameStarted = false;
     public static Main instance;
+    private Skin saveSkin;
+    private Skin saveAsSkin;
+    private Skin exitWithoutSavingSkin;
 
     @Override
     public void create() {
@@ -56,12 +60,32 @@ public class Main extends ApplicationAdapter {
         textBox = new TextBox();
         image = new Texture("libgdx.png");
 
+        levels = new map(8,8,12,12);
+        level templevel=new level(8,8,1,1);
+        templevel.changeTile(3,2,"portal",1,1);
+        templevel.changeTile(5,5,"portal",0,0);
+        templevel.changeTile( 4,4,"bouncy", 180f);
+
+        //buttons for pause menu
         resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
         resetButtonSkin  = new Skin(Gdx.files.internal("ResetButton.json"));
         restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin);
+
+        //buttons for level editor pause menu
+        saveSkin = new Skin(Gdx.files.internal("save.json"));
+        saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
+        exitWithoutSavingSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
+
+        viewport = new FitViewport(1600, 1040);
+        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin,restartButtonSkin);
+        editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin); //pass in the skin
+        Gdx.graphics.setWindowedMode(1600, 1040);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        editorMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        //moved level,player,bow,box, etc. to resetGame method to
+        // be able to get the restart game to work
         resetGame();
         Gdx.input.setInputProcessor(null);
     }
@@ -81,13 +105,21 @@ public class Main extends ApplicationAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        //Button for pause menu
+        //Button for pause menus
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            if (pauseMenu.isVisible()) {
+            if (editorMenu.isVisible()) {
+                editorMenu.hide();
+                Gdx.input.setInputProcessor(null);
+            }
+            else if (Drawing.drawing) {
+                editorMenu.show();
+                Gdx.input.setInputProcessor(editorMenu.getStage());
+            }
+            else if (pauseMenu.isVisible()) {
                 pauseMenu.hide();
                 Gdx.input.setInputProcessor(null);
             }
-            else {
+            else if (!editorMenu.isVisible()) {
                 pauseMenu.show();
                 Gdx.input.setInputProcessor(pauseMenu.getStage());
             }
@@ -103,6 +135,7 @@ public class Main extends ApplicationAdapter {
             pauseMenu.setRestartStatus(false);
             resetGame();
         }
+
         //restarts current level if button is pressed
         if (pauseMenu.getRestartRoomStatus()) {
             pauseMenu.setRestartRoomStatus(false);
@@ -133,6 +166,11 @@ public class Main extends ApplicationAdapter {
         if (pauseMenu.isVisible()) {
             pauseMenu.getStage().act(Gdx.graphics.getDeltaTime());
             pauseMenu.getStage().draw();
+        }
+
+        if (editorMenu.isVisible()) {
+            editorMenu.getStage().act(Gdx.graphics.getDeltaTime());
+            editorMenu.getStage().draw();
         }
     }
 
@@ -377,6 +415,7 @@ public class Main extends ApplicationAdapter {
         image.dispose();
         pauseMenu.dispose();
         startMenu.dispose();
+        editorMenu.dispose();
     }
 
     public static Vector2Int moveLevel(int x, int y){
