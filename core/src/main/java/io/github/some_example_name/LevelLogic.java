@@ -73,22 +73,22 @@ public class LevelLogic extends LevelTemplates {
         PressureButton pb2= (PressureButton) alexlevel3.level1[2][17];
 
         if(pb1.pressed) {
-            alexlevel3.level1[18][4] = tile.CreateTileFills("floor");
-            alexlevel3.level1[17][4]=tile.CreateTileFills("floor");
-            alexlevel3.level1[16][4]=tile.CreateTileFills("floor");
-            alexlevel3.level1[15][4]=tile.CreateTileFills("floor");
+            alexlevel3.level1[4][18]=Tile.floor.refill();//CreateTileFills("floor");
+            alexlevel3.level1[4][17]=Tile.floor.refill();
+            alexlevel3.level1[4][16]=Tile.floor.refill();
+            alexlevel3.level1[4][15]=Tile.floor.refill();
         }
 
         if(pb2.pressed) {
-            alexlevel3.level1[1][16] = tile.CreateTileFills("floor");
-            alexlevel3.level1[1][15] = tile.CreateTileFills("floor");
-            alexlevel3.level1[1][14] = tile.CreateTileFills("floor");
-            alexlevel3.level1[2][16] = tile.CreateTileFills("floor");
-            alexlevel3.level1[2][15] = tile.CreateTileFills("floor");
-            alexlevel3.level1[2][14] = tile.CreateTileFills("floor");
-            alexlevel3.level1[3][16] = tile.CreateTileFills("floor");
-            alexlevel3.level1[3][15] = tile.CreateTileFills("floor");
-            alexlevel3.level1[3][14] = tile.CreateTileFills("floor");
+            alexlevel3.level1[16][1] = Tile.floor.refill();
+            alexlevel3.level1[15][1] = Tile.floor.refill();
+            alexlevel3.level1[14][1] = Tile.floor.refill();
+            alexlevel3.level1[16][2] = Tile.floor.refill();
+            alexlevel3.level1[15][2] = Tile.floor.refill();
+            alexlevel3.level1[14][2] = Tile.floor.refill();
+            alexlevel3.level1[16][3] = Tile.floor.refill();
+            alexlevel3.level1[15][3] = Tile.floor.refill();
+            alexlevel3.level1[14][3] = Tile.floor.refill();
         }
     }
     public void ColorGateLogic(level curLevel) {
