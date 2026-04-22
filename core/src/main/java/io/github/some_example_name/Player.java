@@ -97,7 +97,7 @@ public class Player {
         //You can use TextBox.text[0] = "string" to change the dialogue line
         switch (curLevel.level1[look.y][look.x].getTileString()) {
             case "button":
-                ((Button) curLevel.getLevel()[look.y][look.x]).press();
+                ((Button) curLevel.getLevel()[look.y][look.x]).press(curLevel);
                 TextBox.updateTextBox("I see a button!",0);
                 break;
             case " ":
@@ -173,7 +173,9 @@ public class Player {
                 ((SimpleTextures.IceFloor) curLevel.level1[pos.y][pos.x]).slide();
             }
             if (Objects.equals(curLevel.level1[pos.y][pos.x].fill, "void")) ((SimpleTextures.Void) curLevel.level1[pos.y][pos.x]).fall();
-        }
+            if(curLevel.level1[pos.y][pos.x].getTileString().equals("inportal"))
+                pos = ((SimpleTextures.InLevelPortal) curLevel.level1[pos.y][pos.x]).newPos();
+            }
     }
 
     public void playerRestart(level curLevel) {

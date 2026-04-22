@@ -110,6 +110,10 @@ public class SimpleTextures extends TileFills{
             rotation = r;
             sprite.setRotation(rotation);
         }
+        public void wallRotate(float r) {
+            this.rotation = (this.rotation+r)%360;
+            this.sprite.setRotation(this.rotation);
+        }
     }
 
     // Color Gate

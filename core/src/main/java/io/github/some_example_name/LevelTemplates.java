@@ -17,8 +17,10 @@ public class LevelTemplates {
     public static level iceLevel = new level(20,40,8,12,true);
     public static level iceEasy = new level(15,10,7,5,true);
     public static level alexlevel1 = new level(1,5,true);
+    public static level alexlevel2 = new level(1,5,true);
     public static level gatesBig = new level(3,5,true);
     public static level levelSelect = new level(3, 5, true);
+    public static level asdf = new level(5,5,true);
     public static void addTemplatesToMap(map map) {
 
         /*
@@ -46,6 +48,9 @@ public class LevelTemplates {
         level large = loadJson("largeEmpty.json");
         setup(large, 2, 2);
 
+        asdf = loadJson("asdf.json");
+        setup(asdf, 4, 1);
+
         iceEasy = loadJson("iceEasy.json");
         setup(iceEasy, 3,2);
 
@@ -67,7 +72,8 @@ public class LevelTemplates {
         levelHello = loadJson("HELLO2.json");
         setup(levelHello, 0, 3);
 
-
+        alexlevel2 = loadJson("alexlevel2.json");
+        setup(alexlevel2, 4, 0);
     }
 
     //works for portal, inportal, and pressureButton
