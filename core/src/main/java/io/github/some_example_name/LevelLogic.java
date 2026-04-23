@@ -21,12 +21,6 @@ public class LevelLogic extends LevelTemplates {
     public void level3logic() {
         //Button button1 = (Button) level3.level1[6][8];
 
-        ColorButton b = (ColorButton) finalBoss.level1[1][17];
-        if (b.isPressed() && !press1) {
-            DipperBoss.dipperMove(13, -7);
-            press1 = true;
-        }
-
         Button comboButton1 = (Button) level3.level1[13][5];
         Button comboButton2 = (Button) level3.level1[13][6];
         Button comboButton3 = (Button) level3.level1[13][7];
