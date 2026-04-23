@@ -44,6 +44,7 @@ public class Player {
     //moves player based on direction inputted and current level
     public void gridMove(Vector2 direct, level curLevel) {
         //sets where the player is trying to move to.
+        Vector2Int currentPos = pos;
         Vector2Int dir = new Vector2Int(direct);
         Vector2Int end = new Vector2Int(pos.x + dir.x, pos.y + dir.y);
 
@@ -87,6 +88,7 @@ public class Player {
         //if (curLevel == LevelTemplates.finalBoss) DipperBoss.dipperMove(-end.x, end.y);
         //sets players position if nothing else was done to stop it.
         pos = new Vector2Int(end.x, end.y);
+        if (pSprite.getBoundingRectangle().overlaps(Main.dip.sprite.getBoundingRectangle())) pos = currentPos;
     }
 
     //all of these only happen when the player presses E.
