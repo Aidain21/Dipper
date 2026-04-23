@@ -30,9 +30,9 @@ public class Player {
     Sprite pRight = new Sprite(LevelDraw.characterRight);
 
 
-    public Player() {
+    public Player(int startX, int startY) {
         playerHealth = playerMaxHealth;
-        pos = new Vector2Int(2,7);
+        pos = new Vector2Int(startX,startY);
         facing = new Vector2Int(1,0);
         pSprite = new Sprite(LevelDraw.characterFront);
         pSprite.setOrigin(pSprite.getWidth() / 2, pSprite.getHeight() / 2);

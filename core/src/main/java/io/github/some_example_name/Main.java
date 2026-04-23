@@ -71,11 +71,7 @@ public class Main extends ApplicationAdapter {
         textBox = new TextBox();
         image = new Texture("libgdx.png");
 
-        levels = new map(8,8,12,12);
-        level templevel=new level(8,8,1,1);
-        templevel.changeTile(3,2,"portal",1,1);
-        templevel.changeTile(5,5,"portal",0,0);
-        templevel.changeTile( 4,4,"bouncy", 180f);
+
 
         //buttons for pause menu
         resumeButtonSkin = new Skin(Gdx.files.internal("ResumeButton.json"));
@@ -194,9 +190,10 @@ public class Main extends ApplicationAdapter {
     }
 
     private void resetGame() {//this handles level and player declaration
-        player = new Player();
+
         levels = new map(8, 8, 12, 12);
         currentLevel = levels.getMap()[0][0];
+        player = new Player(currentLevel.spawnRow, currentLevel.spawnCol);
 
         bow = new Bow();
         log = new LevelLogic();
@@ -370,6 +367,10 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
                 Drawing.workingLevel.icon = Drawing.curTile;
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+                Drawing.setSpawnPoint(mouseX, mouseY);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {

@@ -4,99 +4,57 @@ import com.google.gson.*;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.io.FileNotFoundException;
 
-import java.util.ArrayList;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
-    public static level levelX = new level(1,1,true);
-    public static level levelHello = new level(1,1,true);
-    public static level iceLevel = new level(20,40,8,12,true);
-    public static level iceEasy = new level(15,10,7,5,true);
-    public static level alexlevel1 = new level(1,5,true);
-    public static level alexlevel2 = new level(1,5,true);
     public static level alexlevel3 = new level(1,5,true);
-    public static level gatesBig = new level(3,5,true);
-    public static level levelSelect = new level(3, 5, true);
-    public static level asdf = new level(5,5,true);
     public static void addTemplatesToMap(map map) {
+        defaultSetup();
+        //randomSetup(map);
+    }
 
-        /*
+    public static void defaultSetup() {
+        setup(loadJson("level1.json"), 0, 0);
+        setup(loadJson("level2.json"), 1, 0);
+        setup(loadJson("largeEmpty.json"), 2, 2);
+        setup(loadJson("asdf.json"), 4, 1);
+        setup(loadJson("iceEasy.json"), 3,2);
+        level3 = setup(loadJson("level3.json"), 1, 1);
+        setup(loadJson("alexlevel.json"), 1, 2);
+        setup(loadJson("SamLevel1.json"), 3, 3);
+        setup(loadJson("gatesBig.json"), 4, 2);
+        setup(loadJson("levelSelect.json"), 5, 1);
+        setup(loadJson("HELLO2.json"), 0, 3);
+        setup(loadJson("alexlevel2.json"), 4, 0);
+        alexlevel3 = setup(loadJson("alexlevel3.json"), 5, 0);
+    }
+
+    public static void randomSetup(map map) {
+
         File dir = new File("levels");
         File[] levels = dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".txt");
+                return name.toLowerCase().endsWith(".json");
             }
         });
 
-        for (int i = 0; i < 8; i++) {
+        List<File> shuffle = Arrays.asList(levels);
+        Collections.shuffle(shuffle);
 
-        }
-         */
+        boolean stop = false;
 
-
-
-        // setup(level, map x, map y)
-        level level1 = loadJson("level1.json");
-        setup(level1, 0, 0);
-
-        level level2 = loadJson("level2.json");
-        setup(level2, 1, 0);
-
-        level large = loadJson("largeEmpty.json");
-        setup(large, 2, 2);
-
-        asdf = loadJson("asdf.json");
-        setup(asdf, 4, 1);
-
-        iceEasy = loadJson("iceEasy.json");
-        setup(iceEasy, 3,2);
-
-        level3 = loadJson("level3.json");
-        setup(level3, 1, 1);
-
-        alexlevel1 = loadJson("alexlevel.json");
-        setup(alexlevel1, 1, 2);
-
-        iceLevel = loadJson("SamLevel1.json");
-        setup(iceLevel, 3, 3);
-
-        gatesBig = loadJson("gatesBig.json");
-        setup(gatesBig, 4, 2);
-
-        levelSelect = loadJson("levelSelect.json");
-        setup(levelSelect, 5, 1);
-
-        levelHello = loadJson("HELLO2.json");
-        setup(levelHello, 0, 3);
-
-        alexlevel2 = loadJson("alexlevel2.json");
-        setup(alexlevel2, 4, 0);
-
-        alexlevel3 = loadJson("alexlevel3.json");
-        setup(alexlevel3, 5, 0);
-    }
-
-    //works for portal, inportal, and pressureButton
-    //add commands in order of top to bottom then left to right with multiples
-    //two way is to check if 2 portals are being created
-    public static void addDataToTile(level level, String fill, int x, int y, boolean twoWay) {
-        for (int i = 0; i < level.level1.length; i++) {
-            for (int j = 0; j < level.level1[0].length; j++) {
-                if (level.level1[i][j].getTileString().equals(fill) && level.level1[i][j].dataX == -1) {
-                    if (twoWay) {
-                        level.changeTile(j, i, level.level1[i][j].getTileString(), x, y);//, true);
-                        level.changeTile(x,level.level1.length-y-1,level.level1[i][j].getTileString(),j,level.level1.length-i-1);
-                        return;
-                    }
-                    else {
-                        level.changeTile(j, i, level.level1[i][j].getTileString(), x, y);
-                        return;
-                    }
+        for (int i = 0; i < map.mapRows; i++) {
+            if (stop) {
+                break;
+            }
+            for (int j = 0; j < map.mapCols; j++) {
+                if (i*map.mapRows+j == shuffle.size()) {
+                    stop = true;
+                    break;
                 }
+                setup(loadJson(shuffle.get(i*map.mapRows+j).getName()), i, j);
             }
         }
     }
@@ -114,11 +72,16 @@ public class LevelTemplates {
         }
     }
 
-    public static void setup(level level, int x, int y) {
+    public static level setup(level level, int x, int y) {
         createObjects(level);
         level.icon = level.icon.refill();
         map.addName(level);
         map.levelMap[x][y] = level;
+
+        if(Objects.equals(level.filename, "level3.json")) {level3 = level;}
+        if(Objects.equals(level.filename, "alexlevel3.json")) {alexlevel3 = level;}
+
+        return level;
     }
 
     public static level loadJson(String fileName) {

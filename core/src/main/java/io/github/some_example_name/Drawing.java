@@ -67,6 +67,7 @@ public class Drawing {
         curTile = Tile.wall;
         TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
         TextBox.updateTextBox("Tile Num: " + tileNum,5);
+        TextBox.updateTextBox("SpawnPoint: " + workingLevel.spawnRow + "," + workingLevel.spawnCol,6);
 
     }
 
@@ -151,6 +152,19 @@ public class Drawing {
             TextBox.updateTextBox("X,Y: " + workingLevel.level1[rY][rX].getData().x
                 + "," + workingLevel.level1[rY][rX].getData().y,2);
         }
+
+
+    }
+
+    public static void setSpawnPoint(int mouseX, int mouseY) {
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
+        if (rY > -1 && rX > -1 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            workingLevel.spawnRow = rX;
+            workingLevel.spawnCol = rY;
+        }
+        TextBox.updateTextBox("SpawnPoint: " + workingLevel.spawnRow +
+            "," + workingLevel.spawnCol,6);
 
 
     }
