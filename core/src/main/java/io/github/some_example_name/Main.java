@@ -56,6 +56,16 @@ public class Main extends ApplicationAdapter {
     }
 
     public void onStartGame() {
+        //deletes skins for when the game gets reset
+        if (resumeButtonSkin != null) resumeButtonSkin.dispose();
+        if (restartButtonSkin != null) restartButtonSkin.dispose();
+        if (resetButtonSkin != null) resetButtonSkin.dispose();
+        if (exitSkin != null) exitSkin.dispose();
+        if (saveSkin != null) saveSkin.dispose();
+        if (saveAsSkin != null) saveAsSkin.dispose();
+        if (exitWithoutSavingSkin != null) exitWithoutSavingSkin.dispose();
+
+
         gameStarted = true;
         Tile.startTile();
         textBox = new TextBox();
@@ -72,13 +82,13 @@ public class Main extends ApplicationAdapter {
         resetButtonSkin  = new Skin(Gdx.files.internal("ResetButton.json"));
         restartButtonSkin = new Skin(Gdx.files.internal("RestartButton.json"));
         exitSkin = new Skin(Gdx.files.internal("exitButton.json"));
-        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
 
         //buttons for level editor pause menu
         saveSkin = new Skin(Gdx.files.internal("save.json"));
         saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
         exitWithoutSavingSkin = new Skin(Gdx.files.internal("exitEditor.json"));
 
+        pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
         editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin); //pass in the skin
         Gdx.graphics.setWindowedMode(1600, 1040);
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -92,9 +102,15 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-
-
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+
+        if (gameStarted && pauseMenu.getQuitStatus()) {
+            pauseMenu.setQuitStatus(false);
+            pauseMenu.hide();
+            gameStarted = false;
+            Gdx.input.setInputProcessor(startMenu.getStage());
+            return;
+        }
 
         if (!gameStarted) {
             startMenu.getStage().act(Gdx.graphics.getDeltaTime());
@@ -125,7 +141,8 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        if (!pauseMenu.isVisible() && !Drawing.drawing) { //If the pause menu is open don't update logic or take input
+        //Only updates logic if no menus are open
+        if (!pauseMenu.isVisible() && !Drawing.drawing) {
             input();
             logic();
         }
@@ -152,6 +169,7 @@ public class Main extends ApplicationAdapter {
         }
 
         batch.begin();
+        //renders logic for editor
         if (Drawing.drawing) {
             artDraw();
             artInput();
@@ -162,12 +180,13 @@ public class Main extends ApplicationAdapter {
         }
 
         batch.end();
-
+        //displays pause menu
         if (pauseMenu.isVisible()) {
             pauseMenu.getStage().act(Gdx.graphics.getDeltaTime());
             pauseMenu.getStage().draw();
         }
 
+        //displays editor menu
         if (editorMenu.isVisible()) {
             editorMenu.getStage().act(Gdx.graphics.getDeltaTime());
             editorMenu.getStage().draw();

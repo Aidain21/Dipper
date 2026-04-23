@@ -18,7 +18,7 @@ public class EditorMenu {
     private Skin saveSkin;
     private Skin saveAsSkin;
     private Skin exitWithoutSavingSkin;
-    private Boolean visible;
+    private boolean visible;
 
     public EditorMenu(Skin saveSkin, Skin saveAsSkin, Skin exitWithoutSavingSkin) {
         this.stage = new Stage(new FitViewport(960, 720));

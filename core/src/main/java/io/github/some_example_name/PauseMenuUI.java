@@ -22,9 +22,10 @@ public class PauseMenuUI {
     private Skin resetSkin;
     private Skin restartSkin;
     private Skin exitSkin;
-    private Boolean visible;
-    private Boolean restartStatus;
-    private Boolean restartRoomStatus;
+    private boolean visible;
+    private boolean restartStatus;
+    private boolean restartRoomStatus;
+    private boolean quitStatus;
 
     public PauseMenuUI(Skin resumeSkin, Skin resetSkin, Skin restartSkin, Skin exitSkin) {
         this.resumeSkin = resumeSkin;
@@ -35,6 +36,7 @@ public class PauseMenuUI {
         this.visible = false;
         this.restartStatus = false;
         this.restartRoomStatus = false;
+        this.quitStatus = false;
 
         Button resume = new Button(resumeSkin);
         Button restartRoom = new Button(resetSkin);
@@ -64,10 +66,11 @@ public class PauseMenuUI {
             }
         });
 
+
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                setRestartStatus(true);
+                setQuitStatus(true);
                 hide();
             }
         });
@@ -131,6 +134,10 @@ public class PauseMenuUI {
     public Stage getStage() {
         return stage;
     }
+
+    public boolean getQuitStatus() { return quitStatus; }
+
+    public void setQuitStatus(boolean bool) { quitStatus = bool; }
 
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
