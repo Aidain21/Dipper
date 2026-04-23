@@ -36,7 +36,7 @@ public class Player {
         facing = new Vector2Int(1,0);
         pSprite = new Sprite(LevelDraw.characterFront);
         pSprite.setOrigin(pSprite.getWidth() / 2, pSprite.getHeight() / 2);
-        pSprite.setSize(32, 64);
+        pSprite.setSize(32, 44);
         TextBox.updateTextBox("Health: " + playerHealth,5);
     }
 
@@ -60,7 +60,7 @@ public class Player {
         if (dir.x == -1 && dir.y == 0) {
             pSprite = pLeft;
         }
-        pSprite.setSize(32, 64);
+        pSprite.setSize(32, 44);
         //stops player from walking off-screen
         if (end.x < LEVEL_BOUNDS[0][0] || end.x > LEVEL_BOUNDS[1][0] ||
             end.y < LEVEL_BOUNDS[0][1] || end.y > LEVEL_BOUNDS[1][1]) {
