@@ -150,9 +150,9 @@ public class level extends ApplicationAdapter {
 
     public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
+        Main.dip.deleteMagic();
         return Main.moveLevel(p.dataX,p.dataY);
     }
-
 
     //add error checking
     public void swapTiles(int r1,int c1,int r2,int c2){

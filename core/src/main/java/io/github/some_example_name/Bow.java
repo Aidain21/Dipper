@@ -12,6 +12,7 @@ public class Bow {
     private final Array<Sprite> arrowArray = new Array<>();
     public final float cooldownTime = 0.7f;
     public float cooldown = 0f;
+    private final Array<Boolean> hasDealtDamage = new Array<>();
     private final Array<Float> timer = new Array<>();
     private final Array<Integer> count = new Array<>();
     private final Array<Boolean> hasPressed = new Array<>();
@@ -25,6 +26,7 @@ public class Bow {
         count.add(0);
         timer.add(0f);
         hasPressed.add(false);
+        hasDealtDamage.add(false);
         arrow.setOrigin(20, 12.5f);
         arrow.setScale(0.5f);
         switch(nesw) {
@@ -58,10 +60,18 @@ public class Bow {
             boolean arrowRicochet = shouldRicochet(pos, (int) arrow.getRotation(), wall);
             boolean arrowStop = (!arrowRicochet && !pos.equals("floor") && !pos.equals("portal") && !pos.equals("inportal")
                 && !pos.equals("button") && !pos.equals("pressureButton") && !pos.equals("void") && !pos.equals("iceFloor")
-                && !((pos.equals("rGate")||pos.equals("bGate")||pos.equals("gGate")||pos.equals("yGate"))
+                && !pos.equals("spikes") && !((pos.equals("rGate")||pos.equals("bGate")||pos.equals("gGate")||pos.equals("yGate"))
                 && ((SimpleTextures.ColorGate) tile).open));
             if (pos.equals("box") && !tile.movable) arrowStop = false;
             TileFills f = curLvl.level1[Math.round(arrow.getY()/32)][Math.round(arrow.getX()/32)];
+            if (curLvl == LevelTemplates.finalBoss) {
+                if (arrow.getBoundingRectangle().overlaps(Main.dip.sprite.getBoundingRectangle()) && !hasDealtDamage.get(i)) {
+                    Main.dip.dealDamage(1);
+                    hasDealtDamage.set(i, true);
+                    removeArrow(i);
+                }
+            }
+
             if (f instanceof ColorButton && !hasPressed.get(i)) {
                 ((ColorButton) f).press();
                 hasPressed.set(i, true);
@@ -132,7 +142,8 @@ public class Bow {
                 default: break;
             }
             if (arrowStop) {
-                removeArrow(i);
+                timer.set(i, timer.get(i)+Gdx.graphics.getDeltaTime());
+                if (timer.get(i) >= 0.9f) removeArrow(i);
             }
         }
     }
@@ -152,19 +163,17 @@ public class Bow {
 
     // Removes one arrow at a time
     private void removeArrow(int i) {
-        timer.set(i, timer.get(i)+Gdx.graphics.getDeltaTime());
-        if (timer.get(i) >= 0.9f) {
             arrowArray.removeIndex(i);
             count.removeIndex(i);
             timer.removeIndex(i);
             hasPressed.removeIndex(i);
-        }
+            hasDealtDamage.removeIndex(i);
     }
 
     // Deletes all arrows currently on screen
     public void deleteArrows() {
         for (int i = arrowArray.size - 1; i >= 0; i--) {
-            arrowArray.removeIndex(i);
+            removeArrow(i);
         }
     }
 

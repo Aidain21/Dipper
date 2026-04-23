@@ -23,6 +23,7 @@ public class Main extends ApplicationAdapter {
     static level currentLevel;
     public static map levels;
     static Bow bow;
+    static DipperBoss dip;
     public static boolean fullMap = false;
     public static TextBox textBox;
     Viewport viewport;
@@ -69,6 +70,7 @@ public class Main extends ApplicationAdapter {
         gameStarted = true;
         Tile.startTile();
         textBox = new TextBox();
+        dip = new DipperBoss();
         image = new Texture("libgdx.png");
 
 
@@ -99,6 +101,8 @@ public class Main extends ApplicationAdapter {
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        System.out.println(Gdx.graphics.getFramesPerSecond());
+
 
         if (gameStarted && pauseMenu.getQuitStatus()) {
             pauseMenu.setQuitStatus(false);
@@ -148,7 +152,6 @@ public class Main extends ApplicationAdapter {
             pauseMenu.setRestartStatus(false);
             resetGame();
         }
-
         //restarts current level if button is pressed
         if (pauseMenu.getRestartRoomStatus()) {
             pauseMenu.setRestartRoomStatus(false);
@@ -192,6 +195,7 @@ public class Main extends ApplicationAdapter {
     private void resetGame() {//this handles level and player declaration
 
         levels = new map(8, 8, 12, 12);
+        dip = new DipperBoss();
         currentLevel = levels.getMap()[0][0];
         player = new Player(currentLevel.spawnRow, currentLevel.spawnCol);
 
@@ -288,20 +292,28 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
             Drawing.start(false);
         }
-
-
     }
 
     private void logic() {
         bow.arrowLogic(currentLevel);
         log.logic(currentLevel);
         player.playerLogic();
+        if (currentLevel == LevelTemplates.finalBoss) {
+            DipperBoss.moveLogic();
+            DipperBoss.cooldown += Gdx.graphics.getDeltaTime();
+            if (DipperBoss.cooldown >= DipperBoss.cooldownTime) {
+                DipperBoss.createMagic();
+                DipperBoss.cooldown = 0f;
+            }
+            DipperBoss.shootMagic();
+        }
     }
 
     private void draw() {
         if(!fullMap) {
             LevelDraw.drawLevel(batch, currentLevel);
-            MiniMap.drawMap(batch, levels, currentLevel, false);
+            if(currentLevel != LevelTemplates.finalBoss)
+                MiniMap.drawMap(batch, levels, currentLevel, false);
 
             //the logo
             //batch.draw(image, 140, 210);
@@ -312,6 +324,10 @@ public class Main extends ApplicationAdapter {
         }
         else
             MiniMap.drawMap(batch, levels, currentLevel, true);
+        if (currentLevel == LevelTemplates.finalBoss) {
+            DipperBoss.drawDipper(batch);
+            DipperBoss.drawMagic(batch);
+        }
     }
 
 

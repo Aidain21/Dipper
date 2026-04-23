@@ -14,14 +14,12 @@ public class LevelLogic extends LevelTemplates {
 
     public void logic(level curLevel) {
         level3logic();
-        AlexLevel3Logic();
+        //AlexLevel3Logic();
         ColorGateLogic(curLevel);
     }
 
     public void level3logic() {
         //Button button1 = (Button) level3.level1[6][8];
-
-
 
         Button comboButton1 = (Button) level3.level1[13][5];
         Button comboButton2 = (Button) level3.level1[13][6];

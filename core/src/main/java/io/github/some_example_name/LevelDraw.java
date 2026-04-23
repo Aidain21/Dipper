@@ -19,6 +19,7 @@ public class LevelDraw {
     public static Texture buttonPressTx = new Texture("buttonPressTx.png");
     public static Texture pressureButtonTx = new Texture("pressureButton.png");
     public static Texture leverTx = new Texture("lever.png");
+    public static Texture magicTx = new Texture("magic.png");
     public static Texture lever2Tx = new Texture("lever2.png");
     public static Texture spikesTx = new Texture("spikes.png");
     public static Texture voidTx = new Texture("void.png");
@@ -31,10 +32,11 @@ public class LevelDraw {
     public static Texture blueGateTx = new Texture("bGate.png");
     public static Texture yellowGateTx = new Texture("yGate.png");
     public static Texture openGateTx = new Texture("gateOpen.png");
-    public static TextureRegion characterFront = new TextureRegion(characterTx, 64, 0, 32, 64);
-    public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 64);
-    public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 64);
-    public static TextureRegion characterRight = new TextureRegion(characterTx, 32, 0, 32, 64);
+    public static Texture dipperBossTx = new Texture("dipperpng2.png");
+    public static TextureRegion characterFront = new TextureRegion(characterTx, 64, 0, 32, 44);
+    public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 44);
+    public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 44);
+    public static TextureRegion characterRight = new TextureRegion(characterTx, 32, 0, 32, 44);
 
     public static void drawLevel(SpriteBatch batch, level level){
         for (int j = 0; j < level.level1.length; j++) {
