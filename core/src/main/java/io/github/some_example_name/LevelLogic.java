@@ -14,7 +14,7 @@ public class LevelLogic extends LevelTemplates {
 
     public void logic(level curLevel) {
         level3logic();
-        AlexLevel3Logic();
+        //AlexLevel3Logic();
         ColorGateLogic(curLevel);
     }
 
