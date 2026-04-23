@@ -149,7 +149,7 @@ public class level extends ApplicationAdapter {
 
     public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
-        DipperBoss.deleteMagic();
+        Main.dip.deleteMagic();
         return Main.moveLevel(p.dataX,p.dataY);
     }
 

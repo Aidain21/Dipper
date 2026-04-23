@@ -10,23 +10,26 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DipperBoss {
-    static Sprite sprite;
+    public static Sprite sprite;
     static Vector2Int dipPos;
     public static float bossGridTimer = 0f;
     public static float cooldown = 0f;
-    public static float cooldownTime = 0.05f;
+    public static float cooldownTime = 0.08f;
     static Array<Sprite> magicArray = new Array<>();
     static Array<Integer> count = new Array<>();
+    static float bossMaxHealth = 10;
+    static float bossCurrentHealth;
+    static boolean alive = true;
     DipperBoss() {
-        float bossMaxHealth = 10;
-        float bossCurrentHealth = bossMaxHealth;
         float damage = 1.3f;
+        bossCurrentHealth = bossMaxHealth;
         dipPos = new Vector2Int(19,21);
         sprite = new Sprite(LevelDraw.dipperBossTx);
         pos(dipPos);
     }
 
     public static void gridMove() {
+        if (!alive) return;
         int dir = ranNum();
         level level = LevelTemplates.finalBoss;
         switch(dir) {
@@ -39,7 +42,8 @@ public class DipperBoss {
     }
 
     public static void createMagic() {
-        Sprite magic = new Sprite(LevelDraw.blueGateTx);
+        if (!alive) return;
+        Sprite magic = new Sprite(LevelDraw.magicTx);
         magic.setSize(32, 32);
         magic.setPosition((dipPos.x+1)*32, (dipPos.y+5)*32);
         magicArray.add(magic);
@@ -54,8 +58,8 @@ public class DipperBoss {
     public static void shootMagic() {
         for (int i = magicArray.size - 1; i >= 0; i--) {
             Sprite magic = magicArray.get(i);
-            magic.translateX((float) Math.cos(Math.toRadians(magic.getRotation()))*6);
-            magic.translateY((float) Math.sin(Math.toRadians(magic.getRotation()))*6);
+            magic.translateX((float) Math.cos(Math.toRadians(magic.getRotation()))*4);
+            magic.translateY((float) Math.sin(Math.toRadians(magic.getRotation()))*4);
              if (Player.pSprite.getBoundingRectangle().overlaps(magic.getBoundingRectangle())) {
                 Player.dealDamage(0.5f);
                 magicArray.removeIndex(i);
@@ -90,7 +94,13 @@ public class DipperBoss {
     public static void drawDipper(SpriteBatch batch) {
         sprite.draw(batch);
     }
-    
+
+    public static void dealDamage(float i) {
+        bossCurrentHealth -= i;
+        TextBox.updateTextBox("Dipper Health: " + bossCurrentHealth + "/"+bossMaxHealth, 4);
+        if (bossCurrentHealth <= 0) alive = false;
+    }
+
     public static int ranNum() {
         int max = 4;
         int min = 1;

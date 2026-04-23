@@ -123,6 +123,7 @@ public class Main extends ApplicationAdapter {
     private void resetGame() {//this handles level and player declaration
         player = new Player();
         levels = new map(8, 8, 12, 12);
+        dip = new DipperBoss();
         currentLevel = levels.getMap()[0][0];
 
         bow = new Bow();
@@ -245,11 +246,13 @@ public class Main extends ApplicationAdapter {
             textBox.drawTextBox(batch);
             player.drawPlayer(batch);
             bow.drawArrow(batch);
-            DipperBoss.drawMagic(batch);
         }
         else
             MiniMap.drawMap(batch, levels, currentLevel, true);
-        if (currentLevel == LevelTemplates.finalBoss) DipperBoss.drawDipper(batch);
+        if (currentLevel == LevelTemplates.finalBoss) {
+            DipperBoss.drawDipper(batch);
+            DipperBoss.drawMagic(batch);
+        }
     }
 
 
