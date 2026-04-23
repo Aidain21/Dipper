@@ -38,7 +38,9 @@ public class Drawing {
 
     public static void start(boolean loadPlayerLevel) {
         drawing = true;
-        TextBox.clearText();
+        if (Main.gameStarted)
+            TextBox.clearText();
+
         if (!loadPlayerLevel) {
             currentFile = JOptionPane.showInputDialog("Load JSON file:") + ".json";
             if (currentFile.equals("null.json")) {
@@ -62,13 +64,15 @@ public class Drawing {
             }
 
         }
-        TextBox.updateTextBox("Editing level: " + currentFile,3);
+        if (Main.gameStarted) {
+            TextBox.updateTextBox("Editing level: " + currentFile, 3);
+            TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
+            TextBox.updateTextBox("Tile Num: " + tileNum, 5);
+            TextBox.updateTextBox("SpawnPoint: " + workingLevel.spawnRow + "," + workingLevel.spawnCol,6);
+        }
+
         LevelTemplates.createObjects(workingLevel);
         curTile = Tile.wall;
-        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
-        TextBox.updateTextBox("Tile Num: " + tileNum,5);
-        TextBox.updateTextBox("SpawnPoint: " + workingLevel.spawnRow + "," + workingLevel.spawnCol,6);
-
     }
 
     public static void end(String saveStatus) {
