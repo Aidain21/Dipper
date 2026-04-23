@@ -36,8 +36,8 @@ public class LevelTemplates {
         asdf = loadJson("asdf.json");
         setup(asdf, 4, 1);
 
-        iceEasy = loadJson("iceEasy.json");
-        setup(iceEasy, 3,2);
+        //iceEasy = loadJson("iceEasy.json");
+        //setup(iceEasy, 3,2);
 
         level3 = loadJson("level3.json");
         setup(level3, 1, 1);
@@ -54,11 +54,11 @@ public class LevelTemplates {
         levelSelect = loadJson("levelSelect.json");
         setup(levelSelect, 5, 1);
 
-        levelHello = loadJson("HELLO2.json");
-        setup(levelHello, 0, 3);
+        //levelHello = loadJson("HELLO2.json");
+        //setup(levelHello, 0, 3);
 
-        alexlevel2 = loadJson("alexlevel2.json");
-        setup(alexlevel2, 4, 0);
+        //alexlevel2 = loadJson("alexlevel2.json");
+        //setup(alexlevel2, 4, 0);
 
         finalBoss = loadJson("finalBoss.json");
         setup(finalBoss, 6, 6);

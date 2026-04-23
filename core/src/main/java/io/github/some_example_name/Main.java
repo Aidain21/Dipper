@@ -216,14 +216,21 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
             Drawing.start(false);
         }
-
-
     }
 
     private void logic() {
         bow.arrowLogic(currentLevel);
         log.logic(currentLevel);
         player.playerLogic();
+        if (currentLevel == LevelTemplates.finalBoss) {
+            DipperBoss.moveLogic();
+            DipperBoss.cooldown += Gdx.graphics.getDeltaTime();
+            if (DipperBoss.cooldown >= DipperBoss.cooldownTime) {
+                DipperBoss.createMagic();
+                DipperBoss.cooldown = 0f;
+            }
+            DipperBoss.shootMagic();
+        }
     }
 
     private void draw() {
@@ -238,6 +245,7 @@ public class Main extends ApplicationAdapter {
             textBox.drawTextBox(batch);
             player.drawPlayer(batch);
             bow.drawArrow(batch);
+            DipperBoss.drawMagic(batch);
         }
         else
             MiniMap.drawMap(batch, levels, currentLevel, true);
