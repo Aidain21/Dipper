@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 public class LevelTemplates {
     public static level level3 = new level(3,5,true);
     public static level alexlevel3 = new level(1,5,true);
+    public static level finalBoss = new level(1,5,true);
     public static void addTemplatesToMap(map map) {
         defaultSetup();
         //randomSetup(map);
@@ -28,6 +29,7 @@ public class LevelTemplates {
         setup(loadJson("levelSelect.json"), 5, 1);
         setup(loadJson("HELLO2.json"), 0, 3);
         setup(loadJson("alexlevel2.json"), 4, 0);
+        finalBoss = setup(loadJson("finalBoss.json"), 6, 6);
         alexlevel3 = setup(loadJson("alexlevel3.json"), 5, 0);
     }
 
@@ -79,6 +81,7 @@ public class LevelTemplates {
         map.levelMap[x][y] = level;
 
         if(Objects.equals(level.filename, "level3.json")) {level3 = level;}
+        if(Objects.equals(level.filename, "finalBoss.json")) {finalBoss = level;}
         if(Objects.equals(level.filename, "alexlevel3.json")) {alexlevel3 = level;}
 
         return level;
