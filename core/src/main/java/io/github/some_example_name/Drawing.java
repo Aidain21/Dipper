@@ -64,6 +64,8 @@ public class Drawing {
             }
 
         }
+        curTile = Tile.wall;
+
         if (Main.gameStarted) {
             TextBox.updateTextBox("Editing level: " + currentFile, 3);
             TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
@@ -72,7 +74,6 @@ public class Drawing {
         }
 
         LevelTemplates.createObjects(workingLevel);
-        curTile = Tile.wall;
     }
 
     public static void end(String saveStatus) {
