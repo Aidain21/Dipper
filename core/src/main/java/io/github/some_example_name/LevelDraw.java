@@ -37,6 +37,7 @@ public class LevelDraw {
     public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 44);
     public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 44);
     public static TextureRegion characterRight = new TextureRegion(characterTx, 32, 0, 32, 44);
+    public static Texture healthTx = new Texture("char.png");//"health.png");
 
     public static void drawLevel(SpriteBatch batch, level level){
         for (int j = 0; j < level.level1.length; j++) {

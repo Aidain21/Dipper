@@ -148,7 +148,7 @@ public class SimpleTextures extends TileFills{
     public static class Health extends TileFills{
         public Health() {
             fill = "health";
-            //sprite = new sprite(LevelDraw.health);
+            texture = LevelDraw.healthTx;
             drawBackground = true;
             canWalk = true;
         }
