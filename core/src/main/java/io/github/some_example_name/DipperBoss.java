@@ -20,7 +20,9 @@ public class DipperBoss {
     static float bossMaxHealth = 10;
     static float bossCurrentHealth;
     static boolean alive = true;
+
     DipperBoss() {
+        alive = true;
         float damage = 1.3f;
         bossCurrentHealth = bossMaxHealth;
         dipPos = new Vector2Int(19,21);
