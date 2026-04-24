@@ -42,22 +42,33 @@ public class LevelTemplates {
             }
         });
 
-        List<File> shuffle = Arrays.asList(levels);
-        Collections.shuffle(shuffle);
+        ArrayList<String> easies = new ArrayList<>(),
+            mediums = new ArrayList<>(),
+            hards = new ArrayList<>(),
+            devs = new ArrayList<>(),
+            devs2 = new ArrayList<>();
 
-        boolean stop = false;
+        for (File f : levels) {
+            if (f.getName().charAt(0) == 'e') {easies.add(f.getName());}
+            if (f.getName().charAt(0) == 'm') {mediums.add(f.getName());}
+            if (f.getName().charAt(0) == 'h') {hards.add(f.getName());}
+            if (f.getName().charAt(0) == 'd' && devs.size() < 8) {devs.add(f.getName());}
+            else if (f.getName().charAt(0) == 'd' && devs.size() >= 8) {devs2.add(f.getName());}
+        }
 
-        for (int i = 0; i < map.mapRows; i++) {
-            if (stop) {
-                break;
-            }
-            for (int j = 0; j < map.mapCols; j++) {
-                if (i*map.mapRows+j == shuffle.size()) {
-                    stop = true;
-                    break;
-                }
-                setup(loadJson(shuffle.get(i*map.mapRows+j).getName()), i, j);
-            }
+        addShuffledLevelsToRow(easies, 0);
+        addShuffledLevelsToRow(mediums, 1);
+        addShuffledLevelsToRow(hards, 2);
+        addShuffledLevelsToRow(devs, 5);
+        addShuffledLevelsToRow(devs2, 6);
+
+
+    }
+
+    public static void addShuffledLevelsToRow(ArrayList<String> levels, int row) {
+        Collections.shuffle(levels);
+        for (int i = 0; i < levels.size(); i++) {
+            setup(loadJson(levels.get(i)), i, row);
         }
     }
 
