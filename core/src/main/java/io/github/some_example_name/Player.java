@@ -81,6 +81,7 @@ public class Player {
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(); break;
                 case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(); return;
+                case "health": playerHealth+=1; curLevel.level1[end.y][end.x]= Tile.floor.refill(); return;
                 default: break;
             }
 
@@ -127,6 +128,7 @@ public class Player {
             case "pressureButton": TextBox.updateTextBox("A Pressure Button! I need something heavy!",0); break;
             case "spikes": TextBox.updateTextBox("Spikes!! I shouldn't touch them.",0); break;
             case "void": TextBox.updateTextBox("... I shouldn't fall in there.",0); break;
+            case "health": TextBox.updateTextBox("A Health Boost!",0); break;
             default: break;
         }
     }
