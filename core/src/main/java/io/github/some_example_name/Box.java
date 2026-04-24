@@ -77,7 +77,7 @@ public class Box extends TileFills{
 
         // Presses pressure button if the box is moved onto it
         if (targetTile instanceof PressureButton) {
-            ((PressureButton) targetTile).press();
+            ((PressureButton) targetTile).press(curLevel);
             box.cover(curLevel, tx, ty, lookX, lookY);
         }
         curLevel.swapTiles(lookX, lookY, tx, ty);

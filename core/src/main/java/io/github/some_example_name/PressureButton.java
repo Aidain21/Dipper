@@ -14,12 +14,13 @@ public class PressureButton extends TileFills{
         pressed = false;
         //sprite.setPosition(x*32, y*32);
     }
-    public void press() {
+    public void press(level curLevel) {
         this.pressed = true;
         this.sprite.setAlpha(0);
         TextBox.updateTextBox("Pressure Button is Pressed!!!", 1);
         for (int i = 0; i <= walls.size; i++) {
-            //level.changeTile(walls.get(i).x, walls.get(i).y, "pressureButton");
+            if (walls.size > 0)
+                curLevel.changeTile(walls.get(i).x, walls.get(i).y, "floor");
         }
     }
     public void unpress() {
@@ -28,7 +29,7 @@ public class PressureButton extends TileFills{
         TextBox.updateTextBox("Pressure Button no longer Pressed.", 1);
     }
 
-    public static void addTile(int x, int y) {
+    public void addTile(int x, int y) {
         Vector2Int tile = new Vector2Int(x, y);
         walls.add(tile);
     }
