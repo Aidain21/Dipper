@@ -144,4 +144,13 @@ public class SimpleTextures extends TileFills{
             this.texture = LevelDraw.openGateTx;
         }
     }
+
+    public static class Health extends TileFills{
+        public Health() {
+            fill = "health";
+            //sprite = new sprite(LevelDraw.health);
+            drawBackground = true;
+            canWalk = true;
+        }
+    }
 }

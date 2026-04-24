@@ -36,6 +36,7 @@ public class TileFills {
             case "bGate":
             case "yGate": return new SimpleTextures.ColorGate(fill);
             case "pressureButton": return new PressureButton();
+            case "health": return new SimpleTextures.Health();
             default: return new TileFills();
         }
     }
