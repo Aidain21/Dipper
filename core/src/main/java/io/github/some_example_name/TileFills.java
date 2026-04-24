@@ -85,6 +85,7 @@ public class TileFills {
             case "gGate":
             case "bGate":
             case "yGate":
+            case "health":
             case "pressureButton": return CreateTileFills(fill);
             case "bouncy":
             case "rB":
