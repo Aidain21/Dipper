@@ -33,6 +33,7 @@ public class Main extends ApplicationAdapter {
     private Skin editorSkin;
     private PauseMenuUI pauseMenu;
     private EditorMenu editorMenu;
+    private DeathScreen deathScreen;
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
@@ -86,14 +87,19 @@ public class Main extends ApplicationAdapter {
         saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
         exitWithoutSavingSkin = new Skin(Gdx.files.internal("exitEditor.json"));
 
+        //Creates all the UIs
+        deathScreen = new DeathScreen(restartButtonSkin); //uses same restart as pause
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
-        editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin); //pass in the skin
-        Gdx.graphics.setWindowedMode(1600, 1040);
-        pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin);
 
+        Gdx.graphics.setWindowedMode(1600, 1040);
+
+        startMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         editorMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        //moved level,player,bow,box, etc. to resetGame method to
-        // be able to get the restart game to work
+        deathScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        //moved level,player,bow,box, etc. to resetGame method to be able to get the restart game to work
         resetGame();
         Gdx.input.setInputProcessor(null);
     }
@@ -102,7 +108,6 @@ public class Main extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         //System.out.println(Gdx.graphics.getFramesPerSecond());
-
 
         if (gameStarted && pauseMenu.getQuitStatus()) {
             pauseMenu.setQuitStatus(false);
@@ -121,8 +126,14 @@ public class Main extends ApplicationAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
+        if (gameStarted && !player.isAlive() && !deathScreen.isVisible()) {
+            deathScreen.show();
+            pauseMenu.hide(); // ensure pause menu doesn't overlap
+            Gdx.input.setInputProcessor(deathScreen.getStage());
+        }
+
         //Button for pause menus
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !deathScreen.isVisible()) {
             if (editorMenu.isVisible()) {
                 editorMenu.hide();
                 Gdx.input.setInputProcessor(null);
@@ -142,7 +153,8 @@ public class Main extends ApplicationAdapter {
         }
 
         //Only updates logic if no menus are open
-        if (!pauseMenu.isVisible() && !Drawing.drawing) {
+        //Find a way to generalize if a menu is open
+        if (!pauseMenu.isVisible() && !Drawing.drawing && !deathScreen.isVisible()) {
             input();
             logic();
         }
@@ -150,8 +162,19 @@ public class Main extends ApplicationAdapter {
         //Restarts game if button is pressed
         if (pauseMenu.getRestartStatus()) {
             pauseMenu.setRestartStatus(false);
+            pauseMenu.hide();
             resetGame();
+            Gdx.input.setInputProcessor(null);
         }
+
+        //Restarts game from death screen
+        if (deathScreen.getRestartStatus()) {
+            deathScreen.setRestartStatus(false);
+            deathScreen.hide();
+            resetGame();
+            Gdx.input.setInputProcessor(null);
+        }
+
         //restarts current level if button is pressed
         if (pauseMenu.getRestartRoomStatus()) {
             pauseMenu.setRestartRoomStatus(false);
@@ -190,6 +213,12 @@ public class Main extends ApplicationAdapter {
             editorMenu.getStage().act(Gdx.graphics.getDeltaTime());
             editorMenu.getStage().draw();
         }
+
+        //Displays death screen
+        if (deathScreen.isVisible()) {
+            deathScreen.getStage().act(Gdx.graphics.getDeltaTime());
+            deathScreen.getStage().draw();
+        }
     }
 
     private void resetGame() {//this handles level and player declaration
@@ -217,13 +246,14 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-        if (!player.isAlive()) {
+        /*if (!player.isAlive()) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
                 player.playerRestart(currentLevel);
                 resetGame();
             }
             return;
         }
+        */
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z)&& !Player.playerSliding && !Player.playerFalling) {
             if (!fullMap) {
@@ -451,6 +481,7 @@ public class Main extends ApplicationAdapter {
         if (image != null) image.dispose();
         if (pauseMenu != null) pauseMenu.dispose();
         if (editorMenu != null) editorMenu.dispose();
+        if (deathScreen != null) deathScreen.dispose();
         startMenu.dispose();
     }
 
