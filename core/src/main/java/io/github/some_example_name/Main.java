@@ -91,7 +91,6 @@ public class Main extends ApplicationAdapter {
         deathScreen = new DeathScreen(restartButtonSkin); //uses same restart as pause
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
         editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin);
-
         Gdx.graphics.setWindowedMode(1600, 1040);
 
         startMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
