@@ -12,28 +12,29 @@ public class LevelTemplates {
     public static level alexlevel3 = new level(1,5,true);
     public static level finalBoss = new level(1,5,true);
     public static void addTemplatesToMap(map map) {
-        defaultSetup();
-        //randomSetup(map);
+        //defaultSetup();
+        randomSetup(map);
     }
 
     public static void defaultSetup() {
-        setup(loadJson("level1.json"), 0, 0);
-        setup(loadJson("level2.json"), 1, 0);
-        setup(loadJson("largeEmpty.json"), 2, 2);
-        setup(loadJson("asdf.json"), 4, 1);
-        setup(loadJson("iceEasy.json"), 3,2);
-        level3 = setup(loadJson("level3.json"), 1, 1);
-        setup(loadJson("alexlevel.json"), 1, 2);
-        setup(loadJson("SamLevel1.json"), 3, 3);
-        setup(loadJson("gatesBig.json"), 4, 2);
-        setup(loadJson("levelSelect.json"), 5, 1);
-        setup(loadJson("HELLO2.json"), 0, 3);
-        setup(loadJson("alexlevel2.json"), 4, 0);
+        Main.levelNum = -1;
+        setup(loadJson("devlevel1.json"), 0, 0);
+        setup(loadJson("devlevel2.json"), 1, 0);
+        level3 = setup(loadJson("devlevel3.json"), 1, 1);
+        setup(loadJson("devLevelSelect.json"), 5, 1);
+
+        setup(loadJson("easyIce.json"), 3,2);
+        setup(loadJson("hardEnd.json"), 4, 0);
+        setup(loadJson("easyBox.json"), 1, 2);
+        setup(loadJson("mediumIce.json"), 3, 3);
+        alexlevel3 = setup(loadJson("mediumSpikes.json"), 5, 0);
+        setup(loadJson("mediumGates.json"), 4, 2);
+
         finalBoss = setup(loadJson("finalBoss.json"), 6, 6);
-        alexlevel3 = setup(loadJson("alexlevel3.json"), 5, 0);
     }
 
     public static void randomSetup(map map) {
+        Main.levelNum = 0;
 
         File dir = new File("levels");
         File[] levels = dir.listFiles(new FilenameFilter() {
@@ -60,15 +61,18 @@ public class LevelTemplates {
         addShuffledLevelsToRow(mediums, 1);
         addShuffledLevelsToRow(hards, 2);
         addShuffledLevelsToRow(devs, 5);
-        addShuffledLevelsToRow(devs2, 6);
+        //addShuffledLevelsToRow(devs2, 6);
 
 
     }
 
     public static void addShuffledLevelsToRow(ArrayList<String> levels, int row) {
         Collections.shuffle(levels);
+        while (levels.size() > Main.LEVELCAP) {
+            levels.remove(levels.get(levels.size()-1));
+        }
         for (int i = 0; i < levels.size(); i++) {
-            setup(loadJson(levels.get(i)), i, row);
+            setup(loadJson(levels.get(i)), row, i);
         }
     }
 
@@ -91,7 +95,7 @@ public class LevelTemplates {
         map.addName(level);
         map.levelMap[x][y] = level;
 
-        if(Objects.equals(level.filename, "level3.json")) {level3 = level;}
+        if(Objects.equals(level.filename, "devlevel3.json")) {level3 = level;}
         if(Objects.equals(level.filename, "finalBoss.json")) {finalBoss = level;}
         if(Objects.equals(level.filename, "alexlevel3.json")) {alexlevel3 = level;}
 

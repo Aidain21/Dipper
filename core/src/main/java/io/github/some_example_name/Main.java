@@ -16,12 +16,17 @@ import java.util.Objects;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+
+    //this is the amount of levels of each difficulty on a run
+    public static final int LEVELCAP = 3;
+
     private SpriteBatch batch;
     private Texture image;
     static Player player;
     public float inputTimer = 0f;
     static level currentLevel;
     public static map levels;
+    public static int levelNum = -1;
     static Bow bow;
     static DipperBoss dip;
     public static boolean fullMap = false;
