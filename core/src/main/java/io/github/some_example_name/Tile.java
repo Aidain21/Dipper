@@ -35,6 +35,7 @@ public class Tile  {
     public static TileFills outPortal;
     public static TileFills inPortal;
     public static TileFills iceFloor;
+    public static TileFills health;
 
     public static TileFills[] tileArray;
     public static TileFills[] drawTileArray;
@@ -85,18 +86,19 @@ public class Tile  {
         outPortal = gen.CreateTileFills("portal",-1,-1);
         inPortal = gen.CreateTileFills("inportal",-1,-1);
         iceFloor = gen.CreateTileFills("iceFloor");
+        health=gen.CreateTileFills("health");
 
         tileArray = new TileFills[] {
             wall, bouncyWall1, bouncyWall2, bouncyWall3, bouncyWall4, redButtonU, redButtonL, redButtonD, redButtonR,
             blueButtonU, blueButtonL, blueButtonD, blueButtonR, yellowButtonU, yellowButtonL, yellowButtonD, yellowButtonR,
             greenButtonU, greenButtonL, greenButtonD, greenButtonR, redGate, blueGate, yellowGate, greenGate, button, floor,
-            spikes, box, voidTile, pressureButton, outPortal, inPortal, iceFloor
+            spikes, box, voidTile, pressureButton, outPortal, inPortal, iceFloor, health
         };
 
         drawTileArray = new TileFills[] {
             wall, bouncyWall1, redButtonU, blueButtonU, yellowButtonU, greenButtonU,
             redGate, blueGate, yellowGate, greenGate, button, spikes,
-            box, voidTile, pressureButton, outPortal, inPortal, iceFloor
+            box, voidTile, pressureButton, outPortal, inPortal, iceFloor, health
         };
 
 
