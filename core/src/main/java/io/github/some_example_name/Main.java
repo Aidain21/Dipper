@@ -416,11 +416,11 @@ public class Main extends ApplicationAdapter {
         else if (Drawing.placingPressure && !Drawing.donePlacing) {
             TextBox.updateTextBox("Placing Pressure Button",4);
             TextBox.updateTextBox("Done Placing: " + Drawing.donePlacing,5);
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) Drawing.endPressure(mouseX, mouseY);
-            if (Gdx.input.isButtonJustPressed(Input.Keys.F)) {
+            if (Gdx.input.isButtonJustPressed(Input.Keys.ENTER)) {
                 TextBox.updateTextBox("!true", 5);
-                Drawing.stopPlacingPressure();
+                Drawing.endPressure();
             }
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) Drawing.addPressure(mouseX, mouseY);
         }
         else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
             TextBox.updateTextBox("Placing level portal",4);

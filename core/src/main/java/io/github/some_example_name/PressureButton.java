@@ -1,11 +1,12 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 public class PressureButton extends TileFills{
     boolean pressed;
-    static Array<Vector2Int> walls = new Array<>();
+    static ArrayList<Vector2Int> walls = new ArrayList<>();
     public PressureButton() {
         fill = "pressureButton";
         sprite = new Sprite(LevelDraw.pressureButtonTx);
@@ -18,8 +19,8 @@ public class PressureButton extends TileFills{
         this.pressed = true;
         this.sprite.setAlpha(0);
         TextBox.updateTextBox("Pressure Button is Pressed!!!", 1);
-        for (int i = 0; i <= walls.size; i++) {
-            if (walls.size > 0)
+        for (int i = 0; i <= walls.size(); i++) {
+            if (!walls.isEmpty())
                 curLevel.changeTile(walls.get(i).x, walls.get(i).y, "floor");
         }
     }
@@ -29,9 +30,8 @@ public class PressureButton extends TileFills{
         TextBox.updateTextBox("Pressure Button no longer Pressed.", 1);
     }
 
-    public void addTile(int x, int y) {
-        Vector2Int tile = new Vector2Int(x, y);
-        walls.add(tile);
+    public void addWalls(ArrayList<Vector2Int> wall) {
+        walls = wall;
     }
     //public boolean isPressed() {return this.pressed;}
 }

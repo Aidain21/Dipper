@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 //Load as: 7
 //Load: 8
@@ -35,6 +32,7 @@ public class Drawing {
     public static Vector2Int pressureEdit = new Vector2Int(0,0);
     public static Vector2Int portalEdit = new Vector2Int(0,0);
     public static Vector2Int buttonEdit = new Vector2Int(0,0);
+    static ArrayList<Vector2Int> walls;
     public static int screenHeight = 1040;
 
 
@@ -155,21 +153,26 @@ public class Drawing {
         placingPressure = true;
         donePlacing = false;
         pressureEdit = new Vector2Int(x,y);
+        walls = new ArrayList<>();
     }
 
-    public static void endPressure(int mouseX, int mouseY) {
+    public static void addPressure(int mouseX, int mouseY) {
         if (donePlacing) return;
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
         if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
-            ((PressureButton)workingLevel.level1[pressureEdit.x][pressureEdit.y]).addTile(rX, rY);
+            Vector2Int wall = new Vector2Int(rX, rY);
+            walls.add(wall);
         }
-        TextBox.updateTextBox("3 "+buttonEdit.x, 0);
-        TextBox.updateTextBox("4 "+buttonEdit.y, 1);
+        TextBox.updateTextBox("3 "+pressureEdit.x, 0);
+        TextBox.updateTextBox("4 "+pressureEdit.y, 1);
         //placingButton = false;
     }
 
-    public static void stopPlacingPressure() {
+    public static void endPressure() {
+        workingLevel.level1[pressureEdit.y][pressureEdit.x] = new TileFills().CreateTileFills("pressureButton");
+        ((PressureButton) workingLevel.level1[pressureEdit.y][pressureEdit.x]).addWalls(walls);
+        //walls.clear();
         placingPressure = false;
         donePlacing = true;
     }
