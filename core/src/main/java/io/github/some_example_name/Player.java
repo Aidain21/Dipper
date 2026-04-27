@@ -134,6 +134,10 @@ public class Player {
     }
 
     public static void dealDamage(float damage) {
+        //Prevents healing above max health
+        if (playerHealth == playerMaxHealth && damage < 0) {
+            return;
+        }
         playerHealth -= damage;
         TextBox.updateTextBox("Health: " + playerHealth,5);
         if (playerHealth <= 0) alive = false;
