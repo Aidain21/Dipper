@@ -81,7 +81,7 @@ public class Player {
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(); break;
                 case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(); return;
-                case "health": dealDamage(-1); curLevel.level1[end.y][end.x]= Tile.floor.refill(); break;//return;
+                case "health": if(playerHealth<playerMaxHealth){dealDamage(-1); curLevel.level1[end.y][end.x]= Tile.floor.refill();} break;//return;
                 default: break;
             }
 
