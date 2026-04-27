@@ -22,6 +22,7 @@ public class LevelTemplates {
         setup(loadJson("largeEmpty.json"), 2, 2);
         setup(loadJson("asdf.json"), 4, 1);
         setup(loadJson("iceEasy.json"), 3,2);
+        setup(loadJson("Hard1.json"), 6, 0);
         level3 = setup(loadJson("level3.json"), 1, 1);
         setup(loadJson("alexlevel.json"), 1, 2);
         setup(loadJson("SamLevel1.json"), 3, 3);
