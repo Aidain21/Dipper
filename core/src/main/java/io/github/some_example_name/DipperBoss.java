@@ -35,7 +35,7 @@ public class DipperBoss {
         int dir = ranNum();
         level level = LevelTemplates.finalBoss;
         switch(dir) {
-            case 1: if (level.level1[dipPos.y+3][dipPos.x].canWalk) dipperMove(0, 1); break;
+            case 1: if (level.level1[dipPos.y+4][dipPos.x].canWalk) dipperMove(0, 1); break;
             case 2: if (level.level1[dipPos.y-1][dipPos.x].canWalk) dipperMove(0, -1); break;
             case 3: if (level.level1[dipPos.y][dipPos.x+5].canWalk) dipperMove(1, 0); break;
             case 4: if (level.level1[dipPos.y][dipPos.x-1].canWalk) dipperMove(-1, 0); break;

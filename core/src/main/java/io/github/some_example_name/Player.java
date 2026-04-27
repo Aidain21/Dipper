@@ -22,7 +22,8 @@ public class Player {
     public static float playerHealth = playerMaxHealth;
     public static boolean playerFalling = false;
     public static boolean playerSliding = false;
-    public static int originalX = 0;
+    static Vector2Int dir;
+    static Vector2Int end;
     public static int originalY = 0;
     Sprite pFront = new Sprite(LevelDraw.characterFront);
     Sprite pBack = new Sprite(LevelDraw.characterBack);
@@ -45,8 +46,8 @@ public class Player {
     public void gridMove(Vector2 direct, level curLevel) {
         //sets where the player is trying to move to.
         Vector2Int currentPos = pos;
-        Vector2Int dir = new Vector2Int(direct);
-        Vector2Int end = new Vector2Int(pos.x + dir.x, pos.y + dir.y);
+        dir = new Vector2Int(direct);
+        end = new Vector2Int(pos.x + dir.x, pos.y + dir.y);
 
         //changes both player sprites direction and interact direction
         facing = dir;
@@ -182,7 +183,9 @@ public class Player {
             if (Objects.equals(curLevel.level1[pos.y][pos.x].fill, "void")) ((SimpleTextures.Void) curLevel.level1[pos.y][pos.x]).fall();
             if(curLevel.level1[pos.y][pos.x].getTileString().equals("inportal"))
                 pos = ((SimpleTextures.InLevelPortal) curLevel.level1[pos.y][pos.x]).newPos();
-            }
+            if (curLevel.level1[pos.y][pos.x].getTileString().equals("portal"))
+                pos = curLevel.changeLevel((SimpleTextures.Portal) curLevel.level1[end.y][end.x]);
+        }
     }
 
     public void playerRestart(level curLevel) {
