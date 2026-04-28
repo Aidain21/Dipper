@@ -62,7 +62,7 @@ public class DipperBoss {
             Sprite magic = magicArray.get(i);
             magic.translateX((float) Math.cos(Math.toRadians(magic.getRotation()))*4);
             magic.translateY((float) Math.sin(Math.toRadians(magic.getRotation()))*4);
-             if (Player.pSprite.getBoundingRectangle().overlaps(magic.getBoundingRectangle())) {
+             if (Player.pSprite.getBoundingRectangle().overlaps(magic.getBoundingRectangle().setSize(20,20))) {
                 Player.dealDamage(0.5f);
                 magicArray.removeIndex(i);
                 count.removeIndex(i);
