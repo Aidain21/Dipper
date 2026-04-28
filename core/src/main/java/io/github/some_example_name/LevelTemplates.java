@@ -25,13 +25,13 @@ public class LevelTemplates {
 
         setup(loadJson("easyIce.json"), 3,2);
         setup(loadJson("hardEnd.json"), 4, 0);
+        setup(loadJson("hard1.json"),6,0);
         setup(loadJson("easyBox.json"), 1, 2);
         setup(loadJson("mediumIce.json"), 3, 3);
         alexlevel3 = setup(loadJson("mediumSpikes.json"), 5, 0);
         setup(loadJson("mediumGates.json"), 4, 2);
 
         finalBoss = setup(loadJson("finalBoss.json"), 6, 6);
-        alexlevel3 = setup(loadJson("alexlevel3.json"), 5, 0);
     }
 
     public static void randomSetup(map map) {
