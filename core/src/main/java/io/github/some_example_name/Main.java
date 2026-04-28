@@ -326,6 +326,10 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
             Drawing.start(false);
         }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+            player.pos = currentLevel.changeLevel((SimpleTextures.Portal)Tile.outPortal);
+        }
     }
 
     private void logic() {

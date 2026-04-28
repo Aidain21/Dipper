@@ -12,8 +12,8 @@ public class LevelTemplates {
     public static level alexlevel3 = new level(1,5,true);
     public static level finalBoss = new level(1,5,true);
     public static void addTemplatesToMap(map map) {
-        defaultSetup();
-        //randomSetup(map);
+        //defaultSetup();
+        randomSetup(map);
     }
 
     public static void defaultSetup() {
@@ -57,19 +57,20 @@ public class LevelTemplates {
             if (f.getName().charAt(0) == 'd' && devs.size() < 8) {devs.add(f.getName());}
             else if (f.getName().charAt(0) == 'd' && devs.size() >= 8) {devs2.add(f.getName());}
         }
+        finalBoss = setup(loadJson("finalBoss.json"), 3, 0);
 
-        addShuffledLevelsToRow(easies, 0);
-        addShuffledLevelsToRow(mediums, 1);
-        addShuffledLevelsToRow(hards, 2);
-        addShuffledLevelsToRow(devs, 5);
+        addShuffledLevelsToRow(easies, 0, true);
+        addShuffledLevelsToRow(mediums, 1, true);
+        addShuffledLevelsToRow(hards, 2, true);
+        addShuffledLevelsToRow(devs, 5, false);
         //addShuffledLevelsToRow(devs2, 6);
 
 
     }
 
-    public static void addShuffledLevelsToRow(ArrayList<String> levels, int row) {
+    public static void addShuffledLevelsToRow(ArrayList<String> levels, int row, boolean capped) {
         Collections.shuffle(levels);
-        while (levels.size() > Main.LEVELCAP) {
+        while (levels.size() > Main.LEVELCAP && capped) {
             levels.remove(levels.get(levels.size()-1));
         }
         for (int i = 0; i < levels.size(); i++) {

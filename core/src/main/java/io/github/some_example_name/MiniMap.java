@@ -25,6 +25,7 @@ public class MiniMap {
                     batch.draw(LevelDraw.voidTx,xStart+(i*size),yStart+(j*size),size, size);
                 }
                 else {
+                    if (icon.drawBackground()) batch.draw(LevelDraw.backgroundTexture, xStart+(i*size),yStart+(j*size),size, size);
                     if (icon.getType().equals("texture")) batch.draw(icon.getTexture(), xStart+(i*size),yStart+(j*size),size, size);
                     else if (icon.getType().equals("sprite")) {
 
