@@ -17,7 +17,6 @@ public class TileFills {
     int dataY = 0;
     int[] wallsX = new int[5];
     int[] wallsY = new int[5];
-    ArrayList<Vector2Int> walls = new ArrayList<>();
     boolean drawBackground = true;
 
     //default constructor for empty tiles
