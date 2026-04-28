@@ -12,8 +12,8 @@ public class LevelTemplates {
     public static level alexlevel3 = new level(1,5,true);
     public static level finalBoss = new level(1,5,true);
     public static void addTemplatesToMap(map map) {
-        defaultSetup();
-        //randomSetup(map);
+        //defaultSetup();
+        randomSetup(map);
     }
 
     public static void defaultSetup() {
@@ -25,6 +25,7 @@ public class LevelTemplates {
 
         setup(loadJson("easyIce.json"), 3,2);
         setup(loadJson("hardEnd.json"), 4, 0);
+        setup(loadJson("hard1.json"),6,0);
         setup(loadJson("easyBox.json"), 1, 2);
         setup(loadJson("mediumIce.json"), 3, 3);
         alexlevel3 = setup(loadJson("mediumSpikes.json"), 5, 0);
