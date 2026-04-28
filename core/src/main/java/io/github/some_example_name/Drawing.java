@@ -163,6 +163,7 @@ public class Drawing {
             wallX[i] = rX;
             wallY[i] = rY;
             i++;
+            if (i >= 5) endPressure();
         }
         TextBox.updateTextBox("3 "+rX, 0);
         TextBox.updateTextBox("4 "+rY, 1);

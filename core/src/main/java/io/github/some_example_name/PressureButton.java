@@ -17,15 +17,15 @@ public class PressureButton extends TileFills{
             wallsY[i] = wallY[i];
         }
     }
-    public void press(level curLevel) {
+    public void press() {
         this.pressed = true;
         this.sprite.setAlpha(0);
         TextBox.updateTextBox("Pressure Button is Pressed!!!"+wallsX[2] + " " + wallsY[2], 1);
         for (int i = 0; i < wallsX.length; i++) {
-            curLevel.changeTile(wallsX[i], wallsY[i], "floor");
+            Main.currentLevel.changeTile(wallsX[i], wallsY[i], "floor");
         }
     }
-    public void unpress(level curLevel) {
+    public void unpress() {
         this.sprite.setAlpha(1);
         this.pressed = false;
         TextBox.updateTextBox("Pressure Button no longer Pressed.", 1);
