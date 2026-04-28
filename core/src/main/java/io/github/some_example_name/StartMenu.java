@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class StartMenu {
     private Stage stage;
@@ -43,9 +43,11 @@ public class StartMenu {
             }
         });
 
-        Table table = new Table();
+        /*Table table = new Table();
         table.setColor(0, 0, 0, 1f); // color and transparency of buttons
         table.setFillParent(true);
+        Image pauseImage = new Image(new Texture("StartMenuArt.png"));
+        table.add(pauseImage).center();
         stage.addActor(table);
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -60,6 +62,28 @@ public class StartMenu {
 
         table.add(start).width(200).height(80).row();
         table.add(editor).width(200).height(80).row();
+
+         */
+
+        Table root = new Table();
+        root.setFillParent(true);
+        stage.addActor(root);
+        Texture bgTexture = new Texture(Gdx.files.internal("StartMenuArt.png"));
+        Image background = new Image(bgTexture);
+        background.setScaling(Scaling.fill);
+
+        Table buttonTable = new Table();
+        buttonTable.padBottom(80);
+        buttonTable.center();
+
+        buttonTable.add(start).width(200).height(80).pad(10).row();
+        buttonTable.add(editor).width(200).height(80).pad(10).row();
+
+        Stack stack = new Stack();
+        stack.add(background);
+        stack.add(buttonTable);
+
+        root.add(stack).grow();
     }
 
     public int show() {

@@ -113,6 +113,14 @@ public class Main extends ApplicationAdapter {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         //System.out.println(Gdx.graphics.getFramesPerSecond());
 
+        if (!gameStarted) {
+            startMenu.getStage().act(Gdx.graphics.getDeltaTime());
+            startMenu.getStage().draw();
+            return; // skips all game logic until start is pressed
+        }
+
+        if (player == null) return;
+
         if (gameStarted && pauseMenu.getQuitStatus()) {
             pauseMenu.setQuitStatus(false);
             pauseMenu.hide();
@@ -121,19 +129,15 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
-        if (!gameStarted) {
-            startMenu.getStage().act(Gdx.graphics.getDeltaTime());
-            startMenu.getStage().draw();
-            return; // skip all game logic until start is pressed
-        }
-
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        if (gameStarted && !player.isAlive() && !deathScreen.isVisible()) {
-            deathScreen.show();
-            pauseMenu.hide(); // ensure pause menu doesn't overlap
-            Gdx.input.setInputProcessor(deathScreen.getStage());
+        if (gameStarted) {
+            if (!player.isAlive() && !deathScreen.isVisible()) {
+                deathScreen.show();
+                pauseMenu.hide(); // ensure pause menu doesn't overlap
+                Gdx.input.setInputProcessor(deathScreen.getStage());
+            }
         }
 
         //Button for pause menus
@@ -246,6 +250,15 @@ public class Main extends ApplicationAdapter {
         viewport.update(width, height, true);
         if (pauseMenu != null) {
             pauseMenu.resize(width, height);
+        }
+        if (startMenu != null) {
+            startMenu.resize(width, height);
+        }
+        if (editorMenu != null) {
+            editorMenu.resize(width, height);
+        }
+        if (deathScreen != null) {
+            deathScreen.resize(width, height);
         }
     }
 
