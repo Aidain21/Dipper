@@ -21,7 +21,6 @@ public class Drawing {
     public static boolean placingOutPortal;
     public static boolean placingButton;
     public static boolean placingPressure;
-    public static boolean donePlacing;
     public static boolean twoWay;
     public static String currentFile;
     //public Vector2Int size;
@@ -32,9 +31,10 @@ public class Drawing {
     public static Vector2Int pressureEdit = new Vector2Int(0,0);
     public static Vector2Int portalEdit = new Vector2Int(0,0);
     public static Vector2Int buttonEdit = new Vector2Int(0,0);
-    static ArrayList<Vector2Int> walls;
+    static int[] wallX = new int[5];
+    static int[] wallY = new int[5];
     public static int screenHeight = 1040;
-
+    static int i = 0;
 
 
     public static void start(boolean loadPlayerLevel) {
@@ -149,32 +149,29 @@ public class Drawing {
     }
 
     public static void startPressure(int x, int y) {
-        if (donePlacing) return;
         placingPressure = true;
-        donePlacing = false;
         pressureEdit = new Vector2Int(x,y);
-        walls = new ArrayList<>();
+        wallX = new int[5];
+        wallY = new int[5];
+        i = 0;
     }
 
-    public static void addPressure(int mouseX, int mouseY) {
-        if (donePlacing) return;
+    public static void addWalls(int mouseX, int mouseY) {
         int rX = Math.round((mouseX - 15) / 32.0f);
         int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
         if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
-            Vector2Int wall = new Vector2Int(rX, rY);
-            walls.add(wall);
+            wallX[i] = rX;
+            wallY[i] = rY;
+            i++;
         }
-        TextBox.updateTextBox("3 "+pressureEdit.x, 0);
-        TextBox.updateTextBox("4 "+pressureEdit.y, 1);
-        //placingButton = false;
+        TextBox.updateTextBox("3 "+rX, 0);
+        TextBox.updateTextBox("4 "+rY, 1);
     }
 
     public static void endPressure() {
-        workingLevel.level1[pressureEdit.y][pressureEdit.x] = new TileFills().CreateTileFills("pressureButton");
-        ((PressureButton) workingLevel.level1[pressureEdit.y][pressureEdit.x]).addWalls(walls);
-        //walls.clear();
+        workingLevel.level1[pressureEdit.x][pressureEdit.y] = new TileFills().CreateTileFills("pressureButton", wallX, wallY);
+        //((PressureButton) workingLevel.level1[pressureEdit.x][pressureEdit.y]).addWalls(walls);
         placingPressure = false;
-        donePlacing = true;
     }
 
     public static void getTileData(int mouseX, int mouseY) {
