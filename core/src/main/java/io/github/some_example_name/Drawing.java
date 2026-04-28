@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 //Load as: 7
 //Load: 8
@@ -23,6 +20,7 @@ public class Drawing {
     public static boolean placingPortal;
     public static boolean placingOutPortal;
     public static boolean placingButton;
+    public static boolean placingPressure;
     public static boolean twoWay;
     public static String currentFile;
     //public Vector2Int size;
@@ -30,10 +28,13 @@ public class Drawing {
     //public TileFills[][] grid;
     public static TileFills curTile;
     public static int tileNum = 0;
+    public static Vector2Int pressureEdit = new Vector2Int(0,0);
     public static Vector2Int portalEdit = new Vector2Int(0,0);
-    public static Vector2Int buttonEdit = new Vector2Int(0, 0);
+    public static Vector2Int buttonEdit = new Vector2Int(0,0);
+    static int[] wallX = new int[5];
+    static int[] wallY = new int[5];
     public static int screenHeight = 1040;
-
+    static int i = 0;
 
 
     public static void start(boolean loadPlayerLevel) {
@@ -65,7 +66,6 @@ public class Drawing {
 
         }
         curTile = Tile.wall;
-
         if (Main.gameStarted) {
             TextBox.updateTextBox("Editing level: " + currentFile, 3);
             TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
@@ -143,9 +143,35 @@ public class Drawing {
                 new TileFills().CreateTileFills("button", rX, rY);
             ((Button)workingLevel.level1[buttonEdit.x][buttonEdit.y]).setPos(rX, rY);
         }
-        TextBox.updateTextBox("3 "+buttonEdit.x, 1);
-        TextBox.updateTextBox("4 "+buttonEdit.y, 2);
+        TextBox.updateTextBox("3 "+buttonEdit.x, 0);
+        TextBox.updateTextBox("4 "+buttonEdit.y, 1);
         placingButton = false;
+    }
+
+    public static void startPressure(int x, int y) {
+        placingPressure = true;
+        pressureEdit = new Vector2Int(x,y);
+        wallX = new int[5];
+        wallY = new int[5];
+        i = 0;
+    }
+
+    public static void addWalls(int mouseX, int mouseY) {
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
+        if (rY > 0 && rX > 0 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            wallX[i] = rX;
+            wallY[i] = rY;
+            i++;
+        }
+        TextBox.updateTextBox("3 "+rX, 0);
+        TextBox.updateTextBox("4 "+rY, 1);
+    }
+
+    public static void endPressure() {
+        workingLevel.level1[pressureEdit.x][pressureEdit.y] = new TileFills().CreateTileFills("pressureButton", wallX, wallY);
+        //((PressureButton) workingLevel.level1[pressureEdit.x][pressureEdit.y]).addWalls(walls);
+        placingPressure = false;
     }
 
     public static void getTileData(int mouseX, int mouseY) {
@@ -191,6 +217,9 @@ public class Drawing {
                 }
                 if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "button")) {
                     startButton(rY,rX);
+                }
+                if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "pressureButton")) {
+                    startPressure(rY,rX);
                 }
             }
         }

@@ -1,36 +1,33 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 public class PressureButton extends TileFills{
     boolean pressed;
-    static Array<Vector2Int> walls = new Array<>();
-    public PressureButton() {
+    public PressureButton(int[] wallX, int[] wallY) {
         fill = "pressureButton";
         sprite = new Sprite(LevelDraw.pressureButtonTx);
         canWalk = true;
         movable = true;
         pressed = false;
-        //sprite.setPosition(x*32, y*32);
-    }
-    public void press() {
-        this.pressed = true;
-        this.sprite.setAlpha(0);
-        TextBox.updateTextBox("Pressure Button is Pressed!!!", 1);
-        for (int i = 0; i <= walls.size; i++) {
-            //level.changeTile(walls.get(i).x, walls.get(i).y, "pressureButton");
+        for (int i = 0; i <=4; i++) {
+            wallsX[i] = wallX[i];
+            wallsY[i] = wallY[i];
         }
     }
-    public void unpress() {
+    public void press(level curLevel) {
+        this.pressed = true;
+        this.sprite.setAlpha(0);
+        TextBox.updateTextBox("Pressure Button is Pressed!!!"+wallsX[2] + " " + wallsY[2], 1);
+        for (int i = 0; i < wallsX.length; i++) {
+            curLevel.changeTile(wallsX[i], wallsY[i], "floor");
+        }
+    }
+    public void unpress(level curLevel) {
         this.sprite.setAlpha(1);
         this.pressed = false;
         TextBox.updateTextBox("Pressure Button no longer Pressed.", 1);
     }
-
-    public static void addTile(int x, int y) {
-        Vector2Int tile = new Vector2Int(x, y);
-        walls.add(tile);
-    }
-    //public boolean isPressed() {return this.pressed;}
 }
