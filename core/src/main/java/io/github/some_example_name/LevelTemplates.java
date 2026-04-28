@@ -31,7 +31,6 @@ public class LevelTemplates {
         setup(loadJson("mediumGates.json"), 4, 2);
 
         finalBoss = setup(loadJson("finalBoss.json"), 6, 6);
-        alexlevel3 = setup(loadJson("alexlevel3.json"), 5, 0);
     }
 
     public static void randomSetup(map map) {
