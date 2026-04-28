@@ -82,7 +82,7 @@ public class Player {
                 case "spikes": ((SimpleTextures.Spikes) nextTile).spiked(); break;
                 case "void": ((SimpleTextures.Void) nextTile).fall(); break;
                 case "iceFloor":  ((SimpleTextures.IceFloor) nextTile).slide(); return;
-                case "health": dealDamage(-1); curLevel.level1[end.y][end.x]= Tile.floor.refill(); break;//return;
+                case "health": if(playerHealth<playerMaxHealth){dealDamage(-1); curLevel.level1[end.y][end.x]= Tile.floor.refill();} break;//return;
                 default: break;
             }
 
@@ -135,6 +135,10 @@ public class Player {
     }
 
     public static void dealDamage(float damage) {
+        //Prevents healing above max health
+        if (playerHealth == playerMaxHealth && damage < 0) {
+            return;
+        }
         playerHealth -= damage;
         TextBox.updateTextBox("Health: " + playerHealth,5);
         if (playerHealth <= 0) alive = false;
