@@ -13,7 +13,7 @@ public class LevelLogic extends LevelTemplates {
     float timer = 0.3f;
 
     public void logic(level curLevel) {
-        level3logic();
+        //level3logic();
         //AlexLevel3Logic();
         ColorGateLogic(curLevel);
     }
