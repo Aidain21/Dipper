@@ -341,8 +341,8 @@ public class Main extends ApplicationAdapter {
     private void draw() {
         if(!fullMap) {
             LevelDraw.drawLevel(batch, currentLevel);
-            if(currentLevel != LevelTemplates.finalBoss)
-                MiniMap.drawMap(batch, levels, currentLevel, false);
+            //if(currentLevel != LevelTemplates.finalBoss)
+            //    MiniMap.drawMap(batch, levels, currentLevel, false);
 
             //the logo
             //batch.draw(image, 140, 210);

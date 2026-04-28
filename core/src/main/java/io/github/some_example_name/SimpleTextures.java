@@ -149,7 +149,7 @@ public class SimpleTextures extends TileFills{
         public Health() {
             fill = "health";
             texture = LevelDraw.healthTx;
-            //drawBackground = true;
+            drawBackground = true;
             canWalk = true;
         }
     }
