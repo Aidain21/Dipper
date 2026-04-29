@@ -21,8 +21,14 @@ public class map {
                 levelMap[j][i] = new level(0, 0);
             }
         }
-        levelMap[0][0] = new level(levelR, levelC, 1, 1);
-        LevelTemplates.addTemplatesToMap(this);
+        if (Main.testing) {
+            levelMap[0][0] = Drawing.workingLevel;
+        }
+        else {
+            LevelTemplates.addTemplatesToMap(this);
+        }
+
+
     }
 
     public level[][] getMap() {

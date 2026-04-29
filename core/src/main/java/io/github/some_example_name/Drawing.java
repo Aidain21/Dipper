@@ -42,7 +42,7 @@ public class Drawing {
         if (Main.gameStarted)
             TextBox.clearText();
 
-        if (!loadPlayerLevel) {
+        if (!loadPlayerLevel && !Main.testing) {
             currentFile = JOptionPane.showInputDialog("Load JSON file:") + ".json";
             if (currentFile.equals("null.json")) {
                 end("NoSave");
@@ -54,7 +54,7 @@ public class Drawing {
                 return;
             }
         }
-        else {
+        else if (!Main.testing) {
             if (Main.currentLevel.filename != "") {
                 currentFile = Main.currentLevel.filename;
                 workingLevel = loadArtJson(currentFile);
@@ -65,8 +65,12 @@ public class Drawing {
             }
 
         }
+        Main.testing = false;
         curTile = Tile.wall;
         if (Main.gameStarted) {
+            TextBox.updateTextBox("Left Button to Draw, Right to Erase, Left and Right Keys to change tile",0);
+            TextBox.updateTextBox("R to Rotate, D to get Data, T to test level",1);
+            TextBox.updateTextBox("I to set icon to current tile, S to set spawn at mouse",2);
             TextBox.updateTextBox("Editing level: " + currentFile, 3);
             TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
             TextBox.updateTextBox("Tile Num: " + tileNum, 5);

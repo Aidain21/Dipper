@@ -30,6 +30,7 @@ public class Main extends ApplicationAdapter {
     static Bow bow;
     static DipperBoss dip;
     public static boolean fullMap = false;
+    public static boolean testing = false;
     public static TextBox textBox;
     Viewport viewport;
     LevelLogic log;
@@ -143,22 +144,29 @@ public class Main extends ApplicationAdapter {
 
         //Button for pause menus
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !deathScreen.isVisible()) {
-            if (editorMenu.isVisible()) {
-                editorMenu.hide();
-                Gdx.input.setInputProcessor(null);
+            if (testing) {
+                Drawing.start(true);
             }
-            else if (Drawing.drawing) {
-                editorMenu.show();
-                Gdx.input.setInputProcessor(editorMenu.getStage());
+            else {
+                if (editorMenu.isVisible()) {
+                    editorMenu.hide();
+                    Gdx.input.setInputProcessor(null);
+                }
+                else if (Drawing.drawing) {
+                    editorMenu.show();
+                    Gdx.input.setInputProcessor(editorMenu.getStage());
+                }
+                else if (pauseMenu.isVisible()) {
+                    pauseMenu.hide();
+                    Gdx.input.setInputProcessor(null);
+                }
+                else if (!editorMenu.isVisible()) {
+                    pauseMenu.show();
+                    Gdx.input.setInputProcessor(pauseMenu.getStage());
+                }
             }
-            else if (pauseMenu.isVisible()) {
-                pauseMenu.hide();
-                Gdx.input.setInputProcessor(null);
-            }
-            else if (!editorMenu.isVisible()) {
-                pauseMenu.show();
-                Gdx.input.setInputProcessor(pauseMenu.getStage());
-            }
+
+
         }
 
         //Only updates logic if no menus are open
@@ -232,7 +240,13 @@ public class Main extends ApplicationAdapter {
 
     private void resetGame() {//this handles level and player declaration
 
-        levels = new map(8, 8, 12, 12);
+        if (testing) {
+            levels = new map(1, 1, 1, 1);
+        }
+        else {
+            levels = new map(8, 8, 12, 12);
+        }
+
         dip = new DipperBoss();
         currentLevel = levels.getMap()[0][0];
         player = new Player(currentLevel.spawnRow, currentLevel.spawnCol);
@@ -244,6 +258,8 @@ public class Main extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(null);
         Gdx.graphics.setWindowedMode(1600, 1040);
+
+
     }
 
     @Override
@@ -332,18 +348,6 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
-            Drawing.start(true);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
-            Drawing.start(false);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-            player.pos = currentLevel.changeLevel((SimpleTextures.Portal)Tile.outPortal);
-        }
     }
 
     private void logic() {
@@ -388,18 +392,6 @@ public class Main extends ApplicationAdapter {
         int mouseY = Gdx.input.getY();
 
         if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton && !Drawing.placingPressure) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-                Drawing.end("SaveAs");
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-                Drawing.end("Save");
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
-                Drawing.end("NoSave");
-            }
-
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                 Drawing.changeDrawTile(1);
             }
@@ -442,6 +434,13 @@ public class Main extends ApplicationAdapter {
             if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
                 Drawing.setSpawnPoint(mouseX, mouseY);
             }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+                testing = true;
+                Drawing.end("Save");
+                resetGame();
+            }
+
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
                 fullMap = !fullMap;
