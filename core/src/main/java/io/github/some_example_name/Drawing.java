@@ -67,6 +67,9 @@ public class Drawing {
         }
         curTile = Tile.wall;
         if (Main.gameStarted) {
+            TextBox.updateTextBox("Left Button to Draw, Right to Erase",0);
+            TextBox.updateTextBox("Placing Pressure Button",1);
+            TextBox.updateTextBox("Placing Pressure Button",2);
             TextBox.updateTextBox("Editing level: " + currentFile, 3);
             TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
             TextBox.updateTextBox("Tile Num: " + tileNum, 5);

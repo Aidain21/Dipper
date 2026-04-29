@@ -331,18 +331,6 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             bow.bowInput(player.pos.x, player.pos.y, 'w');
         }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
-            Drawing.start(true);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
-            Drawing.start(false);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-            player.pos = currentLevel.changeLevel((SimpleTextures.Portal)Tile.outPortal);
-        }
     }
 
     private void logic() {
@@ -387,18 +375,6 @@ public class Main extends ApplicationAdapter {
         int mouseY = Gdx.input.getY();
 
         if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton && !Drawing.placingPressure) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-                Drawing.end("SaveAs");
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-                Drawing.end("Save");
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
-                Drawing.end("NoSave");
-            }
-
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                 Drawing.changeDrawTile(1);
             }
