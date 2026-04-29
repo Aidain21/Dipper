@@ -388,6 +388,10 @@ public class Main extends ApplicationAdapter {
 
 
     public void artInput() {
+        if (editorMenu.isVisible()) {
+            return;
+        }
+
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
