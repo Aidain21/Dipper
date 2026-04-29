@@ -38,8 +38,9 @@ public class StartMenu {
         editor.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                Drawing.start(false);
+
                 Main.instance.onStartGame();
+                Drawing.start(false);
             }
         });
 

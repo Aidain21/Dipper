@@ -151,6 +151,12 @@ public class level extends ApplicationAdapter {
     public Vector2Int changeLevel(SimpleTextures.Portal p){
         Main.bow.deleteArrows();
         Main.dip.deleteMagic();
+
+        if (Main.testing) {
+            Drawing.start(true);
+            return new Vector2Int();
+        }
+
         if (Main.levelNum >= 0 && Main.levelNum < Main.LEVELCAP * 3) {
             Main.levelNum += 1;
             return Main.moveLevel(Main.levelNum % Main.LEVELCAP,Main.levelNum / Main.LEVELCAP);
