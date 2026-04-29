@@ -33,6 +33,7 @@ public class TileFills {
             case "box": return new Box();
             case "button": return new Button();
             case "void": return new SimpleTextures.Void();
+            case "health": return new SimpleTextures.Health();
             case "rGate":
             case "gGate":
             case "bGate":
@@ -87,6 +88,7 @@ public class TileFills {
             case "wall":
             case "box":
             case "void":
+            case "health":
             case "rGate":
             case "gGate":
             case "bGate":
