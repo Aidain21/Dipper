@@ -116,6 +116,7 @@ public class Main extends ApplicationAdapter {
         if (!gameStarted) {
             startMenu.getStage().act(Gdx.graphics.getDeltaTime());
             startMenu.getStage().draw();
+            Gdx.input.setInputProcessor(startMenu.getStage());
             return; // skips all game logic until start is pressed
         }
 

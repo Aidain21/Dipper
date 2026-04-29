@@ -36,7 +36,7 @@ public class EditorMenu {
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 Drawing.end("Save");
                 hide();
-                //Main.gameStarted = false;
+                Main.gameStarted = false;
             }
         });
 
@@ -45,7 +45,7 @@ public class EditorMenu {
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 Drawing.end("SaveAs");
                 hide();
-                //Main.gameStarted = false;
+                Main.gameStarted = false;
             }
         });
 
@@ -54,7 +54,7 @@ public class EditorMenu {
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 Drawing.end("NoSave");
                 hide();
-                //Main.gameStarted = false;
+                Main.gameStarted = false;
             }
         });
 
