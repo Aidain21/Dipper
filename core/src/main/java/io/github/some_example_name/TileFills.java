@@ -15,6 +15,8 @@ public class TileFills {
     //Vector2Int pos = new Vector2Int(0,0);
     int dataX = 0;
     int dataY = 0;
+    int[] wallsX = new int[5];
+    int[] wallsY = new int[5];
     boolean drawBackground = true;
 
     //default constructor for empty tiles
@@ -31,12 +33,12 @@ public class TileFills {
             case "box": return new Box();
             case "button": return new Button();
             case "void": return new SimpleTextures.Void();
+            case "health": return new SimpleTextures.Health();
             case "rGate":
             case "gGate":
             case "bGate":
             case "yGate": return new SimpleTextures.ColorGate(fill);
-            case "pressureButton": return new PressureButton();
-            case "health": return new SimpleTextures.Health();
+            case "pressureButton": return new PressureButton(wallsX, wallsY);
             default: return new TileFills();
         }
     }
@@ -72,6 +74,11 @@ public class TileFills {
         }
     }
 
+    public TileFills CreateTileFills(String fill, int[] wallX, int[] wallY) {
+        if (fill.equals("pressureButton")) return new PressureButton(wallX, wallY);
+        return new TileFills();
+    }
+
     // Objects
 
     public TileFills refill() {
@@ -81,12 +88,12 @@ public class TileFills {
             case "wall":
             case "box":
             case "void":
+            case "health":
             case "rGate":
             case "gGate":
             case "bGate":
-            case "yGate":
-            case "health":
-            case "pressureButton": return CreateTileFills(fill);
+            case "yGate": return CreateTileFills(fill);
+            case "pressureButton": return CreateTileFills(fill, wallsX, wallsY);
             case "bouncy":
             case "rB":
             case "gB":

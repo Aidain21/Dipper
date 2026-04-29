@@ -49,7 +49,7 @@ public class LevelTemplates {
             hards = new ArrayList<>(),
             devs = new ArrayList<>(),
             devs2 = new ArrayList<>();
-
+//hi
         for (File f : levels) {
             if (f.getName().charAt(0) == 'e') {easies.add(f.getName());}
             if (f.getName().charAt(0) == 'm') {mediums.add(f.getName());}

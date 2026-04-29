@@ -387,7 +387,7 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton) {
+        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton && !Drawing.placingPressure) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 Drawing.end("SaveAs");
             }
@@ -410,14 +410,16 @@ public class Main extends ApplicationAdapter {
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) &&
                 !Objects.equals(Drawing.curTile.getTileString(), "inportal") &&
                 !Objects.equals(Drawing.curTile.getTileString(), "portal") &&
-                !Objects.equals(Drawing.curTile.getTileString(), "button")) {
+                !Objects.equals(Drawing.curTile.getTileString(), "button") &&
+                !Objects.equals(Drawing.curTile.getTileString(), "pressureButton")) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &&
                 (Objects.equals(Drawing.curTile.getTileString(), "inportal") ||
                 Objects.equals(Drawing.curTile.getTileString(), "portal") ||
-                Objects.equals(Drawing.curTile.getTileString(), "button"))) {
+                Objects.equals(Drawing.curTile.getTileString(), "button") ||
+                Objects.equals(Drawing.curTile.getTileString(), "pressureButton"))) {
                 Drawing.drawTile(mouseX,mouseY, false);
             }
 
@@ -462,6 +464,16 @@ public class Main extends ApplicationAdapter {
         }
         else if (Drawing.placingButton) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) Drawing.endButton(mouseX, mouseY);
+        }
+        else if (Drawing.placingPressure) {
+            TextBox.updateTextBox("Placing Pressure Button",4);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                Drawing.endPressure();
+            }
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                TextBox.updateTextBox("Done Selecting Walls", 2);
+                Drawing.addWalls(mouseX, mouseY);
+            }
         }
         else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
             TextBox.updateTextBox("Placing level portal",4);
