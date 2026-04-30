@@ -47,28 +47,38 @@ public class LevelTemplates {
         ArrayList<String> easies = new ArrayList<>(),
             mediums = new ArrayList<>(),
             hards = new ArrayList<>(),
-            devs = new ArrayList<>(),
-            devs2 = new ArrayList<>();
+            other = new ArrayList<>(),
+            other2 = new ArrayList<>(),
+            other3 = new ArrayList<>();
 //hi
+
+
         for (File f : levels) {
             if (f.getName().charAt(0) == 'e') {easies.add(f.getName());}
-            if (f.getName().charAt(0) == 'm') {mediums.add(f.getName());}
-            if (f.getName().charAt(0) == 'h') {hards.add(f.getName());}
-            if (f.getName().charAt(0) == 'd' && devs.size() < 8) {devs.add(f.getName());}
-            else if (f.getName().charAt(0) == 'd' && devs.size() >= 8) {devs2.add(f.getName());}
+            else if (f.getName().charAt(0) == 'm') {mediums.add(f.getName());}
+            else if (f.getName().charAt(0) == 'h') {hards.add(f.getName());}
+            else if (other.size() < 8) {other.add(f.getName());}
+            else if (other2.size() < 8) {other2.add(f.getName());}
+            else if (other3.size() < 8) {other3.add(f.getName());}
         }
+
         finalBoss = setup(loadJson("finalBoss.json"), 3, 0);
 
         addShuffledLevelsToRow(easies, 0, true);
         addShuffledLevelsToRow(mediums, 1, true);
         addShuffledLevelsToRow(hards, 2, true);
-        addShuffledLevelsToRow(devs, 5, false);
-        //addShuffledLevelsToRow(devs2, 6);
+        addShuffledLevelsToRow(other, 5, false);
+        addShuffledLevelsToRow(other2, 6, false);
+        addShuffledLevelsToRow(other3, 7, false);
 
 
     }
 
     public static void addShuffledLevelsToRow(ArrayList<String> levels, int row, boolean capped) {
+
+        levels.remove("finalBoss.json");
+        levels.remove("temp.json");
+
         Collections.shuffle(levels);
         while (levels.size() > Main.LEVELCAP && capped) {
             levels.remove(levels.get(levels.size()-1));

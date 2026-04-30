@@ -390,7 +390,7 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton && !Drawing.placingPressure) {
+        if (!Drawing.placingPortal && !Drawing.placingButton && !Drawing.placingPressure) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                 Drawing.changeDrawTile(1);
             }
@@ -400,7 +400,6 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) &&
                 !Objects.equals(Drawing.curTile.getTileString(), "inportal") &&
-                !Objects.equals(Drawing.curTile.getTileString(), "portal") &&
                 !Objects.equals(Drawing.curTile.getTileString(), "button") &&
                 !Objects.equals(Drawing.curTile.getTileString(), "pressureButton")) {
                 Drawing.drawTile(mouseX,mouseY, false);
@@ -408,7 +407,6 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &&
                 (Objects.equals(Drawing.curTile.getTileString(), "inportal") ||
-                Objects.equals(Drawing.curTile.getTileString(), "portal") ||
                 Objects.equals(Drawing.curTile.getTileString(), "button") ||
                 Objects.equals(Drawing.curTile.getTileString(), "pressureButton"))) {
                 Drawing.drawTile(mouseX,mouseY, false);
@@ -430,6 +428,10 @@ public class Main extends ApplicationAdapter {
                 Drawing.workingLevel.icon = Drawing.curTile;
             }
 
+            if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+                Drawing.pickTile(mouseX,mouseY);
+            }
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
                 Drawing.setSpawnPoint(mouseX, mouseY);
             }
@@ -445,18 +447,21 @@ public class Main extends ApplicationAdapter {
                 fullMap = !fullMap;
             }
         }
-        else if (Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap){
-            TextBox.updateTextBox("Placing portal end",4);
-            TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+        else if (Drawing.placingPortal){
+
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 Drawing.endPlacePortal(mouseX,mouseY);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+
                 Drawing.twoWay = !Drawing.twoWay;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+
                 Drawing.twoWay = !Drawing.twoWay;
             }
         }
@@ -464,25 +469,13 @@ public class Main extends ApplicationAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) Drawing.endButton(mouseX, mouseY);
         }
         else if (Drawing.placingPressure) {
-            TextBox.updateTextBox("Placing Pressure Button",4);
             if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 Drawing.endPressure();
             }
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                TextBox.updateTextBox("Done Selecting Walls", 2);
                 Drawing.addWalls(mouseX, mouseY);
-            }
-        }
-        else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
-            TextBox.updateTextBox("Placing level portal",4);
-
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                Drawing.endPlaceOutPortal(mouseX,mouseY);
-            }
-        }
-        else if (!Drawing.placingPortal && !Drawing.placingOutPortal) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
-                fullMap = !fullMap;
+                TextBox.updateTextBox("Tiles Selected: " +
+                    Drawing.wallsSelected(Drawing.wallX, Drawing.wallY), 5);
             }
         }
     }
