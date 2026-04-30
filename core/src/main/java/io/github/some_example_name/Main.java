@@ -299,6 +299,7 @@ public class Main extends ApplicationAdapter {
             }
         }
 
+
         if (Player.playerLock) {
             player.locked(currentLevel);
             return;
@@ -329,6 +330,11 @@ public class Main extends ApplicationAdapter {
             }
         } else {
             inputTimer -= Gdx.graphics.getDeltaTime();
+        }
+
+        if (Player.playerLock) {
+            player.locked(currentLevel);
+            return;
         }
 
 
