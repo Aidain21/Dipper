@@ -139,6 +139,11 @@ public class Player {
         if (playerHealth == playerMaxHealth && damage < 0) {
             return;
         }
+        else if (playerHealth == 2.5 && damage < 0) {
+            playerHealth = playerMaxHealth;
+            TextBox.updateTextBox("Health: " + playerHealth,5);
+            return;
+        }
         playerHealth -= damage;
         TextBox.updateTextBox("Health: " + playerHealth,5);
         if (playerHealth <= 0) alive = false;

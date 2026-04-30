@@ -21,7 +21,6 @@ public class Main extends ApplicationAdapter {
     public static final int LEVELCAP = 3;
 
     private SpriteBatch batch;
-    private Texture image;
     static Player player;
     public float inputTimer = 0f;
     static level currentLevel;
@@ -78,7 +77,6 @@ public class Main extends ApplicationAdapter {
         Tile.startTile();
         textBox = new TextBox();
         dip = new DipperBoss();
-        image = new Texture("libgdx.png");
 
 
 
@@ -371,9 +369,6 @@ public class Main extends ApplicationAdapter {
             //if(currentLevel != LevelTemplates.finalBoss)
             //    MiniMap.drawMap(batch, levels, currentLevel, false);
 
-            //the logo
-            //batch.draw(image, 140, 210);
-
             textBox.drawTextBox(batch);
             player.drawPlayer(batch);
             bow.drawArrow(batch);
@@ -388,6 +383,10 @@ public class Main extends ApplicationAdapter {
 
 
     public void artInput() {
+        if (editorMenu.isVisible()) {
+            return;
+        }
+
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
@@ -511,7 +510,6 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        if (image != null) image.dispose();
         if (pauseMenu != null) pauseMenu.dispose();
         if (editorMenu != null) editorMenu.dispose();
         if (deathScreen != null) deathScreen.dispose();
