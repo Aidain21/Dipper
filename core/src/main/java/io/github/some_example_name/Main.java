@@ -311,15 +311,15 @@ public class Main extends ApplicationAdapter {
                 player.gridMove(new Vector2(-1, 0), currentLevel);
                 inputTimer = 0.1f;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 player.gridMove(new Vector2(1, 0), currentLevel);
                 inputTimer = 0.1f;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 player.gridMove(new Vector2(0, 1), currentLevel);
                 inputTimer = 0.1f;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 player.gridMove(new Vector2(0, -1), currentLevel);
                 inputTimer = 0.1f;
             }
