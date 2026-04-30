@@ -141,6 +141,7 @@ public class SimpleTextures extends TileFills{
             this.open = true;
             this.canWalk = true;
             this.drawBackground = true;
+            this.movable = true;
             this.texture = LevelDraw.openGateTx;
         }
     }
@@ -148,7 +149,7 @@ public class SimpleTextures extends TileFills{
     public static class Health extends TileFills{
         public Health() {
             fill = "health";
-            texture = LevelDraw.healthTx;
+            texture = LevelDraw.heartTx;
             drawBackground = true;
             canWalk = true;
         }
