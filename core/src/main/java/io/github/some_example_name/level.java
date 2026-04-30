@@ -10,42 +10,41 @@ public class level extends ApplicationAdapter {
     int spawnRow=1;
     int spawnCol=1;
     String name ="";
-    boolean filledIn=false;
     String filename = "";
     TileFills icon = Tile.floor;
 
     //generates new tiles
     TileFills generator = new TileFills();
 
+    public level() {
+
+    }
+
     public level(int r, int c) {
         rowCount=r;
         colCount=c;
         createLevel();
-        filledIn=true;
     }
 
-    public level(int r, int c, int spawnR, int spawnC) {
+    public level(int r, int c, int spawnR, int spawnC, String filename, TileFills icon) {
         rowCount=r;
         colCount=c;
         spawnRow=spawnR;
         spawnCol=spawnC;
-        createLevel();
-        filledIn=true;
+        this.filename = filename;
+        this.icon = icon;
     }
 
-    public level(int spawnR, int spawnC, boolean auto){
-        spawnRow=spawnR;
-        spawnCol=spawnC;
-        filledIn=true;
-    }
-
-    public level(int r, int c, int spawnR, int spawnC, boolean auto){
-        rowCount=r;
-        colCount=c;
-        spawnRow=spawnR;
-        spawnCol=spawnC;
-        createLevel();
-        filledIn=true;
+    public level cloneLevel() {
+        TileFills[][] cloneLevel = new TileFills[level1.length][level1[0].length];
+        level clone = new level(rowCount,colCount,spawnRow,spawnCol,filename,icon);
+        for (int i = 0; i < level1.length; i++) {
+            for (int j = 0; j < level1[0].length; j++) {
+                cloneLevel[i][j] = level1[i][j].refill();
+            }
+        }
+        clone.level1 = cloneLevel;
+        return clone;
     }
 
     //creates a new level and fills it in with walls and floors

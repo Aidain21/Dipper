@@ -8,9 +8,9 @@ import java.util.*;
 import java.io.FileNotFoundException;
 
 public class LevelTemplates {
-    public static level level3 = new level(3,5,true);
-    public static level alexlevel3 = new level(1,5,true);
-    public static level finalBoss = new level(1,5,true);
+    public static level level3 = new level();
+    public static level alexlevel3 = new level();
+    public static level finalBoss = new level();
     public static void addTemplatesToMap(map map) {
         //defaultSetup();
         randomSetup(map);
@@ -105,7 +105,7 @@ public class LevelTemplates {
     }
 
     public static level loadJson(String fileName) {
-        level test = new level(3,5,true);
+        level test = new level();
         Gson gson = new Gson();
         File theFile = new File("levels/" + fileName);
         try {

@@ -265,7 +265,7 @@ public class Drawing {
     }
 
     public static level loadArtJson(String fileName) {
-        level test = new level(3,5,true);
+        level test = new level(3,5);
         Gson gson = new Gson();
         File theFile = new File("levels/" + fileName);
         try {
@@ -283,7 +283,7 @@ public class Drawing {
                     return null;
                 }
                 theFile.createNewFile();
-                level levelY = new level(intWidth,intHeight,5,5,true);
+                level levelY = new level(intWidth,intHeight);
                 saveAsArtJson(levelY, theFile.getName());
                 test = levelY;
             }

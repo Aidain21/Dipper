@@ -22,7 +22,7 @@ public class map {
             }
         }
         if (Main.testing) {
-            levelMap[0][0] = Drawing.workingLevel;
+            levelMap[0][0] = Drawing.workingLevel.cloneLevel();
         }
         else {
             LevelTemplates.addTemplatesToMap(this);
