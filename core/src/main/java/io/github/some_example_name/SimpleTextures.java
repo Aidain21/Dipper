@@ -141,6 +141,7 @@ public class SimpleTextures extends TileFills{
             this.open = true;
             this.canWalk = true;
             this.drawBackground = true;
+            this.movable = true;
             this.texture = LevelDraw.openGateTx;
         }
     }
