@@ -33,11 +33,12 @@ public class LevelDraw {
     public static Texture yellowGateTx = new Texture("yGate.png");
     public static Texture openGateTx = new Texture("gateOpen.png");
     public static Texture dipperBossTx = new Texture("dipperpng2.png");
+    public static Texture heartTx = new Texture("heartTx.png");
+    public static Texture healthTx = new Texture("char.png");//"health.png");
     public static TextureRegion characterFront = new TextureRegion(characterTx, 64, 0, 32, 44);
     public static TextureRegion characterBack = new TextureRegion(characterTx, 96, 0, 32, 44);
     public static TextureRegion characterLeft = new TextureRegion(characterTx, 0, 0, 32, 44);
     public static TextureRegion characterRight = new TextureRegion(characterTx, 32, 0, 32, 44);
-    public static Texture healthTx = new Texture("char.png");//"health.png");
 
     public static void drawLevel(SpriteBatch batch, level level){
         for (int j = 0; j < level.level1.length; j++) {
