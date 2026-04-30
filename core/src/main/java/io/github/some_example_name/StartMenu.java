@@ -44,28 +44,6 @@ public class StartMenu {
             }
         });
 
-        /*Table table = new Table();
-        table.setColor(0, 0, 0, 1f); // color and transparency of buttons
-        table.setFillParent(true);
-        Image pauseImage = new Image(new Texture("StartMenuArt.png"));
-        table.add(pauseImage).center();
-        stage.addActor(table);
-
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0f, 0f, 0f, 1); //color and transparency of background
-        pixmap.fill();
-        Texture bgTexture = new Texture(pixmap);
-        pixmap.dispose();
-
-        table.setBackground(new TextureRegionDrawable(new TextureRegion(bgTexture)));
-
-        table.defaults().pad(10);
-
-        table.add(start).width(200).height(80).row();
-        table.add(editor).width(200).height(80).row();
-
-         */
-
         Table root = new Table();
         root.setFillParent(true);
         stage.addActor(root);
