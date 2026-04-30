@@ -72,15 +72,14 @@ public class SimpleTextures extends TileFills{
 
         public Spikes(int d){
             fill="spikes";
-            texture = LevelDraw.spikesTx;
-            dataX=d;
+            texture = LevelDraw.spikesTx;;
             canWalk=true;
         }
 
         public void spiked() {
             Player.playerLock = true;
             Player.lockTimer = 0.7f;
-            Player.dealDamage(dataX);
+            Player.dealDamage(.5f);
             TextBox.updateTextBox("OOUCH", 1);
         }
     }
@@ -98,7 +97,7 @@ public class SimpleTextures extends TileFills{
             Player.playerLock = true;
             Player.playerFalling = true;
             Player.lockTimer = 1.7f;
-            Player.dealDamage(0.5f);
+            Player.dealDamage(1f);
         }
     }
 
@@ -149,7 +148,7 @@ public class SimpleTextures extends TileFills{
     public static class Health extends TileFills{
         public Health() {
             fill = "health";
-            texture = LevelDraw.healthTx;
+            texture = LevelDraw.heartTx;
             drawBackground = true;
             canWalk = true;
         }
