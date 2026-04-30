@@ -39,6 +39,7 @@ public class Main extends ApplicationAdapter {
     private PauseMenuUI pauseMenu;
     private EditorMenu editorMenu;
     private DeathScreen deathScreen;
+    private WinMenu winScreen;
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
@@ -48,6 +49,7 @@ public class Main extends ApplicationAdapter {
     private Skin saveSkin;
     private Skin saveAsSkin;
     private Skin exitWithoutSavingSkin;
+    private Skin devSkin;
 
     @Override
     public void create() {
@@ -71,6 +73,7 @@ public class Main extends ApplicationAdapter {
         if (saveSkin != null) saveSkin.dispose();
         if (saveAsSkin != null) saveAsSkin.dispose();
         if (exitWithoutSavingSkin != null) exitWithoutSavingSkin.dispose();
+        if (devSkin != null) devSkin.dispose();
 
 
         gameStarted = true;
@@ -91,7 +94,11 @@ public class Main extends ApplicationAdapter {
         saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
         exitWithoutSavingSkin = new Skin(Gdx.files.internal("exitEditor.json"));
 
+        //button for winScreen
+        devSkin = new Skin(Gdx.files.internal("devButton.json"));
+
         //Creates all the UIs
+        winScreen = new WinMenu(exitSkin, devSkin);
         deathScreen = new DeathScreen(restartButtonSkin); //uses same restart as pause
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
         editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin);
@@ -101,7 +108,7 @@ public class Main extends ApplicationAdapter {
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         editorMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         deathScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+        winScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         //moved level,player,bow,box, etc. to resetGame method to be able to get the restart game to work
         resetGame();
         Gdx.input.setInputProcessor(null);
@@ -111,6 +118,14 @@ public class Main extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         //System.out.println(Gdx.graphics.getFramesPerSecond());
+
+        if (gameStarted && winScreen.getDev()) {
+            player.pos = currentLevel.changeLevel((SimpleTextures.Portal) Tile.outPortal);
+            winScreen.setDev(false);
+            winScreen.hide();
+            dip.alive = true;
+            Gdx.input.setInputProcessor(null);
+        }
 
         if (!gameStarted) {
             startMenu.getStage().act(Gdx.graphics.getDeltaTime());
@@ -129,6 +144,14 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
+        if (gameStarted && winScreen.getQuitStatus()) {
+            winScreen.setQuitStatus(false);
+            winScreen.hide();
+            gameStarted = false;
+            Gdx.input.setInputProcessor(startMenu.getStage());
+            return;
+        }
+
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -137,6 +160,14 @@ public class Main extends ApplicationAdapter {
                 deathScreen.show();
                 pauseMenu.hide(); // ensure pause menu doesn't overlap
                 Gdx.input.setInputProcessor(deathScreen.getStage());
+            }
+        }
+
+        if (gameStarted) {
+            if (!dip.alive && !winScreen.isVisible()) {
+                winScreen.show();
+                pauseMenu.hide(); // ensure pause menu doesn't overlap
+                Gdx.input.setInputProcessor(winScreen.getStage());
             }
         }
 
@@ -168,8 +199,7 @@ public class Main extends ApplicationAdapter {
         }
 
         //Only updates logic if no menus are open
-        //Find a way to generalize if a menu is open
-        if (!pauseMenu.isVisible() && !Drawing.drawing && !deathScreen.isVisible()) {
+        if (!pauseMenu.isVisible() && !Drawing.drawing && !deathScreen.isVisible() && !winScreen.isVisible()) {
             input();
             logic();
         }
@@ -234,6 +264,12 @@ public class Main extends ApplicationAdapter {
             deathScreen.getStage().act(Gdx.graphics.getDeltaTime());
             deathScreen.getStage().draw();
         }
+
+        //displays win screen
+        if (winScreen.isVisible()) {
+            winScreen.getStage().act(Gdx.graphics.getDeltaTime());
+            winScreen.getStage().draw();
+        }
     }
 
     private void resetGame() {//this handles level and player declaration
@@ -274,6 +310,9 @@ public class Main extends ApplicationAdapter {
         }
         if (deathScreen != null) {
             deathScreen.resize(width, height);
+        }
+        if (winScreen != null) {
+            winScreen.resize(width, height);
         }
     }
 
@@ -331,6 +370,10 @@ public class Main extends ApplicationAdapter {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            player.pos = currentLevel.changeLevel((SimpleTextures.Portal) Tile.outPortal);
+
+        }
 
         // Arrows
         bow.cooldown += Gdx.graphics.getDeltaTime();
@@ -513,6 +556,7 @@ public class Main extends ApplicationAdapter {
         if (pauseMenu != null) pauseMenu.dispose();
         if (editorMenu != null) editorMenu.dispose();
         if (deathScreen != null) deathScreen.dispose();
+        if (winScreen != null) winScreen.dispose();
         startMenu.dispose();
     }
 
