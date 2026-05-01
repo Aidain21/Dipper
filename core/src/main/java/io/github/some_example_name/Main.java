@@ -95,7 +95,7 @@ public class Main extends ApplicationAdapter {
         exitWithoutSavingSkin = new Skin(Gdx.files.internal("exitEditor.json"));
 
         //button for winScreen
-        devSkin = new Skin(Gdx.files.internal("devButton.json"));
+        devSkin = new Skin(Gdx.files.internal("devButtonUI.json"));
 
         //Creates all the UIs
         winScreen = new WinMenu(exitSkin, devSkin);

@@ -1,15 +1,15 @@
 
-devButton.png
-size: 64, 64
+devButtonUI2.png
+size: 128, 128
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-devButton
+devButtonUi
   rotate: false
-  xy: 1, 14
-  size: 40, 25
-  split: 3, 3, 3, 2
+  xy: 1, 59
+  size: 100, 40
+  split: 7, 8, 4, 4
   pad: 0, 0, 0, 0
-  orig: 40, 25
+  orig: 100, 40
   offset: 0, 0
   index: -1
