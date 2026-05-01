@@ -20,7 +20,7 @@ public class PressureButton extends TileFills{
     public void press() {
         this.pressed = true;
         this.sprite.setAlpha(0);
-        TextBox.updateTextBox("Pressure Button is Pressed!!!"+wallsX[2] + " " + wallsY[2], 1);
+        TextBox.updateTextBox("Pressure Button is Pressed!!!", 1);
         for (int i = 0; i < wallsX.length; i++) {
             Main.currentLevel.changeTile(wallsX[i], wallsY[i], "floor");
         }
