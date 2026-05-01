@@ -162,7 +162,17 @@ public class level extends ApplicationAdapter {
         }
         else if (Main.levelNum >= Main.LEVELCAP * 3) {
             Main.levelNum += 1;
-            return Main.moveLevel(Main.levelNum - Main.LEVELCAP * 3 - 1,5);
+            if (Main.levelNum - Main.LEVELCAP * 3 - 1 < 8) {
+                return Main.moveLevel(Main.levelNum - Main.LEVELCAP * 3 - 1,5);
+            }
+            else if (Main.levelNum - Main.LEVELCAP * 3 - 1 < 16) {
+                return Main.moveLevel(Main.levelNum - Main.LEVELCAP * 3 - 9,6);
+            }
+            else {
+                return Main.moveLevel(Main.levelNum - Main.LEVELCAP * 3 - 17,7);
+            }
+
+
         }
         return Main.moveLevel(p.dataX,p.dataY);
     }
