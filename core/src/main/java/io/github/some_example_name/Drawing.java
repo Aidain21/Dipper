@@ -18,7 +18,6 @@ public class Drawing {
 
     public static boolean drawing;
     public static boolean placingPortal;
-    public static boolean placingOutPortal;
     public static boolean placingButton;
     public static boolean placingPressure;
     public static boolean twoWay;
@@ -68,8 +67,8 @@ public class Drawing {
         Main.testing = false;
         curTile = Tile.wall;
         if (Main.gameStarted) {
-            TextBox.updateTextBox("Left Button to Draw, Right to Erase, Left and Right Keys to change tile",0);
-            TextBox.updateTextBox("R to Rotate, D to get Data, T to test level",1);
+            TextBox.updateTextBox("Left Button to Draw, Right to Erase, Left and Right Keys to change tile, P to pick tile",0);
+            TextBox.updateTextBox("R to Rotate, D to get Data, T to test level, Esc in level to go back to editor",1);
             TextBox.updateTextBox("I to set icon to current tile, S to set spawn at mouse",2);
             TextBox.updateTextBox("Editing level: " + currentFile, 3);
             TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
@@ -92,17 +91,12 @@ public class Drawing {
         drawing = false;
     }
 
-    public static void startPlacePortal(int x, int y, boolean inPortal) {
-        if (inPortal) {
-            twoWay = false;
-            placingPortal = true;
-            portalEdit = new Vector2Int(x, y);
-        }
-        else {
-            portalEdit = new Vector2Int(x, y);
-            placingOutPortal = true;
-            Main.fullMap = true;
-        }
+    public static void startPlacePortal(int x, int y) {
+        TextBox.updateTextBox("Placing portal end",4);
+        TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+        twoWay = false;
+        placingPortal = true;
+        portalEdit = new Vector2Int(x, y);
     }
 
     public static void endPlacePortal(int mouseX, int mouseY) {
@@ -121,20 +115,8 @@ public class Drawing {
         TextBox.updateTextBox("Tile Num: " + tileNum,5);
     }
 
-    public static void endPlaceOutPortal(int mouseX, int mouseY) {
-        int rX = Math.round((mouseX - 31) / 64.0f);
-        int rY = Math.round((screenHeight - mouseY - 31) / 64.0f);
-        if (rY > -1 && rX > -1 && rY < Main.levels.mapRows && rX < Main.levels.mapCols) {
-            workingLevel.level1[portalEdit.x][portalEdit.y] =
-                new TileFills().CreateTileFills("portal", rX, rY);
-        }
-        placingOutPortal = false;
-        Main.fullMap = false;
-        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
-        TextBox.updateTextBox("Tile Num: " + tileNum,5);
-    }
-
     public static void startButton(int x, int y) {
+        TextBox.updateTextBox("Placing Button, click a bouncy wall",4);
         placingButton = true;
         buttonEdit = new Vector2Int(x, y);
     }
@@ -147,12 +129,15 @@ public class Drawing {
                 new TileFills().CreateTileFills("button", rX, rY);
             ((Button)workingLevel.level1[buttonEdit.x][buttonEdit.y]).setPos(rX, rY);
         }
-        TextBox.updateTextBox("3 "+buttonEdit.x, 0);
-        TextBox.updateTextBox("4 "+buttonEdit.y, 1);
+        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
+        TextBox.updateTextBox("Tile Num: " + tileNum, 5);
         placingButton = false;
     }
 
     public static void startPressure(int x, int y) {
+        TextBox.updateTextBox("Placing Pressure Button (Enter to stop)",4);
+        TextBox.updateTextBox("Tiles Selected: " +
+            wallsSelected(wallX, wallY), 5);
         placingPressure = true;
         pressureEdit = new Vector2Int(x,y);
         wallX = new int[5];
@@ -169,14 +154,14 @@ public class Drawing {
             i++;
             if (i >= 5) endPressure();
         }
-        TextBox.updateTextBox("3 "+rX, 0);
-        TextBox.updateTextBox("4 "+rY, 1);
     }
 
     public static void endPressure() {
         workingLevel.level1[pressureEdit.x][pressureEdit.y] = new TileFills().CreateTileFills("pressureButton", wallX, wallY);
         //((PressureButton) workingLevel.level1[pressureEdit.x][pressureEdit.y]).addWalls(walls);
         placingPressure = false;
+        TextBox.updateTextBox("Current Tile: " + curTile.getTileString(), 4);
+        TextBox.updateTextBox("Tile Num: " + tileNum, 5);
     }
 
     public static void getTileData(int mouseX, int mouseY) {
@@ -187,9 +172,28 @@ public class Drawing {
             TextBox.updateTextBox("Rotation: " + workingLevel.level1[rY][rX].getRotation(),1);
             TextBox.updateTextBox("X,Y: " + workingLevel.level1[rY][rX].getData().x
                 + "," + workingLevel.level1[rY][rX].getData().y,2);
+            if (workingLevel.level1[rY][rX].fill == "pressureButton") {
+                TextBox.updateTextBox("Tiles: " +
+                    wallsSelected(workingLevel.level1[rY][rX].wallsX,
+                        workingLevel.level1[rY][rX].wallsY), 2);
+            }
         }
 
 
+    }
+
+    public static void pickTile(int mouseX, int mouseY) {
+        int rX = Math.round((mouseX - 15) / 32.0f);
+        int rY = Math.round((screenHeight-mouseY - 15) / 32.0f);
+        if (rY > -1 && rX > -1 && rY < workingLevel.level1.length && rX < workingLevel.level1[0].length) {
+            int pickTileNum = getTileNum(workingLevel.level1[rY][rX]);
+            if (tileNum > pickTileNum) {
+                changeDrawTile((tileNum - pickTileNum) *-1);
+            }
+            else if (tileNum < pickTileNum) {
+                changeDrawTile(pickTileNum - tileNum);
+            }
+        }
     }
 
     public static void setSpawnPoint(int mouseX, int mouseY) {
@@ -215,10 +219,7 @@ public class Drawing {
             else {
                 workingLevel.level1[rY][rX] = curTile;
                 if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "inportal")) {
-                    startPlacePortal(rY,rX,true);
-                }
-                if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "portal")) {
-                    startPlacePortal(rY,rX,false);
+                    startPlacePortal(rY,rX);
                 }
                 if (Objects.equals(workingLevel.level1[rY][rX].getTileString(), "button")) {
                     startButton(rY,rX);
@@ -246,11 +247,8 @@ public class Drawing {
     public static void changeDrawTile(int change) {
         curTile = Tile.drawTileArray[iterateArray(tileNum,change,Tile.drawTileArray.length)];
         tileNum = iterateArray(tileNum,change,Tile.drawTileArray.length);
-
-
         TextBox.updateTextBox("Current Tile: " + curTile.getTileString(),4);
         TextBox.updateTextBox("Tile Num: " + tileNum,5);
-
     }
 
 
@@ -305,6 +303,23 @@ public class Drawing {
         else {
             return start + change;
         }
+    }
+
+    public static int getTileNum (TileFills tile) {
+        for (int i = 0; i < Tile.drawTileArray.length; i++) {
+            if (Objects.equals(Tile.drawTileArray[i].fill, tile.fill)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public static String wallsSelected(int[] wallsX, int[] wallsY) {
+        StringBuilder walls = new StringBuilder();
+        for(int i = 0; i < wallsX.length; i++) {
+            walls.append(wallsX[i]).append(",").append(wallsY[i]).append(" ");
+        }
+        return walls.toString();
     }
 
     public static boolean isPosInteger(String str) {

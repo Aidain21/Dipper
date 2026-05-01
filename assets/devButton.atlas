@@ -1,0 +1,15 @@
+
+devButton.png
+size: 64, 64
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+devButton
+  rotate: false
+  xy: 1, 14
+  size: 40, 25
+  split: 3, 3, 3, 2
+  pad: 0, 0, 0, 0
+  orig: 40, 25
+  offset: 0, 0
+  index: -1

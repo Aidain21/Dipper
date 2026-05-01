@@ -39,6 +39,7 @@ public class Main extends ApplicationAdapter {
     private PauseMenuUI pauseMenu;
     private EditorMenu editorMenu;
     private DeathScreen deathScreen;
+    private WinMenu winScreen;
     private Skin resumeButtonSkin;
     private Skin resetButtonSkin;
     private Skin restartButtonSkin;
@@ -48,6 +49,7 @@ public class Main extends ApplicationAdapter {
     private Skin saveSkin;
     private Skin saveAsSkin;
     private Skin exitWithoutSavingSkin;
+    private Skin devSkin;
 
     @Override
     public void create() {
@@ -71,6 +73,7 @@ public class Main extends ApplicationAdapter {
         if (saveSkin != null) saveSkin.dispose();
         if (saveAsSkin != null) saveAsSkin.dispose();
         if (exitWithoutSavingSkin != null) exitWithoutSavingSkin.dispose();
+        if (devSkin != null) devSkin.dispose();
 
 
         gameStarted = true;
@@ -91,7 +94,11 @@ public class Main extends ApplicationAdapter {
         saveAsSkin = new Skin(Gdx.files.internal("saveAs.json"));
         exitWithoutSavingSkin = new Skin(Gdx.files.internal("exitEditor.json"));
 
+        //button for winScreen
+        devSkin = new Skin(Gdx.files.internal("devButton.json"));
+
         //Creates all the UIs
+        winScreen = new WinMenu(exitSkin, devSkin);
         deathScreen = new DeathScreen(restartButtonSkin); //uses same restart as pause
         pauseMenu = new PauseMenuUI(resumeButtonSkin, resetButtonSkin, restartButtonSkin, exitSkin);
         editorMenu = new EditorMenu(saveSkin, saveAsSkin, exitWithoutSavingSkin);
@@ -101,7 +108,7 @@ public class Main extends ApplicationAdapter {
         pauseMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         editorMenu.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         deathScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+        winScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         //moved level,player,bow,box, etc. to resetGame method to be able to get the restart game to work
         resetGame();
         Gdx.input.setInputProcessor(null);
@@ -111,6 +118,14 @@ public class Main extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         //System.out.println(Gdx.graphics.getFramesPerSecond());
+
+        if (gameStarted && winScreen.getDev()) {
+            player.pos = currentLevel.changeLevel((SimpleTextures.Portal) Tile.outPortal);
+            winScreen.setDev(false);
+            winScreen.hide();
+            dip.alive = true;
+            Gdx.input.setInputProcessor(null);
+        }
 
         if (!gameStarted) {
             startMenu.getStage().act(Gdx.graphics.getDeltaTime());
@@ -129,6 +144,14 @@ public class Main extends ApplicationAdapter {
             return;
         }
 
+        if (gameStarted && winScreen.getQuitStatus()) {
+            winScreen.setQuitStatus(false);
+            winScreen.hide();
+            gameStarted = false;
+            Gdx.input.setInputProcessor(startMenu.getStage());
+            return;
+        }
+
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -137,6 +160,14 @@ public class Main extends ApplicationAdapter {
                 deathScreen.show();
                 pauseMenu.hide(); // ensure pause menu doesn't overlap
                 Gdx.input.setInputProcessor(deathScreen.getStage());
+            }
+        }
+
+        if (gameStarted) {
+            if (!dip.alive && !winScreen.isVisible()) {
+                winScreen.show();
+                pauseMenu.hide(); // ensure pause menu doesn't overlap
+                Gdx.input.setInputProcessor(winScreen.getStage());
             }
         }
 
@@ -168,8 +199,7 @@ public class Main extends ApplicationAdapter {
         }
 
         //Only updates logic if no menus are open
-        //Find a way to generalize if a menu is open
-        if (!pauseMenu.isVisible() && !Drawing.drawing && !deathScreen.isVisible()) {
+        if (!pauseMenu.isVisible() && !Drawing.drawing && !deathScreen.isVisible() && !winScreen.isVisible()) {
             input();
             logic();
         }
@@ -234,6 +264,12 @@ public class Main extends ApplicationAdapter {
             deathScreen.getStage().act(Gdx.graphics.getDeltaTime());
             deathScreen.getStage().draw();
         }
+
+        //displays win screen
+        if (winScreen.isVisible()) {
+            winScreen.getStage().act(Gdx.graphics.getDeltaTime());
+            winScreen.getStage().draw();
+        }
     }
 
     private void resetGame() {//this handles level and player declaration
@@ -274,6 +310,9 @@ public class Main extends ApplicationAdapter {
         }
         if (deathScreen != null) {
             deathScreen.resize(width, height);
+        }
+        if (winScreen != null) {
+            winScreen.resize(width, height);
         }
     }
 
@@ -332,6 +371,10 @@ public class Main extends ApplicationAdapter {
             inputTimer -= Gdx.graphics.getDeltaTime();
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            player.pos = currentLevel.changeLevel((SimpleTextures.Portal) Tile.outPortal);
+
+        }
         if (Player.playerLock) {
             player.locked(currentLevel);
             return;
@@ -396,7 +439,7 @@ public class Main extends ApplicationAdapter {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
 
-        if (!Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap && !Drawing.placingButton && !Drawing.placingPressure) {
+        if (!Drawing.placingPortal && !Drawing.placingButton && !Drawing.placingPressure) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                 Drawing.changeDrawTile(1);
             }
@@ -406,7 +449,6 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) &&
                 !Objects.equals(Drawing.curTile.getTileString(), "inportal") &&
-                !Objects.equals(Drawing.curTile.getTileString(), "portal") &&
                 !Objects.equals(Drawing.curTile.getTileString(), "button") &&
                 !Objects.equals(Drawing.curTile.getTileString(), "pressureButton")) {
                 Drawing.drawTile(mouseX,mouseY, false);
@@ -414,7 +456,6 @@ public class Main extends ApplicationAdapter {
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &&
                 (Objects.equals(Drawing.curTile.getTileString(), "inportal") ||
-                Objects.equals(Drawing.curTile.getTileString(), "portal") ||
                 Objects.equals(Drawing.curTile.getTileString(), "button") ||
                 Objects.equals(Drawing.curTile.getTileString(), "pressureButton"))) {
                 Drawing.drawTile(mouseX,mouseY, false);
@@ -436,6 +477,10 @@ public class Main extends ApplicationAdapter {
                 Drawing.workingLevel.icon = Drawing.curTile;
             }
 
+            if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+                Drawing.pickTile(mouseX,mouseY);
+            }
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
                 Drawing.setSpawnPoint(mouseX, mouseY);
             }
@@ -451,18 +496,21 @@ public class Main extends ApplicationAdapter {
                 fullMap = !fullMap;
             }
         }
-        else if (Drawing.placingPortal && !Drawing.placingOutPortal && !fullMap){
-            TextBox.updateTextBox("Placing portal end",4);
-            TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+        else if (Drawing.placingPortal){
+
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 Drawing.endPlacePortal(mouseX,mouseY);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+
                 Drawing.twoWay = !Drawing.twoWay;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                TextBox.updateTextBox("Two Way: " + Drawing.twoWay,5);
+
                 Drawing.twoWay = !Drawing.twoWay;
             }
         }
@@ -470,25 +518,13 @@ public class Main extends ApplicationAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) Drawing.endButton(mouseX, mouseY);
         }
         else if (Drawing.placingPressure) {
-            TextBox.updateTextBox("Placing Pressure Button",4);
             if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 Drawing.endPressure();
             }
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                TextBox.updateTextBox("Done Selecting Walls", 2);
                 Drawing.addWalls(mouseX, mouseY);
-            }
-        }
-        else if (!Drawing.placingPortal && Drawing.placingOutPortal && fullMap) {
-            TextBox.updateTextBox("Placing level portal",4);
-
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                Drawing.endPlaceOutPortal(mouseX,mouseY);
-            }
-        }
-        else if (!Drawing.placingPortal && !Drawing.placingOutPortal) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
-                fullMap = !fullMap;
+                TextBox.updateTextBox("Tiles Selected: " +
+                    Drawing.wallsSelected(Drawing.wallX, Drawing.wallY), 5);
             }
         }
     }
@@ -519,6 +555,7 @@ public class Main extends ApplicationAdapter {
         if (pauseMenu != null) pauseMenu.dispose();
         if (editorMenu != null) editorMenu.dispose();
         if (deathScreen != null) deathScreen.dispose();
+        if (winScreen != null) winScreen.dispose();
         startMenu.dispose();
     }
 
